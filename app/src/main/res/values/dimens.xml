@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fragment_details_cvRootImage_layout_height">300dp</dimen>
+    <dimen name="fragment_details_tvKind_layout_margin">20dp</dimen>
+    <dimen name="fragment_details_cvImage_layout_width">110dp</dimen>
+    <dimen name="fragment_details_cvImage_layout_height">160dp</dimen>
+    <dimen name="fragment_details_cvImage_layout_marginStart">20dp</dimen>
+    <dimen name="fragment_details_cvImage_cardRadius">10dp</dimen>
+    <dimen name="item_franchises_root_layout_width">120dp</dimen>
+    <dimen name="item_franchises_root_layout_height">210dp</dimen>
+    <dimen name="item_franchises_cvImageFranchisesItem_layout_width">100dp</dimen>
+    <dimen name="item_franchises_cvImageFranchisesItem_layout_height">150dp</dimen>
+    <dimen name="item_characters_root_layout_width">140dp</dimen>
+    <dimen name="item_characters_root_layout_height">210dp</dimen>
+    <dimen name="item_characters_cvImageCharactersItem_layout_width">120dp</dimen>
+    <dimen name="item_characters_cvImageCharactersItem_layout_height">170dp</dimen>
+    <dimen name="item_autors_root_layout_width">120dp</dimen>
+    <dimen name="item_autors_root_layout_height">230dp</dimen>
+    <dimen name="item_autors_layout_width">100dp</dimen>
+    <dimen name="item_autors_layout_height">150dp</dimen>
+    <dimen name="item_screenshots_root_layout_width">240dp</dimen>
+    <dimen name="item_screenshots_root_layout_height">150dp</dimen>
+    <dimen name="item_studios_ivImageStudioItem_layout_width">200dp</dimen>
+    <dimen name="item_studios_ivImageStudioItem_layout_marginVertical">10dp</dimen>
+    <dimen name="item_studios_ivImageStudioItem_layout_marginEnd">20dp</dimen>
+    <dimen name="item_videos_root_layout_width">200dp</dimen>
+    <dimen name="item_videos_root_layout_height">180dp</dimen>
+    <dimen name="item_videos_cvImageVideosItem_layout_height">120dp</dimen>
+    <dimen name="item_videos_tvTitleVideosItem_textSize">14sp</dimen>
+    <dimen name="item_genres_tvTitleGenreItem_layout_marginHorizontal">15dp</dimen>
+    <dimen name="item_genres_tvTitleGenreItem_layout_marginVertical">5dp</dimen>
+    <dimen name="item_genres_root_layout_marginEnd">8dp</dimen>
+</resources>

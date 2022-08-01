@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/item_card_style"
+    android:layout_width="@dimen/item_screenshots_root_layout_width"
+    android:layout_height="@dimen/item_screenshots_root_layout_height">
+
+    <ImageView
+        android:id="@+id/ivImageScreenshotsItem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/item_screenshots_ivImageScreenshotsItem_contentDescription"
+        android:scaleType="centerCrop" />
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/item_autors_root_layout_width"
+    android:layout_height="@dimen/item_autors_root_layout_height">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvImageAutorsItem"
+        style="@style/item_card_style"
+        android:layout_width="@dimen/item_autors_layout_width"
+        android:layout_height="@dimen/item_autors_layout_height"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivImageAutorsItem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/item_autors_ivImageAutorsItem_contentDescription"
+            android:scaleType="centerCrop" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvTitleAutorsItem"
+        style="@style/item_title_text_style"
+        app:layout_constraintEnd_toEndOf="@+id/cvImageAutorsItem"
+        app:layout_constraintStart_toStartOf="@+id/cvImageAutorsItem"
+        app:layout_constraintTop_toBottomOf="@+id/cvImageAutorsItem" />
+
+    <TextView
+        android:id="@+id/tvRoleAutorsItem"
+        style="@style/item_description_text_style"
+        android:maxLines="3"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleAutorsItem"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleAutorsItem"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleAutorsItem" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

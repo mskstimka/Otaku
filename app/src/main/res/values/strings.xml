@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Animator</string>
+    <string name="an_error_has_occurred">An error has occurred: %1$s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="not_found">not found</string>
+    <!-- Fragment Details strings -->
+    <string name="fragment_details_tvKind_text">OVA</string>
+    <string name="fragment_details_ivImageBackground_contentDescription">Image Background</string>
+    <string name="fragment_details_ivGradientImage_contentDescription">Gradient Image</string>
+    <string name="fragment_details_tvScore_text">x.xx</string>
+    <string name="fragment_details_tvTitle_text">TITLE</string>
+    <string name="fragment_details_tvTitleRussian_text">Заголовок</string>
+    <string name="fragment_details_ivImage_contentDescription">Image</string>
+    <string name="fragment_details_tvEpisodeTitle_text">Эпизоды:</string>
+    <string name="fragment_details_tvEpisode_text">xx</string>
+    <string name="fragment_details_tvStatusTitle_text">Статус:</string>
+    <string name="fragment_details_tvStatus_text">status</string>
+    <string name="fragment_details_tvDateTitle_text">Дата выпуска:</string>
+    <string name="fragment_details_tvDate_text">xx.xx.xxxx</string>
+    <string name="fragment_details_tvGenreTitle_text">Жанры</string>
+    <string name="fragment_details_tvDescriptionTitle_text">Описание</string>
+    <string name="fragment_details_expand_collapse_contentDescription">Description button</string>
+    <string name="fragment_details_tvTitleScreenshots_text">Кадры</string>
+    <string name="fragment_details_tvTitleVideos_text">Видео</string>
+    <string name="fragment_details_tvTitleCharacters_text">Персонажи</string>
+    <string name="fragment_details_tvTitleAutors_text">Авторы</string>
+    <string name="fragment_details_tvTitleFranchises_text">Связаное</string>
+    <string name="fragment_details_tvTitleStudios_text">Лицензировано</string>
+    <!-- Items strings -->
+    <string name="item_franchises_ivImageFranchisesItem_contentDescription">Image Franchise</string>
+    <string name="item_characters_ivImageCharactersItem_contentDescription">Image Character</string>
+    <string name="item_autors_ivImageAutorsItem_contentDescription">Image Autor</string>
+    <string name="item_screenshots_ivImageScreenshotsItem_contentDescription">Image Screenshot</string>
+    <string name="item_studios_ivImageStudioItem_contentDescription">Studio Image</string>
+    <string name="item_videos_ivImageVideoItem_contentDescription">Image Video</string>
+</resources>

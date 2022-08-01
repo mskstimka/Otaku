@@ -5,7 +5,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.a16_rxjava_data.network.RetrofitProvider
 import com.example.a16_rxjava_data.repository.AnimeDataSourceImpl
 import com.example.a16_rxjava_data.repository.AnimeRepositoryImpl
 import com.example.a16_rxjava_domain.usecases.*

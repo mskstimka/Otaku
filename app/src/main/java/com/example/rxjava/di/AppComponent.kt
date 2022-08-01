@@ -1,6 +1,6 @@
 package com.example.rxjava.di
 
-import com.example.rxjava.ui.activities.MainActivity
+import com.example.a16_rxjava_data.di.DataModule
 import com.example.rxjava.ui.fragments.DetailsFragment
 import com.example.rxjava.ui.fragments.SearchFragment
 import dagger.Component

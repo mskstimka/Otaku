@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.a16_rxjava_domain.models.Constants
 import com.example.a16_rxjava_domain.models.details.AnimeDetailsEntity
 import com.example.rxjava.R
 import com.example.rxjava.app.App
@@ -133,9 +134,9 @@ class DetailsFragment : Fragment() {
 
     private fun bindViewsDetailsPage(item: AnimeDetailsEntity) {
         with(binding) {
-            Picasso.get().load("https://shikimori.one/${item.image.original}")
+            Picasso.get().load(Constants.SHIKIMORI_URL + item.image.original)
                 .into(ivImageFranchises)
-            Picasso.get().load("https://shikimori.one/${item.image.original}")
+            Picasso.get().load(Constants.SHIKIMORI_URL + item.image.original)
                 .into(ivImageBackground)
 
             tvTitle.text = item.name
@@ -160,9 +161,9 @@ class DetailsFragment : Fragment() {
             tvStatus.text = item.status
 
             when (item.status) {
-                "ongoing" -> tvStatus.setTextColor(getColor(context!!, R.color.blue_status))
-                "anons" -> tvStatus.setTextColor(getColor(context!!, R.color.red_status))
-                "released" -> tvStatus.setTextColor(getColor(context!!, R.color.green_status))
+                Constants.ONGOING_STATUS -> tvStatus.setTextColor(getColor(context!!, R.color.blue_status))
+                Constants.ANONS_STATUS -> tvStatus.setTextColor(getColor(context!!, R.color.red_status))
+                Constants.RELEASED_STATUS -> tvStatus.setTextColor(getColor(context!!, R.color.green_status))
             }
 
             genresAdapter.submitList(item.genres)

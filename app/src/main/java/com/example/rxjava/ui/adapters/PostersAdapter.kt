@@ -12,7 +12,7 @@ import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 import com.example.rxjava.R
 import com.example.rxjava.databinding.ItemPostersBinding
 import com.example.a16_rxjava_domain.models.Constants
-import com.example.rxjava.ui.fragments.SearchFragmentDirections
+import com.example.rxjava.ui.search.SearchFragmentDirections
 import com.squareup.picasso.Picasso
 
 class PostersAdapter :

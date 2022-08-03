@@ -85,6 +85,6 @@ class AnimeDataSourceImpl(private val shikimoriAPI: ShikimoriAPI) : AnimeDataSou
     }
 
     companion object {
-        const val TIMEOUT = 300L
+        const val TIMEOUT = 400L
     }
 }

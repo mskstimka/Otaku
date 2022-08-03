@@ -10,7 +10,6 @@ interface SearchContract {
     }
 
     interface Presenter {
-        fun loadData(search: String)
-        val list: MutableList<AnimePosterEntity>
+        fun getAnimePostersFromSearch(searchName: String)
     }
 }

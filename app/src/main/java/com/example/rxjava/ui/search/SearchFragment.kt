@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a16_rxjava_domain.common.Results
 import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
+import com.example.a16_rxjava_domain.usecases.GetAnimePostersFromSearchUseCase
 import com.example.rxjava.R
 import com.example.rxjava.app.App
 import com.example.rxjava.databinding.FragmentSearchBinding
@@ -26,12 +27,18 @@ class SearchFragment : Fragment(), SearchContract.View {
 
 
     @Inject
-    lateinit var presenter: SearchContract.Presenter
+    lateinit var getAnimePostersFromSearchUseCase: GetAnimePostersFromSearchUseCase
+
+    lateinit var presenter: SearchPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireActivity().applicationContext as App).appComponent.inject(this)
 
+        presenter = SearchPresenter(
+            getAnimePostersFromSearchUseCase,
+            this
+        )
     }
 
     override fun onCreateView(
@@ -42,7 +49,18 @@ class SearchFragment : Fragment(), SearchContract.View {
 
         setAdapter()
 
-        initView()
+        binding.svSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(p0: String?): Boolean {
+                presenter.getAnimePostersFromSearch(p0.toString())
+                return false
+            }
+
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                presenter.getAnimePostersFromSearch(p0.toString())
+                return false
+            }
+        })
         return binding.root
     }
 
@@ -57,25 +75,14 @@ class SearchFragment : Fragment(), SearchContract.View {
     }
 
     override fun initView() {
-        binding.svSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextChange(p0: String?): Boolean {
-                presenter.loadData(p0.toString())
-                return false
-            }
 
-            override fun onQueryTextSubmit(p0: String?): Boolean {
-                presenter.loadData(p0.toString())
-                return false
-            }
-        })
     }
 
     override fun updateViewData(result: Results<*>) {
 
         when (result) {
             is Results.Success -> {
-                adapter.submitList(presenter.list)
+                adapter.submitList(result.data as MutableList<AnimePosterEntity>?)
             }
             is Results.Error -> {
                 Toast.makeText(
@@ -85,6 +92,11 @@ class SearchFragment : Fragment(), SearchContract.View {
                 ).show()
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.clearDisposable()
     }
 
     companion object {

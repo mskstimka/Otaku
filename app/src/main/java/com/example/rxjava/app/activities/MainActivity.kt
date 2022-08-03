@@ -1,7 +1,6 @@
-package com.example.rxjava.ui.activities
+package com.example.rxjava.app.activities
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI

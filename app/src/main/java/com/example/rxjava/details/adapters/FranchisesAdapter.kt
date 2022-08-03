@@ -1,24 +1,23 @@
-package com.example.rxjava.ui.adapters
+package com.example.rxjava.details.adapters
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.a16_rxjava_domain.models.Constants
 import com.example.a16_rxjava_domain.models.details.franchise.AnimeDetailsFranchisesEntity
 import com.example.rxjava.R
 import com.example.rxjava.databinding.ItemFranchisesBinding
-import com.example.rxjava.ui.fragments.DetailsFragmentDirections
+import com.example.rxjava.details.ui.DetailsFragmentDirections
 import com.squareup.picasso.Picasso
 
-class FranchisesAdapter(context: Context) :
+class FranchisesAdapter :
     ListAdapter<AnimeDetailsFranchisesEntity, FranchisesAdapter.FranchisesViewHolder>(
         FranchisesDiffCallback
     ) {
-    private val message = context.getString(R.string.not_found)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FranchisesViewHolder {
         val binding =
@@ -46,27 +45,12 @@ class FranchisesAdapter(context: Context) :
             tvKindDateFranchisesItem.text = "${model.kind} / ${model.year}"
 
             itemView.setOnClickListener {
-                if (model.kind != message)
+                if (model.kind != Constants.NOT_FOUND_TEXT)
                     itemView.findNavController().navigate(
                         DetailsFragmentDirections.actionDetailsFragmentSelf(model.id)
                     )
             }
         }
-
-    }
-
-    override fun submitList(list: List<AnimeDetailsFranchisesEntity>?) {
-
-
-        val franchisesList = when (list) {
-            emptyList<AnimeDetailsFranchisesEntity>() -> listOf(
-                AnimeDetailsFranchisesEntity(
-                    404, 0, "x96", message, message, message, 404, 404
-                )
-            )
-            else -> list
-        }
-        super.submitList(franchisesList)
     }
 
     object FranchisesDiffCallback : DiffUtil.ItemCallback<AnimeDetailsFranchisesEntity>() {

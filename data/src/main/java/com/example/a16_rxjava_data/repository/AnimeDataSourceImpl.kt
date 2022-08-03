@@ -12,7 +12,6 @@ import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import java.lang.Exception
-import java.util.concurrent.TimeUnit
 
 class AnimeDataSourceImpl(private val shikimoriAPI: ShikimoriAPI) : AnimeDataSource {
     override fun getAnimePostersFromSearch(searchName: String): Observable<List<AnimePosterEntity>> {
@@ -41,9 +40,7 @@ class AnimeDataSourceImpl(private val shikimoriAPI: ShikimoriAPI) : AnimeDataSou
         return try {
             val response = shikimoriAPI.getAnimeScreenshotsFromId(id)
             if (response.isSuccessful) {
-                val list = response.body()!!.map {
-                    AnimeDetailsResponseMapper.toAnimeScreenshotsEntity(it)
-                }
+                val list = AnimeDetailsResponseMapper.toAnimeScreenshotsEntity(response.body()!!)
                 Results.Success(list)
             } else {
                 Results.Error(Exception(response.message()))
@@ -57,7 +54,7 @@ class AnimeDataSourceImpl(private val shikimoriAPI: ShikimoriAPI) : AnimeDataSou
         return try {
             val response = shikimoriAPI.getAnimeFranchisesFromId(id)
             if (response.isSuccessful) {
-                val list = AnimeDetailsResponseMapper.toAnimeFranchisesEntity(response.body()!!)
+                val list = AnimeDetailsResponseMapper.toListAnimeFranchisesEntity(response.body()!!)
                 Results.Success(list)
             } else {
                 Results.Error(Exception(response.message()))

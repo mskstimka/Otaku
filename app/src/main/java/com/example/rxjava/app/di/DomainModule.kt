@@ -1,4 +1,4 @@
-package com.example.rxjava.di
+package com.example.rxjava.app.di
 
 import com.example.a16_rxjava_domain.repository.AnimeRepository
 import com.example.a16_rxjava_domain.usecases.*

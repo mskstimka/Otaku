@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.search.SearchFragment">
+    tools:context=".search.ui.SearchFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvCard"
@@ -19,6 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
 
 
 
@@ -37,16 +38,40 @@
     </androidx.cardview.widget.CardView>
 
 
+<!--    <pl.droidsonroids.gif.GifImageView-->
+<!--        android:id="@+id/gifImageView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:scaleType="center"-->
+<!--        android:src="@drawable/load"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tvTitle"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:fontFamily="@font/anime_ace_v3"-->
+<!--        android:text="An1mator"-->
+<!--        android:textSize="30dp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/gifImageView"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/gifImageView"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/gifImageView" />-->
+
+
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_height="2dp"
-        android:background="?android:windowBackground"
+        android:layout_alignParentTop="true"
         android:alpha="0.6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="?android:windowBackground"
         app:layout_constraintBottom_toTopOf="@id/rvList"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvList"

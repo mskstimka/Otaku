@@ -1,6 +1,5 @@
-package com.example.rxjava.viewmodels.details
+package com.example.rxjava.details.ui
 
-import android.app.Application
 import androidx.lifecycle.*
 import com.example.a16_rxjava_domain.common.Results
 import com.example.a16_rxjava_domain.models.details.AnimeDetailsEntity

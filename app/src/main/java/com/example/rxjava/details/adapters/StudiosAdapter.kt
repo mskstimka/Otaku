@@ -1,7 +1,6 @@
-package com.example.rxjava.ui.adapters
+package com.example.rxjava.details.adapters
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -13,13 +12,10 @@ import com.example.rxjava.databinding.ItemStudiosBinding
 import com.example.a16_rxjava_domain.models.Constants
 import com.squareup.picasso.Picasso
 
-class StudiosAdapter(context: Context) :
+class StudiosAdapter :
     ListAdapter<Studio, StudiosAdapter.StudiosViewHolder>(
         CharactersDiffCallback
     ) {
-
-    private val message = context.getString(R.string.not_found)
-    private val defaultStudio = Studio(message, 404, message, message, false)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudiosViewHolder {
         val binding =
@@ -45,16 +41,6 @@ class StudiosAdapter(context: Context) :
                 .error(R.drawable.icon_studio_default).into(ivImageStudioItem)
 
         }
-    }
-
-    override fun submitList(list: List<Studio>?) {
-
-
-        val studiosList = when (list) {
-            emptyList<Studio>() -> listOf(defaultStudio)
-            else -> list
-        }
-        super.submitList(studiosList)
     }
 
     object CharactersDiffCallback : DiffUtil.ItemCallback<Studio>() {

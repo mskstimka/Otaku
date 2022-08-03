@@ -1,4 +1,4 @@
-package com.example.rxjava.ui.fragments
+package com.example.rxjava.details.ui
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -21,9 +21,7 @@ import com.example.a16_rxjava_domain.models.details.AnimeDetailsEntity
 import com.example.rxjava.R
 import com.example.rxjava.app.App
 import com.example.rxjava.databinding.FragmentDetailsBinding
-import com.example.rxjava.ui.adapters.*
-import com.example.rxjava.viewmodels.details.DetailsViewModel
-import com.example.rxjava.viewmodels.details.DetailsViewModelFactory
+import com.example.rxjava.details.adapters.*
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
@@ -38,13 +36,13 @@ class DetailsFragment : Fragment() {
 
     private lateinit var dViewModel: DetailsViewModel
 
-    private val genresAdapter by lazy { GenresAdapter(requireContext()) }
-    private val screenshotsAdapter by lazy { ScreenshotsAdapter(requireContext()) }
-    private val videosAdapter by lazy { VideosAdapter(requireContext()) }
-    private val frachisesAdapter by lazy { FranchisesAdapter(requireContext()) }
+    private val genresAdapter by lazy { GenresAdapter() }
+    private val screenshotsAdapter by lazy { ScreenshotsAdapter() }
+    private val videosAdapter by lazy { VideosAdapter() }
+    private val frachisesAdapter by lazy { FranchisesAdapter() }
+    private val studiosAdapter by lazy { StudiosAdapter() }
     private val charactersAdapter by lazy { CharactersAdapter(requireContext()) }
     private val autorsAdapter by lazy { AutorsAdapter(requireContext()) }
-    private val studiosAdapter by lazy { StudiosAdapter(requireContext()) }
 
 
     private var _binding: FragmentDetailsBinding? = null
@@ -160,9 +158,24 @@ class DetailsFragment : Fragment() {
             tvStatus.text = item.status
 
             when (item.status) {
-                Constants.ONGOING_STATUS -> tvStatus.setTextColor(getColor(context!!, R.color.blue_status))
-                Constants.ANONS_STATUS -> tvStatus.setTextColor(getColor(context!!, R.color.red_status))
-                Constants.RELEASED_STATUS -> tvStatus.setTextColor(getColor(context!!, R.color.green_status))
+                Constants.ONGOING_STATUS -> tvStatus.setTextColor(
+                    getColor(
+                        context!!,
+                        R.color.blue_status
+                    )
+                )
+                Constants.ANONS_STATUS -> tvStatus.setTextColor(
+                    getColor(
+                        context!!,
+                        R.color.red_status
+                    )
+                )
+                Constants.RELEASED_STATUS -> tvStatus.setTextColor(
+                    getColor(
+                        context!!,
+                        R.color.green_status
+                    )
+                )
             }
 
             genresAdapter.submitList(item.genres)

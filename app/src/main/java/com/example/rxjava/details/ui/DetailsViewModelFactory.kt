@@ -1,4 +1,4 @@
-package com.example.rxjava.viewmodels.details
+package com.example.rxjava.details.ui
 
 import android.os.Build
 import androidx.annotation.RequiresApi

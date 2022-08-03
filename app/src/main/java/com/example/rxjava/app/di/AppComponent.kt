@@ -1,8 +1,8 @@
-package com.example.rxjava.di
+package com.example.rxjava.app.di
 
 import com.example.a16_rxjava_data.di.DataModule
-import com.example.rxjava.ui.fragments.DetailsFragment
-import com.example.rxjava.ui.search.SearchFragment
+import com.example.rxjava.details.ui.DetailsFragment
+import com.example.rxjava.search.ui.SearchFragment
 import dagger.Component
 
 @Component(modules = [AppModule::class, DomainModule::class, DataModule::class])

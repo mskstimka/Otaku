@@ -1,7 +1,6 @@
-package com.example.rxjava.ui.adapters
+package com.example.rxjava.details.adapters
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -13,13 +12,10 @@ import com.example.rxjava.databinding.ItemScreenshotsBinding
 import com.example.a16_rxjava_domain.models.Constants
 import com.squareup.picasso.Picasso
 
-class ScreenshotsAdapter(context: Context) :
+class ScreenshotsAdapter :
     ListAdapter<AnimeDetailsScreenshotsEntity, ScreenshotsAdapter.ScreenshotsViewHolder>(
         ScreenshotsDiffCallback
     ) {
-
-    private val message = context.getString(R.string.not_found)
-    private val defaultScreenshot = AnimeDetailsScreenshotsEntity(message, message)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScreenshotsViewHolder {
         val binding =
@@ -44,15 +40,6 @@ class ScreenshotsAdapter(context: Context) :
                 .error(R.drawable.icon_default).into(ivImageScreenshotsItem)
 
         }
-    }
-
-    override fun submitList(list: List<AnimeDetailsScreenshotsEntity>?) {
-        val screenshotsList = when (list) {
-            emptyList<AnimeDetailsScreenshotsEntity>() -> listOf(defaultScreenshot)
-            else -> list
-        }
-
-        super.submitList(screenshotsList)
     }
 
     object ScreenshotsDiffCallback : DiffUtil.ItemCallback<AnimeDetailsScreenshotsEntity>() {

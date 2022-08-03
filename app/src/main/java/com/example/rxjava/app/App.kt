@@ -1,10 +1,8 @@
 package com.example.rxjava.app
 
 import android.app.Application
-import com.example.rxjava.di.AppComponent
-import com.example.rxjava.di.AppModule
-import com.example.rxjava.di.DaggerAppComponent
-import dagger.Component
+import com.example.rxjava.app.di.AppComponent
+import com.example.rxjava.app.di.DaggerAppComponent
 
 class App : Application() {
 

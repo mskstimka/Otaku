@@ -1,4 +1,4 @@
-package com.example.rxjava.ui.adapters
+package com.example.rxjava.search.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -8,11 +8,11 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.a16_rxjava_domain.models.Constants
 import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 import com.example.rxjava.R
 import com.example.rxjava.databinding.ItemPostersBinding
-import com.example.a16_rxjava_domain.models.Constants
-import com.example.rxjava.ui.search.SearchFragmentDirections
+import com.example.rxjava.search.ui.SearchFragmentDirections
 import com.squareup.picasso.Picasso
 
 class PostersAdapter :

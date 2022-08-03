@@ -1,4 +1,4 @@
-package com.example.rxjava.ui.search
+package com.example.rxjava.search.ui
 
 import android.annotation.SuppressLint
 import com.example.a16_rxjava_domain.common.Results

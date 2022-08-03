@@ -1,7 +1,6 @@
-package com.example.rxjava.ui.adapters
+package com.example.rxjava.details.adapters
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -12,14 +11,10 @@ import com.example.rxjava.R
 import com.example.rxjava.databinding.ItemVideosBinding
 import com.squareup.picasso.Picasso
 
-class VideosAdapter(context: Context) :
+class VideosAdapter :
     ListAdapter<Video, VideosAdapter.VideosViewHolder>(
         VideosDiffCallback
     ) {
-
-    private val message = context.getString(R.string.not_found)
-    private val defaultVideo = Video(message, 0, "http", message, message, message, message)
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideosViewHolder {
         val binding =
@@ -44,15 +39,6 @@ class VideosAdapter(context: Context) :
             tvTitleVideosItem.text = model.name
             tvHostingVideosItem.text = model.hosting
         }
-    }
-
-    override fun submitList(list: List<Video>?) {
-        val videosList = when (list) {
-            emptyList<Video>() -> listOf(defaultVideo)
-            else -> list
-        }
-
-        super.submitList(videosList)
     }
 
     object VideosDiffCallback : DiffUtil.ItemCallback<Video>() {

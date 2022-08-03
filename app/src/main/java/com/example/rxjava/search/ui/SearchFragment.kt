@@ -1,4 +1,4 @@
-package com.example.rxjava.ui.search
+package com.example.rxjava.search.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -14,7 +14,7 @@ import com.example.a16_rxjava_domain.usecases.GetAnimePostersFromSearchUseCase
 import com.example.rxjava.R
 import com.example.rxjava.app.App
 import com.example.rxjava.databinding.FragmentSearchBinding
-import com.example.rxjava.ui.adapters.PostersAdapter
+import com.example.rxjava.search.adapters.PostersAdapter
 import com.example.rxjava.utils.RxSearchObservable
 import javax.inject.Inject
 
@@ -30,7 +30,7 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
     @Inject
     lateinit var getAnimePostersFromSearchUseCase: GetAnimePostersFromSearchUseCase
 
-    lateinit var presenter: SearchPresenter
+    private lateinit var presenter: SearchPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,20 +46,22 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         _binding = FragmentSearchBinding.inflate(layoutInflater)
-
-        setAdapter()
-
-        binding.svSearch.query
         onSearch()
 
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setAdapter()
+    }
+
 
     @SuppressLint("CheckResult")
     private fun onSearch() {
-      RxSearchObservable.fromView(binding.svSearch)
+        RxSearchObservable.fromView(binding.svSearch)
             .subscribe {
                 presenter.getAnimePostersFromSearch(it)
             }
@@ -75,9 +77,6 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
         rvList.layoutManager = LinearLayoutManager(context)
     }
 
-    override fun initView() {
-
-    }
 
     override fun updateViewData(result: Results<List<AnimePosterEntity>>) {
 
@@ -98,10 +97,6 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
     override fun onDestroy() {
         super.onDestroy()
         presenter.clearDisposable()
-    }
-
-    companion object {
-        fun newInstance() = SearchFragment()
     }
 }
 

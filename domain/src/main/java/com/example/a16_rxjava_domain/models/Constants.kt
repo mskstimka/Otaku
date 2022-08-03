@@ -5,4 +5,5 @@ object Constants {
         const val ONGOING_STATUS = "ongoing"
         const val ANONS_STATUS = "anons"
         const val RELEASED_STATUS = "released"
+        const val NOT_FOUND_TEXT = "not found"
 }

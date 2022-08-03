@@ -10,7 +10,7 @@ import java.lang.Exception
 
 class SearchPresenter(
     private val getAnimePostersFromSearchUseCase: GetAnimePostersFromSearchUseCase,
-    private val view: SearchContract.View
+    private val view: SearchContract.View<List<AnimePosterEntity>>
 ) : SearchContract.Presenter {
 
     private val disposable = CompositeDisposable()

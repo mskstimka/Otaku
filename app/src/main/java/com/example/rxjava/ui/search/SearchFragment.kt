@@ -1,10 +1,10 @@
 package com.example.rxjava.ui.search
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,10 +15,11 @@ import com.example.rxjava.R
 import com.example.rxjava.app.App
 import com.example.rxjava.databinding.FragmentSearchBinding
 import com.example.rxjava.ui.adapters.PostersAdapter
+import com.example.rxjava.utils.RxSearchObservable
 import javax.inject.Inject
 
 
-class SearchFragment : Fragment(), SearchContract.View {
+class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
@@ -49,19 +50,19 @@ class SearchFragment : Fragment(), SearchContract.View {
 
         setAdapter()
 
-        binding.svSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextChange(p0: String?): Boolean {
-                presenter.getAnimePostersFromSearch(p0.toString())
-                return false
-            }
+        binding.svSearch.query
+        onSearch()
 
-            override fun onQueryTextSubmit(p0: String?): Boolean {
-                presenter.getAnimePostersFromSearch(p0.toString())
-                return false
-            }
-        })
         return binding.root
+    }
+
+
+    @SuppressLint("CheckResult")
+    private fun onSearch() {
+      RxSearchObservable.fromView(binding.svSearch)
+            .subscribe {
+                presenter.getAnimePostersFromSearch(it)
+            }
     }
 
     override fun onDestroyView() {
@@ -78,11 +79,11 @@ class SearchFragment : Fragment(), SearchContract.View {
 
     }
 
-    override fun updateViewData(result: Results<*>) {
+    override fun updateViewData(result: Results<List<AnimePosterEntity>>) {
 
         when (result) {
             is Results.Success -> {
-                adapter.submitList(result.data as MutableList<AnimePosterEntity>?)
+                adapter.submitList(result.data)
             }
             is Results.Error -> {
                 Toast.makeText(

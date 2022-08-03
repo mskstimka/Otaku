@@ -19,7 +19,6 @@ class AnimeDataSourceImpl(private val shikimoriAPI: ShikimoriAPI) : AnimeDataSou
 
         return shikimoriAPI.getAnimePostersFromSearch(searchName)
             .subscribeOn(Schedulers.io())
-            .debounce(TIMEOUT, TimeUnit.MILLISECONDS)
             .map { AnimePosterResponseMapper.toListAnimePosterEntity(it) }
     }
 
@@ -84,7 +83,4 @@ class AnimeDataSourceImpl(private val shikimoriAPI: ShikimoriAPI) : AnimeDataSou
         }
     }
 
-    companion object {
-        const val TIMEOUT = 400L
-    }
 }

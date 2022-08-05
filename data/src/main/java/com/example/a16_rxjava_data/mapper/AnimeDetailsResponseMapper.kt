@@ -99,7 +99,8 @@ object AnimeDetailsResponseMapper {
         var list: MutableList<AnimeDetailsFranchisesEntity> = mutableListOf()
 
         when (item.nodes) {
-            emptyList<Node>() -> item.nodes.forEach {
+            emptyList<Node>() -> list = mutableListOf(defaultFranchise)
+            else -> item.nodes.forEach {
                 list.add(
                     AnimeDetailsFranchisesEntity(
                         it.date,
@@ -113,7 +114,7 @@ object AnimeDetailsResponseMapper {
                     )
                 )
             }
-            else -> list = mutableListOf(defaultFranchise)
+
         }
         return list
     }

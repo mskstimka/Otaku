@@ -33,14 +33,14 @@ class PostAdapterDelegate : AdapterDelegate<DisplayableItem> {
         position: Int
     ) {
         (holder as PostViewHolder).bind(items[position] as PrevPoster)
-
+        val item: PrevPoster = items[position] as PrevPoster
+        adapter.submitList(item.list)
     }
 
 
     inner class PostViewHolder(binding: PostItemsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(prevPosterItem: PrevPoster) {
-            adapter.submitList(prevPosterItem.list)
             binding.rvRomantic.adapter = adapter
             binding.rvRomantic.layoutManager =
                 LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)

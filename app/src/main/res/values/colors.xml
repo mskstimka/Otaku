@@ -16,4 +16,12 @@
     <color name="title_color">#000000</color>
     <color name="activity_background_color">#EDE2F3</color>
     <color name="not_shadow_color">#00FFFFFF</color>
+
+
+    <color name="title_background_color">#344c83</color>
+    <color name="advertising_background_color">#a1a6b2</color>
+    <color name="recycler_items_textColor">#ffffff</color>
+    <color name="title_items_background_color">#344c83</color>
+    <color name="items_textColor">#ffffff</color>
+    <color name="post_item_background">#6880C1</color>
 </resources>

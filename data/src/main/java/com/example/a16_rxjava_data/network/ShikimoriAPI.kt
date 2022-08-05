@@ -11,7 +11,7 @@ interface ShikimoriAPI {
 
     @GET("api/animes")
     fun getAnimePostersFromSearch(
-        @Query(value = "search", encoded = true) search: String,
+        @Query(value = "search", encoded = true) search: String = "",
         @Query(value = "limit", encoded = true) limit: Int = 20,
         @Query(value = "censored", encoded = true) censored: Boolean = true
     ): Observable<List<AnimePosterEntityResponse>>
@@ -21,6 +21,12 @@ interface ShikimoriAPI {
         @Path(value = "id", encoded = true) id: Int
     ): Response<AnimeDetailsEntityResponse>
 
+    @GET("api/animes")
+    suspend fun getAnimePrevPostersFromGenres(
+        @Query(value = "genre", encoded = true) genre: List<Int> = emptyList(),
+        @Query(value = "limit", encoded = true) limit: Int = 20,
+        @Query(value = "censored", encoded = true) censored: Boolean = true
+    ): Response<List<AnimePosterEntityResponse>>
 
     @GET("api/animes/{id}/screenshots")
     suspend fun getAnimeScreenshotsFromId(

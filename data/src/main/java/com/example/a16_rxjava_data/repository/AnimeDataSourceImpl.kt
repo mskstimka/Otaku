@@ -80,4 +80,18 @@ class AnimeDataSourceImpl(private val shikimoriAPI: ShikimoriAPI) : AnimeDataSou
         }
     }
 
+    override suspend fun getAnimePrevPostersFromGenres(genre: List<Int>): Results<List<AnimePosterEntity>> {
+        return try {
+            val response = shikimoriAPI.getAnimePrevPostersFromGenres(genre)
+            if (response.isSuccessful) {
+                val list = AnimePosterResponseMapper.toListAnimePosterEntity(response.body()!!)
+                Results.Success(list)
+            } else {
+                Results.Error(Exception(response.message()))
+            }
+        } catch (e: Exception) {
+            Results.Error(e)
+        }
+    }
+
 }

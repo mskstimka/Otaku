@@ -65,6 +65,7 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
             .subscribe {
                 presenter.getAnimePostersFromSearch(it)
             }
+
     }
 
     override fun onDestroyView() {

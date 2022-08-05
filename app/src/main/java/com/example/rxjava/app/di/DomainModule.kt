@@ -33,5 +33,9 @@ class DomainModule {
         return GetAnimeRolesFromIdUseCase(repository)
     }
 
+    @Provides
+    fun provideGetAnimePrevPostersFromGenreUseCase(repository: AnimeRepository): GetAnimePrevPosterFromGenreUseCase {
+        return GetAnimePrevPosterFromGenreUseCase(repository)
+    }
 
 }

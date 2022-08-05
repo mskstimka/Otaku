@@ -2,6 +2,7 @@ package com.example.rxjava.app.di
 
 import com.example.a16_rxjava_domain.usecases.*
 import com.example.rxjava.details.ui.DetailsViewModelFactory
+import com.example.rxjava.home.ui.HomeViewModelFactory
 import dagger.Module
 import dagger.Provides
 
@@ -20,6 +21,15 @@ class AppModule {
             getAnimeScreenshotsFromIdUseCase,
             getAnimeFranchisesFromIdUseCase,
             getAnimeRolesFromIdUseCase
+        )
+    }
+
+    @Provides
+    fun provideHomeViewModelFactory(
+        getAnimePrevPosterFromGenreUseCase: GetAnimePrevPosterFromGenreUseCase
+    ): HomeViewModelFactory {
+        return HomeViewModelFactory(
+            getAnimePrevPosterFromGenreUseCase
         )
     }
 

@@ -24,6 +24,8 @@
         app:navGraph="@navigation/nav_graph" />
 
 
+
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navBottom"
         android:layout_width="match_parent"

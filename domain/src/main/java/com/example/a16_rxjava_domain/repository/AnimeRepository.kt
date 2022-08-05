@@ -19,4 +19,6 @@ interface AnimeRepository {
     suspend fun getAnimeFranchisesFromId(id: Int): Results<List<AnimeDetailsFranchisesEntity>>
 
     suspend fun getAnimeRolesFromId(id: Int): Results<List<AnimeDetailsRolesEntity>>
+
+    suspend fun getAnimePrevPostersFromGenres(genre: List<Int>): Results<List<AnimePosterEntity>>
 }

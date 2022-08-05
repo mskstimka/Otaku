@@ -3,6 +3,7 @@ package com.example.rxjava.home.ui
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.telephony.gsm.GsmCellLocation
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,10 @@ import com.example.a16_rxjava_domain.models.home.Title
 import com.example.rxjava.app.App
 import com.example.rxjava.databinding.FragmentHomeBinding
 import com.example.rxjava.home.adapters.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -67,10 +72,13 @@ class HomeFragment : Fragment() {
 
         hViewModel = ViewModelProvider(this, vmFactory)[HomeViewModel::class.java]
         subscribeToLiveData()
-        hViewModel.getAnimePrevPosterActionFromGenre(listOf(22))
+
 
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
+
+        hViewModel.getAnimePrevPosterActionFromGenre(listOf(22))
+
         return binding.root
     }
 
@@ -78,7 +86,9 @@ class HomeFragment : Fragment() {
     @SuppressLint("ResourceType")
     private fun subscribeToLiveData() = with(hViewModel) {
         pageAnimePrevPosterAction.observe(this@HomeFragment) { item ->
-            adapter.setItems(listOf(Advertising("Advertising: One"), Title("Романтика:"),PrevPoster(item)))
+            adapter.setItems(
+                item
+            )
         }
     }
 

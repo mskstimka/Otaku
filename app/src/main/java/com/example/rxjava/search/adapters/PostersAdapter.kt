@@ -16,7 +16,7 @@ import com.example.rxjava.search.ui.SearchFragmentDirections
 import com.squareup.picasso.Picasso
 
 class PostersAdapter :
-    ListAdapter<AnimePosterEntity, PostersAdapter.TitleViewHolder>(CurrencyDiffCallback) {
+    ListAdapter<AnimePosterEntity, PostersAdapter.TitleViewHolder>(PosterDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TitleViewHolder {
         val binding =
@@ -76,7 +76,7 @@ class PostersAdapter :
         }
     }
 
-    object CurrencyDiffCallback : DiffUtil.ItemCallback<AnimePosterEntity>() {
+    object PosterDiffCallback : DiffUtil.ItemCallback<AnimePosterEntity>() {
         override fun areItemsTheSame(
             oldItem: AnimePosterEntity,
             newItem: AnimePosterEntity

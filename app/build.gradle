@@ -51,6 +51,10 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
+    // mergeAdapter
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha03'
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
+
     // coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
 

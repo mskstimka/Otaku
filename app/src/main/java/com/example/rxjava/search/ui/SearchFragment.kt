@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a16_rxjava_domain.common.Results
@@ -13,6 +12,7 @@ import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 import com.example.a16_rxjava_domain.usecases.GetAnimePostersFromSearchUseCase
 import com.example.rxjava.R
 import com.example.rxjava.app.App
+import com.example.rxjava.app.utils.BannerUtils
 import com.example.rxjava.databinding.FragmentSearchBinding
 import com.example.rxjava.search.adapters.PostersAdapter
 import com.example.rxjava.utils.RxSearchObservable
@@ -50,8 +50,17 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
         _binding = FragmentSearchBinding.inflate(layoutInflater)
         onSearch()
 
+        binding.svSearch.setOnClickListener {
+            binding.svSearch.onActionViewExpanded()
+        }
+
+        binding.svSearch.setOnCloseListener {
+            binding.svSearch.onActionViewExpanded()
+            false
+        }
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -65,7 +74,6 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
             .subscribe {
                 presenter.getAnimePostersFromSearch(it)
             }
-
     }
 
     override fun onDestroyView() {
@@ -86,11 +94,10 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
                 adapter.submitList(result.data)
             }
             is Results.Error -> {
-                Toast.makeText(
-                    context,
-                    requireActivity().getString(R.string.an_error_has_occurred, result.exception),
-                    Toast.LENGTH_SHORT
-                ).show()
+                BannerUtils.showToastError(
+                    getString(R.string.an_error_has_occurred, result.exception),
+                    requireContext()
+                )
             }
         }
     }

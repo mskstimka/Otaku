@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ScrollView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.text.HtmlCompat
@@ -16,10 +15,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.a16_rxjava_domain.models.Constants
-import com.example.a16_rxjava_domain.models.details.AnimeDetailsEntity
+import com.example.a16_rxjava_domain.Constants
+import com.example.a16_rxjava_domain.models.details.*
 import com.example.rxjava.R
 import com.example.rxjava.app.App
+import com.example.rxjava.app.utils.BannerUtils
 import com.example.rxjava.databinding.FragmentDetailsBinding
 import com.example.rxjava.details.adapters.*
 import com.google.android.material.snackbar.Snackbar
@@ -44,32 +44,33 @@ class DetailsFragment : Fragment() {
     private val charactersAdapter by lazy { CharactersAdapter(requireContext()) }
     private val autorsAdapter by lazy { AutorsAdapter(requireContext()) }
 
-
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
 
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         (requireActivity().applicationContext as App).appComponent.inject(this)
-
         dViewModel = ViewModelProvider(this, vmFactory)[DetailsViewModel::class.java]
 
-        subscribeToLiveData()
         getAnimeDetails(args.id)
 
     }
 
-
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        subscribeToLiveData()
         setAdapters()
 
         binding.tvTitle.setOnClickListener {
             Snackbar.make(binding.root, binding.tvTitle.text, Snackbar.LENGTH_SHORT).show()
+        }
+
+        binding.ivBackPressed.setOnClickListener {
+            activity?.onBackPressed()
         }
     }
 
@@ -121,11 +122,10 @@ class DetailsFragment : Fragment() {
             autorsAdapter.submitList(item)
         }
         actionError.observe(this@DetailsFragment) {
-            Toast.makeText(
-                context,
+            BannerUtils.showToastError(
                 getString(R.string.an_error_has_occurred, it),
-                Toast.LENGTH_SHORT
-            ).show()
+                requireContext()
+            )
         }
     }
 

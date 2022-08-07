@@ -7,17 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 import com.example.rxjava.databinding.AdvertisingItemsBinding
 import com.example.rxjava.databinding.PostItemsBinding
-import com.example.rxjava.databinding.TitleItemsBinding
 import java.lang.IllegalArgumentException
 
 class DisplayableAdapter :
     ListAdapter<DisplayableItem, RecyclerView.ViewHolder>(DisplayableDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val context = parent.context
+
         return when (viewType) {
             POSTER_TYPE -> PrevPostersViewHolder(
                 PostItemsBinding.inflate(
@@ -98,9 +96,8 @@ class DisplayableAdapter :
     }
 
     companion object {
-        const val TITLE_TYPE = 1
-        const val ADVERTISING_TYPE = 2
-        const val POSTER_TYPE = 3
+        const val ADVERTISING_TYPE = 1
+        const val POSTER_TYPE = 2
     }
 
 }

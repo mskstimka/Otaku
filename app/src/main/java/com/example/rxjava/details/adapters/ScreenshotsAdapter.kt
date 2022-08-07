@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_rxjava_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.rxjava.R
 import com.example.rxjava.databinding.ItemScreenshotsBinding
-import com.example.a16_rxjava_domain.models.Constants
+import com.example.a16_rxjava_domain.Constants
 import com.squareup.picasso.Picasso
 
 class ScreenshotsAdapter :
@@ -25,7 +25,6 @@ class ScreenshotsAdapter :
 
     override fun onBindViewHolder(holder: ScreenshotsViewHolder, position: Int) =
         holder.bind(currentList[position])
-
 
     override fun getItemCount(): Int = currentList.size
 

@@ -34,7 +34,7 @@ object RxSearchObservable {
     }
 
 
-        private const val TIMEOUT = 300L
+    private const val TIMEOUT = 300L
 
 }
 

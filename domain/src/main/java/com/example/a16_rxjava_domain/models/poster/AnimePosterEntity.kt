@@ -1,5 +1,7 @@
 package com.example.a16_rxjava_domain.models.poster
 
+import com.example.a16_rxjava_domain.models.Image
+
 
 data class AnimePosterEntity(
     val id: Int,

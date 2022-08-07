@@ -7,13 +7,10 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.a16_rxjava_domain.models.Constants
-import com.example.a16_rxjava_domain.models.details.franchise.AnimeDetailsFranchisesEntity
+import com.example.a16_rxjava_domain.Constants
 import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 import com.example.rxjava.R
-import com.example.rxjava.databinding.ItemFranchisesBinding
 import com.example.rxjava.databinding.ItemPrevPosterBinding
-import com.example.rxjava.details.ui.DetailsFragmentDirections
 import com.example.rxjava.home.ui.HomeFragmentDirections
 import com.squareup.picasso.Picasso
 

@@ -11,6 +11,7 @@ import com.example.a16_rxjava_domain.models.details.screenshots.AnimeDetailsScre
 import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.delay
 import java.lang.Exception
 
 class AnimeDataSourceImpl(private val shikimoriAPI: ShikimoriAPI) : AnimeDataSource {

@@ -25,7 +25,8 @@ interface ShikimoriAPI {
     suspend fun getAnimePrevPostersFromGenres(
         @Query(value = "genre", encoded = true) genre: List<Int> = emptyList(),
         @Query(value = "limit", encoded = true) limit: Int = 20,
-        @Query(value = "censored", encoded = true) censored: Boolean = true
+        @Query(value = "censored", encoded = true) censored: Boolean = true,
+        @Query(value = "order", encoded = true) order: String = "popularity"
     ): Response<List<AnimePosterEntityResponse>>
 
     @GET("api/animes/{id}/screenshots")

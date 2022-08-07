@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="150dp"
+    android:layout_height="230dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvImageFranchisesItem"
+        style="@style/item_card_style"
+        android:layout_width="120dp"
+        android:layout_height="170dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivImageFranchisesItem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/item_franchises_ivImageFranchisesItem_contentDescription"
+            android:scaleType="centerCrop" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvTitleFranchisesItem"
+        style="@style/item_title_text_style"
+        android:fontFamily="@font/google_sans_medium"
+        app:layout_constraintEnd_toEndOf="@+id/cvImageFranchisesItem"
+        app:layout_constraintStart_toStartOf="@+id/cvImageFranchisesItem"
+        app:layout_constraintTop_toBottomOf="@+id/cvImageFranchisesItem" />
+
+    <TextView
+        android:id="@+id/tvKindDateFranchisesItem"
+        style="@style/item_description_text_style"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleFranchisesItem"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleFranchisesItem"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleFranchisesItem" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

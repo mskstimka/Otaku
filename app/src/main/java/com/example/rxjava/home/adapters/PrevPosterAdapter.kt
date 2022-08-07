@@ -12,6 +12,7 @@ import com.example.a16_rxjava_domain.models.details.franchise.AnimeDetailsFranch
 import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 import com.example.rxjava.R
 import com.example.rxjava.databinding.ItemFranchisesBinding
+import com.example.rxjava.databinding.ItemPrevPosterBinding
 import com.example.rxjava.details.ui.DetailsFragmentDirections
 import com.example.rxjava.home.ui.HomeFragmentDirections
 import com.squareup.picasso.Picasso
@@ -23,7 +24,7 @@ class PrevPosterAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PrevPosterViewHolder {
         val binding =
-            ItemFranchisesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemPrevPosterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PrevPosterViewHolder(binding)
     }
 
@@ -35,7 +36,7 @@ class PrevPosterAdapter :
 
     inner class PrevPosterViewHolder(
         private val binding:
-        ItemFranchisesBinding
+        ItemPrevPosterBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
@@ -45,9 +46,9 @@ class PrevPosterAdapter :
                 .error(R.drawable.icon_default)
                 .into(ivImageFranchisesItem)
             tvTitleFranchisesItem.text = model.name
-            tvKindDateFranchisesItem.text = model.status
+            tvKindDateFranchisesItem.text = "Episodes ${model.episodes}"
 
-            itemView.setOnClickListener {
+            itemView.setOnClickListener{
                 itemView.findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToDetailsFragment(model.id)
                 )

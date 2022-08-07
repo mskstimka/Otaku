@@ -19,13 +19,6 @@ class DisplayableAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val context = parent.context
         return when (viewType) {
-            TITLE_TYPE -> TitleViewHolder(
-                TitleItemsBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-            )
             POSTER_TYPE -> PrevPostersViewHolder(
                 PostItemsBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -48,7 +41,6 @@ class DisplayableAdapter :
 
         val element = currentList[position]
         when (holder) {
-            is TitleViewHolder -> holder.bind(element as PrevTitle)
             is PrevPostersViewHolder -> holder.bind(element as PrevPoster)
             is AdvertisingViewHolder -> holder.bind(element as PrevAdvertising)
             else -> throw IllegalArgumentException()
@@ -57,7 +49,6 @@ class DisplayableAdapter :
 
     override fun getItemViewType(position: Int): Int {
         return when (currentList[position]) {
-            is PrevTitle -> TITLE_TYPE
             is PrevPoster -> POSTER_TYPE
             is PrevAdvertising -> ADVERTISING_TYPE
             else -> throw IllegalArgumentException()
@@ -72,16 +63,6 @@ class DisplayableAdapter :
         }
     }
 
-    inner class TitleViewHolder(
-        private val binding: TitleItemsBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(model: PrevTitle) = with(binding) {
-
-            tvGenreTitle.text = model.title
-        }
-    }
-
 
     inner class PrevPostersViewHolder(
         private val binding: PostItemsBinding
@@ -93,6 +74,8 @@ class DisplayableAdapter :
             rvRomantic.layoutManager =
                 LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
             adapter.submitList(model.list)
+
+            tvGenre.text = model.title
 
         }
     }

@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_rxjava_domain.models.details.roles.AnimeDetailsRolesEntity
-import com.example.a16_rxjava_domain.models.details.roles.Image
+import com.example.a16_rxjava_domain.models.Image
 import com.example.a16_rxjava_domain.models.details.roles.Person
 import com.example.rxjava.R
 import com.example.rxjava.databinding.ItemAutorsBinding
-import com.example.a16_rxjava_domain.models.Constants
+import com.example.a16_rxjava_domain.Constants
 import com.squareup.picasso.Picasso
 
 class AutorsAdapter(context: Context) :

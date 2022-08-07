@@ -25,7 +25,6 @@ class VideosAdapter :
     override fun onBindViewHolder(holder: VideosViewHolder, position: Int) =
         holder.bind(currentList[position])
 
-
     override fun getItemCount(): Int = currentList.size
 
     inner class VideosViewHolder(

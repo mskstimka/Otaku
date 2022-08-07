@@ -21,7 +21,6 @@ class GenresAdapter :
     override fun onBindViewHolder(holder: GenreViewHolder, position: Int) =
         holder.bind(currentList[position])
 
-
     override fun getItemCount(): Int = currentList.size
 
     inner class GenreViewHolder(

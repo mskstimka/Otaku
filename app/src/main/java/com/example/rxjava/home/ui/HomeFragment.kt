@@ -3,17 +3,19 @@ package com.example.rxjava.home.ui
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.rxjava.R
 import com.example.rxjava.app.App
+import com.example.rxjava.app.utils.BannerUtils
 import com.example.rxjava.databinding.FragmentHomeBinding
 import com.example.rxjava.home.adapters.*
 import kotlinx.coroutines.flow.collect
@@ -50,7 +52,6 @@ class HomeFragment : Fragment() {
 
         hViewModel = ViewModelProvider(this, vmFactory)[HomeViewModel::class.java]
 
-
         return binding.root
     }
 
@@ -59,6 +60,8 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         subscribeToLiveData()
+
+
 
     }
 
@@ -71,15 +74,17 @@ class HomeFragment : Fragment() {
                 pageAnimePosterAction.collect {
                     adapter.submitList(it)
                 }
+
+                actionError.collect {
+                    BannerUtils.showToastError(
+                        getString(R.string.an_error_has_occurred, it),
+                        requireContext()
+                    )
+                }
             }
         }
+
+
     }
 
-
-    companion object {
-
-        @JvmStatic
-        fun newInstance() = HomeFragment()
-
-    }
 }

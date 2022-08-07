@@ -1,6 +1,6 @@
 package com.example.a16_rxjava_data.models
 
-import com.example.a16_rxjava_domain.models.poster.Image
+import com.example.a16_rxjava_domain.models.Image
 import com.google.gson.annotations.SerializedName
 
 data class AnimePosterEntityResponse(
@@ -12,4 +12,4 @@ data class AnimePosterEntityResponse(
     @SerializedName("episodes_aired") val episodesAired: Int,
     @SerializedName("url") val url: String,
     @SerializedName("status") val status: String
-    )
+)

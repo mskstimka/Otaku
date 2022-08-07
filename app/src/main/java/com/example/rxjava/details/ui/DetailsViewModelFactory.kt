@@ -13,7 +13,6 @@ class DetailsViewModelFactory(
     private val getAnimeRolesFromIdUseCase: GetAnimeRolesFromIdUseCase
 ) : ViewModelProvider.Factory {
 
-
     @Suppress("UNCHECKED_CAST")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

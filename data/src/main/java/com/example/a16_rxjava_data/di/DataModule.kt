@@ -4,7 +4,7 @@ import com.example.a16_rxjava_data.network.ShikimoriAPI
 import com.example.a16_rxjava_data.repository.AnimeDataSource
 import com.example.a16_rxjava_data.repository.AnimeDataSourceImpl
 import com.example.a16_rxjava_data.repository.AnimeRepositoryImpl
-import com.example.a16_rxjava_domain.models.Constants
+import com.example.a16_rxjava_domain.Constants
 import com.example.a16_rxjava_domain.repository.AnimeRepository
 import com.google.gson.GsonBuilder
 import dagger.Module

@@ -10,7 +10,6 @@ class HomeViewModelFactory(
    private val getAnimePrevPosterFromGenreUseCase: GetAnimePrevPosterFromGenreUseCase
 ) : ViewModelProvider.Factory {
 
-
     @Suppress("UNCHECKED_CAST")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

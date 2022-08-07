@@ -1,5 +1,6 @@
 package com.example.rxjava.details.ui
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.*
 import com.example.a16_rxjava_domain.common.Results
 import com.example.a16_rxjava_domain.models.details.AnimeDetailsEntity
@@ -10,6 +11,7 @@ import com.example.a16_rxjava_domain.usecases.*
 import com.example.rxjava.utils.SingleLiveEvent
 import kotlinx.coroutines.*
 
+@SuppressLint("NullSafeMutableLiveData")
 class DetailsViewModel(
     private val getAnimeDetailsFromIdUseCase: GetAnimeDetailsFromIdUseCase,
     private val getAnimeScreenshotsFromIdUseCase: GetAnimeScreenshotsFromIdUseCase,
@@ -39,7 +41,7 @@ class DetailsViewModel(
 
             when (val response = getAnimeDetailsFromIdUseCase.execute(id)) {
                 is Results.Success -> {
-                    _pageAnimeDetailsAction.postValue(response.data!!)
+                    _pageAnimeDetailsAction.postValue(response.data)
                 }
                 is Results.Error -> _actionError.postValue(response.exception.message)
             }
@@ -51,19 +53,20 @@ class DetailsViewModel(
 
             when (val response = getAnimeScreenshotsFromIdUseCase.execute(id)) {
                 is Results.Success -> {
-                    _pageAnimeScreenshotsAction.postValue(response.data!!)
+                    _pageAnimeScreenshotsAction.postValue(response.data)
                 }
                 is Results.Error -> _actionError.postValue(response.exception.message)
             }
         }
     }
 
+
     fun getAnimeDetailsFranchisesFromId(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
 
             when (val response = getAnimeFranchisesFromIdUseCase.execute(id)) {
                 is Results.Success -> {
-                    _pageAnimeFranchisesAction.postValue(response.data!!)
+                    _pageAnimeFranchisesAction.postValue(response.data)
                 }
                 is Results.Error -> _actionError.postValue(response.exception.message)
             }

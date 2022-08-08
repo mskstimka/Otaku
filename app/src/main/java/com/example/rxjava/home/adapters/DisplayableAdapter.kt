@@ -1,31 +1,37 @@
 package com.example.rxjava.home.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rxjava.databinding.AdvertisingItemsBinding
-import com.example.rxjava.databinding.PostItemsBinding
+import com.example.rxjava.R
+import com.example.rxjava.utils.BannerUtils
+import com.example.rxjava.databinding.ItemHomeGenresListBinding
+import com.example.rxjava.databinding.ItemHomePosterBinding
+import com.example.rxjava.home.adapters.models.DisplayableItem
+import com.example.rxjava.home.adapters.models.HomeGenreEntity
+import com.example.rxjava.home.adapters.models.HomePosterEntity
 import java.lang.IllegalArgumentException
 
-class DisplayableAdapter :
+class DisplayableAdapter(private val context: Context) :
     ListAdapter<DisplayableItem, RecyclerView.ViewHolder>(DisplayableDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return when (viewType) {
             POSTER_TYPE -> PrevPostersViewHolder(
-                PostItemsBinding.inflate(
+                ItemHomeGenresListBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
             )
             ADVERTISING_TYPE -> AdvertisingViewHolder(
-                AdvertisingItemsBinding.inflate(
+                ItemHomePosterBinding.inflate(
                     LayoutInflater.from(
                         parent.context
                     ), parent, false
@@ -39,41 +45,47 @@ class DisplayableAdapter :
 
         val element = currentList[position]
         when (holder) {
-            is PrevPostersViewHolder -> holder.bind(element as PrevPoster)
-            is AdvertisingViewHolder -> holder.bind(element as PrevAdvertising)
+            is PrevPostersViewHolder -> holder.bind(element as HomeGenreEntity)
+            is AdvertisingViewHolder -> holder.bind(element as HomePosterEntity)
             else -> throw IllegalArgumentException()
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (currentList[position]) {
-            is PrevPoster -> POSTER_TYPE
-            is PrevAdvertising -> ADVERTISING_TYPE
+            is HomeGenreEntity -> POSTER_TYPE
+            is HomePosterEntity -> ADVERTISING_TYPE
             else -> throw IllegalArgumentException()
         }
     }
 
     inner class AdvertisingViewHolder(
-        private val binding: AdvertisingItemsBinding
+        private val binding: ItemHomePosterBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(model: PrevAdvertising) = with(binding) {
+        fun bind(model: HomePosterEntity) = with(binding) {
+            ivImagePoster.setOnClickListener {
+                BannerUtils.showToast(
+                    context.getString(R.string.ukraine_message),
+                    binding.root.context
+                )
+            }
         }
     }
 
 
     inner class PrevPostersViewHolder(
-        private val binding: PostItemsBinding
+        private val binding: ItemHomeGenresListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(model: PrevPoster) = with(binding) {
-            val adapter = PrevPosterAdapter()
-            rvRomantic.adapter = adapter
-            rvRomantic.layoutManager =
+        fun bind(model: HomeGenreEntity) = with(binding) {
+            val adapter = ItemHomeGenresAdapter()
+            rvGenreList.adapter = adapter
+            rvGenreList.layoutManager =
                 LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
             adapter.submitList(model.list)
 
-            tvGenre.text = model.title
+            tvGenreTitle.text = model.title
 
         }
     }

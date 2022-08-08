@@ -15,7 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rxjava.R
 import com.example.rxjava.app.App
-import com.example.rxjava.app.utils.BannerUtils
+import com.example.rxjava.utils.BannerUtils
 import com.example.rxjava.databinding.FragmentHomeBinding
 import com.example.rxjava.home.adapters.*
 import kotlinx.coroutines.flow.collect
@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var hViewModel: HomeViewModel
 
-    private val adapter: DisplayableAdapter by lazy { DisplayableAdapter() }
+    private val adapter: DisplayableAdapter by lazy { DisplayableAdapter(requireContext()) }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
@@ -62,7 +62,6 @@ class HomeFragment : Fragment() {
         subscribeToLiveData()
 
 
-
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -76,7 +75,7 @@ class HomeFragment : Fragment() {
                 }
 
                 actionError.collect {
-                    BannerUtils.showToastError(
+                    BannerUtils.showToast(
                         getString(R.string.an_error_has_occurred, it),
                         requireContext()
                     )

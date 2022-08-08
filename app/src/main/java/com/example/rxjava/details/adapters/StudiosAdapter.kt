@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.a16_rxjava_domain.Constants
 import com.example.a16_rxjava_domain.models.details.Studio
 import com.example.rxjava.R
-import com.example.rxjava.databinding.ItemStudiosBinding
-import com.example.a16_rxjava_domain.Constants
+import com.example.rxjava.databinding.ItemDetailsStudiosBinding
 import com.squareup.picasso.Picasso
 
 class StudiosAdapter :
@@ -19,7 +19,7 @@ class StudiosAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudiosViewHolder {
         val binding =
-            ItemStudiosBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemDetailsStudiosBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return StudiosViewHolder(binding)
     }
 
@@ -30,7 +30,7 @@ class StudiosAdapter :
 
     inner class StudiosViewHolder(
         private val binding:
-        ItemStudiosBinding
+        ItemDetailsStudiosBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")

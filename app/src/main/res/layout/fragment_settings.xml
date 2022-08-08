@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".settings.ui.SettingsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvSettingsTitle"
         style="@style/text_style_russian_title"
+        android:textColor="@color/title_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
@@ -20,15 +20,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
+        android:id="@+id/sNotification"
         style="@style/text_style_title_items"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_marginTop="70dp"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:gravity="center"
+        android:layout_marginHorizontal="40dp"
         android:text="Notification"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSettingsTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

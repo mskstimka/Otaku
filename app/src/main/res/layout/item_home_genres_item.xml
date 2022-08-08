@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/item_home_genres_item_root_layout_width"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvImageHomeGenre"
+        style="@style/item_card_style"
+        android:layout_width="@dimen/item_home_genres_item_cvImageHomeGenre_layout_width"
+        android:layout_height="@dimen/item_home_genres_item_cvImageHomeGenre_layout_height"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivImageHomeGenre"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/item_home_genres_item_ivImageHomeGenre_contentDescription" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvTitleHomeGenre"
+        style="@style/item_title_text_style"
+        android:textSize="@dimen/item_home_genres_item_tvTitleHomeGenre_textSize"
+        android:maxLines="2"
+        android:fontFamily="@font/google_sans_medium"
+        app:layout_constraintEnd_toEndOf="@+id/cvImageHomeGenre"
+        app:layout_constraintStart_toStartOf="@+id/cvImageHomeGenre"
+        app:layout_constraintTop_toBottomOf="@+id/cvImageHomeGenre" />
+
+    <TextView
+        android:id="@+id/tvEpisodesHomeGenre"
+        style="@style/item_description_text_style"
+        android:textSize="@dimen/item_home_genres_item_tvEpisodesHomeGenre"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleHomeGenre"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleHomeGenre"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleHomeGenre" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

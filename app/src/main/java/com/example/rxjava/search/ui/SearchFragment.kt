@@ -12,9 +12,10 @@ import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 import com.example.a16_rxjava_domain.usecases.GetAnimePostersFromSearchUseCase
 import com.example.rxjava.R
 import com.example.rxjava.app.App
-import com.example.rxjava.app.utils.BannerUtils
+import com.example.rxjava.utils.BannerUtils
 import com.example.rxjava.databinding.FragmentSearchBinding
 import com.example.rxjava.search.adapters.PostersAdapter
+import com.example.rxjava.utils.AnimatorUtils
 import com.example.rxjava.utils.RxSearchObservable
 import javax.inject.Inject
 
@@ -25,7 +26,6 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
     private val binding get() = _binding!!
 
     private val adapter by lazy { PostersAdapter() }
-
 
     @Inject
     lateinit var getAnimePostersFromSearchUseCase: GetAnimePostersFromSearchUseCase
@@ -48,7 +48,7 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
         _binding = FragmentSearchBinding.inflate(layoutInflater)
-        onSearch()
+
 
         binding.svSearch.setOnClickListener {
             binding.svSearch.onActionViewExpanded()
@@ -58,13 +58,22 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
             binding.svSearch.onActionViewExpanded()
             false
         }
+
+
+        if (savedInstanceState != null) {
+            binding.gifImageView.alpha = savedInstanceState.getFloat(GIF_KEY)
+            binding.tvTitle.alpha = savedInstanceState.getFloat(TITLE_KEY)
+            binding.tvTitleDescription.alpha = savedInstanceState.getFloat(DESCRIPTION_KEY)
+        }
         return binding.root
     }
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
+        onSearch()
     }
 
 
@@ -73,13 +82,32 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
         RxSearchObservable.fromView(binding.svSearch)
             .subscribe {
                 presenter.getAnimePostersFromSearch(it)
+                if (it == "") {
+                    with(binding) {
+                        AnimatorUtils.toStartView(
+                            requireContext(), gifImageView, tvTitle, tvTitleDescription
+                        )
+                    }
+                } else {
+                    with(binding) {
+                        AnimatorUtils.toCloseView(
+                            requireContext(), gifImageView, tvTitle, tvTitleDescription
+                        )
+                    }
+                }
             }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        if (_binding != null) {
+            outState.putFloat(GIF_KEY, binding.gifImageView.alpha)
+            outState.putFloat(TITLE_KEY, binding.tvTitle.alpha)
+            outState.putFloat(DESCRIPTION_KEY, binding.tvTitleDescription.alpha)
+        }
     }
+
 
     private fun setAdapter() = with(binding) {
         rvList.adapter = this@SearchFragment.adapter
@@ -94,7 +122,7 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
                 adapter.submitList(result.data)
             }
             is Results.Error -> {
-                BannerUtils.showToastError(
+                BannerUtils.showToast(
                     getString(R.string.an_error_has_occurred, result.exception),
                     requireContext()
                 )
@@ -105,6 +133,17 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
     override fun onDestroy() {
         super.onDestroy()
         presenter.clearDisposable()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    companion object {
+        private const val GIF_KEY = "GIF KEY"
+        private const val TITLE_KEY = "TITLE KEY"
+        private const val DESCRIPTION_KEY = "DESCRIPTION KEY"
     }
 }
 

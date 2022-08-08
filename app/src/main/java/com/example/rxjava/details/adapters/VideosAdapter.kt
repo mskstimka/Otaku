@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_rxjava_domain.models.details.Video
 import com.example.rxjava.R
-import com.example.rxjava.databinding.ItemVideosBinding
+import com.example.rxjava.databinding.ItemDetailsVideosBinding
 import com.squareup.picasso.Picasso
 
 class VideosAdapter :
@@ -18,7 +18,7 @@ class VideosAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideosViewHolder {
         val binding =
-            ItemVideosBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemDetailsVideosBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return VideosViewHolder(binding)
     }
 
@@ -28,7 +28,7 @@ class VideosAdapter :
     override fun getItemCount(): Int = currentList.size
 
     inner class VideosViewHolder(
-        private val binding: ItemVideosBinding
+        private val binding: ItemDetailsVideosBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")

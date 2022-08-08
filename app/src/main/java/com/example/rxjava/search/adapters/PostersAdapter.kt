@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_rxjava_domain.Constants
 import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 import com.example.rxjava.R
-import com.example.rxjava.databinding.ItemPostersBinding
+import com.example.rxjava.databinding.ItemSearchPostersBinding
 import com.example.rxjava.search.ui.SearchFragmentDirections
 import com.squareup.picasso.Picasso
 
@@ -20,7 +20,7 @@ class PostersAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TitleViewHolder {
         val binding =
-            ItemPostersBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemSearchPostersBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TitleViewHolder(binding)
     }
 
@@ -31,7 +31,7 @@ class PostersAdapter :
     override fun getItemCount(): Int = currentList.size
 
     inner class TitleViewHolder(
-        private val binding: ItemPostersBinding
+        private val binding: ItemSearchPostersBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n", "ResourceAsColor")
@@ -39,10 +39,10 @@ class PostersAdapter :
             tvName.text = model.name
             tvScore.text = model.score
 
-            if (model.episodes.toString() != "0") {
-                tvEpisodes.text = "Episodes: ${model.episodes}"
+            tvEpisodes.text = if (model.episodes.toString() != "0") {
+                "Episodes: ${model.episodes}"
             } else {
-                tvEpisodes.text = "Episodes: ${model.episodesAired}"
+                "Episodes: ${model.episodesAired}"
             }
             tvStatus.text = model.status
             when (tvStatus.text) {

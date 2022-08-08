@@ -4,9 +4,9 @@ import androidx.lifecycle.*
 import com.example.a16_rxjava_domain.Constants
 import com.example.a16_rxjava_domain.common.Results
 import com.example.a16_rxjava_domain.usecases.*
-import com.example.rxjava.home.adapters.DisplayableItem
-import com.example.rxjava.home.adapters.PrevAdvertising
-import com.example.rxjava.home.adapters.PrevPoster
+import com.example.rxjava.home.adapters.models.DisplayableItem
+import com.example.rxjava.home.adapters.models.HomePosterEntity
+import com.example.rxjava.home.adapters.models.HomeGenreEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -22,7 +22,7 @@ class HomeViewModel(
     private val _pageAnimePosterAction = MutableStateFlow<List<DisplayableItem>>(emptyList())
     val pageAnimePosterAction: StateFlow<List<DisplayableItem>> = _pageAnimePosterAction
 
-    private val list = mutableListOf<DisplayableItem>(PrevAdvertising()).also {
+    private val list = mutableListOf<DisplayableItem>(HomePosterEntity()).also {
 
         getList()
 
@@ -52,11 +52,11 @@ class HomeViewModel(
 
             when (val response = getAnimePrevPosterFromGenreUseCase.execute(genresId)) {
                 is Results.Success -> {
-                    list.add(PrevPoster(genreName, response.data))
+                    list.add(HomeGenreEntity(genreName, response.data))
                     _pageAnimePosterAction.value = list
                 }
                 is Results.Error -> {
-                    list.add(PrevPoster(genreName))
+                    list.add(HomeGenreEntity(genreName))
                     _pageAnimePosterAction.value = list
                     _actionError.value = response.exception.message.toString()
                 }

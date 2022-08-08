@@ -15,7 +15,8 @@ object AnimePosterResponseMapper {
                 it.episodes,
                 it.episodesAired,
                 it.url,
-                it.status
+                it.status,
+                it.russian
             )
         }
     }
@@ -29,7 +30,8 @@ object AnimePosterResponseMapper {
             item.episodes,
             item.episodesAired,
             item.url,
-            item.status
+            item.status,
+            item.russian
         )
     }
 }

@@ -7,11 +7,11 @@
 
     <ImageView
         android:id="@+id/ivImageStudioItem"
-        android:layout_width="@dimen/item_studios_ivImageStudioItem_layout_width"
+        android:layout_width="@dimen/item_details_studios_ivImageStudioItem_layout_width"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/item_studios_ivImageStudioItem_layout_marginVertical"
-        android:layout_marginEnd="@dimen/item_studios_ivImageStudioItem_layout_marginEnd"
-        android:contentDescription="@string/item_studios_ivImageStudioItem_contentDescription"
+        android:layout_marginVertical="@dimen/item_details_studios_ivImageStudioItem_layout_marginVertical"
+        android:layout_marginEnd="@dimen/item_details_studios_ivImageStudioItem_layout_marginEnd"
+        android:contentDescription="@string/item_details_studios_ivImageStudioItem_contentDescription"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

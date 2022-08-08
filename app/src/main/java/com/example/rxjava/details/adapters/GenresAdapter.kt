@@ -7,14 +7,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_rxjava_domain.models.details.Genre
-import com.example.rxjava.databinding.ItemGenresBinding
+import com.example.rxjava.databinding.ItemDetailsGenresBinding
 
 class GenresAdapter :
     ListAdapter<Genre, GenresAdapter.GenreViewHolder>(GenreDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreViewHolder {
         val binding =
-            ItemGenresBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemDetailsGenresBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return GenreViewHolder(binding)
     }
 
@@ -24,7 +24,7 @@ class GenresAdapter :
     override fun getItemCount(): Int = currentList.size
 
     inner class GenreViewHolder(
-        private val binding: ItemGenresBinding
+        private val binding: ItemDetailsGenresBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")

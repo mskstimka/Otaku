@@ -11,8 +11,8 @@ import com.example.a16_rxjava_domain.models.details.roles.AnimeDetailsRolesEntit
 import com.example.a16_rxjava_domain.models.Image
 import com.example.a16_rxjava_domain.models.details.roles.Person
 import com.example.rxjava.R
-import com.example.rxjava.databinding.ItemAutorsBinding
 import com.example.a16_rxjava_domain.Constants
+import com.example.rxjava.databinding.ItemDetailsAutorsBinding
 import com.squareup.picasso.Picasso
 
 class AutorsAdapter(context: Context) :
@@ -26,7 +26,7 @@ class AutorsAdapter(context: Context) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AutorsViewHolder {
         val binding =
-            ItemAutorsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemDetailsAutorsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AutorsViewHolder(binding)
     }
 
@@ -38,7 +38,7 @@ class AutorsAdapter(context: Context) :
 
     inner class AutorsViewHolder(
         private val binding:
-        ItemAutorsBinding
+        ItemDetailsAutorsBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")

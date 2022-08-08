@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/advertisingText"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_home_poster_root_layout_height">
+
+    <ImageView
+        android:id="@+id/ivImagePoster"
+        android:layout_width="@dimen/item_home_poster_ivImagePoster_layout_width"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/item_home_poster_ivImagePoster_contentDescription"
+        android:src="@drawable/ukraine_poster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitlePoster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_home_poster_tvTitlePoster_layout_marginStart"
+        android:layout_marginBottom="@dimen/item_home_poster_tvTitlePoster_layout_marginBottom"
+        android:fontFamily="@font/anime_ace_v3"
+        android:text="@string/item_home_poster_tvTitlePoster_text"
+        android:textSize="@dimen/item_home_poster_tvTitlePoster_textSize"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ivImagePoster"
+        app:layout_constraintStart_toStartOf="@+id/ivImagePoster" />
+
+    <TextView
+        android:id="@+id/tvTextOne"
+        style="@style/text_style_main_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/item_home_poster_tvTextOne_text"
+        android:textColor="@color/blue_status"
+        app:layout_constraintBottom_toBottomOf="@+id/ivImagePoster"
+        app:layout_constraintEnd_toEndOf="@+id/ivImagePoster" />
+
+    <TextView
+        android:id="@+id/tvTextTwo"
+        style="@style/text_style_main_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/item_home_poster_tvTextTwo_layout_marginEnd"
+        android:text="@string/item_home_poster_tvTextTwo"
+        android:textColor="#E1AC29"
+        app:layout_constraintBottom_toBottomOf="@+id/ivImagePoster"
+        app:layout_constraintEnd_toStartOf="@+id/tvTextOne" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+

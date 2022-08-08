@@ -1,15 +1,16 @@
-package com.example.rxjava.app.utils
+package com.example.rxjava.utils
 
 import android.content.Context
 import android.widget.Toast
 
 object BannerUtils {
 
-    fun showToastError(message: String, context: Context) {
+    fun showToast(message: String, context: Context) {
         Toast.makeText(
             context,
             message,
             Toast.LENGTH_SHORT
         ).show()
     }
+
 }

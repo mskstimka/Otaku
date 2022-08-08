@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_rxjava_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.rxjava.R
-import com.example.rxjava.databinding.ItemScreenshotsBinding
 import com.example.a16_rxjava_domain.Constants
+import com.example.rxjava.databinding.ItemDetailsScreenshotsBinding
 import com.squareup.picasso.Picasso
 
 class ScreenshotsAdapter :
@@ -19,7 +19,7 @@ class ScreenshotsAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScreenshotsViewHolder {
         val binding =
-            ItemScreenshotsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemDetailsScreenshotsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ScreenshotsViewHolder(binding)
     }
 
@@ -29,7 +29,7 @@ class ScreenshotsAdapter :
     override fun getItemCount(): Int = currentList.size
 
     inner class ScreenshotsViewHolder(
-        private val binding: ItemScreenshotsBinding
+        private val binding: ItemDetailsScreenshotsBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")

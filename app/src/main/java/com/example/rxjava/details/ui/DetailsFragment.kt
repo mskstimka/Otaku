@@ -19,7 +19,7 @@ import com.example.a16_rxjava_domain.Constants
 import com.example.a16_rxjava_domain.models.details.*
 import com.example.rxjava.R
 import com.example.rxjava.app.App
-import com.example.rxjava.app.utils.BannerUtils
+import com.example.rxjava.utils.BannerUtils
 import com.example.rxjava.databinding.FragmentDetailsBinding
 import com.example.rxjava.details.adapters.*
 import com.google.android.material.snackbar.Snackbar
@@ -122,7 +122,7 @@ class DetailsFragment : Fragment() {
             autorsAdapter.submitList(item)
         }
         actionError.observe(this@DetailsFragment) {
-            BannerUtils.showToastError(
+            BannerUtils.showToast(
                 getString(R.string.an_error_has_occurred, it),
                 requireContext()
             )

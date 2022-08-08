@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_rxjava_domain.Constants
 import com.example.a16_rxjava_domain.models.details.franchise.AnimeDetailsFranchisesEntity
 import com.example.rxjava.R
-import com.example.rxjava.databinding.ItemFranchisesBinding
+import com.example.rxjava.databinding.ItemDetailsFranchisesBinding
 import com.example.rxjava.details.ui.DetailsFragmentDirections
 import com.squareup.picasso.Picasso
 
@@ -21,7 +21,7 @@ class FranchisesAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FranchisesViewHolder {
         val binding =
-            ItemFranchisesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemDetailsFranchisesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FranchisesViewHolder(binding)
     }
 
@@ -32,7 +32,7 @@ class FranchisesAdapter :
 
     inner class FranchisesViewHolder(
         private val binding:
-        ItemFranchisesBinding
+        ItemDetailsFranchisesBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")

@@ -57,5 +57,6 @@
     <dimen name="item_home_genres_item_tvEpisodesHomeGenre">12sp</dimen>
 
     <bool name="isLightTheme">true</bool>
+    <bool name="isTablet">false</bool>
 
 </resources>

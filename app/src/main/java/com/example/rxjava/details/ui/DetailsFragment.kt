@@ -24,6 +24,8 @@ import com.example.rxjava.databinding.FragmentDetailsBinding
 import com.example.rxjava.details.adapters.*
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
+import koleton.api.hideSkeleton
+import koleton.api.loadSkeleton
 import javax.inject.Inject
 
 
@@ -72,6 +74,7 @@ class DetailsFragment : Fragment() {
         binding.ivBackPressed.setOnClickListener {
             activity?.onBackPressed()
         }
+
     }
 
     override fun onCreateView(
@@ -83,6 +86,9 @@ class DetailsFragment : Fragment() {
         binding.svScrollRoot.post {
             binding.svScrollRoot.fullScroll(ScrollView.FOCUS_UP)
         }
+
+        showSkeleton()
+
         return binding.root
     }
 
@@ -131,10 +137,6 @@ class DetailsFragment : Fragment() {
 
     private fun bindViewsDetailsPage(item: AnimeDetailsEntity) {
         with(binding) {
-            Picasso.get().load(Constants.SHIKIMORI_URL + item.image.original)
-                .into(ivImageFranchises)
-            Picasso.get().load(Constants.SHIKIMORI_URL + item.image.original)
-                .into(ivImageBackground)
 
             tvTitle.text = item.name
             tvTitleRussian.text = item.russian
@@ -178,12 +180,19 @@ class DetailsFragment : Fragment() {
                 )
             }
 
+            Picasso.get().load(Constants.SHIKIMORI_URL + item.image.original)
+                .into(ivImageFranchises)
+            Picasso.get().load(Constants.SHIKIMORI_URL + item.image.original)
+                .into(ivImageBackground)
+
+
             genresAdapter.submitList(item.genres)
             videosAdapter.submitList(item.videos)
             studiosAdapter.submitList(item.studios)
+
+            hideSkeleton()
         }
     }
-
 
     private fun setAdapters() = with(binding) {
         rvGenre.adapter = this@DetailsFragment.genresAdapter
@@ -206,5 +215,49 @@ class DetailsFragment : Fragment() {
 
         rvStudios.adapter = this@DetailsFragment.studiosAdapter
         rvStudios.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+    }
+
+    private fun showSkeleton() = with(binding) {
+        tvTitleRussian.loadSkeleton()
+        tvScore.loadSkeleton()
+        tvEpisode.loadSkeleton()
+        tvStatus.loadSkeleton()
+        tvDate.loadSkeleton()
+        tvKind.loadSkeleton()
+        tvTitle.loadSkeleton()
+        tvEpisodeTitle.loadSkeleton()
+        tvStatusTitle.loadSkeleton()
+        tvDateTitle.loadSkeleton()
+        tvGenreTitle.loadSkeleton()
+        tvDescriptionTitle.loadSkeleton()
+        tvTitleScreenshots.loadSkeleton()
+        tvTitleVideos.loadSkeleton()
+        tvTitleCharacters.loadSkeleton()
+        tvTitleAutors.loadSkeleton()
+        tvTitleFranchises.loadSkeleton()
+        tvTitleStudios.loadSkeleton()
+        ivImageFranchises.loadSkeleton()
+    }
+
+    private fun hideSkeleton() = with(binding) {
+        tvTitleRussian.hideSkeleton()
+        tvScore.hideSkeleton()
+        tvEpisode.hideSkeleton()
+        tvStatus.hideSkeleton()
+        tvDate.hideSkeleton()
+        tvKind.hideSkeleton()
+        tvTitle.hideSkeleton()
+        tvEpisodeTitle.hideSkeleton()
+        tvStatusTitle.hideSkeleton()
+        tvDateTitle.hideSkeleton()
+        tvGenreTitle.hideSkeleton()
+        tvDescriptionTitle.hideSkeleton()
+        tvTitleScreenshots.hideSkeleton()
+        tvTitleVideos.hideSkeleton()
+        tvTitleCharacters.hideSkeleton()
+        tvTitleAutors.hideSkeleton()
+        tvTitleFranchises.hideSkeleton()
+        tvTitleStudios.hideSkeleton()
+        ivImageFranchises.hideSkeleton()
     }
 }

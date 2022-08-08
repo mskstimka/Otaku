@@ -11,6 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:id="@+id/layoutRoot"
         android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
@@ -76,7 +77,6 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="4dp"
                     android:drawableStart="@drawable/icon_star"
-                    android:text="@string/fragment_details_tvScore_text"
                     app:layout_constraintStart_toEndOf="@+id/cvImage"
                     app:layout_constraintTop_toBottomOf="@+id/tvTitleRussian" />
 
@@ -126,7 +126,6 @@
                 <TextView
                     android:id="@+id/tvEpisode"
                     style="@style/text_style_values"
-                    android:text="@string/fragment_details_tvEpisode_text"
                     app:layout_constraintBottom_toBottomOf="@+id/tvEpisodeTitle"
                     app:layout_constraintStart_toEndOf="@+id/tvEpisodeTitle"
                     app:layout_constraintTop_toTopOf="@+id/tvEpisodeTitle" />
@@ -144,7 +143,6 @@
         <TextView
             android:id="@+id/tvStatus"
             style="@style/text_style_values"
-            android:text="@string/fragment_details_tvStatus_text"
             app:layout_constraintBottom_toBottomOf="@+id/tvStatusTitle"
             app:layout_constraintStart_toEndOf="@+id/tvStatusTitle"
             app:layout_constraintTop_toTopOf="@+id/tvStatusTitle" />
@@ -159,7 +157,6 @@
         <TextView
             android:id="@+id/tvDate"
             style="@style/text_style_values"
-            android:text="@string/fragment_details_tvDate_text"
             app:layout_constraintBottom_toBottomOf="@+id/tvDateTitle"
             app:layout_constraintStart_toEndOf="@+id/tvDateTitle"
             app:layout_constraintTop_toTopOf="@+id/tvDateTitle" />

@@ -1,14 +1,9 @@
 package com.example.rxjava.search.adapters
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -17,13 +12,9 @@ import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 import com.example.rxjava.R
 import com.example.rxjava.databinding.FragmentSearchBinding
 import com.example.rxjava.databinding.ItemSearchPostersBinding
-import com.example.rxjava.details.ui.DetailsFragmentArgs
-import com.example.rxjava.details.ui.DetailsFragmentDirections
-import com.example.rxjava.home.ui.HomeFragmentDirections
-import com.example.rxjava.search.ui.SearchFragmentDirections
 import com.squareup.picasso.Picasso
 
-class PostersAdapter(private val context: Context) :
+class PostersAdapter(private val callbackClick:(posterId:Int) -> Unit) :
     ListAdapter<AnimePosterEntity, PostersAdapter.TitleViewHolder>(PosterDiffCallback) {
 
     lateinit var bindingTablet: FragmentSearchBinding
@@ -79,19 +70,8 @@ class PostersAdapter(private val context: Context) :
             Picasso.get().load(Constants.SHIKIMORI_URL + model.image.original)
                 .error(R.drawable.icon_default).into(ivImageFranchisesItem)
 
-
-            var isTablet = context.resources.getBoolean(R.bool.isTablet)
             itemView.setOnClickListener {
-
-                if (isTablet) {
-
-
-
-                } else {
-                    itemView.findNavController().navigate(
-                        SearchFragmentDirections.actionSearchFragmentToDetailsFragment(model.id)
-                    )
-                }
+                callbackClick.invoke(model.id)
             }
         }
     }

@@ -262,4 +262,17 @@ class DetailsFragment : Fragment() {
         tvTitleStudios.hideSkeleton()
         ivImageFranchises.hideSkeleton()
     }
+
+    companion object {
+        fun newInstance(posterId: Int): DetailsFragment {
+            return DetailsFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(POSTER_ID_KEY, posterId)
+                }
+            }
+        }
+
+        const val POSTER_ID_KEY = "id"
+        const val TAG_FRAGMENT = "details_fragment_tag"
+    }
 }

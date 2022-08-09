@@ -6,18 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a16_rxjava_domain.common.Results
 import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 import com.example.a16_rxjava_domain.usecases.GetAnimePostersFromSearchUseCase
 import com.example.rxjava.R
 import com.example.rxjava.app.App
-import com.example.rxjava.utils.BannerUtils
 import com.example.rxjava.databinding.FragmentSearchBinding
 import com.example.rxjava.details.ui.DetailsFragment
 import com.example.rxjava.search.adapters.PostersAdapter
 import com.example.rxjava.utils.AnimatorUtils
+import com.example.rxjava.utils.BannerUtils
 import com.example.rxjava.utils.RxSearchObservable
 import javax.inject.Inject
 
@@ -27,7 +26,10 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    private val adapter by lazy { PostersAdapter(requireContext()) }
+    private val adapter by lazy { PostersAdapter { posterId ->
+            openDetailsPage(posterId)
+        }
+    }
 
     @Inject
     lateinit var getAnimePostersFromSearchUseCase: GetAnimePostersFromSearchUseCase
@@ -46,7 +48,7 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
         _binding = FragmentSearchBinding.inflate(layoutInflater)
@@ -81,6 +83,16 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
         onSearch()
     }
 
+    private fun openDetailsPage(posterId: Int) {
+        if (resources.getBoolean(R.bool.isTablet)) {
+            parentFragmentManager.beginTransaction()
+                .add(R.id.tabletContainer, DetailsFragment.newInstance(posterId = posterId),
+                    DetailsFragment.TAG_FRAGMENT)
+                .commit()
+        } else {
+            SearchFragmentDirections.actionSearchFragmentToDetailsFragment(id = posterId)
+        }
+    }
 
     @SuppressLint("CheckResult")
     private fun onSearch() {
@@ -93,6 +105,7 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
                             requireContext(), gifImageView, tvTitle, tvTitleDescription
                         )
                     }
+                    clearFragmentStack()
                 } else {
                     with(binding) {
                         AnimatorUtils.toCloseView(
@@ -103,6 +116,12 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
             }
     }
 
+    private fun clearFragmentStack() {
+        val fragment: Fragment? = parentFragmentManager.findFragmentByTag(DetailsFragment.TAG_FRAGMENT)
+        if (fragment != null) {
+            parentFragmentManager.beginTransaction().remove(fragment).commit()
+        }
+    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)

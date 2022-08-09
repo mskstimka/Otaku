@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a16_rxjava_domain.common.Results
 import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
@@ -14,6 +15,7 @@ import com.example.rxjava.R
 import com.example.rxjava.app.App
 import com.example.rxjava.utils.BannerUtils
 import com.example.rxjava.databinding.FragmentSearchBinding
+import com.example.rxjava.details.ui.DetailsFragment
 import com.example.rxjava.search.adapters.PostersAdapter
 import com.example.rxjava.utils.AnimatorUtils
 import com.example.rxjava.utils.RxSearchObservable
@@ -25,7 +27,7 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    private val adapter by lazy { PostersAdapter() }
+    private val adapter by lazy { PostersAdapter(requireContext()) }
 
     @Inject
     lateinit var getAnimePostersFromSearchUseCase: GetAnimePostersFromSearchUseCase
@@ -50,6 +52,10 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
         _binding = FragmentSearchBinding.inflate(layoutInflater)
 
 
+        val isTablet = resources.getBoolean(R.bool.isTablet)
+        if (isTablet) {
+
+        }
         binding.svSearch.setOnClickListener {
             binding.svSearch.onActionViewExpanded()
         }
@@ -67,7 +73,6 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
         }
         return binding.root
     }
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

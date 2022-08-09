@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +38,7 @@ class DetailsFragment : Fragment() {
     lateinit var vmFactory: DetailsViewModelFactory
 
     private lateinit var dViewModel: DetailsViewModel
+
 
     private val genresAdapter by lazy { GenresAdapter() }
     private val screenshotsAdapter by lazy { ScreenshotsAdapter() }

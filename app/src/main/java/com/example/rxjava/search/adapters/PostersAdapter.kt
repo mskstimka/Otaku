@@ -1,24 +1,35 @@
 package com.example.rxjava.search.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_rxjava_domain.Constants
 import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 import com.example.rxjava.R
+import com.example.rxjava.databinding.FragmentSearchBinding
 import com.example.rxjava.databinding.ItemSearchPostersBinding
+import com.example.rxjava.details.ui.DetailsFragmentArgs
+import com.example.rxjava.details.ui.DetailsFragmentDirections
+import com.example.rxjava.home.ui.HomeFragmentDirections
 import com.example.rxjava.search.ui.SearchFragmentDirections
 import com.squareup.picasso.Picasso
 
-class PostersAdapter :
+class PostersAdapter(private val context: Context) :
     ListAdapter<AnimePosterEntity, PostersAdapter.TitleViewHolder>(PosterDiffCallback) {
 
+    lateinit var bindingTablet: FragmentSearchBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TitleViewHolder {
+        bindingTablet =
+            FragmentSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val binding =
             ItemSearchPostersBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TitleViewHolder(binding)
@@ -68,10 +79,19 @@ class PostersAdapter :
             Picasso.get().load(Constants.SHIKIMORI_URL + model.image.original)
                 .error(R.drawable.icon_default).into(ivImageFranchisesItem)
 
+
+            var isTablet = context.resources.getBoolean(R.bool.isTablet)
             itemView.setOnClickListener {
-                itemView.findNavController().navigate(
-                    SearchFragmentDirections.actionSearchFragmentToDetailsFragment(model.id)
-                )
+
+                if (isTablet) {
+
+
+
+                } else {
+                    itemView.findNavController().navigate(
+                        SearchFragmentDirections.actionSearchFragmentToDetailsFragment(model.id)
+                    )
+                }
             }
         }
     }

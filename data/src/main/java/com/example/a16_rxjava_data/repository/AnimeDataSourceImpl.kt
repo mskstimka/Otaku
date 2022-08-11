@@ -20,68 +20,69 @@ class AnimeDataSourceImpl(
     private val shikimoriDAO: ShikimoriDAO
 ) : AnimeDataSource {
     override fun getAnimePostersFromSearch(searchName: String): Observable<List<AnimePosterEntity>> {
-
-        return shikimoriAPI.getAnimePostersFromSearch(searchName)
+        return shikimoriAPI.getAnimePostersFromSearch(search = searchName)
             .subscribeOn(Schedulers.io())
             .map { AnimePosterResponseMapper.toListAnimePosterEntity(it) }
     }
 
     override suspend fun getAnimeDetailsFromId(id: Int): Results<AnimeDetailsEntity> {
         return try {
-            val response = shikimoriAPI.getAnimeDetailsFromId(id)
+            val response = shikimoriAPI.getAnimeDetailsFromId(id = id)
             if (response.isSuccessful) {
                 val item =
-                    AnimeDetailsResponseMapper.toAnimeDetailsEntity(response.body()!!)
-                Results.Success(item)
+                    AnimeDetailsResponseMapper.toAnimeDetailsEntity(item = response.body()!!)
+                Results.Success(data = item)
             } else {
-                Results.Error(Exception(response.message()))
+                Results.Error(exception = Exception(response.message()))
             }
         } catch (e: Exception) {
-            Results.Error(e)
+            Results.Error(exception = e)
         }
     }
 
     override suspend fun getAnimeScreenshotsFromId(id: Int): Results<List<AnimeDetailsScreenshotsEntity>> {
         return try {
-            val response = shikimoriAPI.getAnimeScreenshotsFromId(id)
+            val response = shikimoriAPI.getAnimeScreenshotsFromId(id = id)
             if (response.isSuccessful) {
-                val list = AnimeDetailsResponseMapper.toAnimeScreenshotsEntity(response.body()!!)
-                Results.Success(list)
+                val list =
+                    AnimeDetailsResponseMapper.toAnimeScreenshotsEntity(list = response.body()!!)
+                Results.Success(data = list)
             } else {
-                Results.Error(Exception(response.message()))
+                Results.Error(exception = Exception(response.message()))
             }
         } catch (e: Exception) {
-            Results.Error(e)
+            Results.Error(exception = e)
         }
     }
 
     override suspend fun getAnimeFranchisesFromId(id: Int): Results<List<AnimeDetailsFranchisesEntity>> {
         return try {
-            val response = shikimoriAPI.getAnimeFranchisesFromId(id)
+            val response = shikimoriAPI.getAnimeFranchisesFromId(id = id)
             if (response.isSuccessful) {
-                val list = AnimeDetailsResponseMapper.toListAnimeFranchisesEntity(response.body()!!)
-                Results.Success(list)
+                val list =
+                    AnimeDetailsResponseMapper.toListAnimeFranchisesEntity(item = response.body()!!)
+                Results.Success(data = list)
             } else {
-                Results.Error(Exception(response.message()))
+                Results.Error(exception = Exception(response.message()))
             }
         } catch (e: Exception) {
-            Results.Error(e)
+            Results.Error(exception = e)
         }
     }
 
     override suspend fun getAnimeRolesFromId(id: Int): Results<List<AnimeDetailsRolesEntity>> {
         return try {
-            val response = shikimoriAPI.getAnimeRolesFromId(id)
+            val response = shikimoriAPI.getAnimeRolesFromId(id = id)
             if (response.isSuccessful) {
-                val list = response.body()!!.map {
-                    AnimeDetailsResponseMapper.toAnimeRolesEntity(it)
+                val list = response.body()!!.map { item ->
+                    AnimeDetailsResponseMapper.toAnimeRolesEntity(item = item)
                 }
-                Results.Success(list)
+                Results.Success(data = list)
             } else {
-                Results.Error(Exception(response.message()))
+                Results.Error(exception = Exception(response.message()))
             }
         } catch (e: Exception) {
-            Results.Error(e)
+            Results.Error(exception = e)
         }
     }
 
@@ -105,18 +106,18 @@ class AnimeDataSourceImpl(
                 }
                 false -> {
                     if (isLocalNull) {
-                        Results.Success(data = shikimoriDAO.getPosterFromIdGenre(genreId)!!.list)
-                    } else {
                         Results.Error(exception = Exception(response.message()))
+                    } else {
+                        Results.Success(data = shikimoriDAO.getPosterFromIdGenre(genreId)!!.list)
                     }
                 }
             }
 
         } catch (e: Exception) {
             if (isLocalNull) {
-                Results.Success(data = shikimoriDAO.getPosterFromIdGenre(genreId)!!.list)
-            } else {
                 Results.Error(exception = e)
+            } else {
+                Results.Success(data = shikimoriDAO.getPosterFromIdGenre(genreId)!!.list)
             }
         }
     }

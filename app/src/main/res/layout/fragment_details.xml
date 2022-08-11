@@ -10,8 +10,8 @@
     android:background="@color/activity_background_color">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
         android:id="@+id/layoutRoot"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
@@ -34,8 +34,8 @@
                     android:id="@+id/ivBackPressed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/icon_back"
                     android:layout_margin="20dp"
+                    android:src="@drawable/icon_back"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,9 +45,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/fragment_details_tvKind_layout_margin"
-                    android:text="@string/fragment_details_tvKind_text"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/fragment_details_tvKind_text" />
 
                 <ImageView
                     android:id="@+id/ivImageBackground"
@@ -72,29 +72,31 @@
                     style="@style/text_style_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:drawablePadding="4dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="4dp"
                     android:drawableStart="@drawable/icon_star"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toEndOf="@+id/cvImage"
                     app:layout_constraintTop_toBottomOf="@+id/tvTitleRussian" />
 
                 <TextView
                     android:id="@+id/tvTitle"
                     style="@style/text_style_main_title"
-                    android:text="@string/fragment_details_tvTitle_text"
                     app:layout_constraintEnd_toEndOf="@+id/ivImageBackground"
                     app:layout_constraintStart_toEndOf="@+id/cvImage"
-                    app:layout_constraintTop_toTopOf="@+id/cvImage" />
+                    app:layout_constraintTop_toTopOf="@+id/cvImage"
+                    tools:text="@string/fragment_details_tvTitle_text" />
 
                 <TextView
                     android:id="@+id/tvTitleRussian"
                     style="@style/text_style_russian_title"
-                    android:text="@string/fragment_details_tvTitleRussian_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/cvImage"
-                    app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                    tools:text="@string/fragment_details_tvTitleRussian_text" />
 
 
                 <androidx.cardview.widget.CardView
@@ -126,9 +128,10 @@
                 <TextView
                     android:id="@+id/tvEpisode"
                     style="@style/text_style_values"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvEpisodeTitle"
-                    app:layout_constraintStart_toEndOf="@+id/tvEpisodeTitle"
-                    app:layout_constraintTop_toTopOf="@+id/tvEpisodeTitle" />
+                    app:layout_constraintBaseline_toBaselineOf="@id/tvEpisodeTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@+id/tvEpisodeTitle" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
@@ -143,9 +146,10 @@
         <TextView
             android:id="@+id/tvStatus"
             style="@style/text_style_values"
-            app:layout_constraintBottom_toBottomOf="@+id/tvStatusTitle"
-            app:layout_constraintStart_toEndOf="@+id/tvStatusTitle"
-            app:layout_constraintTop_toTopOf="@+id/tvStatusTitle" />
+            app:layout_constraintBaseline_toBaselineOf="@id/tvStatusTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/tvStatusTitle" />
 
         <TextView
             android:id="@+id/tvDateTitle"
@@ -157,15 +161,18 @@
         <TextView
             android:id="@+id/tvDate"
             style="@style/text_style_values"
-            app:layout_constraintBottom_toBottomOf="@+id/tvDateTitle"
-            app:layout_constraintStart_toEndOf="@+id/tvDateTitle"
-            app:layout_constraintTop_toTopOf="@+id/tvDateTitle" />
+            app:layout_constraintBaseline_toBaselineOf="@id/tvDateTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/tvDateTitle" />
 
 
         <TextView
             android:id="@+id/tvGenreTitle"
             style="@style/text_style_title_items"
             android:text="@string/fragment_details_tvGenreTitle_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDateTitle" />
 
@@ -181,6 +188,8 @@
             android:id="@+id/tvDescriptionTitle"
             style="@style/text_style_title_items"
             android:text="@string/fragment_details_tvDescriptionTitle_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rvGenre" />
 
@@ -217,6 +226,8 @@
             android:id="@+id/tvTitleScreenshots"
             style="@style/text_style_title_items"
             android:text="@string/fragment_details_tvTitleScreenshots_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/exDescription" />
 
@@ -232,6 +243,8 @@
             android:id="@+id/tvTitleVideos"
             style="@style/text_style_title_items"
             android:text="@string/fragment_details_tvTitleVideos_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rvScreenshots" />
 
@@ -246,6 +259,8 @@
             android:id="@+id/tvTitleCharacters"
             style="@style/text_style_title_items"
             android:text="@string/fragment_details_tvTitleCharacters_text"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rvVideos" />
 
@@ -261,6 +276,8 @@
             android:id="@+id/tvTitleAutors"
             style="@style/text_style_title_items"
             android:text="@string/fragment_details_tvTitleAutors_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rvCharacters" />
 
@@ -274,6 +291,8 @@
         <TextView
             android:id="@+id/tvTitleFranchises"
             style="@style/text_style_title_items"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             android:text="@string/fragment_details_tvTitleFranchises_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rvAutors" />

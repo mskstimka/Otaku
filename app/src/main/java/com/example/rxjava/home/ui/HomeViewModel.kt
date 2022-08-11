@@ -32,22 +32,22 @@ class HomeViewModel(
     private fun getList() {
         viewModelScope.launch {
 
-            getAnimePrevPosterActionFromGenre(listOf(Constants.ROMANTIC_ID), "Романтика")
+            getAnimePrevPosterActionFromGenre(Constants.ROMANTIC_ID, "Романтика")
             delay(100)
-            getAnimePrevPosterActionFromGenre(listOf(Constants.SHOUNEN_ID), "Сёнен")
+            getAnimePrevPosterActionFromGenre(Constants.SHOUNEN_ID, "Сёнен")
             delay(200)
-            getAnimePrevPosterActionFromGenre(listOf(Constants.DRAMA_ID), "Драма")
+            getAnimePrevPosterActionFromGenre(Constants.DRAMA_ID, "Драма")
             delay(300)
-            getAnimePrevPosterActionFromGenre(listOf(Constants.DEMONS_ID), "Демоны")
+            getAnimePrevPosterActionFromGenre(Constants.DEMONS_ID, "Демоны")
             delay(400)
-            getAnimePrevPosterActionFromGenre(listOf(Constants.SHOUJO_ID), "Сёдзё")
+            getAnimePrevPosterActionFromGenre(Constants.SHOUJO_ID, "Сёдзё")
             delay(500)
-            getAnimePrevPosterActionFromGenre(listOf(Constants.HAREM_ID), "Гарем")
+            getAnimePrevPosterActionFromGenre(Constants.HAREM_ID, "Гарем")
 
         }
     }
 
-    private fun getAnimePrevPosterActionFromGenre(genresId: List<Int>, genreName: String) {
+    private fun getAnimePrevPosterActionFromGenre(genresId: Int, genreName: String) {
         viewModelScope.launch(Dispatchers.IO) {
 
             when (val response = getAnimePrevPosterFromGenreUseCase.execute(genresId)) {

@@ -31,7 +31,7 @@ class AnimeRepositoryImpl(private val animeDataSource: AnimeDataSource) : AnimeR
         return animeDataSource.getAnimeRolesFromId(id)
     }
 
-    override suspend fun getAnimePrevPostersFromGenres(genre: List<Int>): Results<List<AnimePosterEntity>> {
-        return animeDataSource.getAnimePrevPostersFromGenres(genre)
+    override suspend fun getAnimePrevPostersFromGenres(genreId: Int): Results<List<AnimePosterEntity>> {
+        return animeDataSource.getAnimePrevPostersFromGenres(genreId)
     }
 }

@@ -1,7 +1,7 @@
 package com.example.a16_rxjava_data.mapper
 
 
-import com.example.a16_rxjava_data.models.*
+import com.example.a16_rxjava_data.network.models.*
 import com.example.a16_rxjava_domain.Constants
 import com.example.a16_rxjava_domain.models.Image
 import com.example.a16_rxjava_domain.models.details.AnimeDetailsEntity

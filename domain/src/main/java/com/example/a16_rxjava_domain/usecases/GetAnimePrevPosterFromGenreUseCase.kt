@@ -4,6 +4,6 @@ import com.example.a16_rxjava_domain.repository.AnimeRepository
 
 class GetAnimePrevPosterFromGenreUseCase(private val repository: AnimeRepository) {
 
-    suspend fun execute(genre: List<Int>) = repository.getAnimePrevPostersFromGenres(genre)
+    suspend fun execute(genreId: Int) = repository.getAnimePrevPostersFromGenres(genreId)
 
 }

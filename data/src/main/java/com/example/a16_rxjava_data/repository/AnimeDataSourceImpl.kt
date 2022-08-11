@@ -1,8 +1,10 @@
 package com.example.a16_rxjava_data.repository
 
+import com.example.a16_rxjava_data.database.models.LocalAnimePosterEntity
+import com.example.a16_rxjava_data.database.dao.ShikimoriDAO
 import com.example.a16_rxjava_data.mapper.AnimeDetailsResponseMapper
 import com.example.a16_rxjava_data.mapper.AnimePosterResponseMapper
-import com.example.a16_rxjava_data.network.ShikimoriAPI
+import com.example.a16_rxjava_data.network.api.ShikimoriAPI
 import com.example.a16_rxjava_domain.common.Results
 import com.example.a16_rxjava_domain.models.details.AnimeDetailsEntity
 import com.example.a16_rxjava_domain.models.details.franchise.AnimeDetailsFranchisesEntity
@@ -11,10 +13,12 @@ import com.example.a16_rxjava_domain.models.details.screenshots.AnimeDetailsScre
 import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.delay
 import java.lang.Exception
 
-class AnimeDataSourceImpl(private val shikimoriAPI: ShikimoriAPI) : AnimeDataSource {
+class AnimeDataSourceImpl(
+    private val shikimoriAPI: ShikimoriAPI,
+    private val shikimoriDAO: ShikimoriDAO
+) : AnimeDataSource {
     override fun getAnimePostersFromSearch(searchName: String): Observable<List<AnimePosterEntity>> {
 
         return shikimoriAPI.getAnimePostersFromSearch(searchName)
@@ -81,17 +85,39 @@ class AnimeDataSourceImpl(private val shikimoriAPI: ShikimoriAPI) : AnimeDataSou
         }
     }
 
-    override suspend fun getAnimePrevPostersFromGenres(genre: List<Int>): Results<List<AnimePosterEntity>> {
+    override suspend fun getAnimePrevPostersFromGenres(genreId: Int): Results<List<AnimePosterEntity>> {
+        val isLocalNull: Boolean = shikimoriDAO.getPosterFromIdGenre(id = genreId) == null
+
         return try {
-            val response = shikimoriAPI.getAnimePrevPostersFromGenres(genre)
-            if (response.isSuccessful) {
-                val list = AnimePosterResponseMapper.toListAnimePosterEntity(response.body()!!)
-                Results.Success(list)
-            } else {
-                Results.Error(Exception(response.message()))
+            val response = shikimoriAPI.getAnimePrevPostersFromGenre(genreId)
+
+            when (response.isSuccessful) {
+                true -> {
+                    val list =
+                        AnimePosterResponseMapper.toListAnimePosterEntity(list = response.body()!!)
+
+                    if (isLocalNull) {
+                        shikimoriDAO.insert(LocalAnimePosterEntity(list = list, id = genreId))
+                    } else {
+                        shikimoriDAO.update(list = list, id = genreId)
+                    }
+                    Results.Success(data = list)
+                }
+                false -> {
+                    if (isLocalNull) {
+                        Results.Success(data = shikimoriDAO.getPosterFromIdGenre(genreId)!!.list)
+                    } else {
+                        Results.Error(exception = Exception(response.message()))
+                    }
+                }
             }
+
         } catch (e: Exception) {
-            Results.Error(e)
+            if (isLocalNull) {
+                Results.Success(data = shikimoriDAO.getPosterFromIdGenre(genreId)!!.list)
+            } else {
+                Results.Error(exception = e)
+            }
         }
     }
 

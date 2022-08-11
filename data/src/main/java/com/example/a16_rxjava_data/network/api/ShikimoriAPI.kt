@@ -1,6 +1,6 @@
-package com.example.a16_rxjava_data.network
+package com.example.a16_rxjava_data.network.api
 
-import com.example.a16_rxjava_data.models.*
+import com.example.a16_rxjava_data.network.models.*
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -22,8 +22,8 @@ interface ShikimoriAPI {
     ): Response<AnimeDetailsEntityResponse>
 
     @GET("api/animes")
-    suspend fun getAnimePrevPostersFromGenres(
-        @Query(value = "genre", encoded = true) genre: List<Int> = emptyList(),
+    suspend fun getAnimePrevPostersFromGenre(
+        @Query(value = "genre", encoded = true) genreId: Int,
         @Query(value = "limit", encoded = true) limit: Int = 20,
         @Query(value = "censored", encoded = true) censored: Boolean = true,
         @Query(value = "order", encoded = true) order: String = "random"

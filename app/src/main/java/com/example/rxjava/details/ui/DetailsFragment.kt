@@ -89,7 +89,13 @@ class DetailsFragment : Fragment() {
             binding.svScrollRoot.fullScroll(ScrollView.FOCUS_UP)
         }
 
-        showSkeleton()
+        with(binding) {
+            showSkeleton(
+                tvEpisodeTitle, tvStatusTitle, tvDateTitle, tvGenreTitle, tvDescriptionTitle,
+                tvTitleScreenshots, tvTitleVideos, tvTitleCharacters, tvTitleAutors,
+                tvTitleFranchises, tvTitleStudios, ivImageFranchises, tvScore
+            )
+        }
 
         return binding.root
     }
@@ -192,7 +198,13 @@ class DetailsFragment : Fragment() {
             videosAdapter.submitList(item.videos)
             studiosAdapter.submitList(item.studios)
 
-            hideSkeleton()
+            with(binding) {
+                hideSkeleton(
+                    tvEpisodeTitle, tvStatusTitle, tvDateTitle, tvGenreTitle, tvDescriptionTitle,
+                    tvTitleScreenshots, tvTitleVideos, tvTitleCharacters, tvTitleAutors,
+                    tvTitleFranchises, tvTitleStudios, ivImageFranchises, tvTitle, tvScore
+                )
+            }
         }
     }
 
@@ -219,49 +231,9 @@ class DetailsFragment : Fragment() {
         rvStudios.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
     }
 
-    private fun showSkeleton() = with(binding) {
-        tvTitleRussian.loadSkeleton()
-        tvScore.loadSkeleton()
-        tvEpisode.loadSkeleton()
-        tvStatus.loadSkeleton()
-        tvDate.loadSkeleton()
-        tvKind.loadSkeleton()
-        tvTitle.loadSkeleton()
-        tvEpisodeTitle.loadSkeleton()
-        tvStatusTitle.loadSkeleton()
-        tvDateTitle.loadSkeleton()
-        tvGenreTitle.loadSkeleton()
-        tvDescriptionTitle.loadSkeleton()
-        tvTitleScreenshots.loadSkeleton()
-        tvTitleVideos.loadSkeleton()
-        tvTitleCharacters.loadSkeleton()
-        tvTitleAutors.loadSkeleton()
-        tvTitleFranchises.loadSkeleton()
-        tvTitleStudios.loadSkeleton()
-        ivImageFranchises.loadSkeleton()
-    }
+    private fun showSkeleton(vararg view: View) = view.forEach { it.loadSkeleton() }
 
-    private fun hideSkeleton() = with(binding) {
-        tvTitleRussian.hideSkeleton()
-        tvScore.hideSkeleton()
-        tvEpisode.hideSkeleton()
-        tvStatus.hideSkeleton()
-        tvDate.hideSkeleton()
-        tvKind.hideSkeleton()
-        tvTitle.hideSkeleton()
-        tvEpisodeTitle.hideSkeleton()
-        tvStatusTitle.hideSkeleton()
-        tvDateTitle.hideSkeleton()
-        tvGenreTitle.hideSkeleton()
-        tvDescriptionTitle.hideSkeleton()
-        tvTitleScreenshots.hideSkeleton()
-        tvTitleVideos.hideSkeleton()
-        tvTitleCharacters.hideSkeleton()
-        tvTitleAutors.hideSkeleton()
-        tvTitleFranchises.hideSkeleton()
-        tvTitleStudios.hideSkeleton()
-        ivImageFranchises.hideSkeleton()
-    }
+    private fun hideSkeleton(vararg view: View) = view.forEach { it.hideSkeleton() }
 
     companion object {
         fun newInstance(posterId: Int): DetailsFragment {

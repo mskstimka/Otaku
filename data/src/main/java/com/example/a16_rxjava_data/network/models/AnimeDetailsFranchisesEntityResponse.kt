@@ -1,4 +1,4 @@
-package com.example.a16_rxjava_data.models
+package com.example.a16_rxjava_data.network.models
 
 
 data class AnimeDetailsFranchisesEntityResponse(

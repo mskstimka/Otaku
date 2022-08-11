@@ -1,6 +1,6 @@
 package com.example.a16_rxjava_data.mapper
 
-import com.example.a16_rxjava_data.models.AnimePosterEntityResponse
+import com.example.a16_rxjava_data.network.models.AnimePosterEntityResponse
 import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 
 object AnimePosterResponseMapper {

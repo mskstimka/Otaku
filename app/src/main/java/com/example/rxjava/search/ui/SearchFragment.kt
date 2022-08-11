@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a16_rxjava_domain.common.Results
 import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
@@ -26,7 +27,8 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    private val adapter by lazy { PostersAdapter { posterId ->
+    private val adapter by lazy {
+        PostersAdapter { posterId ->
             openDetailsPage(posterId)
         }
     }
@@ -86,11 +88,17 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
     private fun openDetailsPage(posterId: Int) {
         if (resources.getBoolean(R.bool.isTablet)) {
             parentFragmentManager.beginTransaction()
-                .add(R.id.tabletContainer, DetailsFragment.newInstance(posterId = posterId),
-                    DetailsFragment.TAG_FRAGMENT)
+                .add(
+                    R.id.tabletContainer, DetailsFragment.newInstance(posterId = posterId),
+                    DetailsFragment.TAG_FRAGMENT
+                )
                 .commit()
         } else {
-            SearchFragmentDirections.actionSearchFragmentToDetailsFragment(id = posterId)
+            findNavController().navigate(
+                SearchFragmentDirections.actionSearchFragmentToDetailsFragment(
+                    id = posterId
+                )
+            )
         }
     }
 
@@ -117,7 +125,8 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
     }
 
     private fun clearFragmentStack() {
-        val fragment: Fragment? = parentFragmentManager.findFragmentByTag(DetailsFragment.TAG_FRAGMENT)
+        val fragment: Fragment? =
+            parentFragmentManager.findFragmentByTag(DetailsFragment.TAG_FRAGMENT)
         if (fragment != null) {
             parentFragmentManager.beginTransaction().remove(fragment).commit()
         }

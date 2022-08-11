@@ -1,6 +1,9 @@
 package com.example.a16_rxjava_data.di
 
-import com.example.a16_rxjava_data.network.ShikimoriAPI
+import android.content.Context
+import com.example.a16_rxjava_data.database.dao.ShikimoriDAO
+import com.example.a16_rxjava_data.database.dao.ShikimoriDataBase
+import com.example.a16_rxjava_data.network.api.ShikimoriAPI
 import com.example.a16_rxjava_data.repository.AnimeDataSource
 import com.example.a16_rxjava_data.repository.AnimeDataSourceImpl
 import com.example.a16_rxjava_data.repository.AnimeRepositoryImpl
@@ -16,7 +19,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
-class DataModule {
+class DataModule(private val context: Context) {
 
 
     @Provides
@@ -34,16 +37,26 @@ class DataModule {
             .create()
 
         return Retrofit.Builder()
-           .baseUrl(Constants.SHIKIMORI_URL)
-           .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-           .addConverterFactory(GsonConverterFactory.create(gson))
-           .client(client)
-           .build()
+            .baseUrl(Constants.SHIKIMORI_URL)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(client)
+            .build()
     }
 
     @Provides
-    fun provideAnimeDataSource(retrofit: Retrofit): AnimeDataSource {
-        return AnimeDataSourceImpl(retrofit.create(ShikimoriAPI::class.java))
+    fun provideContext(): Context {
+        return context
+    }
+
+    @Provides
+    fun provideAnimeDataSource(retrofit: Retrofit, shikimoriDAO: ShikimoriDAO): AnimeDataSource {
+        return AnimeDataSourceImpl(retrofit.create(ShikimoriAPI::class.java), shikimoriDAO)
+    }
+
+    @Provides
+    fun provideShikimoriDataBase(context: Context): ShikimoriDAO {
+        return ShikimoriDataBase.getDatabase(context).getCurrencyDao()
     }
 
     @Provides

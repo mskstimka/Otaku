@@ -1,6 +1,5 @@
 package com.example.rxjava.home.ui
 
-import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,16 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rxjava.R
 import com.example.rxjava.app.App
-import com.example.rxjava.utils.BannerUtils
 import com.example.rxjava.databinding.FragmentHomeBinding
-import com.example.rxjava.home.adapters.*
+import com.example.rxjava.home.adapters.DisplayableAdapter
+import com.example.rxjava.utils.BannerUtils
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -37,7 +34,7 @@ class HomeFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
         _binding = FragmentHomeBinding.inflate(layoutInflater)
@@ -64,17 +61,10 @@ class HomeFragment : Fragment() {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
-    @SuppressLint("ResourceType")
-    private fun subscribeToLiveData() = with(hViewModel) {
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                pageAnimePosterAction.collect {
-                    adapter.submitList(it)
-                }
-
-                actionError.collect {
+    private fun subscribeToLiveData() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                hViewModel.actionError.collect {
                     BannerUtils.showToast(
                         getString(R.string.an_error_has_occurred, it),
                         requireContext()
@@ -82,8 +72,12 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-
-
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                hViewModel.pageAnimePosterAction.collect {
+                    adapter.submitList(it)
+                }
+            }
+        }
     }
-
 }

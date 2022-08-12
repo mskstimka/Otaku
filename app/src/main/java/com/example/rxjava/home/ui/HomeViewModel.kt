@@ -16,8 +16,8 @@ class HomeViewModel(
     private val getAnimePrevPosterFromGenreUseCase: GetAnimePrevPosterFromGenreUseCase
 ) : ViewModel() {
 
-    private val _actionError = MutableStateFlow("Error")
-    val actionError: StateFlow<String> get() = _actionError
+    private val _actionError = MutableSharedFlow<String>()
+    val actionError: SharedFlow<String> = _actionError
 
     private val _pageAnimePosterAction = MutableStateFlow<List<DisplayableItem>>(emptyList())
     val pageAnimePosterAction: StateFlow<List<DisplayableItem>> = _pageAnimePosterAction
@@ -58,11 +58,9 @@ class HomeViewModel(
                 is Results.Error -> {
                     list.add(HomeGenreEntity(genreName))
                     _pageAnimePosterAction.value = list
-                    _actionError.value = response.exception.message.toString()
+                    _actionError.emit(response.exception.message.toString())
                 }
             }
         }
     }
-
-
 }

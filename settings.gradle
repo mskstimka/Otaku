@@ -1,3 +1,5 @@
+
+
 rootProject.name = "animator"
 include ':app'
 include ':data'

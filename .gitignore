@@ -10,6 +10,8 @@
 # Java class files
 *.class
 
+# Security key
+local.properties
 # Generated files
 bin/
 gen/

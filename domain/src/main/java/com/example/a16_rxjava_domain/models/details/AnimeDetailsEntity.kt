@@ -1,5 +1,6 @@
 package com.example.a16_rxjava_domain.models.details
 
+import androidx.annotation.Keep
 import com.example.a16_rxjava_domain.models.Image
 
 data class AnimeDetailsEntity(

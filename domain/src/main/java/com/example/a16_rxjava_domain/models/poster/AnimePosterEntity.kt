@@ -1,8 +1,9 @@
 package com.example.a16_rxjava_domain.models.poster
 
+import androidx.annotation.Keep
 import com.example.a16_rxjava_domain.models.Image
 
-
+@Keep
 data class AnimePosterEntity(
     val id: Int,
     val image: Image,

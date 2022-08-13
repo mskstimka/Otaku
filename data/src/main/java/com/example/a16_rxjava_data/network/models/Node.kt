@@ -1,5 +1,8 @@
 package com.example.a16_rxjava_data.network.models
 
+import androidx.annotation.Keep
+
+@Keep
 data class Node(
     val date: Int,
     val id: Int,

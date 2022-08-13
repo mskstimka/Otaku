@@ -10,17 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_rxjava_domain.Constants
 import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 import com.example.rxjava.R
-import com.example.rxjava.databinding.FragmentSearchBinding
 import com.example.rxjava.databinding.ItemSearchPostersBinding
 import com.squareup.picasso.Picasso
 
 class PostersAdapter(private val callbackClick:(posterId:Int) -> Unit) :
     ListAdapter<AnimePosterEntity, PostersAdapter.TitleViewHolder>(PosterDiffCallback) {
 
-    lateinit var bindingTablet: FragmentSearchBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TitleViewHolder {
-        bindingTablet =
-            FragmentSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val binding =
             ItemSearchPostersBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TitleViewHolder(binding)

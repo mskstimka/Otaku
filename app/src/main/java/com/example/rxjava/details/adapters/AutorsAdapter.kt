@@ -15,6 +15,7 @@ import com.example.a16_rxjava_domain.Constants
 import com.example.rxjava.databinding.ItemDetailsAutorsBinding
 import com.squareup.picasso.Picasso
 
+
 class AutorsAdapter(context: Context) :
     ListAdapter<AnimeDetailsRolesEntity, AutorsAdapter.AutorsViewHolder>(
         CharactersDiffCallback

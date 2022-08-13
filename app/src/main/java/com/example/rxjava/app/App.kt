@@ -1,6 +1,7 @@
 package com.example.rxjava.app
 
 import android.app.Application
+import androidx.annotation.Keep
 import com.example.a16_rxjava_data.di.DataModule
 import com.example.rxjava.R
 import com.example.rxjava.app.di.AppComponent

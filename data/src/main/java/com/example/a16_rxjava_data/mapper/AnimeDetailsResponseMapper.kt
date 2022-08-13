@@ -1,17 +1,13 @@
 package com.example.a16_rxjava_data.mapper
 
-
 import com.example.a16_rxjava_data.network.models.*
 import com.example.a16_rxjava_domain.Constants
-import com.example.a16_rxjava_domain.models.Image
 import com.example.a16_rxjava_domain.models.details.AnimeDetailsEntity
 import com.example.a16_rxjava_domain.models.details.Genre
 import com.example.a16_rxjava_domain.models.details.Studio
 import com.example.a16_rxjava_domain.models.details.Video
 import com.example.a16_rxjava_domain.models.details.franchise.AnimeDetailsFranchisesEntity
 import com.example.a16_rxjava_domain.models.details.roles.AnimeDetailsRolesEntity
-import com.example.a16_rxjava_domain.models.details.roles.Character
-import com.example.a16_rxjava_domain.models.details.roles.Person
 import com.example.a16_rxjava_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import java.util.*
 
@@ -25,10 +21,6 @@ object AnimeDetailsResponseMapper {
     private val defaultScreenshot = AnimeDetailsScreenshotsEntity(message, message)
     private val defaultFranchise =
         AnimeDetailsFranchisesEntity(404, 0, "x96", message, message, message, 404, 404)
-    private val defaultCharacter =
-        Character(404, Image(message, message, message, message), message, message, message)
-    private val defaultPerson =
-        Person(404, Image(message, message, message, message), message, message, message)
 
 
     fun toAnimeDetailsEntity(item: AnimeDetailsEntityResponse) = AnimeDetailsEntity(

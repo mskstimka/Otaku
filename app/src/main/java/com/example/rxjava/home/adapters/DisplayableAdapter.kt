@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.Keep
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
@@ -16,6 +17,7 @@ import com.example.rxjava.home.adapters.models.DisplayableItem
 import com.example.rxjava.home.adapters.models.HomeGenreEntity
 import com.example.rxjava.home.adapters.models.HomePosterEntity
 import java.lang.IllegalArgumentException
+
 
 class DisplayableAdapter(private val context: Context) :
     ListAdapter<DisplayableItem, RecyclerView.ViewHolder>(DisplayableDiffCallback) {

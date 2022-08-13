@@ -1,5 +1,6 @@
 package com.example.rxjava.app.di
 
+import androidx.annotation.Keep
 import com.example.a16_rxjava_domain.repository.AnimeRepository
 import com.example.a16_rxjava_domain.usecases.*
 import dagger.Module

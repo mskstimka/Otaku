@@ -1,9 +1,10 @@
 package com.example.a16_rxjava_data.network.models
 
+import androidx.annotation.Keep
 import com.example.a16_rxjava_domain.models.Image
 import com.example.a16_rxjava_domain.models.details.*
 
-
+@Keep
 data class AnimeDetailsEntityResponse(
     val aired_on: String?,
     val description: Any?,

@@ -1,6 +1,7 @@
 package com.example.a16_rxjava_data.di
 
 import android.content.Context
+import androidx.annotation.Keep
 import com.example.a16_rxjava_data.database.dao.ShikimoriDAO
 import com.example.a16_rxjava_data.database.dao.ShikimoriDataBase
 import com.example.a16_rxjava_data.network.api.ShikimoriAPI
@@ -17,6 +18,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+
 
 @Module
 class DataModule(private val context: Context) {

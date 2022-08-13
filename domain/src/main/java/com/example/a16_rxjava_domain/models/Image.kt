@@ -1,5 +1,8 @@
 package com.example.a16_rxjava_domain.models
 
+import androidx.annotation.Keep
+
+@Keep
 data class Image(
     val original: String,
     val preview: String,

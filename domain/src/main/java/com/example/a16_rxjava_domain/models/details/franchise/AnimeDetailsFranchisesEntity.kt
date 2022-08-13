@@ -1,5 +1,8 @@
 package com.example.a16_rxjava_domain.models.details.franchise
 
+import androidx.annotation.Keep
+
+@Keep
 data class AnimeDetailsFranchisesEntity(
     val date: Int,
     val id: Int,

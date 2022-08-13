@@ -1,5 +1,6 @@
 package com.example.rxjava.app.di
 
+import androidx.annotation.Keep
 import com.example.a16_rxjava_domain.usecases.*
 import com.example.rxjava.details.ui.DetailsViewModelFactory
 import com.example.rxjava.home.ui.HomeViewModelFactory

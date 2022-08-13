@@ -11,7 +11,9 @@
 *.class
 
 # Security key
-local.properties
+security.properties
+AnimatorStore.jks
+
 # Generated files
 bin/
 gen/

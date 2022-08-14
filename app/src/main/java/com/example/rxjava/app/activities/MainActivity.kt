@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
                     channelName, NotificationManager.IMPORTANCE_LOW)
             )
         }
-
     }
 
 }

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "344068429726",
+    "project_id": "animator-b12a5",
+    "storage_bucket": "animator-b12a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344068429726:android:69049acfc1118b0664688f",
+        "android_client_info": {
+          "package_name": "com.example.rxjava"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344068429726-hgm9ug9k7ic4utfqobmvsoju135qq998.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rxjava",
+            "certificate_hash": "18983cc7609d79f41c2d450a6ba8273478369ecb"
+          }
+        },
+        {
+          "client_id": "344068429726-ui1kcp1cc09kmif6045f8damg798rach.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAzJp9A9ygW9fWR33MMLsJA4DfzDOzdWM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "344068429726-ui1kcp1cc09kmif6045f8damg798rach.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

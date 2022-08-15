@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
 
     <application
         android:name=".app.App"
@@ -16,7 +18,7 @@
         android:theme="@style/AnimatorMaterial3">
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/icon_notification" />
+            android:resource="@mipmap/ic_launcher" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
@@ -33,6 +35,10 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <service
+            android:name=".app.StatusForegroundService"
+            android:exported="false" />
 
         <activity
             android:name="com.example.rxjava.app.activities.SplashActivity"

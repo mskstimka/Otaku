@@ -14,4 +14,8 @@ object Constants {
         const val DEMONS_ID = 6
         const val SHOUJO_ID = 25
         const val HAREM_ID = 35
+
+        const val STATUS_FOREGROUND_ENGLISH_NAME_KEY = "ENGLISH NAME KEY"
+        const val STATUS_FOREGROUND_RUSSIAN_NAME_KEY = "RUSSIAN NAME KEY"
+        const val STATUS_FOREGROUND_KIND_KEY = "KIND KEY"
 }

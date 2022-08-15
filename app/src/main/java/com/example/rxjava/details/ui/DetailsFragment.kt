@@ -1,6 +1,7 @@
 package com.example.rxjava.details.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,10 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ScrollView
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat.getColor
+import androidx.core.content.ContextCompat.startForegroundService
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +22,7 @@ import com.example.a16_rxjava_domain.Constants
 import com.example.a16_rxjava_domain.models.details.*
 import com.example.rxjava.R
 import com.example.rxjava.app.App
+import com.example.rxjava.app.StatusForegroundService
 import com.example.rxjava.utils.BannerUtils
 import com.example.rxjava.databinding.FragmentDetailsBinding
 import com.example.rxjava.details.adapters.*
@@ -51,7 +54,6 @@ class DetailsFragment : Fragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -79,6 +81,17 @@ class DetailsFragment : Fragment() {
 
     }
 
+
+    override fun onStop() {
+        super.onStop()
+        requireActivity().applicationContext.stopService(
+            Intent(
+                requireActivity(),
+                StatusForegroundService::class.java
+            )
+        )
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -88,6 +101,7 @@ class DetailsFragment : Fragment() {
         binding.svScrollRoot.post {
             binding.svScrollRoot.fullScroll(ScrollView.FOCUS_UP)
         }
+
 
         with(binding) {
             showSkeleton(
@@ -120,6 +134,15 @@ class DetailsFragment : Fragment() {
     private fun subscribeToLiveData() = with(dViewModel) {
         pageAnimeDetailsAction.observe(this@DetailsFragment) { item ->
             bindViewsDetailsPage(item)
+
+            val statusIntent = Intent(requireActivity(), StatusForegroundService::class.java)
+
+            statusIntent
+                .putExtra(Constants.STATUS_FOREGROUND_ENGLISH_NAME_KEY, item.name)
+                .putExtra(Constants.STATUS_FOREGROUND_RUSSIAN_NAME_KEY, item.russian)
+                .putExtra(Constants.STATUS_FOREGROUND_KIND_KEY, item.kind)
+            startForegroundService(requireContext(), statusIntent)
+
         }
 
         pageAnimeScreenshotsAction.observe(this@DetailsFragment) { item ->

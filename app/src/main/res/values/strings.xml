@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">Animator</string>
     <string name="an_error_has_occurred">An error has occurred: %1$s</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="not_found">not found</string>
     <!-- Fragment Details strings -->
-    <string name="fragment_details_tvKind_text">OVA</string>
+    <string name="fragment_details_tvKind_text">KIND</string>
     <string name="fragment_details_ivImageBackground_contentDescription">Image Background</string>
     <string name="fragment_details_ivGradientImage_contentDescription">Gradient Image</string>
     <string name="fragment_details_tvScore_text">x.xx</string>
@@ -42,8 +43,10 @@
     <string name="item_home_genres_item_ivImageHomeGenre_contentDescription">Image Home Genre</string>
     <string name="ukraine_message">Glory to Ukraine!</string>
 
-    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="default_notification_channel_id" translatable="false">default_channel</string>
     <string name="default_notification_channel_name" translatable="true">News</string>
+    <string name="foreground_notification_channel_id" translatable="false">foreground_channel</string>
+    <string name="foreground_notification_channel_name" translatable="true">Foreground</string>
 
-
+    <string name="status_content_text">%1$s / %2$s</string>
 </resources>

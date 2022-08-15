@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/drawable/icon_notification.xml" value="0.1" />
+        <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/drawable/icon_setting_gray.xml" value="0.2935" />
+        <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/fragment_settings.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

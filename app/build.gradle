@@ -81,6 +81,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
 
     // navigation
     def nav_version = '2.4.0-alpha05'

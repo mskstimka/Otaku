@@ -35,36 +35,25 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             )
 
             if (/* Check if data needs to be processed by long running job */ true) {
-                // For long-running tasks (10 seconds or more) use WorkManager.
+
                 scheduleJob()
             } else {
-                // Handle message within 10 seconds
                 handleNow()
             }
         }
         sendNotification(messageBody = remoteMessage.notification.toString())
 
-        // Check if message contains a notification payload.
         remoteMessage.notification?.let {
             Log.d(TAG, "Message Notification Body: ${it.body}")
         }
 
     }
 
-    /**
-     * Called if the FCM registration token is updated. This may occur if the security of
-     * the previous token had been compromised. Note that this is called when the
-     * FCM registration token is initially generated so this is where you would retrieve the token.
-     */
     override fun onNewToken(token: String) {
         Log.d(TAG, "Refreshed token: $token")
         sendRegistrationToServer(token)
     }
-    // [END on_new_token]
 
-    /**
-     * Schedule async work using WorkManager.
-     */
     private fun scheduleJob() {
         // [START dispatch_job]
         val work = OneTimeWorkRequest.Builder(MyWorker::class.java).build()
@@ -72,21 +61,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // [END dispatch_job]
     }
 
-    /**
-     * Handle time allotted to BroadcastReceivers.
-     */
+
     private fun handleNow() {
         Log.d(TAG, "Short lived task is done.")
     }
 
-    /**
-     * Persist token to third-party servers.
-     *
-     * Modify this method to associate the user's FCM registration token with any server-side account
-     * maintained by your application.
-     *
-     * @param token The new token.
-     */
     private fun sendRegistrationToServer(token: String?) {
         // TODO: Implement this method to send token to your app server.
         Log.d(TAG, "sendRegistrationTokenToServer($token)")

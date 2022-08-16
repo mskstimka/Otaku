@@ -1,4 +1,4 @@
-package com.example.rxjava.app
+package com.example.rxjava.app.work
 
 import android.content.Context
 import android.util.Log
@@ -11,6 +11,7 @@ import com.example.a16_rxjava_domain.usecases.GetAnimePrevPosterFromGenreUseCase
 import com.example.rxjava.app.firebase.MyWorker
 import kotlinx.coroutines.*
 import javax.inject.Inject
+import javax.inject.Provider
 
 
 class LocalWorker(
@@ -38,5 +39,11 @@ class LocalWorker(
 
     }
 
-
+    class Factory @Inject constructor(
+        private val getAnimePrevPosterFromGenreUseCase: Provider<GetAnimePrevPosterFromGenreUseCase> // <-- Add your providers parameters
+    ) : IWorkerFactory<LocalWorker> {
+        override fun create(appContext: Context, params: WorkerParameters): LocalWorker {
+            return LocalWorker(appContext, params, getAnimePrevPosterFromGenreUseCase.get())
+        }
+    }
 }

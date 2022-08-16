@@ -5,7 +5,10 @@ import androidx.work.*
 import com.example.a16_rxjava_data.di.DataModule
 import com.example.rxjava.R
 import com.example.rxjava.app.di.AppComponent
-import com.example.rxjava.app.di.DaggerAppComponent
+import com.example.rxjava.app.work.LocalWorker
+import com.example.rxjava.app.work.WorkerInjectorFactory
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 import koleton.SkeletonLoader
 import koleton.SkeletonLoaderFactory
 import java.util.concurrent.TimeUnit
@@ -16,26 +19,25 @@ class App : Application(), SkeletonLoaderFactory {
     lateinit var appComponent: AppComponent
 
     @Inject
-    lateinit var workerFactory: LocalWorkerFactory
+    lateinit var workerInjectorFactory: WorkerInjectorFactory
 
     override fun onCreate() {
         super.onCreate()
 
         appComponent = DaggerAppComponent
             .builder()
-            .dataModule(DataModule(context = this))
+            .application(this)
             .build()
+            .inject(this)
 
         initWorkManager()
 
     }
 
-
-
     private fun initWorkManager() {
         WorkManager.initialize(
             this,
-            Configuration.Builder().setWorkerFactory(workerFactory).build()
+            Configuration.Builder().setWorkerFactory(workerInjectorFactory).build()
         )
         val networkConstraints =
             Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()

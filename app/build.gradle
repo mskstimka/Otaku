@@ -110,6 +110,11 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.43.1'
     implementation 'javax.inject:javax.inject:1'
 
+
+    implementation 'com.google.dagger:dagger-android:2.43.1'
+    implementation'com.google.dagger:dagger-android-support:2.43.1'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.19'
+
     // In your module's `build.gradle.kts`
     implementation 'com.ericktijerou.koleton:koleton:0.7.8'
 

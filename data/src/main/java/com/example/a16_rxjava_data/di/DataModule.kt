@@ -1,7 +1,7 @@
 package com.example.a16_rxjava_data.di
 
+import android.app.Application
 import android.content.Context
-import androidx.annotation.Keep
 import com.example.a16_rxjava_data.database.dao.ShikimoriDAO
 import com.example.a16_rxjava_data.database.dao.ShikimoriDataBase
 import com.example.a16_rxjava_data.network.api.ShikimoriAPI
@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 @Module
-class DataModule(private val context: Context) {
+class DataModule {
 
 
     @Provides
@@ -46,14 +46,15 @@ class DataModule(private val context: Context) {
             .build()
     }
 
-    @Provides
-    fun provideContext(): Context {
-        return context
-    }
 
     @Provides
     fun provideAnimeDataSource(retrofit: Retrofit, shikimoriDAO: ShikimoriDAO): AnimeDataSource {
         return AnimeDataSourceImpl(retrofit.create(ShikimoriAPI::class.java), shikimoriDAO)
+    }
+
+    @Provides
+    fun provideContext(application: Application): Context? {
+        return application.applicationContext
     }
 
     @Provides

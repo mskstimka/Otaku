@@ -25,11 +25,10 @@ class App : Application(), SkeletonLoaderFactory {
             .builder()
             .dataModule(DataModule(context = this))
             .build()
-
+        appComponent.inject(this)
         initWorkManager()
 
     }
-
 
 
     private fun initWorkManager() {

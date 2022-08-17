@@ -5,13 +5,11 @@ import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import com.example.a16_rxjava_domain.usecases.GetAnimePrevPosterFromGenreUseCase
-import dagger.Provides
 import javax.inject.Inject
 import javax.inject.Provider
-import javax.inject.Singleton
 
 class LocalWorkerFactory @Inject constructor(
-    private val workerFactories: Map<Class<out ListenableWorker>, Provider<ChildWorkerFactory>>
+    private val workerFactories: Map<Class<out ListenableWorker>, @JvmSuppressWildcards Provider<ChildWorkerFactory>>
 ) : WorkerFactory() {
     override fun createWorker(
         appContext: Context,
@@ -28,13 +26,13 @@ class LocalWorkerFactory @Inject constructor(
 
 
 class LocalWorkManagerFactory @Inject constructor(
-    private val getAnimePrevPosterFromGenreUseCase: GetAnimePrevPosterFromGenreUseCase
+    private val getAnimePrevPosterFromGenreUseCase: Provider<GetAnimePrevPosterFromGenreUseCase>
 ) : ChildWorkerFactory {
     override fun create(appContext: Context, params: WorkerParameters): ListenableWorker {
         return LocalWorker(
             appContext,
             params,
-            getAnimePrevPosterFromGenreUseCase,
+            getAnimePrevPosterFromGenreUseCase.get(),
         )
     }
 }

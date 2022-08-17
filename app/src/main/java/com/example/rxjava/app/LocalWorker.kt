@@ -2,15 +2,11 @@ package com.example.rxjava.app
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.work.*
 import androidx.work.CoroutineWorker
 import com.example.a16_rxjava_domain.Constants
-import com.example.a16_rxjava_domain.usecases.GetAnimePostersFromSearchUseCase
 import com.example.a16_rxjava_domain.usecases.GetAnimePrevPosterFromGenreUseCase
-import com.example.rxjava.app.firebase.MyWorker
 import kotlinx.coroutines.*
-import javax.inject.Inject
 
 
 class LocalWorker(
@@ -19,9 +15,7 @@ class LocalWorker(
     private var getAnimePrevPosterFromGenreUseCase: GetAnimePrevPosterFromGenreUseCase
 ) : CoroutineWorker(appContext, workerParams) {
 
-
     override suspend fun doWork(): Result {
-
         getAnimePrevPosterFromGenreUseCase.execute(Constants.ROMANTIC_ID)
         delay(100)
         getAnimePrevPosterFromGenreUseCase.execute(Constants.SHOUNEN_ID)
@@ -35,8 +29,5 @@ class LocalWorker(
         getAnimePrevPosterFromGenreUseCase.execute(Constants.HAREM_ID)
         Log.d("LocalWorker", "Local data completed")
         return Result.success()
-
     }
-
-
 }

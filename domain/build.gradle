@@ -21,4 +21,7 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.2.0'
     testImplementation 'junit:junit:4.+'
 
+    /*Dagger*/
+    implementation "com.google.dagger:dagger:2.43.1"
+
 }

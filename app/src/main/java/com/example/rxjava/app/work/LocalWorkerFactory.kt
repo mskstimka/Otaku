@@ -1,10 +1,11 @@
-package com.example.rxjava.app
+package com.example.rxjava.app.work
 
 import android.content.Context
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import com.example.a16_rxjava_domain.usecases.GetAnimePrevPosterFromGenreUseCase
+import com.example.rxjava.app.LocalWorker
 import javax.inject.Inject
 import javax.inject.Provider
 

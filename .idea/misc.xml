@@ -5,7 +5,10 @@
       <map>
         <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/drawable/icon_notification.xml" value="0.1" />
         <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/drawable/icon_setting_gray.xml" value="0.2935" />
+        <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/activity_main.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/fragment_home.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/fragment_settings.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/item_home_poster.xml" value="0.18802083333333333" />
       </map>
     </option>
   </component>

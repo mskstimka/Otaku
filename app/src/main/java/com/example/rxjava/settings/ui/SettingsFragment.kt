@@ -35,9 +35,9 @@ class SettingsFragment : Fragment() {
         val editor = sharedPreferences.edit()
         val isShowNotification = sharedPreferences.getBoolean(Constants.IS_SHOW_NOTIFICATION, true)
 
-        binding.sNotification.isChecked = isShowNotification
+        binding.sFragmentSettingsNotificationPush.isChecked = isShowNotification
 
-        binding.sNotification.setOnCheckedChangeListener { _, b ->
+        binding.sFragmentSettingsNotificationPush.setOnCheckedChangeListener { _, b ->
             when (b){
                 true -> {
                     editor.putBoolean(Constants.IS_SHOW_NOTIFICATION, true).apply()

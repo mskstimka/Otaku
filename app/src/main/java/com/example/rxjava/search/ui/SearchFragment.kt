@@ -55,26 +55,22 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
         super.onCreateView(inflater, container, savedInstanceState)
         _binding = FragmentSearchBinding.inflate(layoutInflater)
 
-
-        val isTablet = resources.getBoolean(R.bool.isTablet)
-        if (isTablet) {
-
-        }
-        binding.svSearch.setOnClickListener {
-            binding.svSearch.onActionViewExpanded()
+        binding.svFragmentSearchSearch.setOnClickListener {
+            binding.svFragmentSearchSearch.onActionViewExpanded()
         }
 
-        binding.svSearch.setOnCloseListener {
-            binding.svSearch.onActionViewExpanded()
+        binding.svFragmentSearchSearch.setOnCloseListener {
+            binding.svFragmentSearchSearch.onActionViewExpanded()
             false
         }
 
-
         if (savedInstanceState != null) {
-            binding.gifImageView.alpha = savedInstanceState.getFloat(GIF_KEY)
-            binding.tvTitle.alpha = savedInstanceState.getFloat(TITLE_KEY)
-            binding.tvTitleDescription.alpha = savedInstanceState.getFloat(DESCRIPTION_KEY)
+            binding.gifFragmentSearchLogo.alpha = savedInstanceState.getFloat(GIF_KEY)
+            binding.tvFragmentSearchTitle.alpha = savedInstanceState.getFloat(TITLE_KEY)
+            binding.tvFragmentSearchTitleDescription.alpha =
+                savedInstanceState.getFloat(DESCRIPTION_KEY)
         }
+
         return binding.root
     }
 
@@ -104,20 +100,26 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
 
     @SuppressLint("CheckResult")
     private fun onSearch() {
-        RxSearchObservable.fromView(binding.svSearch)
+        RxSearchObservable.fromView(binding.svFragmentSearchSearch)
             .subscribe {
                 presenter.getAnimePostersFromSearch(it)
                 if (it == "") {
                     with(binding) {
                         AnimatorUtils.toStartView(
-                            requireContext(), gifImageView, tvTitle, tvTitleDescription
+                            requireContext(),
+                            gifFragmentSearchLogo,
+                            tvFragmentSearchTitle,
+                            tvFragmentSearchTitleDescription
                         )
                     }
                     clearFragmentStack()
                 } else {
                     with(binding) {
                         AnimatorUtils.toCloseView(
-                            requireContext(), gifImageView, tvTitle, tvTitleDescription
+                            requireContext(),
+                            gifFragmentSearchLogo,
+                            tvFragmentSearchTitle,
+                            tvFragmentSearchTitleDescription
                         )
                     }
                 }
@@ -135,16 +137,16 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         if (_binding != null) {
-            outState.putFloat(GIF_KEY, binding.gifImageView.alpha)
-            outState.putFloat(TITLE_KEY, binding.tvTitle.alpha)
-            outState.putFloat(DESCRIPTION_KEY, binding.tvTitleDescription.alpha)
+            outState.putFloat(GIF_KEY, binding.gifFragmentSearchLogo.alpha)
+            outState.putFloat(TITLE_KEY, binding.tvFragmentSearchTitle.alpha)
+            outState.putFloat(DESCRIPTION_KEY, binding.tvFragmentSearchTitleDescription.alpha)
         }
     }
 
 
     private fun setAdapter() = with(binding) {
-        rvList.adapter = this@SearchFragment.adapter
-        rvList.layoutManager = LinearLayoutManager(context)
+        rvFragmentSearchList.adapter = this@SearchFragment.adapter
+        rvFragmentSearchList.layoutManager = LinearLayoutManager(context)
     }
 
 

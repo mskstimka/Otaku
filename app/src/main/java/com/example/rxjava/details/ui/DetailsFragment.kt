@@ -130,7 +130,7 @@ class DetailsFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    @SuppressLint("ResourceType")
+    @SuppressLint("ResourceType", "FragmentLiveDataObserve")
     private fun subscribeToLiveData() = with(dViewModel) {
         pageAnimeDetailsAction.observe(this@DetailsFragment) { item ->
             bindViewsDetailsPage(item)
@@ -166,6 +166,7 @@ class DetailsFragment : Fragment() {
         }
     }
 
+    @SuppressLint("UseRequireInsteadOfGet")
     private fun bindViewsDetailsPage(item: AnimeDetailsEntity) {
         with(binding) {
 

@@ -3,89 +3,106 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cvRoot"
+    android:id="@+id/cvSearchPosterRoot"
     android:layout_width="match_parent"
-    android:layout_height="170dp"
-    android:layout_margin="5dp"
+    android:layout_height="@dimen/item_search_poster_cvSearchPosterRoot_layout_height"
+    android:layout_margin="@dimen/item_search_poster_cvSearchPosterRoot_layout_margin"
     app:cardBackgroundColor="?android:windowBackground"
-    android:paddingTop="20dp"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="4dp">
-
-
+    app:cardCornerRadius="@dimen/item_search_poster_cvSearchPosterRoot_cardCornerRadius">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tvName"
-            style="@style/text_style_bold"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glSearchPosterStart"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="@font/google_sans_medium"
-            android:text="Juneja Art Galleryd"
-            app:layout_constraintBottom_toBottomOf="@+id/cvRootImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cvRootImage"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/item_search_poster_glSearchPosterStart_layout_constraintGuide_begin" />
 
-        <TextView
-            android:id="@+id/tvStatus"
-            style="@style/text_style_light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="released"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvEpisodes"
-            style="@style/text_style_light"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glSearchPosterEnd"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-            android:text="Episodes: 12/12"
-            app:layout_constraintEnd_toEndOf="@+id/tvName"
-            app:layout_constraintStart_toEndOf="@+id/cvRootImage"
-            app:layout_constraintTop_toBottomOf="@+id/tvName" />
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/item_search_poster_glSearchPosterEnd_layout_constraintGuide_end" />
 
-        <TextView
-            android:id="@+id/tvScore"
-            style="@style/text_style_bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:drawableLeft="@drawable/icon_star"
-            android:text="1/5"
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivSearchPosterImage"
+            android:layout_width="@dimen/item_search_poster_ivSearchPosterImage_layout_width"
+            android:layout_height="@dimen/item_search_poster_ivSearchPosterImage_layout_height"
+            android:layout_margin="@dimen/item_search_poster_ivSearchPosterImage_layout_margin"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvRootImage"
-            android:layout_width="100dp"
-            android:layout_height="150dp"
-            android:layout_margin="10dp"
-            app:cardCornerRadius="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/glSearchPosterStart"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/roundedImageView"
+            tools:src="@drawable/icon_default" />
 
-            <ImageView
-                android:id="@+id/ivImageFranchisesItem"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toTopOf="@+id/tvName"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="0dp" />
-        </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/tvSearchPosterName"
+            style="@style/text_style_bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_search_poster_tvSearchPosterName_layout_marginTop"
+            android:textColor="@color/title_color"
+            app:layout_constraintEnd_toStartOf="@+id/glSearchPosterEnd"
+            app:layout_constraintStart_toStartOf="@+id/glSearchPosterStart"
+            app:layout_constraintTop_toTopOf="@+id/ivSearchPosterImage"
+            tools:text="Name" />
+
+        <TextView
+            android:id="@+id/tvSearchPosterStatus"
+            style="@style/text_style_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/item_search_poster_tvSearchPosterStatus_layout_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="released" />
+
+
+        <TextView
+            android:id="@+id/tvSearchPosterEpisodes"
+            style="@style/item_description_text_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_search_poster_tvSearchPosterEpisodes_layout_marginTop"
+            android:gravity="start"
+            android:maxLines="1"
+            android:textSize="@dimen/item_search_poster_tvSearchPosterEpisodes_textSize"
+            app:layout_constraintEnd_toStartOf="@+id/glSearchPosterEnd"
+            app:layout_constraintStart_toStartOf="@+id/glSearchPosterStart"
+            app:layout_constraintTop_toBottomOf="@+id/tvSearchPosterRussianName"
+            tools:text="Episodes: 12/12" />
+
+        <TextView
+            android:id="@+id/tvSearchPosterRussianName"
+            style="@style/text_style_light"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/item_search_poster_tvSearchPosterRussianName_textSize"
+            app:layout_constraintEnd_toStartOf="@+id/glSearchPosterEnd"
+            app:layout_constraintStart_toStartOf="@+id/glSearchPosterStart"
+            app:layout_constraintTop_toBottomOf="@+id/tvSearchPosterName"
+            tools:text="НАЗВАНИЕ" />
+
+        <TextView
+            android:id="@+id/tvSearchPosterScore"
+            style="@style/text_style_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/item_search_poster_tvSearchPosterScore_layout_margin"
+            android:gravity="center"
+            app:drawableStartCompat="@drawable/icon_star"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="1/5" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

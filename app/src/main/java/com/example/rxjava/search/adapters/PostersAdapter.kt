@@ -13,7 +13,7 @@ import com.example.rxjava.R
 import com.example.rxjava.databinding.ItemSearchPostersBinding
 import com.squareup.picasso.Picasso
 
-class PostersAdapter(private val callbackClick:(posterId:Int) -> Unit) :
+class PostersAdapter(private val callbackClick: (posterId: Int) -> Unit) :
     ListAdapter<AnimePosterEntity, PostersAdapter.TitleViewHolder>(PosterDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TitleViewHolder {
@@ -34,29 +34,30 @@ class PostersAdapter(private val callbackClick:(posterId:Int) -> Unit) :
 
         @SuppressLint("SetTextI18n", "ResourceAsColor")
         fun bind(model: AnimePosterEntity) = with(binding) {
-            tvName.text = model.name
-            tvScore.text = model.score
+            tvSearchPosterName.text = model.name
+            tvSearchPosterScore.text = model.score
 
-            tvEpisodes.text = if (model.episodes.toString() != "0") {
+            tvSearchPosterEpisodes.text = if (model.episodes.toString() != "0") {
                 "Episodes: ${model.episodes}"
             } else {
                 "Episodes: ${model.episodesAired}"
             }
-            tvStatus.text = model.status
-            when (tvStatus.text) {
-                Constants.ONGOING_STATUS -> tvStatus.setTextColor(
+            tvSearchPosterRussianName.text = model.russian
+            tvSearchPosterStatus.text = model.status
+            when (tvSearchPosterStatus.text) {
+                Constants.ONGOING_STATUS -> tvSearchPosterStatus.setTextColor(
                     ContextCompat.getColor(
                         root.context,
                         R.color.blue_status
                     )
                 )
-                Constants.ANONS_STATUS -> tvStatus.setTextColor(
+                Constants.ANONS_STATUS -> tvSearchPosterStatus.setTextColor(
                     ContextCompat.getColor(
                         root.context,
                         R.color.red_status
                     )
                 )
-                Constants.RELEASED_STATUS -> tvStatus.setTextColor(
+                Constants.RELEASED_STATUS -> tvSearchPosterStatus.setTextColor(
                     ContextCompat.getColor(
                         root.context,
                         R.color.green_status
@@ -64,7 +65,7 @@ class PostersAdapter(private val callbackClick:(posterId:Int) -> Unit) :
                 )
             }
             Picasso.get().load(Constants.SHIKIMORI_URL + model.image.original)
-                .error(R.drawable.icon_default).into(ivImageFranchisesItem)
+                .error(R.drawable.icon_default).into(ivSearchPosterImage)
 
             itemView.setOnClickListener {
                 callbackClick.invoke(model.id)

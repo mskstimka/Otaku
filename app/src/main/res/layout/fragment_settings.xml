@@ -1,34 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".settings.ui.SettingsFragment">
 
-    <TextView
-        android:id="@+id/tvSettingsTitle"
-        style="@style/text_style_russian_title"
-        android:textColor="@color/title_color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:text="Settings"
-        android:textSize="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Switch
-        android:id="@+id/sNotification"
-        style="@style/text_style_title_items"
-        android:layout_width="0dp"
-        android:layout_marginTop="70dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:text="Notification"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSettingsTitle" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glFragmentSearchLineStart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/fragment_settings_glFragmentSearchLineStart_layout_constraintGuide_begin" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glFragmentSearchLineEnd"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/fragment_settings_glFragmentSearchLineEnd_layout_constraintGuide_end" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glFragmentSearchLineTopTitle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="@dimen/fragment_settings_glFragmentSearchLineTopTitle_layout_constraintGuide_begin" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glFragmentSearchLineTopItems"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="@dimen/fragment_settings_glFragmentSearchLineTopItems_layout_constraintGuide_begin" />
+
+        <TextView
+            android:id="@+id/tvFragmentSettingsTitle"
+            style="@style/text_style_russian_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_settings_tvFragmentSettingsTitle_text"
+            android:textColor="@color/title_color"
+            android:textSize="@dimen/fragment_settings_tvFragmentSettingsTitle_textSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/glFragmentSearchLineTopTitle" />
+
+        <Switch
+            android:id="@+id/sFragmentSettingsNotificationPush"
+            style="@style/text_style_title_items"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_settings_sFragmentSettingsNotificationPush_text"
+            app:layout_constraintEnd_toStartOf="@+id/glFragmentSearchLineEnd"
+            app:layout_constraintStart_toStartOf="@+id/glFragmentSearchLineStart"
+            app:layout_constraintTop_toTopOf="@+id/glFragmentSearchLineTopItems"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

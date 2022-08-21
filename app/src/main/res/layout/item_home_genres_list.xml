@@ -10,11 +10,12 @@
         style="@style/text_style_title_items"
         android:layout_width="@dimen/item_home_genres_list_tvGenreTitle_layout_width"
         android:layout_marginTop="@dimen/item_home_genres_list_tvGenreTitle_layout_marginTop"
-        android:drawableStart="@drawable/icon_dots"
         android:gravity="center_vertical"
+        android:layout_marginHorizontal="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:drawableStartCompat="@drawable/icon_dots" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvGenreList"

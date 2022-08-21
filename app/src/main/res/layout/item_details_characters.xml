@@ -2,31 +2,30 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/item_details_characters_root_layout_width"
     android:layout_height="@dimen/item_details_characters_root_layout_height">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvImageCharactersItem"
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivImageCharactersItem"
         style="@style/item_card_style"
         android:layout_width="@dimen/item_details_characters_cvImageCharactersItem_layout_width"
         android:layout_height="@dimen/item_details_characters_cvImageCharactersItem_layout_height"
+        android:contentDescription="@string/item_details_characters_ivImageCharactersItem_contentDescription"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/roundedImageView"
+        tools:src="@drawable/icon_default" />
 
-        <ImageView
-            android:id="@+id/ivImageCharactersItem"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/item_details_characters_ivImageCharactersItem_contentDescription"
-            android:scaleType="centerCrop" />
-
-    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/tvTitleCharactersItem"
         style="@style/item_title_text_style"
-        app:layout_constraintEnd_toEndOf="@+id/cvImageCharactersItem"
-        app:layout_constraintStart_toStartOf="@+id/cvImageCharactersItem"
-        app:layout_constraintTop_toBottomOf="@+id/cvImageCharactersItem" />
+        app:layout_constraintEnd_toEndOf="@+id/ivImageCharactersItem"
+        app:layout_constraintStart_toStartOf="@+id/ivImageCharactersItem"
+        app:layout_constraintTop_toBottomOf="@+id/ivImageCharactersItem"
+        tools:text="Character" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

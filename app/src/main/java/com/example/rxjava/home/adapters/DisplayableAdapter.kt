@@ -66,7 +66,7 @@ class DisplayableAdapter(private val context: Context) :
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(model: HomePosterEntity) = with(binding) {
-            ivImagePoster.setOnClickListener {
+            ivItemHomePosterImage.setOnClickListener {
                 BannerUtils.showToast(
                     context.getString(R.string.ukraine_message),
                     binding.root.context

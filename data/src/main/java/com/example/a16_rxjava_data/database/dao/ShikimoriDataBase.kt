@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.a16_rxjava_data.database.models.AnimePosterConverters
 import com.example.a16_rxjava_data.database.models.LocalAnimePosterEntity
+import com.example.a16_rxjava_domain.DATABASE_SHIKIMORI
 import javax.inject.Singleton
 
 
@@ -26,7 +27,7 @@ abstract class ShikimoriDataBase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     ShikimoriDataBase::class.java,
-                    "shikimori_database"
+                    DATABASE_SHIKIMORI
                 ).build()
                 INSTANCE = instance
                 instance

@@ -91,6 +91,7 @@
     </dimen>
     <dimen name="fragment_settings_tvFragmentSettingsTitle_textSize">40sp</dimen>
     <dimen name="activity_main_navBottom_layout_height">60dp</dimen>
+    <dimen name="fragment_search_vFragmentSearchLine_layout_marginTop">4dp</dimen>
 
     <bool name="isLightTheme">true</bool>
     <bool name="isTablet">false</bool>

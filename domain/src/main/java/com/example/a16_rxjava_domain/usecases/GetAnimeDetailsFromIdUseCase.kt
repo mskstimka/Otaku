@@ -4,6 +4,6 @@ import com.example.a16_rxjava_domain.repository.AnimeRepository
 
 class GetAnimeDetailsFromIdUseCase(private val repository: AnimeRepository) {
 
-    suspend fun execute(id: Int) = repository.getAnimeDetailsFromId(id)
+    suspend fun execute(id: Int) = repository.getAnimeDetailsFromId(id = id)
 
 }

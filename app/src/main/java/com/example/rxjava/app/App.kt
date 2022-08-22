@@ -6,6 +6,8 @@ import com.example.a16_rxjava_data.di.DataModule
 import com.example.rxjava.R
 import com.example.rxjava.app.di.AppComponent
 import com.example.rxjava.app.di.DaggerAppComponent
+import com.example.rxjava.app.local.LocalWorker
+import com.example.rxjava.app.local.LocalWorkerFactory
 import koleton.SkeletonLoader
 import koleton.SkeletonLoaderFactory
 import java.util.concurrent.TimeUnit
@@ -25,7 +27,7 @@ class App : Application(), SkeletonLoaderFactory {
             .builder()
             .dataModule(DataModule(context = this))
             .build()
-        appComponent.inject(this)
+        appComponent.inject(app = this)
         initWorkManager()
 
     }
@@ -39,7 +41,7 @@ class App : Application(), SkeletonLoaderFactory {
         val networkConstraints =
             Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
         val periodicWorkRequest = PeriodicWorkRequest.Builder(
-            LocalWorker::class.java, 15, TimeUnit.MINUTES
+            LocalWorker::class.java, 2, TimeUnit.DAYS
         )
             .addTag(TAG_WORK_MANAGER).setConstraints(networkConstraints).build()
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
@@ -52,7 +54,7 @@ class App : Application(), SkeletonLoaderFactory {
     override fun newSkeletonLoader(): SkeletonLoader {
         return SkeletonLoader.Builder(this)
             .color(R.color.skeleton_color)
-            .cornerRadius(15F)
+            .cornerRadius(radius = 15F)
             .build()
     }
 

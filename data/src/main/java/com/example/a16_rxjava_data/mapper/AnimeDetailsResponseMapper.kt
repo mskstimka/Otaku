@@ -1,7 +1,7 @@
 package com.example.a16_rxjava_data.mapper
 
 import com.example.a16_rxjava_data.network.models.*
-import com.example.a16_rxjava_domain.Constants
+import com.example.a16_rxjava_domain.*
 import com.example.a16_rxjava_domain.models.details.AnimeDetailsEntity
 import com.example.a16_rxjava_domain.models.details.Genre
 import com.example.a16_rxjava_domain.models.details.Studio
@@ -14,33 +14,59 @@ import java.util.*
 object AnimeDetailsResponseMapper {
 
 
-    private const val message = Constants.NOT_FOUND_TEXT
-    private val defaultVideo = Video(message, 0, "http", message, message, message, message)
-    private val defaultStudio = Studio(message, 404, message, message, false)
-    private val defaultGenre = Genre(404, message, message, message)
-    private val defaultScreenshot = AnimeDetailsScreenshotsEntity(message, message)
+    private val defaultVideo = Video(
+        hosting = NOT_FOUND_TEXT, id = 0, image_url = "http", kind = NOT_FOUND_TEXT,
+        name = NOT_FOUND_TEXT, player_url = NOT_FOUND_TEXT, url = NOT_FOUND_TEXT
+    )
+    private val defaultStudio = Studio(
+        filtered_name = NOT_FOUND_TEXT,
+        id = 404,
+        image = NOT_FOUND_TEXT,
+        name = NOT_FOUND_TEXT,
+        real = false
+    )
+    private val defaultGenre = Genre(
+        id = 404,
+        kind = NOT_FOUND_TEXT,
+        name = NOT_FOUND_TEXT,
+        russian = NOT_FOUND_TEXT
+    )
+    private val defaultScreenshot = AnimeDetailsScreenshotsEntity(
+        original = NOT_FOUND_TEXT,
+        preview = NOT_FOUND_TEXT
+    )
     private val defaultFranchise =
-        AnimeDetailsFranchisesEntity(404, 0, "x96", message, message, message, 404, 404)
+        AnimeDetailsFranchisesEntity(
+            date = 404, id = 0, image_url = "x96", kind = NOT_FOUND_TEXT, name = NOT_FOUND_TEXT,
+            url = NOT_FOUND_TEXT, weight = 404, year = 404
+        )
 
 
     fun toAnimeDetailsEntity(item: AnimeDetailsEntityResponse) = AnimeDetailsEntity(
-        item.aired_on,
-        item.description,
-        item.description_html,
-        item.episodes,
-        item.episodes_aired,
-        checkGenresAdapter(item.genres),
-        item.id,
-        item.image,
-        item.kind,
-        item.name,
-        item.russian,
-        item.score,
-        item.screenshots,
-        item.status,
-        checkStudioList(item.studios),
-        checkVideoList(item.videos)
+        aired_on = item.aired_on,
+        description = item.description,
+        description_html = item.description_html,
+        episodes = item.episodes,
+        episodes_aired = item.episodes_aired,
+        genres = checkGenresAdapter(item.genres),
+        id = item.id,
+        image = item.image,
+        kind = item.kind,
+        name = item.name,
+        russian = item.russian,
+        score = item.score,
+        screenshots = item.screenshots,
+        status = item.status,
+        statusColor = checkStatusColor(item.status),
+        studios = checkStudioList(item.studios),
+        videos = checkVideoList(item.videos)
     )
+
+    private fun checkStatusColor(status: String?): String = when (status) {
+        ONGOING_STATUS -> BLUE_STATUS_COLOR
+        ANONS_STATUS -> RED_STATUS_COLOR
+        else -> GREEN_STATUS_COLOR
+    }
 
 
     fun toAnimeScreenshotsEntity(list: List<AnimeDetailsScreenshotsEntityResponse>): List<AnimeDetailsScreenshotsEntity> {
@@ -54,8 +80,8 @@ object AnimeDetailsResponseMapper {
             else -> list.forEach {
                 screenshots.add(
                     AnimeDetailsScreenshotsEntity(
-                        it.original,
-                        it.preview
+                        original = it.original,
+                        preview = it.preview
                     )
                 )
             }
@@ -72,14 +98,14 @@ object AnimeDetailsResponseMapper {
             else -> item.nodes.forEach {
                 list.add(
                     AnimeDetailsFranchisesEntity(
-                        it.date,
-                        it.id,
-                        it.image_url,
-                        it.kind,
-                        it.name,
-                        it.image_url,
-                        it.weight,
-                        it.year
+                        date = it.date,
+                        id = it.id,
+                        image_url = it.image_url,
+                        kind = it.kind,
+                        name = it.name,
+                        url = it.image_url,
+                        weight = it.weight,
+                        year = it.year
                     )
                 )
             }
@@ -90,11 +116,11 @@ object AnimeDetailsResponseMapper {
 
 
     fun toAnimeRolesEntity(item: AnimeDetailsRolesEntityResponse) = AnimeDetailsRolesEntity(
-        item.character,
-        item.person,
-        item.roles,
-        item.roles_russian,
-        UUID.randomUUID().toString()
+        character = item.character,
+        person = item.person,
+        roles = item.roles,
+        roles_russian = item.roles_russian,
+        id = UUID.randomUUID().toString()
     )
 
     private fun checkVideoList(list: List<Video>): List<Video> {

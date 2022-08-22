@@ -73,6 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/fragment_search_vFragmentSearchLine_layout_height"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/fragment_search_vFragmentSearchLine_layout_marginTop"
         android:alpha="0.6"
         android:background="?android:windowBackground"
         app:layout_constraintBottom_toTopOf="@id/rvFragmentSearchList"

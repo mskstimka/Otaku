@@ -90,7 +90,7 @@ class AnimeDataSourceImpl(
         val isLocalNull: Boolean = shikimoriDAO.getPosterFromIdGenre(id = genreId) == null
 
         return try {
-            val response = shikimoriAPI.getAnimePrevPostersFromGenre(genreId)
+            val response = shikimoriAPI.getAnimePrevPostersFromGenre(genreId = genreId)
 
             when (response.isSuccessful) {
                 true -> {
@@ -108,7 +108,7 @@ class AnimeDataSourceImpl(
                     if (isLocalNull) {
                         Results.Error(exception = Exception(response.message()))
                     } else {
-                        Results.Success(data = shikimoriDAO.getPosterFromIdGenre(genreId)!!.list)
+                        Results.Success(data = shikimoriDAO.getPosterFromIdGenre(id = genreId)!!.list)
                     }
                 }
             }
@@ -117,7 +117,7 @@ class AnimeDataSourceImpl(
             if (isLocalNull) {
                 Results.Error(exception = e)
             } else {
-                Results.Success(data = shikimoriDAO.getPosterFromIdGenre(genreId)!!.list)
+                Results.Success(data = shikimoriDAO.getPosterFromIdGenre(id = genreId)!!.list)
             }
         }
     }

@@ -6,14 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatActivity
-import com.example.a16_rxjava_domain.Constants
-import com.example.rxjava.R
-import com.example.rxjava.databinding.ActivityMainBinding
-import com.example.rxjava.databinding.FragmentDetailsBinding
+import com.example.a16_rxjava_domain.IS_SHOW_NOTIFICATION
+import com.example.a16_rxjava_domain.SHARED_PREF_SETTINGS
 import com.example.rxjava.databinding.FragmentSettingsBinding
-import com.example.rxjava.utils.BannerUtils
 
 
 class SettingsFragment : Fragment() {
@@ -25,33 +21,29 @@ class SettingsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSettingsBinding.inflate(layoutInflater)
 
         val sharedPreferences = requireActivity().getSharedPreferences(
-            Constants.SHARED_PREF_SETTINGS,
+            SHARED_PREF_SETTINGS,
             AppCompatActivity.MODE_PRIVATE
         )
         val editor = sharedPreferences.edit()
-        val isShowNotification = sharedPreferences.getBoolean(Constants.IS_SHOW_NOTIFICATION, true)
+        val isShowNotification = sharedPreferences.getBoolean(IS_SHOW_NOTIFICATION, true)
 
         binding.sFragmentSettingsNotificationPush.isChecked = isShowNotification
 
         binding.sFragmentSettingsNotificationPush.setOnCheckedChangeListener { _, b ->
-            when (b){
+            when (b) {
                 true -> {
-                    editor.putBoolean(Constants.IS_SHOW_NOTIFICATION, true).apply()
+                    editor.putBoolean(IS_SHOW_NOTIFICATION, true).apply()
                 }
                 else -> {
-                    editor.putBoolean(Constants.IS_SHOW_NOTIFICATION, false).apply()
+                    editor.putBoolean(IS_SHOW_NOTIFICATION, false).apply()
                 }
             }
         }
 
-
-
         return binding.root
     }
-
-
 }

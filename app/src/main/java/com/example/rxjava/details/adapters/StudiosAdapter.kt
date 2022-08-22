@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.a16_rxjava_domain.Constants
+import com.example.a16_rxjava_domain.SHIKIMORI_URL
 import com.example.a16_rxjava_domain.models.details.Studio
-import com.example.rxjava.R
 import com.example.rxjava.databinding.ItemDetailsStudiosBinding
-import com.squareup.picasso.Picasso
+import com.example.rxjava.utils.setImageByURL
+import com.example.rxjava.utils.setImageStudioByURL
 
 class StudiosAdapter :
     ListAdapter<Studio, StudiosAdapter.StudiosViewHolder>(
@@ -36,8 +36,7 @@ class StudiosAdapter :
         @SuppressLint("SetTextI18n")
         fun bind(model: Studio) = with(binding) {
 
-            Picasso.get().load(Constants.SHIKIMORI_URL + model.image)
-                .error(R.drawable.icon_studio_default).into(ivImageStudioItem)
+            ivImageStudioItem.setImageStudioByURL(SHIKIMORI_URL + model.image)
 
         }
     }

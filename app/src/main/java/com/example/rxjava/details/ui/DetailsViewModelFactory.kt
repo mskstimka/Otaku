@@ -17,10 +17,10 @@ class DetailsViewModelFactory(
     @RequiresApi(Build.VERSION_CODES.O)
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return DetailsViewModel(
-            getAnimeDetailsFromIdUseCase,
-            getAnimeScreenshotsFromIdUseCase,
-            getAnimeFranchisesFromIdUseCase,
-            getAnimeRolesFromIdUseCase
+            getAnimeDetailsFromIdUseCase = getAnimeDetailsFromIdUseCase,
+            getAnimeScreenshotsFromIdUseCase = getAnimeScreenshotsFromIdUseCase,
+            getAnimeFranchisesFromIdUseCase = getAnimeFranchisesFromIdUseCase,
+            getAnimeRolesFromIdUseCase = getAnimeRolesFromIdUseCase
         ) as T
     }
 }

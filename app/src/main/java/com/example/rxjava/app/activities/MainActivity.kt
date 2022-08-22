@@ -21,8 +21,6 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.navBottom, navController)
 
     }
-
-
 }
 
 

@@ -13,5 +13,6 @@ data class AnimePosterEntity(
     val episodesAired: Int,
     val url: String,
     val status: String,
+    val statusColor: String,
     val russian: String
 )

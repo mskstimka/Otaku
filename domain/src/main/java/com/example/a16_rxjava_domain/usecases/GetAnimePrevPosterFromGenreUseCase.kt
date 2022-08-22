@@ -5,6 +5,6 @@ import javax.inject.Inject
 
 class GetAnimePrevPosterFromGenreUseCase @Inject constructor(private val repository: AnimeRepository) {
 
-    suspend fun execute(genreId: Int) = repository.getAnimePrevPostersFromGenres(genreId)
+    suspend fun execute(genreId: Int) = repository.getAnimePrevPostersFromGenres(genreId = genreId)
 
 }

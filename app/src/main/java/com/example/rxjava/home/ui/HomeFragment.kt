@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var hViewModel: HomeViewModel
 
-    private val adapter: DisplayableAdapter by lazy { DisplayableAdapter(requireContext()) }
+    private val adapter: DisplayableAdapter by lazy { DisplayableAdapter() }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(

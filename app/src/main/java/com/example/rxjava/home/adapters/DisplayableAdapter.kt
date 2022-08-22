@@ -1,10 +1,9 @@
 package com.example.rxjava.home.adapters
 
 import android.annotation.SuppressLint
-import android.content.Context
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.Keep
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
@@ -19,7 +18,7 @@ import com.example.rxjava.home.adapters.models.HomePosterEntity
 import java.lang.IllegalArgumentException
 
 
-class DisplayableAdapter(private val context: Context) :
+class DisplayableAdapter :
     ListAdapter<DisplayableItem, RecyclerView.ViewHolder>(DisplayableDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -68,7 +67,7 @@ class DisplayableAdapter(private val context: Context) :
         fun bind(model: HomePosterEntity) = with(binding) {
             ivItemHomePosterImage.setOnClickListener {
                 BannerUtils.showToast(
-                    context.getString(R.string.ukraine_message),
+                    Resources.getSystem().getString(R.string.ukraine_message),
                     binding.root.context
                 )
             }

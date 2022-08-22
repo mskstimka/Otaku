@@ -9,14 +9,16 @@ import android.os.IBinder
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.PRIORITY_HIGH
-import com.example.a16_rxjava_domain.Constants
+import com.example.a16_rxjava_domain.STATUS_FOREGROUND_ENGLISH_NAME_KEY
+import com.example.a16_rxjava_domain.STATUS_FOREGROUND_KIND_KEY
+import com.example.a16_rxjava_domain.STATUS_FOREGROUND_RUSSIAN_NAME_KEY
 import com.example.rxjava.R
 
 class StatusForegroundService : Service() {
+
     override fun onBind(p0: Intent?): IBinder? {
         TODO("Not yet implemented")
     }
-
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
@@ -39,11 +41,11 @@ class StatusForegroundService : Service() {
             TODO("VERSION.SDK_INT < O")
         }
 
-        val nameEnglish = intent?.getStringExtra(Constants.STATUS_FOREGROUND_ENGLISH_NAME_KEY)
+        val nameEnglish = intent?.getStringExtra(STATUS_FOREGROUND_ENGLISH_NAME_KEY)
             ?: getString(R.string.fragment_details_tvTitle_text)
-        val nameRussian = intent?.getStringExtra(Constants.STATUS_FOREGROUND_RUSSIAN_NAME_KEY)
+        val nameRussian = intent?.getStringExtra(STATUS_FOREGROUND_RUSSIAN_NAME_KEY)
             ?: getString(R.string.fragment_details_tvTitleRussian_text)
-        val kind = intent?.getStringExtra(Constants.STATUS_FOREGROUND_KIND_KEY)
+        val kind = intent?.getStringExtra(STATUS_FOREGROUND_KIND_KEY)
             ?.replaceFirstChar { it.uppercase() }
             ?: getString(R.string.fragment_details_tvKind_text)
 
@@ -64,7 +66,8 @@ class StatusForegroundService : Service() {
     private fun createNotificationChannel(channelId: String, channelName: String): String {
         val channel = NotificationChannel(
             channelId,
-            channelName, NotificationManager.IMPORTANCE_NONE
+            channelName,
+            NotificationManager.IMPORTANCE_NONE
         )
 
         with(channel) {

@@ -1,7 +1,7 @@
 package com.example.rxjava.home.ui
 
 import androidx.lifecycle.*
-import com.example.a16_rxjava_domain.Constants
+import com.example.a16_rxjava_domain.*
 import com.example.a16_rxjava_domain.common.Results
 import com.example.a16_rxjava_domain.usecases.*
 import com.example.rxjava.home.adapters.models.DisplayableItem
@@ -22,28 +22,21 @@ class HomeViewModel(
     private val _pageAnimePosterAction = MutableStateFlow<List<DisplayableItem>>(emptyList())
     val pageAnimePosterAction: StateFlow<List<DisplayableItem>> = _pageAnimePosterAction
 
-    private val list = mutableListOf<DisplayableItem>(HomePosterEntity()).also {
-
-        getList()
-
-    }
-
+    private val list = mutableListOf<DisplayableItem>(HomePosterEntity()).also { getList() }
 
     private fun getList() {
         viewModelScope.launch {
-
-            getAnimePrevPosterActionFromGenre(Constants.ROMANTIC_ID, "Романтика")
+            getAnimePrevPosterActionFromGenre(genresId = ROMANTIC_ID, genreName = ROMANTIC_NAME)
             delay(100)
-            getAnimePrevPosterActionFromGenre(Constants.SHOUNEN_ID, "Сёнен")
+            getAnimePrevPosterActionFromGenre(genresId = SHOUNEN_ID, genreName = SHOUNEN_NAME)
             delay(200)
-            getAnimePrevPosterActionFromGenre(Constants.DRAMA_ID, "Драма")
+            getAnimePrevPosterActionFromGenre(genresId = DRAMA_ID, genreName = DRAMA_NAME)
             delay(300)
-            getAnimePrevPosterActionFromGenre(Constants.DEMONS_ID, "Демоны")
+            getAnimePrevPosterActionFromGenre(genresId = DEMONS_ID, genreName = DEMONS_NAME)
             delay(400)
-            getAnimePrevPosterActionFromGenre(Constants.SHOUJO_ID, "Сёдзё")
+            getAnimePrevPosterActionFromGenre(genresId = SHOUJO_ID, genreName = SHOUJO_NAME)
             delay(500)
-            getAnimePrevPosterActionFromGenre(Constants.HAREM_ID, "Гарем")
-
+            getAnimePrevPosterActionFromGenre(genresId = HAREM_ID, genreName = HAREM_NAME)
         }
     }
 

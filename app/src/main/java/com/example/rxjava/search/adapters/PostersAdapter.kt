@@ -1,17 +1,17 @@
 package com.example.rxjava.search.adapters
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.a16_rxjava_domain.Constants
+import com.example.a16_rxjava_domain.SHIKIMORI_URL
 import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 import com.example.rxjava.R
 import com.example.rxjava.databinding.ItemSearchPostersBinding
-import com.squareup.picasso.Picasso
+import com.example.rxjava.utils.setImageByURL
 
 class PostersAdapter(private val callbackClick: (posterId: Int) -> Unit) :
     ListAdapter<AnimePosterEntity, PostersAdapter.TitleViewHolder>(PosterDiffCallback) {
@@ -32,40 +32,21 @@ class PostersAdapter(private val callbackClick: (posterId: Int) -> Unit) :
         private val binding: ItemSearchPostersBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("SetTextI18n", "ResourceAsColor")
+        @SuppressLint("SetTextI18n", "ResourceAsColor", "StringFormatMatches")
         fun bind(model: AnimePosterEntity) = with(binding) {
             tvSearchPosterName.text = model.name
             tvSearchPosterScore.text = model.score
 
             tvSearchPosterEpisodes.text = if (model.episodes.toString() != "0") {
-                "Episodes: ${model.episodes}"
+                root.context.getString(R.string.episode_text, model.episodes)
             } else {
-                "Episodes: ${model.episodesAired}"
+                root.context.getString(R.string.episode_text, model.episodesAired)
             }
+
             tvSearchPosterRussianName.text = model.russian
             tvSearchPosterStatus.text = model.status
-            when (tvSearchPosterStatus.text) {
-                Constants.ONGOING_STATUS -> tvSearchPosterStatus.setTextColor(
-                    ContextCompat.getColor(
-                        root.context,
-                        R.color.blue_status
-                    )
-                )
-                Constants.ANONS_STATUS -> tvSearchPosterStatus.setTextColor(
-                    ContextCompat.getColor(
-                        root.context,
-                        R.color.red_status
-                    )
-                )
-                Constants.RELEASED_STATUS -> tvSearchPosterStatus.setTextColor(
-                    ContextCompat.getColor(
-                        root.context,
-                        R.color.green_status
-                    )
-                )
-            }
-            Picasso.get().load(Constants.SHIKIMORI_URL + model.image.original)
-                .error(R.drawable.icon_default).into(ivSearchPosterImage)
+            tvSearchPosterStatus.setTextColor(Color.parseColor(model.statusColor))
+            ivSearchPosterImage.setImageByURL(SHIKIMORI_URL + model.image.original)
 
             itemView.setOnClickListener {
                 callbackClick.invoke(model.id)

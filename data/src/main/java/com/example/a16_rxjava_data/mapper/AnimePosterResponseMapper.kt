@@ -1,6 +1,7 @@
 package com.example.a16_rxjava_data.mapper
 
 import com.example.a16_rxjava_data.network.models.AnimePosterEntityResponse
+import com.example.a16_rxjava_domain.*
 import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 
 object AnimePosterResponseMapper {
@@ -8,30 +9,24 @@ object AnimePosterResponseMapper {
     fun toListAnimePosterEntity(list: List<AnimePosterEntityResponse>): List<AnimePosterEntity> {
         return list.map {
             AnimePosterEntity(
-                it.id,
-                it.image,
-                it.name,
-                it.score,
-                it.episodes,
-                it.episodesAired,
-                it.url,
-                it.status,
-                it.russian
+                id = it.id,
+                image = it.image,
+                name = it.name,
+                score = it.score,
+                episodes = it.episodes,
+                episodesAired = it.episodesAired,
+                url = it.url,
+                status = it.status,
+                statusColor = checkStatusColor(it.status),
+                russian = it.russian
             )
         }
     }
 
-    fun toAnimePosterEntity(item: AnimePosterEntityResponse): AnimePosterEntity {
-        return AnimePosterEntity(
-            item.id,
-            item.image,
-            item.name,
-            item.score,
-            item.episodes,
-            item.episodesAired,
-            item.url,
-            item.status,
-            item.russian
-        )
+    private fun checkStatusColor(status: String?): String = when (status) {
+        ONGOING_STATUS -> BLUE_STATUS_COLOR
+        ANONS_STATUS -> RED_STATUS_COLOR
+        else -> GREEN_STATUS_COLOR
     }
+
 }

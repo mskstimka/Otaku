@@ -7,12 +7,11 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.a16_rxjava_domain.Constants
+import com.example.a16_rxjava_domain.NOT_FOUND_TEXT
 import com.example.a16_rxjava_domain.models.details.franchise.AnimeDetailsFranchisesEntity
-import com.example.rxjava.R
 import com.example.rxjava.databinding.ItemDetailsFranchisesBinding
 import com.example.rxjava.details.ui.DetailsFragmentDirections
-import com.squareup.picasso.Picasso
+import com.example.rxjava.utils.setImageByURL
 
 class FranchisesAdapter :
     ListAdapter<AnimeDetailsFranchisesEntity, FranchisesAdapter.FranchisesViewHolder>(
@@ -38,13 +37,17 @@ class FranchisesAdapter :
         @SuppressLint("SetTextI18n")
         fun bind(model: AnimeDetailsFranchisesEntity) = with(binding) {
 
-            Picasso.get().load(model.image_url.replace("x96", "original"))
-                .error(R.drawable.icon_default).into(ivImageFranchisesItem)
+            ivImageFranchisesItem.setImageByURL(
+                model.image_url.replace(
+                    oldValue = "x96",
+                    newValue = "original"
+                )
+            )
             tvTitleFranchisesItem.text = model.name
             tvKindDateFranchisesItem.text = "${model.kind} / ${model.year}"
 
             itemView.setOnClickListener {
-                if (model.kind != Constants.NOT_FOUND_TEXT)
+                if (model.kind != NOT_FOUND_TEXT)
                     itemView.findNavController().navigate(
                         DetailsFragmentDirections.actionDetailsFragmentSelf(model.id)
                     )

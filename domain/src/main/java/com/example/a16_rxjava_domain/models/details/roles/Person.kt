@@ -2,6 +2,7 @@ package com.example.a16_rxjava_domain.models.details.roles
 
 import androidx.annotation.Keep
 import com.example.a16_rxjava_domain.models.Image
+
 @Keep
 data class Person(
     val id: Int,

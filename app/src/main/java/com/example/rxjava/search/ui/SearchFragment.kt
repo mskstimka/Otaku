@@ -29,7 +29,7 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
 
     private val adapter by lazy {
         PostersAdapter { posterId ->
-            openDetailsPage(posterId)
+            openDetailsPage(posterId = posterId)
         }
     }
 
@@ -43,8 +43,8 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
         (requireActivity().applicationContext as App).appComponent.inject(this)
 
         presenter = SearchPresenter(
-            getAnimePostersFromSearchUseCase,
-            this
+            getAnimePostersFromSearchUseCase = getAnimePostersFromSearchUseCase,
+            view = this
         )
     }
 

@@ -6,11 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.a16_rxjava_domain.SHIKIMORI_URL
 import com.example.a16_rxjava_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
-import com.example.rxjava.R
-import com.example.a16_rxjava_domain.Constants
 import com.example.rxjava.databinding.ItemDetailsScreenshotsBinding
-import com.squareup.picasso.Picasso
+import com.example.rxjava.utils.setImageByURL
 
 class ScreenshotsAdapter :
     ListAdapter<AnimeDetailsScreenshotsEntity, ScreenshotsAdapter.ScreenshotsViewHolder>(
@@ -19,7 +18,11 @@ class ScreenshotsAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScreenshotsViewHolder {
         val binding =
-            ItemDetailsScreenshotsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemDetailsScreenshotsBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         return ScreenshotsViewHolder(binding)
     }
 
@@ -35,8 +38,7 @@ class ScreenshotsAdapter :
         @SuppressLint("SetTextI18n")
         fun bind(model: AnimeDetailsScreenshotsEntity) = with(binding) {
 
-            Picasso.get().load(Constants.SHIKIMORI_URL + model.original)
-                .error(R.drawable.icon_default).into(ivImageScreenshotsItem)
+            ivImageScreenshotsItem.setImageByURL(SHIKIMORI_URL + model.original)
 
         }
     }

@@ -7,9 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_rxjava_domain.models.details.Video
-import com.example.rxjava.R
 import com.example.rxjava.databinding.ItemDetailsVideosBinding
-import com.squareup.picasso.Picasso
+import com.example.rxjava.utils.setImageByURL
 
 class VideosAdapter :
     ListAdapter<Video, VideosAdapter.VideosViewHolder>(
@@ -33,8 +32,8 @@ class VideosAdapter :
 
         @SuppressLint("SetTextI18n")
         fun bind(model: Video) = with(binding) {
-            Picasso.get().load(model.image_url.replace("http", "https"))
-                .error(R.drawable.icon_default).into(ivImageVideosItem)
+
+            ivImageVideosItem.setImageByURL(model.image_url.replace("http", "https"))
             tvTitleVideosItem.text = model.name
             tvHostingVideosItem.text = model.hosting
         }

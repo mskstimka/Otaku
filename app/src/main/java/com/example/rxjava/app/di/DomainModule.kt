@@ -1,6 +1,5 @@
 package com.example.rxjava.app.di
 
-import androidx.annotation.Keep
 import com.example.a16_rxjava_domain.repository.AnimeRepository
 import com.example.a16_rxjava_domain.usecases.*
 import dagger.Module
@@ -11,32 +10,32 @@ class DomainModule {
 
     @Provides
     fun provideGetAnimePostersFromSearchUseCase(repository: AnimeRepository): GetAnimePostersFromSearchUseCase {
-        return GetAnimePostersFromSearchUseCase(repository)
+        return GetAnimePostersFromSearchUseCase(repository = repository)
     }
 
     @Provides
     fun provideGetAnimeDetailsFromIdUseCase(repository: AnimeRepository): GetAnimeDetailsFromIdUseCase {
-        return GetAnimeDetailsFromIdUseCase(repository)
+        return GetAnimeDetailsFromIdUseCase(repository = repository)
     }
 
     @Provides
     fun provideGetAnimeScreenshotsFromIdUseCase(repository: AnimeRepository): GetAnimeScreenshotsFromIdUseCase {
-        return GetAnimeScreenshotsFromIdUseCase(repository)
+        return GetAnimeScreenshotsFromIdUseCase(repository = repository)
     }
 
     @Provides
     fun provideGetAnimeFranchisesFromIdUseCase(repository: AnimeRepository): GetAnimeFranchisesFromIdUseCase {
-        return GetAnimeFranchisesFromIdUseCase(repository)
+        return GetAnimeFranchisesFromIdUseCase(repository = repository)
     }
 
     @Provides
     fun provideGetAnimeRolesFromIdUseCase(repository: AnimeRepository): GetAnimeRolesFromIdUseCase {
-        return GetAnimeRolesFromIdUseCase(repository)
+        return GetAnimeRolesFromIdUseCase(repository = repository)
     }
 
     @Provides
     fun provideGetAnimePrevPostersFromGenreUseCase(repository: AnimeRepository): GetAnimePrevPosterFromGenreUseCase {
-        return GetAnimePrevPosterFromGenreUseCase(repository)
+        return GetAnimePrevPosterFromGenreUseCase(repository = repository)
     }
 
 }

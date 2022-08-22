@@ -39,7 +39,7 @@ class DetailsViewModel(
     fun getAnimeDetailsFromId(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
 
-            when (val response = getAnimeDetailsFromIdUseCase.execute(id)) {
+            when (val response = getAnimeDetailsFromIdUseCase.execute(id = id)) {
                 is Results.Success -> {
                     _pageAnimeDetailsAction.postValue(response.data)
                 }
@@ -51,7 +51,7 @@ class DetailsViewModel(
     fun getAnimeDetailsScreenshotsFromId(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
 
-            when (val response = getAnimeScreenshotsFromIdUseCase.execute(id)) {
+            when (val response = getAnimeScreenshotsFromIdUseCase.execute(id = id)) {
                 is Results.Success -> {
                     _pageAnimeScreenshotsAction.postValue(response.data)
                 }
@@ -64,7 +64,7 @@ class DetailsViewModel(
     fun getAnimeDetailsFranchisesFromId(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
 
-            when (val response = getAnimeFranchisesFromIdUseCase.execute(id)) {
+            when (val response = getAnimeFranchisesFromIdUseCase.execute(id = id)) {
                 is Results.Success -> {
                     _pageAnimeFranchisesAction.postValue(response.data)
                 }
@@ -75,7 +75,7 @@ class DetailsViewModel(
 
     fun getAnimeDetailsRolesFromId(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            when (val response = getAnimeRolesFromIdUseCase.execute(id)) {
+            when (val response = getAnimeRolesFromIdUseCase.execute(id = id)) {
                 is Results.Success -> {
                     _pageAnimeRolesAction.postValue(response.data.toMutableList())
                 }

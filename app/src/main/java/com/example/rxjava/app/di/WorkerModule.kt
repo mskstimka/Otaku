@@ -1,14 +1,13 @@
 package com.example.rxjava.app.di
 
 import androidx.work.WorkerFactory
-import com.example.rxjava.app.ChildWorkerFactory
-import com.example.rxjava.app.LocalWorker
-import com.example.rxjava.app.LocalWorkerFactory
-import com.example.rxjava.app.LocalWorkManagerFactory
+import com.example.rxjava.app.local.ChildWorkerFactory
+import com.example.rxjava.app.local.LocalWorker
+import com.example.rxjava.app.local.LocalWorkerFactory
+import com.example.rxjava.app.local.LocalWorkManagerFactory
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import javax.inject.Singleton
 
 @Module
 interface WorkerModule {

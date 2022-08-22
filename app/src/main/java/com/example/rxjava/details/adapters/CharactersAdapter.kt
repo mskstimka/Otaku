@@ -1,28 +1,36 @@
 package com.example.rxjava.details.adapters
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.a16_rxjava_domain.NOT_FOUND_TEXT
+import com.example.a16_rxjava_domain.SHIKIMORI_URL
 import com.example.a16_rxjava_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.a16_rxjava_domain.models.details.roles.Character
 import com.example.a16_rxjava_domain.models.Image
-import com.example.rxjava.R
-import com.example.a16_rxjava_domain.Constants
 import com.example.rxjava.databinding.ItemDetailsCharactersBinding
-import com.squareup.picasso.Picasso
+import com.example.rxjava.utils.setImageByURL
 
-class CharactersAdapter(context: Context) :
+class CharactersAdapter :
     ListAdapter<AnimeDetailsRolesEntity, CharactersAdapter.CharactersViewHolder>(
         CharactersDiffCallback
     ) {
 
-    private val message = context.getString(R.string.not_found)
+
     private val defaultCharacter =
-        Character(404, Image(message, message, message, message), message, message, message)
+        Character(
+            id = 404,
+            image = Image(
+                original = NOT_FOUND_TEXT,
+                preview = NOT_FOUND_TEXT,
+                x48 = NOT_FOUND_TEXT,
+                x96 = NOT_FOUND_TEXT
+            ),
+            name = NOT_FOUND_TEXT, russian = NOT_FOUND_TEXT, url = NOT_FOUND_TEXT
+        )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersViewHolder {
         val binding =
@@ -44,11 +52,8 @@ class CharactersAdapter(context: Context) :
         @SuppressLint("SetTextI18n")
         fun bind(model: AnimeDetailsRolesEntity) = with(binding) {
 
-            Picasso.get().load(Constants.SHIKIMORI_URL + model.character?.image?.original)
-                .error(R.drawable.icon_default).into(ivImageCharactersItem)
-
+            ivImageCharactersItem.setImageByURL(SHIKIMORI_URL + model.character?.image?.original)
             tvTitleCharactersItem.text = model.character?.name
-
         }
     }
 
@@ -56,7 +61,11 @@ class CharactersAdapter(context: Context) :
         val charactersList = when (list) {
             emptyList<AnimeDetailsRolesEntity>() -> listOf(
                 AnimeDetailsRolesEntity(
-                    defaultCharacter, null, null, null, message
+                    character = defaultCharacter,
+                    person = null,
+                    roles = null,
+                    roles_russian = null,
+                    id = NOT_FOUND_TEXT
                 )
             )
             else -> list?.filter { it.character != null }

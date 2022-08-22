@@ -7,14 +7,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.a16_rxjava_domain.usecases.*
 
 class HomeViewModelFactory(
-   private val getAnimePrevPosterFromGenreUseCase: GetAnimePrevPosterFromGenreUseCase
+    private val getAnimePrevPosterFromGenreUseCase: GetAnimePrevPosterFromGenreUseCase
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return HomeViewModel(
-            getAnimePrevPosterFromGenreUseCase
+            getAnimePrevPosterFromGenreUseCase = getAnimePrevPosterFromGenreUseCase
         ) as T
     }
 }

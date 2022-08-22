@@ -1,6 +1,5 @@
 package com.example.rxjava.app.di
 
-import androidx.annotation.Keep
 import com.example.a16_rxjava_domain.usecases.*
 import com.example.rxjava.details.ui.DetailsViewModelFactory
 import com.example.rxjava.home.ui.HomeViewModelFactory
@@ -18,10 +17,10 @@ class AppModule {
         getAnimeRolesFromIdUseCase: GetAnimeRolesFromIdUseCase
     ): DetailsViewModelFactory {
         return DetailsViewModelFactory(
-            getAnimeDetailsFromIdUseCase,
-            getAnimeScreenshotsFromIdUseCase,
-            getAnimeFranchisesFromIdUseCase,
-            getAnimeRolesFromIdUseCase
+            getAnimeDetailsFromIdUseCase = getAnimeDetailsFromIdUseCase,
+            getAnimeScreenshotsFromIdUseCase = getAnimeScreenshotsFromIdUseCase,
+            getAnimeFranchisesFromIdUseCase = getAnimeFranchisesFromIdUseCase,
+            getAnimeRolesFromIdUseCase = getAnimeRolesFromIdUseCase
         )
     }
 
@@ -30,7 +29,7 @@ class AppModule {
         getAnimePrevPosterFromGenreUseCase: GetAnimePrevPosterFromGenreUseCase
     ): HomeViewModelFactory {
         return HomeViewModelFactory(
-            getAnimePrevPosterFromGenreUseCase
+            getAnimePrevPosterFromGenreUseCase = getAnimePrevPosterFromGenreUseCase
         )
     }
 

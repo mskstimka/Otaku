@@ -1,19 +1,19 @@
 package com.example.rxjava.home.adapters
 
 import android.annotation.SuppressLint
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.Keep
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.a16_rxjava_domain.Constants
+import com.example.a16_rxjava_domain.SHIKIMORI_URL
 import com.example.a16_rxjava_domain.models.poster.AnimePosterEntity
 import com.example.rxjava.R
 import com.example.rxjava.databinding.ItemHomeGenresItemBinding
 import com.example.rxjava.home.ui.HomeFragmentDirections
-import com.squareup.picasso.Picasso
+import com.example.rxjava.utils.setImageByURL
 
 class ItemHomeGenresAdapter :
     ListAdapter<AnimePosterEntity, ItemHomeGenresAdapter.PrevPosterViewHolder>(
@@ -37,30 +37,27 @@ class ItemHomeGenresAdapter :
         ItemHomeGenresItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("SetTextI18n")
+        @SuppressLint("SetTextI18n", "StringFormatMatches")
         fun bind(model: AnimePosterEntity) = with(binding) {
 
-            Picasso.get().load(Constants.SHIKIMORI_URL + model.image.original)
-                .error(R.drawable.icon_default)
-                .into(ivImageHomeGenre)
+            ivImageHomeGenre.setImageByURL(SHIKIMORI_URL + model.image.original)
 
             tvTitleHomeGenre.text = if (model.russian == "") {
                 model.name
             } else {
                 model.russian
             }
-            tvEpisodesHomeGenre.text = "Episodes ${model.episodes}"
+
+            tvEpisodesHomeGenre.text = if (model.episodes.toString() != "0") {
+               root.context.getString(R.string.episode_text, model.episodes)
+            } else {
+                root.context.getString(R.string.episode_text, model.episodesAired)
+            }
 
             itemView.setOnClickListener {
                 itemView.findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToDetailsFragment(model.id)
                 )
-            }
-
-            tvEpisodesHomeGenre.text = if (model.episodes.toString() != "0") {
-                "Episodes: ${model.episodes}"
-            } else {
-                "Episodes: ${model.episodesAired}"
             }
         }
     }

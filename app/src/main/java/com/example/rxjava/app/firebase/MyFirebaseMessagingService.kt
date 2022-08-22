@@ -23,10 +23,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
 
-        Log.d(
-            TAG,
-            "From: ${remoteMessage.from}"
-        )
+
 
         if (remoteMessage.data.isNotEmpty()) {
             Log.d(
@@ -41,6 +38,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 handleNow()
             }
         }
+
         sendNotification(messageBody = remoteMessage.notification.toString())
 
         remoteMessage.notification?.let {

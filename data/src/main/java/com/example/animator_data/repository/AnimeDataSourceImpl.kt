@@ -105,7 +105,9 @@ class AnimeDataSourceImpl(
                     Results.Success(data = list)
                 }
                 false -> {
-                    if (isLocalNull) {
+                    if (response.code() == 429) {
+                        getAnimePrevPostersFromGenres(genreId)
+                    } else if (isLocalNull) {
                         Results.Error(exception = Exception(response.message()))
                     } else {
                         Results.Success(data = shikimoriDAO.getPosterFromIdGenre(id = genreId)!!.list)

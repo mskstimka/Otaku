@@ -1,5 +1,7 @@
 package com.example.animator_domain
 
+import com.example.animator_domain.models.home.PrevPoster
+
 const val SHIKIMORI_URL = "https://shikimori.one/"
 const val ONGOING_STATUS = "ongoing"
 const val ANONS_STATUS = "anons"

@@ -67,8 +67,8 @@ class DisplayableAdapter :
         fun bind(model: HomePosterEntity) = with(binding) {
             ivItemHomePosterImage.setOnClickListener {
                 BannerUtils.showToast(
-                    Resources.getSystem().getString(R.string.ukraine_message),
-                    binding.root.context
+                    root.context.getString(R.string.ukraine_message),
+                    root.context
                 )
             }
         }

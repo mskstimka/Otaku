@@ -15,13 +15,12 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
 
     // coroutine
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.annotation:annotation:1.2.0'
-    testImplementation 'junit:junit:4.+'
+    // default
+    implementation 'androidx.annotation:annotation:1.4.0'
 
-    /*Dagger*/
+    // dagger
     implementation "com.google.dagger:dagger:2.43.1"
 
 }

@@ -7,8 +7,8 @@ import com.example.animator_domain.usecases.*
 import com.example.animator.home.adapters.models.DisplayableItem
 import com.example.animator.home.adapters.models.HomePosterEntity
 import com.example.animator.home.adapters.models.HomeGenreEntity
+import com.example.animator_domain.models.home.PrevPoster
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -22,22 +22,20 @@ class HomeViewModel(
     private val _pageAnimePosterAction = MutableStateFlow<List<DisplayableItem>>(emptyList())
     val pageAnimePosterAction: StateFlow<List<DisplayableItem>> = _pageAnimePosterAction
 
-    private val list = mutableListOf<DisplayableItem>(HomePosterEntity()).also { getList() }
+    private val list = mutableListOf<DisplayableItem>(HomePosterEntity()).also {
+        getList(
+            ARRAY_PREV_POSTERS
+        )
+    }
 
-    private fun getList() {
+    private fun getList(list: List<PrevPoster>) {
         viewModelScope.launch {
-            delay(100)
-            getAnimePrevPosterActionFromGenre(genresId = ROMANTIC_ID, genreName = ROMANTIC_NAME)
-            delay(200)
-            getAnimePrevPosterActionFromGenre(genresId = SHOUNEN_ID, genreName = SHOUNEN_NAME)
-            delay(300)
-            getAnimePrevPosterActionFromGenre(genresId = DRAMA_ID, genreName = DRAMA_NAME)
-            delay(400)
-            getAnimePrevPosterActionFromGenre(genresId = DEMONS_ID, genreName = DEMONS_NAME)
-            delay(500)
-            getAnimePrevPosterActionFromGenre(genresId = SHOUJO_ID, genreName = SHOUJO_NAME)
-            delay(600)
-            getAnimePrevPosterActionFromGenre(genresId = HAREM_ID, genreName = HAREM_NAME)
+            list.forEach { item ->
+                getAnimePrevPosterActionFromGenre(
+                    genresId = item.genreId,
+                    genreName = item.genreName
+                )
+            }
         }
     }
 

@@ -30,7 +30,7 @@
             android:value="@string/default_notification_channel_id" />
 
         <service
-            android:name="com.example.animator.app.firebase.MyFirebaseMessagingService"
+            android:name="com.example.animator.app.firebase.FirebaseMessagingServiceImpl"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -38,7 +38,7 @@
         </service>
 
         <service
-            android:name="com.example.animator.app.StatusForegroundService"
+            android:name="com.example.animator.details.services.StatusForegroundService"
             android:exported="false" />
 
         <activity

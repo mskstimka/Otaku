@@ -1,73 +1,44 @@
 package com.example.animator.app.firebase
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import com.example.animator_domain.IS_SHOW_NOTIFICATION
+import com.example.animator_domain.SHARED_PREF_SETTINGS
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.work.OneTimeWorkRequest
-import androidx.work.WorkManager
 import com.example.animator.R
 import com.example.animator.app.activities.MainActivity
-import com.google.firebase.messaging.FirebaseMessagingService
-import com.google.firebase.messaging.RemoteMessage
-
-class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 
-    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+@SuppressLint("MissingFirebaseInstanceTokenRefresh")
+class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
 
+    override fun onMessageReceived(message: RemoteMessage) {
+        super.onMessageReceived(message)
 
+        sendNotification(message.notification.toString())
+    }
 
-        if (remoteMessage.data.isNotEmpty()) {
-            Log.d(
-                TAG,
-                "Message data payload: ${remoteMessage.data}"
-            )
+    override fun handleIntent(intent: Intent?) {
+        val sharedPreferences = getSharedPreferences(
+            SHARED_PREF_SETTINGS,
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val isShowNotification = sharedPreferences.getBoolean(IS_SHOW_NOTIFICATION, false)
 
-            if (/* Check if data needs to be processed by long running job */ true) {
-
-                scheduleJob()
-            } else {
-                handleNow()
-            }
-        }
-
-        sendNotification(messageBody = remoteMessage.notification.toString())
-
-        remoteMessage.notification?.let {
-            Log.d(TAG, "Message Notification Body: ${it.body}")
+        if (isShowNotification) {
+            super.handleIntent(intent)
         }
 
     }
-
-    override fun onNewToken(token: String) {
-        Log.d(TAG, "Refreshed token: $token")
-        sendRegistrationToServer(token)
-    }
-
-    private fun scheduleJob() {
-        // [START dispatch_job]
-        val work = OneTimeWorkRequest.Builder(MyWorker::class.java).build()
-        WorkManager.getInstance(this).beginWith(work).enqueue()
-        // [END dispatch_job]
-    }
-
-
-    private fun handleNow() {
-        Log.d(TAG, "Short lived task is done.")
-    }
-
-    private fun sendRegistrationToServer(token: String?) {
-        // TODO: Implement this method to send token to your app server.
-        Log.d(TAG, "sendRegistrationTokenToServer($token)")
-    }
-
 
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun sendNotification(messageBody: String) {
@@ -95,17 +66,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 channelId,
-                "Channel human readable title",
+                "Notification Push",
                 NotificationManager.IMPORTANCE_DEFAULT
             )
             notificationManager.createNotificationChannel(channel)
         }
 
-        notificationManager.notify( 0, notificationBuilder.build())
+        notificationManager.notify(0, notificationBuilder.build())
     }
 
-    companion object {
-
-        private const val TAG = "MyFirebaseMsgService"
-    }
 }

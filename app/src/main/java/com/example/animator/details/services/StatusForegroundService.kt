@@ -1,4 +1,4 @@
-package com.example.animator.app
+package com.example.animator.details.services
 
 import android.app.*
 import android.content.Context

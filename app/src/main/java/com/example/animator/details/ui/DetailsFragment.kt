@@ -21,7 +21,7 @@ import com.example.animator_domain.*
 import com.example.animator_domain.models.details.*
 import com.example.animator.R
 import com.example.animator.app.App
-import com.example.animator.app.StatusForegroundService
+import com.example.animator.details.services.StatusForegroundService
 import com.example.animator.utils.BannerUtils
 import com.example.animator.databinding.FragmentDetailsBinding
 import com.example.animator.details.adapters.*

@@ -39,6 +39,7 @@ class HomeViewModel(
         }
     }
 
+
     private fun getAnimePrevPosterActionFromGenre(genresId: Int, genreName: String) {
         viewModelScope.launch(Dispatchers.IO) {
 

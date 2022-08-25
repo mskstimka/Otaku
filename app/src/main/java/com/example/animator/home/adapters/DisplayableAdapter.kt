@@ -1,7 +1,6 @@
 package com.example.animator.home.adapters
 
 import android.annotation.SuppressLint
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

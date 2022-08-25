@@ -15,8 +15,8 @@ import com.example.animator.databinding.ItemDetailsAutorsBinding
 import com.example.animator.utils.setImageByURL
 
 
-class AutorsAdapter :
-    ListAdapter<AnimeDetailsRolesEntity, AutorsAdapter.AutorsViewHolder>(
+class AuthorsAdapter :
+    ListAdapter<AnimeDetailsRolesEntity, AuthorsAdapter.AuthorsViewHolder>(
         CharactersDiffCallback
     ) {
 
@@ -32,19 +32,19 @@ class AutorsAdapter :
             name = NOT_FOUND_TEXT, russian = NOT_FOUND_TEXT, url = NOT_FOUND_TEXT
         )
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AutorsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AuthorsViewHolder {
         val binding =
             ItemDetailsAutorsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return AutorsViewHolder(binding)
+        return AuthorsViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: AutorsViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: AuthorsViewHolder, position: Int) =
         holder.bind(currentList[position])
 
 
     override fun getItemCount(): Int = currentList.size
 
-    inner class AutorsViewHolder(
+    inner class AuthorsViewHolder(
         private val binding:
         ItemDetailsAutorsBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -59,7 +59,7 @@ class AutorsAdapter :
     }
 
     override fun submitList(list: List<AnimeDetailsRolesEntity>?) {
-        val autorsList = when (list) {
+        val authorsList = when (list) {
             emptyList<AnimeDetailsRolesEntity>() -> listOf(
                 AnimeDetailsRolesEntity(
                     character = null,
@@ -72,7 +72,7 @@ class AutorsAdapter :
             else -> list?.filter { it.person != null }
         }
 
-        super.submitList(autorsList)
+        super.submitList(authorsList)
     }
 
     object CharactersDiffCallback : DiffUtil.ItemCallback<AnimeDetailsRolesEntity>() {

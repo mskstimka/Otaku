@@ -3,14 +3,11 @@ package com.example.animator.details.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ScrollView
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.startForegroundService
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
@@ -43,11 +40,15 @@ class DetailsFragment : Fragment() {
 
     private val genresAdapter by lazy { GenresAdapter() }
     private val screenshotsAdapter by lazy { ScreenshotsAdapter() }
-    private val videosAdapter by lazy { VideosAdapter() }
+    private val videosAdapter by lazy {
+        VideosAdapter { intent ->
+            startActivity(intent)
+        }
+    }
     private val frachisesAdapter by lazy { FranchisesAdapter() }
     private val studiosAdapter by lazy { StudiosAdapter() }
     private val charactersAdapter by lazy { CharactersAdapter() }
-    private val autorsAdapter by lazy { AutorsAdapter() }
+    private val authorsAdapter by lazy { AuthorsAdapter() }
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
@@ -62,7 +63,6 @@ class DetailsFragment : Fragment() {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -79,7 +79,6 @@ class DetailsFragment : Fragment() {
 
     }
 
-
     override fun onStop() {
         super.onStop()
         requireActivity().applicationContext.stopService(
@@ -95,10 +94,6 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailsBinding.inflate(layoutInflater)
-
-        binding.svScrollRoot.post {
-            binding.svScrollRoot.fullScroll(ScrollView.FOCUS_UP)
-        }
 
         with(binding) {
             showSkeleton(
@@ -120,13 +115,11 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onResume() {
         super.onResume()
         subscribeToLiveData()
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("ResourceType", "FragmentLiveDataObserve")
     private fun subscribeToLiveData() = with(dViewModel) {
         pageAnimeDetailsAction.observe(this@DetailsFragment) { item ->
@@ -151,9 +144,8 @@ class DetailsFragment : Fragment() {
         }
 
         pageAnimeRolesAction.observe(this@DetailsFragment) { item ->
-
             charactersAdapter.submitList(item)
-            autorsAdapter.submitList(item)
+            authorsAdapter.submitList(item)
         }
         actionError.observe(this@DetailsFragment) {
             BannerUtils.showToast(
@@ -163,7 +155,6 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    @SuppressLint("UseRequireInsteadOfGet")
     private fun initView(item: AnimeDetailsEntity) {
         with(binding) {
 
@@ -222,7 +213,7 @@ class DetailsFragment : Fragment() {
         rvCharacters.adapter = this@DetailsFragment.charactersAdapter
         rvCharacters.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
 
-        rvAutors.adapter = this@DetailsFragment.autorsAdapter
+        rvAutors.adapter = this@DetailsFragment.authorsAdapter
         rvAutors.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
 
         rvStudios.adapter = this@DetailsFragment.studiosAdapter

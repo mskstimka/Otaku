@@ -1,6 +1,5 @@
 package com.example.animator.search.ui
 
-import android.annotation.SuppressLint
 import com.example.animator_domain.common.Results
 import com.example.animator_domain.models.poster.AnimePosterEntity
 import com.example.animator_domain.usecases.GetAnimePostersFromSearchUseCase
@@ -15,7 +14,6 @@ class SearchPresenter(
 
     private val disposable = CompositeDisposable()
 
-    @SuppressLint("CheckResult")
     override fun getAnimePostersFromSearch(searchName: String) {
         if (searchName != "") {
             disposable.add(

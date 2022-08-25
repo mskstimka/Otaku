@@ -1,16 +1,19 @@
 package com.example.animator.details.adapters
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.animator_domain.models.details.Video
 import com.example.animator.databinding.ItemDetailsVideosBinding
 import com.example.animator.utils.setImageByURL
+import com.example.animator_domain.models.details.Video
 
-class VideosAdapter :
+
+class VideosAdapter(private val openActivity: (intent: Intent) -> Unit) :
     ListAdapter<Video, VideosAdapter.VideosViewHolder>(
         VideosDiffCallback
     ) {
@@ -36,6 +39,15 @@ class VideosAdapter :
             ivImageVideosItem.setImageByURL(model.image_url.replace("http", "https"))
             tvTitleVideosItem.text = model.name
             tvHostingVideosItem.text = model.hosting
+
+            itemView.setOnClickListener {
+                if (model.id != 404) {
+                    val videoIntent = Intent(Intent.ACTION_VIEW)
+                    videoIntent.data = Uri.parse(model.url)
+
+                    openActivity(videoIntent)
+                }
+            }
         }
     }
 

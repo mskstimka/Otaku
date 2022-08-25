@@ -15,7 +15,7 @@ object AnimeDetailsResponseMapper {
 
 
     private val defaultVideo = Video(
-        hosting = NOT_FOUND_TEXT, id = 0, image_url = "http", kind = NOT_FOUND_TEXT,
+        hosting = NOT_FOUND_TEXT, id = 404, image_url = "http", kind = NOT_FOUND_TEXT,
         name = NOT_FOUND_TEXT, player_url = NOT_FOUND_TEXT, url = NOT_FOUND_TEXT
     )
     private val defaultStudio = Studio(

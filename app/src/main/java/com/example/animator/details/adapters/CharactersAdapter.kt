@@ -18,8 +18,7 @@ class CharactersAdapter :
     ListAdapter<AnimeDetailsRolesEntity, CharactersAdapter.CharactersViewHolder>(
         CharactersDiffCallback
     ) {
-
-
+    
     private val defaultCharacter =
         Character(
             id = 404,

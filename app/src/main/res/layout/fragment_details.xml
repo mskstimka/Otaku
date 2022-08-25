@@ -13,6 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/skeletonGroup"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:constraint_referenced_ids="tvEpisodeTitle, tvStatusTitle, tvDateTitle, tvGenreTitle, tvDescriptionTitle,
+                tvTitleScreenshots, tvTitleVideos, tvTitleCharacters, tvTitleAutors,
+                tvTitleFranchises, tvTitleStudios, ivImageFranchises, tvScore" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/glDetailsLineStart"
             android:layout_width="0dp"
@@ -60,9 +68,9 @@
             android:alpha="0.2"
             android:contentDescription="@string/fragment_details_ivImageBackground_contentDescription"
             android:scaleType="centerCrop"
-            tools:src="@drawable/icon_default"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/icon_default" />
 
 
         <ImageView

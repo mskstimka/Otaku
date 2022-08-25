@@ -4,7 +4,7 @@ import com.example.animator_data.database.models.LocalAnimePosterEntity
 import com.example.animator_data.database.dao.ShikimoriDAO
 import com.example.animator_data.mapper.AnimeDetailsResponseMapper
 import com.example.animator_data.mapper.AnimePosterResponseMapper
-import com.example.animator_data.network.api.ShikimoriAPI
+import com.example.animator_data.network.api.AnimeApi
 import com.example.animator_domain.common.Results
 import com.example.animator_domain.models.details.AnimeDetailsEntity
 import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchisesEntity
@@ -16,18 +16,18 @@ import io.reactivex.schedulers.Schedulers
 import java.lang.Exception
 
 class AnimeDataSourceImpl(
-    private val shikimoriAPI: ShikimoriAPI,
+    private val animeApi: AnimeApi,
     private val shikimoriDAO: ShikimoriDAO
 ) : AnimeDataSource {
     override fun getAnimePostersFromSearch(searchName: String): Observable<List<AnimePosterEntity>> {
-        return shikimoriAPI.getAnimePostersFromSearch(search = searchName)
+        return animeApi.getListOnSearch(search = searchName)
             .subscribeOn(Schedulers.io())
             .map { AnimePosterResponseMapper.toListAnimePosterEntity(it) }
     }
 
     override suspend fun getAnimeDetailsFromId(id: Int): Results<AnimeDetailsEntity> {
         return try {
-            val response = shikimoriAPI.getAnimeDetailsFromId(id = id)
+            val response = animeApi.getDetails(id = id)
             if (response.isSuccessful) {
                 val item =
                     AnimeDetailsResponseMapper.toAnimeDetailsEntity(item = response.body()!!)
@@ -42,7 +42,7 @@ class AnimeDataSourceImpl(
 
     override suspend fun getAnimeScreenshotsFromId(id: Int): Results<List<AnimeDetailsScreenshotsEntity>> {
         return try {
-            val response = shikimoriAPI.getAnimeScreenshotsFromId(id = id)
+            val response = animeApi.getScreenshots(id = id)
             if (response.isSuccessful) {
                 val list =
                     AnimeDetailsResponseMapper.toAnimeScreenshotsEntity(list = response.body()!!)
@@ -57,7 +57,7 @@ class AnimeDataSourceImpl(
 
     override suspend fun getAnimeFranchisesFromId(id: Int): Results<List<AnimeDetailsFranchisesEntity>> {
         return try {
-            val response = shikimoriAPI.getAnimeFranchisesFromId(id = id)
+            val response = animeApi.getSimilar(id = id)
             if (response.isSuccessful) {
                 val list =
                     AnimeDetailsResponseMapper.toListAnimeFranchisesEntity(item = response.body()!!)
@@ -72,7 +72,7 @@ class AnimeDataSourceImpl(
 
     override suspend fun getAnimeRolesFromId(id: Int): Results<List<AnimeDetailsRolesEntity>> {
         return try {
-            val response = shikimoriAPI.getAnimeRolesFromId(id = id)
+            val response = animeApi.getRoles(id = id)
             if (response.isSuccessful) {
                 val list = response.body()!!.map { item ->
                     AnimeDetailsResponseMapper.toAnimeRolesEntity(item = item)
@@ -90,7 +90,7 @@ class AnimeDataSourceImpl(
         val isLocalNull: Boolean = shikimoriDAO.getPosterFromIdGenre(id = genreId) == null
 
         return try {
-            val response = shikimoriAPI.getAnimePrevPostersFromGenre(genreId = genreId)
+            val response = animeApi.getListOnGenre(genreId = genreId)
 
             when (response.isSuccessful) {
                 true -> {

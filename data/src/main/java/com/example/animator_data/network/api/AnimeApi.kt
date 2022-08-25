@@ -7,10 +7,10 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import io.reactivex.Observable
 
-interface ShikimoriAPI {
+interface AnimeApi {
 
     /**
-     * Getting Anime Posters from Search
+     * Getting Anime Posters on Search
      *
      * @param search - the searchText
      * @param limit - limit of the posters
@@ -19,7 +19,7 @@ interface ShikimoriAPI {
      * @return Observable list of Anime Posters
      * */
     @GET("api/animes")
-    fun getAnimePostersFromSearch(
+    fun getListOnSearch(
         @Query(value = "search") search: String = "",
         @Query(value = "limit") limit: Int = 20,
         @Query(value = "censored") censored: Boolean = true
@@ -33,7 +33,7 @@ interface ShikimoriAPI {
      * @return Response of Anime Details (object)
      */
     @GET("api/animes/{id}")
-    suspend fun getAnimeDetailsFromId(
+    suspend fun getDetails(
         @Path(value = "id") id: Int
     ): Response<AnimeDetailsEntityResponse>
 
@@ -48,7 +48,7 @@ interface ShikimoriAPI {
      * @return Response list of Anime Posters
      */
     @GET("api/animes")
-    suspend fun getAnimePrevPostersFromGenre(
+    suspend fun getListOnGenre(
         @Query(value = "genre") genreId: Int,
         @Query(value = "limit") limit: Int = 20,
         @Query(value = "censored") censored: Boolean = true,
@@ -63,7 +63,7 @@ interface ShikimoriAPI {
      * @return Response list of Anime Screenshots
      */
     @GET("api/animes/{id}/screenshots")
-    suspend fun getAnimeScreenshotsFromId(
+    suspend fun getScreenshots(
         @Path(value = "id") id: Int
     ): Response<List<AnimeDetailsScreenshotsEntityResponse>>
 
@@ -75,7 +75,7 @@ interface ShikimoriAPI {
      * @return Response similar animes in object
      */
     @GET("api/animes/{id}/franchise")
-    suspend fun getAnimeFranchisesFromId(
+    suspend fun getSimilar(
         @Path(value = "id") id: Int
     ): Response<AnimeDetailsFranchisesEntityResponse>
 
@@ -87,7 +87,7 @@ interface ShikimoriAPI {
      * @return Response list of Anime Characters and Authors
      */
     @GET("api/animes/{id}/roles")
-    suspend fun getAnimeRolesFromId(
+    suspend fun getRoles(
         @Path(value = "id") id: Int
     ): Response<List<AnimeDetailsRolesEntityResponse>>
 }

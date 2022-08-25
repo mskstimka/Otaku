@@ -3,7 +3,7 @@ package com.example.animator_data.di
 import android.content.Context
 import com.example.animator_data.database.dao.ShikimoriDAO
 import com.example.animator_data.database.dao.ShikimoriDataBase
-import com.example.animator_data.network.api.ShikimoriAPI
+import com.example.animator_data.network.api.AnimeApi
 import com.example.animator_data.repository.AnimeDataSource
 import com.example.animator_data.repository.AnimeDataSourceImpl
 import com.example.animator_data.repository.AnimeRepositoryImpl
@@ -53,7 +53,7 @@ class DataModule(private val context: Context) {
     @Provides
     fun provideAnimeDataSource(retrofit: Retrofit, shikimoriDAO: ShikimoriDAO): AnimeDataSource {
         return AnimeDataSourceImpl(
-            shikimoriAPI = retrofit.create(ShikimoriAPI::class.java),
+            shikimoriAPI = retrofit.create(AnimeApi::class.java),
             shikimoriDAO = shikimoriDAO
         )
     }

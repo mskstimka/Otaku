@@ -53,6 +53,16 @@ class DetailsFragment : Fragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
 
+    private val skeletonList by lazy {
+        with(binding) {
+            listOf(
+                tvEpisodeTitle, tvStatusTitle, tvDateTitle, tvGenreTitle, tvDescriptionTitle,
+                tvTitleScreenshots, tvTitleVideos, tvTitleCharacters, tvTitleAutors,
+                tvTitleFranchises, tvTitleStudios, ivImageFranchises, tvTitle, tvScore
+            )
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -61,6 +71,17 @@ class DetailsFragment : Fragment() {
 
         getAnimeDetails(args.id)
 
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentDetailsBinding.inflate(layoutInflater)
+
+        showSkeleton(skeletonList)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -89,22 +110,6 @@ class DetailsFragment : Fragment() {
         )
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentDetailsBinding.inflate(layoutInflater)
-
-        with(binding) {
-            showSkeleton(
-                tvEpisodeTitle, tvStatusTitle, tvDateTitle, tvGenreTitle, tvDescriptionTitle,
-                tvTitleScreenshots, tvTitleVideos, tvTitleCharacters, tvTitleAutors,
-                tvTitleFranchises, tvTitleStudios, ivImageFranchises, tvScore
-            )
-        }
-
-        return binding.root
-    }
 
     private fun getAnimeDetails(id: Int) {
         with(dViewModel) {
@@ -155,6 +160,9 @@ class DetailsFragment : Fragment() {
         }
     }
 
+    private fun showSkeleton(list: List<View>) = list.forEach { it.loadSkeleton() }
+    private fun closeSkeleton(list: List<View>) = list.forEach { it.hideSkeleton() }
+
     private fun initView(item: AnimeDetailsEntity) {
         with(binding) {
 
@@ -187,13 +195,7 @@ class DetailsFragment : Fragment() {
             videosAdapter.submitList(item.videos)
             studiosAdapter.submitList(item.studios)
 
-            with(binding) {
-                hideSkeleton(
-                    tvEpisodeTitle, tvStatusTitle, tvDateTitle, tvGenreTitle, tvDescriptionTitle,
-                    tvTitleScreenshots, tvTitleVideos, tvTitleCharacters, tvTitleAutors,
-                    tvTitleFranchises, tvTitleStudios, ivImageFranchises, tvTitle, tvScore
-                )
-            }
+            closeSkeleton(skeletonList)
         }
     }
 
@@ -219,10 +221,6 @@ class DetailsFragment : Fragment() {
         rvStudios.adapter = this@DetailsFragment.studiosAdapter
         rvStudios.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
     }
-
-    private fun showSkeleton(vararg view: View) = view.forEach { it.loadSkeleton() }
-
-    private fun hideSkeleton(vararg view: View) = view.forEach { it.hideSkeleton() }
 
     companion object {
         fun newInstance(posterId: Int): DetailsFragment {

@@ -32,14 +32,15 @@ class StatusForegroundService : Service() {
 
 
     private fun startForeground(intent: Intent? = null) {
-        val channelId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val channelId = getString(R.string.foreground_notification_channel_id)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(
-                getString(R.string.foreground_notification_channel_id),
+                channelId,
                 getString(R.string.foreground_notification_channel_name)
             )
-        } else {
-            TODO("VERSION.SDK_INT < O")
         }
+
 
         val nameEnglish = intent?.getStringExtra(STATUS_FOREGROUND_ENGLISH_NAME_KEY)
             ?: getString(R.string.fragment_details_tvTitle_text)
@@ -63,7 +64,7 @@ class StatusForegroundService : Service() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun createNotificationChannel(channelId: String, channelName: String): String {
+    private fun createNotificationChannel(channelId: String, channelName: String) {
         val channel = NotificationChannel(
             channelId,
             channelName,
@@ -78,6 +79,5 @@ class StatusForegroundService : Service() {
         val service = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         service.createNotificationChannel(channel)
 
-        return channelId
     }
 }

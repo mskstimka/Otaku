@@ -1,4 +1,4 @@
-package com.example.animator.details.adapters
+package com.example.animator.details.adapters.videos
 
 import android.annotation.SuppressLint
 import android.content.Intent

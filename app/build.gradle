@@ -61,6 +61,10 @@ dependencies {
     implementation project(path: ':data')
     implementation project(path: ':domain')
 
+    // merge adapter
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha02'
+
+
     // fragment testing
     def fragment_version = "1.5.2"
     debugImplementation "androidx.fragment:fragment-testing:$fragment_version"   // Core library
@@ -121,7 +125,6 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
-
     // coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
 
@@ -141,9 +144,6 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.43.1'
     kapt 'com.google.dagger:dagger-compiler:2.43.1'
     implementation 'javax.inject:javax.inject:1'
-
-    // In your module's `build.gradle.kts`
-    implementation 'com.ericktijerou.koleton:koleton:0.7.8'
 
     // retrofit
     def retrofit_version = "2.9.0"

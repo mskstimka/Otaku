@@ -1,4 +1,4 @@
-package com.example.animator.details.adapters
+package com.example.animator.details.adapters.details
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

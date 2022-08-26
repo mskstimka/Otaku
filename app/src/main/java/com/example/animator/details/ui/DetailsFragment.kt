@@ -2,30 +2,34 @@ package com.example.animator.details.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startForegroundService
-import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.MergeAdapter
 import com.example.animator_domain.*
-import com.example.animator_domain.models.details.*
 import com.example.animator.R
 import com.example.animator.app.App
 import com.example.animator.details.services.StatusForegroundService
 import com.example.animator.utils.BannerUtils
 import com.example.animator.databinding.FragmentDetailsBinding
-import com.example.animator.details.adapters.*
-import com.example.animator.utils.setImageByURL
-import com.google.android.material.snackbar.Snackbar
-import koleton.api.hideSkeleton
-import koleton.api.loadSkeleton
+import com.example.animator.details.adapters.roles.ContainerRoles
+import com.example.animator.details.adapters.roles.characters.ContainerCharactersAdapter
+import com.example.animator.details.adapters.details.ContainerDetailsAdapter
+import com.example.animator.details.adapters.franchises.ContainerFranchises
+import com.example.animator.details.adapters.franchises.ContainerFranchisesAdapter
+import com.example.animator.details.adapters.roles.authors.ContainerAuthorsAdapter
+import com.example.animator.details.adapters.screenshots.ContainerScreenshots
+import com.example.animator.details.adapters.screenshots.ContainerScreenshotsAdapter
+import com.example.animator.details.adapters.studios.ContainerStudios
+import com.example.animator.details.adapters.studios.ContainerStudiosAdapter
+import com.example.animator.details.adapters.videos.ContainerVideos
+import com.example.animator.details.adapters.videos.ContainerVideosAdapter
 import javax.inject.Inject
 
 
@@ -38,30 +42,34 @@ class DetailsFragment : Fragment() {
 
     private lateinit var dViewModel: DetailsViewModel
 
-    private val genresAdapter by lazy { GenresAdapter() }
-    private val screenshotsAdapter by lazy { ScreenshotsAdapter() }
-    private val videosAdapter by lazy {
-        VideosAdapter { intent ->
-            startActivity(intent)
+    private val containerScreenshotsAdapter by lazy { ContainerScreenshotsAdapter() }
+    private val containerDetailsAdapter by lazy { ContainerDetailsAdapter { activity?.onBackPressed() } }
+    private val containerVideosAdapter by lazy {
+        ContainerVideosAdapter { intent ->
+            startActivity(
+                intent
+            )
         }
     }
-    private val frachisesAdapter by lazy { FranchisesAdapter() }
-    private val studiosAdapter by lazy { StudiosAdapter() }
-    private val charactersAdapter by lazy { CharactersAdapter() }
-    private val authorsAdapter by lazy { AuthorsAdapter() }
+    private val containerCharactersAdapter by lazy { ContainerCharactersAdapter() }
+    private val containerAuthorsAdapter by lazy { ContainerAuthorsAdapter() }
+    private val containerFranchisesAdapter by lazy { ContainerFranchisesAdapter() }
+    private val containerStudiosAdapter by lazy { ContainerStudiosAdapter() }
+
+    private val rootAdapter =
+        MergeAdapter(
+            containerDetailsAdapter,
+            containerScreenshotsAdapter,
+            containerVideosAdapter,
+            containerCharactersAdapter,
+            containerAuthorsAdapter,
+            containerFranchisesAdapter,
+            containerStudiosAdapter
+        )
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
 
-    private val skeletonList by lazy {
-        with(binding) {
-            listOf(
-                tvEpisodeTitle, tvStatusTitle, tvDateTitle, tvGenreTitle, tvDescriptionTitle,
-                tvTitleScreenshots, tvTitleVideos, tvTitleCharacters, tvTitleAutors,
-                tvTitleFranchises, tvTitleStudios, ivImageFranchises, tvTitle, tvScore
-            )
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,7 +78,6 @@ class DetailsFragment : Fragment() {
         dViewModel = ViewModelProvider(this, vmFactory)[DetailsViewModel::class.java]
 
         getAnimeDetails(args.id)
-
     }
 
     override fun onCreateView(
@@ -79,8 +86,7 @@ class DetailsFragment : Fragment() {
     ): View {
         _binding = FragmentDetailsBinding.inflate(layoutInflater)
 
-        showSkeleton(skeletonList)
-
+        binding.rvRoot.layoutManager = LinearLayoutManager(context)
         return binding.root
     }
 
@@ -88,15 +94,7 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         subscribeToLiveData()
-        initAdapters()
-
-        binding.tvTitle.setOnClickListener {
-            Snackbar.make(binding.root, binding.tvTitle.text, Snackbar.LENGTH_SHORT).show()
-        }
-
-        binding.ivBackPressed.setOnClickListener {
-            activity?.onBackPressed()
-        }
+        binding.rvRoot.adapter = rootAdapter
 
     }
 
@@ -109,7 +107,6 @@ class DetailsFragment : Fragment() {
             )
         )
     }
-
 
     private fun getAnimeDetails(id: Int) {
         with(dViewModel) {
@@ -128,7 +125,10 @@ class DetailsFragment : Fragment() {
     @SuppressLint("ResourceType", "FragmentLiveDataObserve")
     private fun subscribeToLiveData() = with(dViewModel) {
         pageAnimeDetailsAction.observe(this@DetailsFragment) { item ->
-            initView(item = item)
+
+            containerDetailsAdapter.submitList(listOf(item))
+            containerVideosAdapter.submitList(listOf(ContainerVideos(item.videos)))
+            containerStudiosAdapter.submitList(listOf(ContainerStudios(item.studios)))
 
             val statusIntent = Intent(requireActivity(), StatusForegroundService::class.java)
 
@@ -141,16 +141,17 @@ class DetailsFragment : Fragment() {
         }
 
         pageAnimeScreenshotsAction.observe(this@DetailsFragment) { item ->
-            screenshotsAdapter.submitList(item)
+            containerScreenshotsAdapter.submitList(listOf(ContainerScreenshots(list = item)))
         }
 
         pageAnimeFranchisesAction.observe(this@DetailsFragment) { item ->
-            frachisesAdapter.submitList(item)
+            containerFranchisesAdapter.submitList(listOf(ContainerFranchises(item)))
         }
 
         pageAnimeRolesAction.observe(this@DetailsFragment) { item ->
-            charactersAdapter.submitList(item)
-            authorsAdapter.submitList(item)
+            val list = listOf(ContainerRoles(item))
+            containerCharactersAdapter.submitList(list)
+            containerAuthorsAdapter.submitList(list)
         }
         actionError.observe(this@DetailsFragment) {
             BannerUtils.showToast(
@@ -158,68 +159,6 @@ class DetailsFragment : Fragment() {
                 requireContext()
             )
         }
-    }
-
-    private fun showSkeleton(list: List<View>) = list.forEach { it.loadSkeleton() }
-    private fun closeSkeleton(list: List<View>) = list.forEach { it.hideSkeleton() }
-
-    private fun initView(item: AnimeDetailsEntity) {
-        with(binding) {
-
-            ivImageFranchises.setImageByURL(SHIKIMORI_URL + item.image.original)
-            ivImageBackground.setImageByURL(SHIKIMORI_URL + item.image.original)
-
-            tvTitle.text = item.name
-            tvTitleRussian.text = item.russian
-
-            exDescription.text = if (item.description != null) {
-                HtmlCompat.fromHtml(item.description_html, HtmlCompat.FROM_HTML_MODE_LEGACY)
-            } else {
-                NOT_FOUND_TEXT
-            }
-
-            tvScore.text = item.score
-            tvKind.text = item.kind
-
-            tvEpisode.text = if (item.episodes.toString() != ZERO_TEXT) {
-                item.episodes.toString()
-            } else {
-                item.episodes_aired.toString()
-            }
-
-            tvDate.text = item.aired_on
-            tvStatus.text = item.status
-            tvStatus.setTextColor(Color.parseColor(item.statusColor))
-
-            genresAdapter.submitList(item.genres)
-            videosAdapter.submitList(item.videos)
-            studiosAdapter.submitList(item.studios)
-
-            closeSkeleton(skeletonList)
-        }
-    }
-
-    private fun initAdapters() = with(binding) {
-        rvGenre.adapter = this@DetailsFragment.genresAdapter
-        rvGenre.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-
-        rvScreenshots.adapter = this@DetailsFragment.screenshotsAdapter
-        rvScreenshots.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-
-        rvVideos.adapter = this@DetailsFragment.videosAdapter
-        rvVideos.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-
-        rvFranchises.adapter = this@DetailsFragment.frachisesAdapter
-        rvFranchises.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-
-        rvCharacters.adapter = this@DetailsFragment.charactersAdapter
-        rvCharacters.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-
-        rvAutors.adapter = this@DetailsFragment.authorsAdapter
-        rvAutors.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-
-        rvStudios.adapter = this@DetailsFragment.studiosAdapter
-        rvStudios.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
     }
 
     companion object {

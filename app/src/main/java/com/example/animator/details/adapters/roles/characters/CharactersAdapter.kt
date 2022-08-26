@@ -1,4 +1,4 @@
-package com.example.animator.details.adapters
+package com.example.animator.details.adapters.roles.characters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,19 +9,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.animator_domain.NOT_FOUND_TEXT
 import com.example.animator_domain.SHIKIMORI_URL
 import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
+import com.example.animator_domain.models.details.roles.Character
 import com.example.animator_domain.models.Image
-import com.example.animator_domain.models.details.roles.Person
-import com.example.animator.databinding.ItemDetailsAutorsBinding
+import com.example.animator.databinding.ItemDetailsCharactersBinding
 import com.example.animator.utils.setImageByURL
 
-
-class AuthorsAdapter :
-    ListAdapter<AnimeDetailsRolesEntity, AuthorsAdapter.AuthorsViewHolder>(
+class CharactersAdapter :
+    ListAdapter<AnimeDetailsRolesEntity, CharactersAdapter.CharactersViewHolder>(
         CharactersDiffCallback
     ) {
 
-    private val defaultPerson =
-        Person(
+    private val defaultCharacter =
+        Character(
             id = 404,
             image = Image(
                 original = NOT_FOUND_TEXT,
@@ -32,47 +31,46 @@ class AuthorsAdapter :
             name = NOT_FOUND_TEXT, russian = NOT_FOUND_TEXT, url = NOT_FOUND_TEXT
         )
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AuthorsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersViewHolder {
         val binding =
-            ItemDetailsAutorsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return AuthorsViewHolder(binding)
+            ItemDetailsCharactersBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return CharactersViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: AuthorsViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: CharactersViewHolder, position: Int) =
         holder.bind(currentList[position])
 
 
     override fun getItemCount(): Int = currentList.size
 
-    inner class AuthorsViewHolder(
+    inner class CharactersViewHolder(
         private val binding:
-        ItemDetailsAutorsBinding
+        ItemDetailsCharactersBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
         fun bind(model: AnimeDetailsRolesEntity) = with(binding) {
 
-            ivImageAutorsItem.setImageByURL(SHIKIMORI_URL + model.person?.image?.original)
-            tvTitleAutorsItem.text = model.person?.name
-            tvRoleAutorsItem.text = model.roles_russian.toString()
+            ivImageCharactersItem.setImageByURL(SHIKIMORI_URL + model.character?.image?.original)
+            tvTitleCharactersItem.text = model.character?.name
         }
     }
 
     override fun submitList(list: List<AnimeDetailsRolesEntity>?) {
-        val authorsList = when (list) {
+        val charactersList = when (list) {
             emptyList<AnimeDetailsRolesEntity>() -> listOf(
                 AnimeDetailsRolesEntity(
-                    character = null,
-                    person = defaultPerson,
+                    character = defaultCharacter,
+                    person = null,
                     roles = null,
                     roles_russian = null,
                     id = NOT_FOUND_TEXT
                 )
             )
-            else -> list?.filter { it.person != null }
+            else -> list?.filter { it.character != null }
         }
 
-        super.submitList(authorsList)
+        super.submitList(charactersList)
     }
 
     object CharactersDiffCallback : DiffUtil.ItemCallback<AnimeDetailsRolesEntity>() {
@@ -91,5 +89,3 @@ class AuthorsAdapter :
         }
     }
 }
-
-

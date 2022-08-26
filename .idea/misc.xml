@@ -11,7 +11,7 @@
         <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/activity_main.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/activity_splash.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/details.xml" value="0.30085470085470084" />
-        <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/fragment_details.xml" value="0.2526013634732687" />
+        <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/fragment_details.xml" value="0.1968454258675079" />
         <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/fragment_home.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/fragment_search.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/fragment_settings.xml" value="0.36666666666666664" />
@@ -26,6 +26,15 @@
         <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/item_home_genres_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/item_home_poster.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/item_search_posters.xml" value="0.33" />
+        <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/layout_authors_info.xml" value="0.2261650277896537" />
+        <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/layout_characters_info.xml" value="0.2261650277896537" />
+        <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/layout_details_info.xml" value="0.33" />
+        <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/layout_franchises_info.xml" value="0.2261650277896537" />
+        <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/layout_screenshots_info.xml" value="0.2261650277896537" />
+        <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/layout_studios_info.xml" value="0.2261650277896537" />
+        <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/layout_videos_info.xml" value="0.30012825994014536" />
+        <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/old.xml" value="0.2261650277896537" />
+        <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/recycler_item_screenshots.xml" value="0.25" />
         <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/layout/test.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/menu/navigation_bottom.xml" value="0.36666666666666664" />
       </map>

@@ -11,5 +11,5 @@ fun ImageView.setImageByURL(url: String) {
 
 fun ImageView.setImageStudioByURL(url: String) {
     Picasso.get().load(url)
-        .error(R.drawable.icon_default).into(this)
+        .error(R.drawable.icon_studio_default).into(this)
 }

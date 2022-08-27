@@ -19,13 +19,13 @@ class AnimeDataSourceImpl(
     private val animeApi: AnimeApi,
     private val shikimoriDAO: ShikimoriDAO
 ) : AnimeDataSource {
-    override fun getAnimePostersFromSearch(searchName: String): Observable<List<AnimePosterEntity>> {
-        return animeApi.getListOnSearch(search = searchName)
+    override fun getSearchPosters(searchName: String): Observable<List<AnimePosterEntity>> {
+        return animeApi.getSearchPosters(search = searchName)
             .subscribeOn(Schedulers.io())
             .map { AnimePosterResponseMapper.toListAnimePosterEntity(it) }
     }
 
-    override suspend fun getAnimeDetailsFromId(id: Int): Results<AnimeDetailsEntity> {
+    override suspend fun getDetails(id: Int): Results<AnimeDetailsEntity> {
         return try {
             val response = animeApi.getDetails(id = id)
             if (response.isSuccessful) {
@@ -40,7 +40,7 @@ class AnimeDataSourceImpl(
         }
     }
 
-    override suspend fun getAnimeScreenshotsFromId(id: Int): Results<List<AnimeDetailsScreenshotsEntity>> {
+    override suspend fun getScreenshots(id: Int): Results<List<AnimeDetailsScreenshotsEntity>> {
         return try {
             val response = animeApi.getScreenshots(id = id)
             if (response.isSuccessful) {
@@ -55,9 +55,9 @@ class AnimeDataSourceImpl(
         }
     }
 
-    override suspend fun getAnimeFranchisesFromId(id: Int): Results<List<AnimeDetailsFranchisesEntity>> {
+    override suspend fun getFranchises(id: Int): Results<List<AnimeDetailsFranchisesEntity>> {
         return try {
-            val response = animeApi.getSimilar(id = id)
+            val response = animeApi.getFranchises(id = id)
             if (response.isSuccessful) {
                 val list =
                     AnimeDetailsResponseMapper.toListAnimeFranchisesEntity(item = response.body()!!)
@@ -70,13 +70,11 @@ class AnimeDataSourceImpl(
         }
     }
 
-    override suspend fun getAnimeRolesFromId(id: Int): Results<List<AnimeDetailsRolesEntity>> {
+    override suspend fun getRoles(id: Int): Results<AnimeDetailsRolesEntity> {
         return try {
             val response = animeApi.getRoles(id = id)
             if (response.isSuccessful) {
-                val list = response.body()!!.map { item ->
-                    AnimeDetailsResponseMapper.toAnimeRolesEntity(item = item)
-                }
+                val list = AnimeDetailsResponseMapper.toListAnimeRolesEntity(response.body()!!)
                 Results.Success(data = list)
             } else {
                 Results.Error(exception = Exception(response.message()))
@@ -86,11 +84,11 @@ class AnimeDataSourceImpl(
         }
     }
 
-    override suspend fun getAnimePrevPostersFromGenres(genreId: Int): Results<List<AnimePosterEntity>> {
+    override suspend fun getGenrePosters(genreId: Int): Results<List<AnimePosterEntity>> {
         val isLocalNull: Boolean = shikimoriDAO.getPosterFromIdGenre(id = genreId) == null
 
         return try {
-            val response = animeApi.getListOnGenre(genreId = genreId)
+            val response = animeApi.getGenrePosters(genreId = genreId)
 
             when (response.isSuccessful) {
                 true -> {
@@ -106,7 +104,7 @@ class AnimeDataSourceImpl(
                 }
                 false -> {
                     if (response.code() == 429) {
-                        getAnimePrevPostersFromGenres(genreId)
+                        getGenrePosters(genreId)
                     } else if (isLocalNull) {
                         Results.Error(exception = Exception(response.message()))
                     } else {

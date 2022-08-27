@@ -38,11 +38,12 @@ class FranchisesAdapter :
         fun bind(model: AnimeDetailsFranchisesEntity) = with(binding) {
 
             ivImageFranchisesItem.setImageByURL(
-                model.image_url.replace(
+                model.image_url?.replace(
                     oldValue = "x96",
                     newValue = "original"
-                )
+                ) ?: NOT_FOUND_TEXT
             )
+
             tvTitleFranchisesItem.text = model.name
             tvKindDateFranchisesItem.text = "${model.kind} / ${model.year}"
 

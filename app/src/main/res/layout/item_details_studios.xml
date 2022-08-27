@@ -13,6 +13,7 @@
         android:layout_marginVertical="@dimen/item_details_studios_ivImageStudioItem_layout_marginVertical"
         android:layout_marginEnd="@dimen/item_details_studios_ivImageStudioItem_layout_marginEnd"
         android:contentDescription="@string/item_details_studios_ivImageStudioItem_contentDescription"
+        android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

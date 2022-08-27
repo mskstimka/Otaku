@@ -19,12 +19,13 @@ import com.example.animator.app.App
 import com.example.animator.details.services.StatusForegroundService
 import com.example.animator.utils.BannerUtils
 import com.example.animator.databinding.FragmentDetailsBinding
-import com.example.animator.details.adapters.roles.ContainerRoles
-import com.example.animator.details.adapters.roles.characters.ContainerCharactersAdapter
+import com.example.animator.details.adapters.authors.ContainerAuthors
+import com.example.animator.details.adapters.characters.ContainerCharactersAdapter
 import com.example.animator.details.adapters.details.ContainerDetailsAdapter
 import com.example.animator.details.adapters.franchises.ContainerFranchises
 import com.example.animator.details.adapters.franchises.ContainerFranchisesAdapter
-import com.example.animator.details.adapters.roles.authors.ContainerAuthorsAdapter
+import com.example.animator.details.adapters.authors.ContainerAuthorsAdapter
+import com.example.animator.details.adapters.characters.ContainerCharacters
 import com.example.animator.details.adapters.screenshots.ContainerScreenshots
 import com.example.animator.details.adapters.screenshots.ContainerScreenshotsAdapter
 import com.example.animator.details.adapters.studios.ContainerStudios
@@ -119,8 +120,8 @@ class DetailsFragment : Fragment() {
 
     private fun checkCount() {
         if (rootAdapter.itemCount == listAdapters.size) {
-            binding.rvRoot.adapter = rootAdapter
             binding.pbLoading.visibility = ProgressBar.INVISIBLE
+            binding.rvRoot.adapter = rootAdapter
         }
     }
 
@@ -160,9 +161,8 @@ class DetailsFragment : Fragment() {
         }
 
         pageAnimeRolesAction.observe(this@DetailsFragment) { item ->
-            val list = listOf(ContainerRoles(item))
-            containerCharactersAdapter.submitList(list)
-            containerAuthorsAdapter.submitList(list)
+            containerCharactersAdapter.submitList(listOf(ContainerCharacters(list = item.character)))
+            containerAuthorsAdapter.submitList(listOf(ContainerAuthors(list = item.person)))
             checkCount()
         }
         actionError.observe(this@DetailsFragment) {

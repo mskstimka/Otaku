@@ -1,4 +1,4 @@
-package com.example.animator.details.adapters.roles.authors
+package com.example.animator.details.adapters.authors
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -8,10 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animator.databinding.LayoutAuthorsInfoBinding
-import com.example.animator.details.adapters.roles.ContainerRoles
 
 class ContainerAuthorsAdapter :
-    ListAdapter<ContainerRoles, ContainerAuthorsAdapter.ParentAuthorsViewHolder>(
+    ListAdapter<ContainerAuthors, ContainerAuthorsAdapter.ParentAuthorsViewHolder>(
         ParentAuthorsDiffCallback
     ) {
 
@@ -41,24 +40,24 @@ class ContainerAuthorsAdapter :
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(item: ContainerRoles) = with(binding) {
+        fun bind(item: ContainerAuthors) = with(binding) {
 
             authorsAdapter.submitList(item.list)
         }
     }
 
 
-    object ParentAuthorsDiffCallback : DiffUtil.ItemCallback<ContainerRoles>() {
+    object ParentAuthorsDiffCallback : DiffUtil.ItemCallback<ContainerAuthors>() {
         override fun areItemsTheSame(
-            oldItem: ContainerRoles,
-            newItem: ContainerRoles
+            oldItem: ContainerAuthors,
+            newItem: ContainerAuthors
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: ContainerRoles,
-            newItem: ContainerRoles
+            oldItem: ContainerAuthors,
+            newItem: ContainerAuthors
         ): Boolean {
             return oldItem == newItem
         }

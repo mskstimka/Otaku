@@ -17,7 +17,7 @@ interface AnimeRepository {
      *
      * @return Observable list of Anime Posters
      */
-    fun getAnimePostersFromSearch(searchName: String): Observable<List<AnimePosterEntity>>
+    fun getSearchPosters(searchName: String): Observable<List<AnimePosterEntity>>
 
     /**
      * Getting Details of Anime on id
@@ -26,7 +26,7 @@ interface AnimeRepository {
      *
      * @return Results of Anime Details (object) or Results of error
      */
-    suspend fun getAnimeDetailsFromId(id: Int): Results<AnimeDetailsEntity>
+    suspend fun getDetails(id: Int): Results<AnimeDetailsEntity>
 
     /**
      * Getting Screenshots of Anime on id
@@ -35,25 +35,25 @@ interface AnimeRepository {
      *
      * @return Results of list of Anime Screenshots or Results of error
      */
-    suspend fun getAnimeScreenshotsFromId(id: Int): Results<List<AnimeDetailsScreenshotsEntity>>
+    suspend fun getScreenshots(id: Int): Results<List<AnimeDetailsScreenshotsEntity>>
 
     /**
-     * Getting similar animes for id
+     * Getting connected animes for id
      *
      * @param id - id of anime
      *
-     * @return Results of similar animes in object or Results of error
+     * @return Results of connected animes in object or Results of error
      */
-    suspend fun getAnimeFranchisesFromId(id: Int): Results<List<AnimeDetailsFranchisesEntity>>
+    suspend fun getFranchises(id: Int): Results<List<AnimeDetailsFranchisesEntity>>
 
     /**
      * Getting Characters and Authors of Anime on id
      *
      * @param id - id of anime
      *
-     * @return Results of list of Anime Characters and Authors or Results of error
+     * @return Results object of Anime Characters and Authors or Results of error
      */
-    suspend fun getAnimeRolesFromId(id: Int): Results<List<AnimeDetailsRolesEntity>>
+    suspend fun getRoles(id: Int): Results<AnimeDetailsRolesEntity>
 
     /**
      * /**
@@ -64,5 +64,5 @@ interface AnimeRepository {
      * @return Results of list of Anime Posters or Results of error
     */
      */
-    suspend fun getAnimePrevPostersFromGenres(genreId: Int): Results<List<AnimePosterEntity>>
+    suspend fun getGenrePosters(genreId: Int): Results<List<AnimePosterEntity>>
 }

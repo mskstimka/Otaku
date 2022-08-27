@@ -19,7 +19,7 @@ interface AnimeApi {
      * @return Observable list of Anime Posters
      * */
     @GET("api/animes")
-    fun getListOnSearch(
+    fun getSearchPosters(
         @Query(value = "search") search: String = "",
         @Query(value = "limit") limit: Int = 20,
         @Query(value = "censored") censored: Boolean = true
@@ -48,7 +48,7 @@ interface AnimeApi {
      * @return Response list of Anime Posters
      */
     @GET("api/animes")
-    suspend fun getListOnGenre(
+    suspend fun getGenrePosters(
         @Query(value = "genre") genreId: Int,
         @Query(value = "limit") limit: Int = 20,
         @Query(value = "censored") censored: Boolean = true,
@@ -68,14 +68,14 @@ interface AnimeApi {
     ): Response<List<AnimeDetailsScreenshotsEntityResponse>>
 
     /**
-     * Getting similar animes for id
+     * Getting connected animes for id
      *
      * @param id - id of anime
      *
-     * @return Response similar animes in object
+     * @return Response connected animes in object
      */
     @GET("api/animes/{id}/franchise")
-    suspend fun getSimilar(
+    suspend fun getFranchises(
         @Path(value = "id") id: Int
     ): Response<AnimeDetailsFranchisesEntityResponse>
 

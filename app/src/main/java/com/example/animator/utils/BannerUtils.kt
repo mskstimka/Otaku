@@ -1,6 +1,7 @@
 package com.example.animator.utils
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 
 object BannerUtils {
@@ -9,8 +10,9 @@ object BannerUtils {
         Toast.makeText(
             context,
             message,
-            Toast.LENGTH_SHORT
+            Toast.LENGTH_LONG
         ).show()
+        Log.v("toast:", message)
     }
 
 }

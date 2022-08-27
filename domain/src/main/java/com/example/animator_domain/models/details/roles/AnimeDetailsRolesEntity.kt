@@ -4,9 +4,6 @@ import androidx.annotation.Keep
 
 @Keep
 data class AnimeDetailsRolesEntity(
-    val character: Character?,
-    val person: Person?,
-    val roles: List<String>?,
-    val roles_russian: List<String>?,
-    val id: String
+    val character: List<Character>,
+    val person: List<Person>
 )

@@ -32,8 +32,8 @@ class DetailsViewModel(
     private val _pageAnimeFranchisesAction = MutableLiveData<List<AnimeDetailsFranchisesEntity>>()
     val pageAnimeFranchisesAction: LiveData<List<AnimeDetailsFranchisesEntity>> get() = _pageAnimeFranchisesAction
 
-    private val _pageAnimeRolesAction = MutableLiveData<List<AnimeDetailsRolesEntity>>()
-    val pageAnimeRolesAction: LiveData<List<AnimeDetailsRolesEntity>> get() = _pageAnimeRolesAction
+    private val _pageAnimeRolesAction = MutableLiveData<AnimeDetailsRolesEntity>()
+    val pageAnimeRolesAction: LiveData<AnimeDetailsRolesEntity> get() = _pageAnimeRolesAction
 
 
     fun getAnimeDetailsFromId(id: Int) {
@@ -77,7 +77,7 @@ class DetailsViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             when (val response = getAnimeRolesFromIdUseCase.execute(id = id)) {
                 is Results.Success -> {
-                    _pageAnimeRolesAction.postValue(response.data.toMutableList())
+                    _pageAnimeRolesAction.postValue(response.data)
                 }
                 is Results.Error -> _actionError.postValue(response.exception.message)
             }

@@ -2,16 +2,42 @@ package com.example.animator_data.mapper
 
 import com.example.animator_data.network.models.*
 import com.example.animator_domain.*
+import com.example.animator_domain.models.Image
 import com.example.animator_domain.models.details.AnimeDetailsEntity
 import com.example.animator_domain.models.details.Genre
 import com.example.animator_domain.models.details.Studio
 import com.example.animator_domain.models.details.Video
 import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchisesEntity
 import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
+import com.example.animator_domain.models.details.roles.Character
+import com.example.animator_domain.models.details.roles.Person
 import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
-import java.util.*
 
 object AnimeDetailsResponseMapper {
+
+    private val defaultCharacter =
+        Character(
+            id = 404,
+            image = Image(
+                original = NOT_FOUND_TEXT,
+                preview = NOT_FOUND_TEXT,
+                x48 = NOT_FOUND_TEXT,
+                x96 = NOT_FOUND_TEXT
+            ),
+            name = NOT_FOUND_TEXT, russian = NOT_FOUND_TEXT, url = NOT_FOUND_TEXT
+        )
+
+    private val defaultPerson =
+        Person(
+            id = 404,
+            image = Image(
+                original = NOT_FOUND_TEXT,
+                preview = NOT_FOUND_TEXT,
+                x48 = NOT_FOUND_TEXT,
+                x96 = NOT_FOUND_TEXT
+            ),
+            name = NOT_FOUND_TEXT, russian = NOT_FOUND_TEXT, url = NOT_FOUND_TEXT
+        )
 
 
     private val defaultVideo = Video(
@@ -114,14 +140,21 @@ object AnimeDetailsResponseMapper {
         return list
     }
 
+    fun toListAnimeRolesEntity(list: List<AnimeDetailsRolesEntityResponse>): AnimeDetailsRolesEntity {
 
-    fun toAnimeRolesEntity(item: AnimeDetailsRolesEntityResponse) = AnimeDetailsRolesEntity(
-        character = item.character,
-        person = item.person,
-        roles = item.roles,
-        roles_russian = item.roles_russian,
-        id = UUID.randomUUID().toString()
-    )
+        val personNotNull = list.mapNotNull { it.person }
+        val listPerson = if (personNotNull == emptyList<Person>()) {
+            listOf(defaultPerson)
+        } else personNotNull
+
+        val characterNotNull = list.mapNotNull { it.character }
+        val listCharacters = if (characterNotNull == emptyList<Character>()) {
+            listOf(defaultCharacter)
+        } else characterNotNull
+
+
+        return AnimeDetailsRolesEntity(character = listCharacters, person = listPerson)
+    }
 
     private fun checkVideoList(list: List<Video>): List<Video> {
         return when (list) {

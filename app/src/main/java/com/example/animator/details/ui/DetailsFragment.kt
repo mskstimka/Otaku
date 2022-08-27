@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.core.content.ContextCompat.startForegroundService
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -56,16 +57,16 @@ class DetailsFragment : Fragment() {
     private val containerFranchisesAdapter by lazy { ContainerFranchisesAdapter() }
     private val containerStudiosAdapter by lazy { ContainerStudiosAdapter() }
 
-    private val rootAdapter =
-        MergeAdapter(
-            containerDetailsAdapter,
-            containerScreenshotsAdapter,
-            containerVideosAdapter,
-            containerCharactersAdapter,
-            containerAuthorsAdapter,
-            containerFranchisesAdapter,
-            containerStudiosAdapter
-        )
+    private val listAdapters = listOf(
+        containerDetailsAdapter,
+        containerScreenshotsAdapter,
+        containerVideosAdapter,
+        containerCharactersAdapter,
+        containerAuthorsAdapter,
+        containerFranchisesAdapter,
+        containerStudiosAdapter
+    )
+    private val rootAdapter = MergeAdapter(listAdapters)
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
@@ -94,7 +95,6 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         subscribeToLiveData()
-        binding.rvRoot.adapter = rootAdapter
 
     }
 
@@ -114,6 +114,13 @@ class DetailsFragment : Fragment() {
             getAnimeDetailsScreenshotsFromId(id = id)
             getAnimeDetailsFranchisesFromId(id = id)
             getAnimeDetailsRolesFromId(id = id)
+        }
+    }
+
+    private fun checkCount() {
+        if (rootAdapter.itemCount == listAdapters.size) {
+            binding.rvRoot.adapter = rootAdapter
+            binding.pbLoading.visibility = ProgressBar.INVISIBLE
         }
     }
 
@@ -138,20 +145,25 @@ class DetailsFragment : Fragment() {
                 .putExtra(STATUS_FOREGROUND_KIND_KEY, item.kind)
             startForegroundService(requireContext(), statusIntent)
 
+            checkCount()
+
         }
 
         pageAnimeScreenshotsAction.observe(this@DetailsFragment) { item ->
             containerScreenshotsAdapter.submitList(listOf(ContainerScreenshots(list = item)))
+            checkCount()
         }
 
         pageAnimeFranchisesAction.observe(this@DetailsFragment) { item ->
             containerFranchisesAdapter.submitList(listOf(ContainerFranchises(item)))
+            checkCount()
         }
 
         pageAnimeRolesAction.observe(this@DetailsFragment) { item ->
             val list = listOf(ContainerRoles(item))
             containerCharactersAdapter.submitList(list)
             containerAuthorsAdapter.submitList(list)
+            checkCount()
         }
         actionError.observe(this@DetailsFragment) {
             BannerUtils.showToast(

@@ -118,13 +118,6 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private fun checkCount() {
-        if (rootAdapter.itemCount == listAdapters.size) {
-            binding.pbLoading.visibility = ProgressBar.INVISIBLE
-            binding.rvRoot.adapter = rootAdapter
-        }
-    }
-
     override fun onResume() {
         super.onResume()
         subscribeToLiveData()
@@ -146,30 +139,33 @@ class DetailsFragment : Fragment() {
                 .putExtra(STATUS_FOREGROUND_KIND_KEY, item.kind)
             startForegroundService(requireContext(), statusIntent)
 
-            checkCount()
-
         }
 
         pageAnimeScreenshotsAction.observe(this@DetailsFragment) { item ->
             containerScreenshotsAdapter.submitList(listOf(ContainerScreenshots(list = item)))
-            checkCount()
         }
 
         pageAnimeFranchisesAction.observe(this@DetailsFragment) { item ->
             containerFranchisesAdapter.submitList(listOf(ContainerFranchises(item)))
-            checkCount()
         }
 
         pageAnimeRolesAction.observe(this@DetailsFragment) { item ->
             containerCharactersAdapter.submitList(listOf(ContainerCharacters(list = item.character)))
             containerAuthorsAdapter.submitList(listOf(ContainerAuthors(list = item.person)))
-            checkCount()
         }
+
         actionError.observe(this@DetailsFragment) {
             BannerUtils.showToast(
                 getString(R.string.an_error_has_occurred, it),
                 requireContext()
             )
+        }
+
+        actionAdapter.observe(this@DetailsFragment) {
+            with(binding){
+                pbLoading.visibility = it
+                rvRoot.adapter = rootAdapter
+            }
         }
     }
 

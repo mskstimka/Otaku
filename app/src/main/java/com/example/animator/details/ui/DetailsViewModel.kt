@@ -1,6 +1,7 @@
 package com.example.animator.details.ui
 
 import android.annotation.SuppressLint
+import android.widget.ProgressBar
 import androidx.lifecycle.*
 import com.example.animator_domain.common.Results
 import com.example.animator_domain.models.details.AnimeDetailsEntity
@@ -35,6 +36,19 @@ class DetailsViewModel(
     private val _pageAnimeRolesAction = MutableLiveData<AnimeDetailsRolesEntity>()
     val pageAnimeRolesAction: LiveData<AnimeDetailsRolesEntity> get() = _pageAnimeRolesAction
 
+    private val responses = mutableListOf<Boolean>()
+
+    private val _actionAdapter = MutableLiveData<Int>()
+    val actionAdapter: LiveData<Int> get() = _actionAdapter
+
+
+    private fun putResponses(value: Boolean) {
+        responses.add(value)
+
+        if (responses.count() == 4) {
+            _actionAdapter.postValue(ProgressBar.INVISIBLE)
+        }
+    }
 
     fun getAnimeDetailsFromId(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -42,8 +56,12 @@ class DetailsViewModel(
             when (val response = getAnimeDetailsFromIdUseCase.execute(id = id)) {
                 is Results.Success -> {
                     _pageAnimeDetailsAction.postValue(response.data)
+                    putResponses(true)
                 }
-                is Results.Error -> _actionError.postValue(response.exception.message)
+                is Results.Error -> {
+                    _actionError.postValue(response.exception.message)
+                    putResponses(false)
+                }
             }
         }
     }
@@ -54,8 +72,12 @@ class DetailsViewModel(
             when (val response = getAnimeScreenshotsFromIdUseCase.execute(id = id)) {
                 is Results.Success -> {
                     _pageAnimeScreenshotsAction.postValue(response.data)
+                    putResponses(true)
                 }
-                is Results.Error -> _actionError.postValue(response.exception.message)
+                is Results.Error -> {
+                    _actionError.postValue(response.exception.message)
+                    putResponses(false)
+                }
             }
         }
     }
@@ -67,8 +89,12 @@ class DetailsViewModel(
             when (val response = getAnimeFranchisesFromIdUseCase.execute(id = id)) {
                 is Results.Success -> {
                     _pageAnimeFranchisesAction.postValue(response.data)
+                    putResponses(true)
                 }
-                is Results.Error -> _actionError.postValue(response.exception.message)
+                is Results.Error -> {
+                    _actionError.postValue(response.exception.message)
+                    putResponses(false)
+                }
             }
         }
     }
@@ -78,8 +104,12 @@ class DetailsViewModel(
             when (val response = getAnimeRolesFromIdUseCase.execute(id = id)) {
                 is Results.Success -> {
                     _pageAnimeRolesAction.postValue(response.data)
+                    putResponses(true)
                 }
-                is Results.Error -> _actionError.postValue(response.exception.message)
+                is Results.Error -> {
+                    _actionError.postValue(response.exception.message)
+                    putResponses(false)
+                }
             }
         }
     }

@@ -2,9 +2,6 @@ package com.example.animator.app.firebase
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import com.example.animator_domain.IS_SHOW_NOTIFICATION
-import com.example.animator_domain.SHARED_PREF_SETTINGS
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import android.app.NotificationChannel
@@ -16,10 +13,21 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.example.animator.R
 import com.example.animator.app.activities.MainActivity
+import com.example.animator.utils.SharedPreferencesHelper
+import dagger.android.AndroidInjection
+import javax.inject.Inject
 
 
 @SuppressLint("MissingFirebaseInstanceTokenRefresh")
 class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
+
+    @Inject
+    lateinit var sharedPreferencesHelper: SharedPreferencesHelper
+
+    override fun onCreate() {
+        AndroidInjection.inject(this)
+        super.onCreate()
+    }
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
@@ -28,13 +36,8 @@ class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
     }
 
     override fun handleIntent(intent: Intent?) {
-        val sharedPreferences = getSharedPreferences(
-            SHARED_PREF_SETTINGS,
-            AppCompatActivity.MODE_PRIVATE
-        )
-        val isShowNotification = sharedPreferences.getBoolean(IS_SHOW_NOTIFICATION, false)
 
-        if (isShowNotification) {
+        if (sharedPreferencesHelper.getIsShowNotification()) {
             super.handleIntent(intent)
         }
 

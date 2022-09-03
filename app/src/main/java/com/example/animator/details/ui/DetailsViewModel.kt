@@ -82,7 +82,6 @@ class DetailsViewModel(
         }
     }
 
-
     fun getAnimeDetailsFranchisesFromId(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
 

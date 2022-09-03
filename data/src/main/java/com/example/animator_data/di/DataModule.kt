@@ -45,10 +45,6 @@ class DataModule(private val context: Context) {
             .build()
     }
 
-    @Provides
-    fun provideContext(): Context {
-        return context
-    }
 
     @Provides
     fun provideAnimeDataSource(retrofit: Retrofit, shikimoriDAO: ShikimoriDAO): AnimeDataSource {
@@ -59,7 +55,7 @@ class DataModule(private val context: Context) {
     }
 
     @Provides
-    fun provideShikimoriDataBase(context: Context): ShikimoriDAO {
+    fun provideShikimoriDataBase(): ShikimoriDAO {
         return ShikimoriDataBase.getDatabase(context = context).getCurrencyDao()
     }
 

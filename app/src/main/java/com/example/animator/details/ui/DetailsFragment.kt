@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.core.content.ContextCompat.startForegroundService
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -162,8 +161,9 @@ class DetailsFragment : Fragment() {
         }
 
         actionAdapter.observe(this@DetailsFragment) {
+            visibility ->
             with(binding){
-                pbLoading.visibility = it
+                pbLoading.visibility = visibility
                 rvRoot.adapter = rootAdapter
             }
         }

@@ -1,31 +1,38 @@
 package com.example.animator.app
 
 import android.app.Application
-import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.PeriodicWorkRequest
-import androidx.work.WorkManager
+import android.app.Service
 import androidx.work.*
-import com.example.animator_data.di.DataModule
 import com.example.animator.app.di.AppComponent
+import com.example.animator.app.di.AppModule
 import com.example.animator.app.di.DaggerAppComponent
 import com.example.animator.app.local.LocalWorker
 import com.example.animator.app.local.LocalWorkerFactory
+import com.example.animator_data.di.DataModule
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasServiceInjector
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class App : Application() {
+
+class App : Application(), HasServiceInjector{
 
     lateinit var appComponent: AppComponent
 
     @Inject
     lateinit var workerFactory: LocalWorkerFactory
 
+    @Inject
+    lateinit var dispatchingServiceInjector: DispatchingAndroidInjector<Service>
+
     override fun onCreate() {
         super.onCreate()
 
         appComponent = DaggerAppComponent
             .builder()
-            .dataModule(DataModule(context = this))
+            .dataModule(DataModule(context = applicationContext))
+            .appModule(AppModule(context = applicationContext))
             .build()
         appComponent.inject(app = this)
         initWorkManager()
@@ -53,5 +60,9 @@ class App : Application() {
 
     companion object {
         const val TAG_WORK_MANAGER = "local_tag_work_manager"
+    }
+
+    override fun serviceInjector(): AndroidInjector<Service> {
+        return dispatchingServiceInjector
     }
 }

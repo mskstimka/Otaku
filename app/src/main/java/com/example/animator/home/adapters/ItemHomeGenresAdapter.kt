@@ -36,7 +36,7 @@ class ItemHomeGenresAdapter :
         ItemHomeGenresItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("SetTextI18n", "StringFormatMatches")
+        @SuppressLint("StringFormatMatches")
         fun bind(model: AnimePosterEntity) = with(binding) {
 
             ivImageHomeGenre.setImageByURL(SHIKIMORI_URL + model.image.original)

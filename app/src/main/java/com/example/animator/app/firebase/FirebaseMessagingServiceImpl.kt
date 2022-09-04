@@ -43,12 +43,11 @@ class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
 
     }
 
-    @SuppressLint("UnspecifiedImmutableFlag")
     private fun sendNotification(messageBody: String) {
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(
-            this, 0 /* Request code */, intent,
+            this, 0, intent,
             PendingIntent.FLAG_ONE_SHOT
         )
 
@@ -56,7 +55,7 @@ class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.mipmap.ic_launcher_foreground)
-            .setContentTitle("Animator")
+            .setContentTitle(getString(R.string.default_notification_title))
             .setContentText(messageBody)
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
@@ -69,7 +68,7 @@ class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 channelId,
-                "Notification Push",
+                getString(R.string.default_notification_channel_id),
                 NotificationManager.IMPORTANCE_DEFAULT
             )
             notificationManager.createNotificationChannel(channel)

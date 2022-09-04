@@ -1,6 +1,5 @@
 package com.example.animator.details.ui
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -122,9 +121,8 @@ class DetailsFragment : Fragment() {
         subscribeToLiveData()
     }
 
-    @SuppressLint("ResourceType", "FragmentLiveDataObserve")
     private fun subscribeToLiveData() = with(dViewModel) {
-        pageAnimeDetailsAction.observe(this@DetailsFragment) { item ->
+        pageAnimeDetailsAction.observe(viewLifecycleOwner) { item ->
 
             containerDetailsAdapter.submitList(listOf(item))
             containerVideosAdapter.submitList(listOf(ContainerVideos(item.videos)))
@@ -140,27 +138,27 @@ class DetailsFragment : Fragment() {
 
         }
 
-        pageAnimeScreenshotsAction.observe(this@DetailsFragment) { item ->
+        pageAnimeScreenshotsAction.observe(viewLifecycleOwner) { item ->
             containerScreenshotsAdapter.submitList(listOf(ContainerScreenshots(list = item)))
         }
 
-        pageAnimeFranchisesAction.observe(this@DetailsFragment) { item ->
+        pageAnimeFranchisesAction.observe(viewLifecycleOwner) { item ->
             containerFranchisesAdapter.submitList(listOf(ContainerFranchises(item)))
         }
 
-        pageAnimeRolesAction.observe(this@DetailsFragment) { item ->
+        pageAnimeRolesAction.observe(viewLifecycleOwner) { item ->
             containerCharactersAdapter.submitList(listOf(ContainerCharacters(list = item.character)))
             containerAuthorsAdapter.submitList(listOf(ContainerAuthors(list = item.person)))
         }
 
-        actionError.observe(this@DetailsFragment) {
+        actionError.observe(viewLifecycleOwner) {
             BannerUtils.showToast(
                 getString(R.string.an_error_has_occurred, it),
                 requireContext()
             )
         }
 
-        actionAdapter.observe(this@DetailsFragment) {
+        actionAdapter.observe(viewLifecycleOwner) {
             visibility ->
             with(binding){
                 pbLoading.visibility = visibility

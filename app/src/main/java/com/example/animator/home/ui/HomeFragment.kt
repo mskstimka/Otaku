@@ -37,10 +37,7 @@ class HomeFragment : Fragment() {
 
         (requireActivity().applicationContext as App).appComponent.inject(this)
 
-
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-
+        initAdapter()
 
         hViewModel = ViewModelProvider(this, vmFactory)[HomeViewModel::class.java]
 
@@ -52,7 +49,11 @@ class HomeFragment : Fragment() {
 
         subscribeToLiveData()
 
+    }
 
+    private fun initAdapter() = with(binding) {
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
     }
 
     private fun subscribeToLiveData() {

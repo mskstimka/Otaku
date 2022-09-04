@@ -61,4 +61,7 @@
 
     <string name="episode_text">Episodes: %1$s</string>
 
+    <string name="notification_channel_id">Notification Push</string>
+    <string name="default_notification_title">Animator</string>
+
 </resources>

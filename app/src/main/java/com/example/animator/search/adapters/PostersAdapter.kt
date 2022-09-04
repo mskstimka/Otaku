@@ -32,7 +32,7 @@ class PostersAdapter(private val callbackClick: (posterId: Int) -> Unit) :
         private val binding: ItemSearchPostersBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("SetTextI18n", "ResourceAsColor", "StringFormatMatches")
+        @SuppressLint("StringFormatMatches")
         fun bind(model: AnimePosterEntity) = with(binding) {
             tvSearchPosterName.text = model.name
             tvSearchPosterScore.text = model.score

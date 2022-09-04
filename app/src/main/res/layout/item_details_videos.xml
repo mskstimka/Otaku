@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/item_details_videos_root_layout_width"
     android:layout_height="@dimen/item_details_videos_root_layout_height"
+    android:background="@color/activity_background_color"
     xmlns:tools="http://schemas.android.com/tools">
 
 
@@ -25,7 +26,7 @@
         android:id="@+id/tvTitleVideosItem"
         style="@style/item_title_text_style"
         android:textSize="@dimen/item_details_videos_tvTitleVideosItem_textSize"
-        tools:text="Video"
+        tools:text="not found"
         app:layout_constraintEnd_toEndOf="@+id/ivImageVideosItem"
         app:layout_constraintStart_toStartOf="@+id/ivImageVideosItem"
         app:layout_constraintTop_toBottomOf="@+id/ivImageVideosItem" />
@@ -33,7 +34,7 @@
     <TextView
         android:id="@+id/tvHostingVideosItem"
         style="@style/item_description_text_style"
-        tools:text="example.com"
+        tools:text="not found"
         app:layout_constraintEnd_toEndOf="@+id/tvTitleVideosItem"
         app:layout_constraintStart_toStartOf="@+id/tvTitleVideosItem"
         app:layout_constraintTop_toBottomOf="@+id/tvTitleVideosItem" />

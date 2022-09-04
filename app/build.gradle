@@ -26,7 +26,7 @@ android {
     buildToolsVersion "30.0.3"
     compileOptions.incremental = false
     defaultConfig {
-        applicationId "com.example.rxjava"
+        applicationId 'com.app.animator'
         minSdkVersion 21
         targetSdkVersion 32
         versionCode 1
@@ -56,14 +56,45 @@ android {
 
 
 dependencies {
+
+    // include modules
     implementation project(path: ':data')
     implementation project(path: ':domain')
 
-    // Import the Firebase BoM (see: https://firebase.google.com/docs/android/learn-more#bom)
-    implementation platform('com.google.firebase:firebase-bom:30.3.2')
+    // merge adapter
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha02'
 
-    // Firebase Cloud Messaging (Java)
-    implementation 'com.google.firebase:firebase-messaging'
+
+    // fragment testing
+    def fragment_version = "1.5.2"
+    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"   // Core library
+
+    // test core
+    def test_version = "1.4.0"
+    androidTestImplementation "androidx.test:core:$test_version"
+
+    // AndroidJUnitRunner and JUnit Rules
+    androidTestImplementation "androidx.test:runner:$test_version"
+    androidTestImplementation "androidx.test:rules:$test_version"
+
+    // Assertions
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation "androidx.test.ext:truth:$test_version"
+
+    // Espresso dependencies
+    def espressoVersion = "3.4.0"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-accessibility:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-web:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:$espressoVersion"
+
+    // testing espresso
+    androidTestImplementation "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
+
+    // Firebase BoM
+    implementation platform ('com.google.firebase:firebase-bom:30.3.2')
 
     // Firebase Cloud Messaging (Kotlin)
     implementation 'com.google.firebase:firebase-messaging-ktx'
@@ -72,66 +103,64 @@ dependencies {
     // for Google Analytics. This is recommended, but not required.
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
-
     implementation 'com.google.firebase:firebase-installations-ktx:17.0.1'
 
-    implementation 'androidx.work:work-runtime:2.7.1'
+    // work manager
+    def work_version = "2.7.1"
+    implementation "androidx.work:work-runtime:$work_version"
+    implementation "androidx.work:work-runtime-ktx:$work_version"
 
     // picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
-    implementation 'androidx.work:work-runtime-ktx:2.7.1'
+    // gif view
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.25'
+
+    // unit test
+    implementation 'androidx.test.ext:junit-ktx:1.1.3'
 
     // navigation
-    def nav_version = '2.4.0-alpha05'
+    def nav_version = '2.5.1'
     apply plugin: "androidx.navigation.safeargs.kotlin"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
-
     // coroutine
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
 
     // viewModel
-    implementation 'androidx.fragment:fragment-ktx:1.4.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    implementation 'androidx.fragment:fragment-ktx:1.5.2'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
 
     // RxJava
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
     implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
 
     // cardView
     implementation "androidx.cardview:cardview:1.0.0"
 
     // dagger2
-    implementation 'com.google.dagger:dagger:2.43.1'
-    kapt 'com.google.dagger:dagger-compiler:2.43.1'
+    implementation "com.google.dagger:dagger:2.16"
+    implementation "com.google.dagger:dagger-android-support:2.16"
+    kapt "com.google.dagger:dagger-compiler:2.16"
+    kapt "com.google.dagger:dagger-android-processor:2.16"
     implementation 'javax.inject:javax.inject:1'
-
-
-    implementation 'com.google.dagger:dagger-android:2.43.1'
-    implementation'com.google.dagger:dagger-android-support:2.43.1'
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.19'
-
-    // In your module's `build.gradle.kts`
-    implementation 'com.ericktijerou.koleton:koleton:0.7.8'
 
     // retrofit
     def retrofit_version = "2.9.0"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.5.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
 
 
     // lifecycle
-    def lifecycle_version = "2.4.0"
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycle_version")
+    def lifecycle_version = "2.5.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
     // expandableTextView
     implementation 'com.ms-square:expandableTextView:0.1.4'
@@ -146,11 +175,13 @@ dependencies {
     // default
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.+'
+    testImplementation 'junit:junit:'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.4.0')
+    androidTestImplementation('androidx.test:runner:1.4.0')
+    androidTestImplementation('androidx.test:rules:1.4.0')
 }

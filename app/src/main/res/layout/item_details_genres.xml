@@ -2,6 +2,7 @@
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/item_card_style"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -12,8 +13,8 @@
     <TextView
         android:id="@+id/tvTitleGenreItem"
         style="@style/text_style_light"
+        tools:text="genres"
         android:layout_width="wrap_content"
-        android:text="genres"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/item_details_genres_tvTitleGenreItem_layout_marginHorizontal"
         android:layout_marginVertical="@dimen/item_details_genres_tvTitleGenreItem_layout_marginVertical"

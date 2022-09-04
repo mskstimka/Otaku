@@ -7,64 +7,58 @@
     tools:context=".search.ui.SearchFragment">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvCard"
+        android:id="@+id/cvFragmentSearchCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp"
-        android:foregroundGravity="center"
-
+        android:layout_margin="@dimen/fragment_search_cvFragmentSearchCard_layout_margin"
         app:cardBackgroundColor="?android:windowBackground"
-        app:cardCornerRadius="25dp"
+        app:cardCornerRadius="@dimen/fragment_search_cvFragmentSearchCard_cardCornerRadius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-
-
         <androidx.appcompat.widget.SearchView
-            android:id="@+id/svSearch"
+            android:id="@+id/svFragmentSearchSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:inputType="text"
-            app:queryBackground="@font/google_sans_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:queryHint="Enter text" />
+            app:queryBackground="@font/google_sans_medium"
+            app:queryHint="@string/fragment_search_svFragmentSearchSearch_queryHint" />
 
     </androidx.cardview.widget.CardView>
 
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvFragmentSearchTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/anime_ace_v3"
-        android:text="An1mator"
-        android:textSize="30dp"
+        android:text="@string/fragment_search_tvFragmentSearchTitle_text"
+        android:textSize="@dimen/fragment_search_tvFragmentSearchTitle_textSize"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/gifImageView"
-        app:layout_constraintStart_toStartOf="@+id/gifImageView"
-        app:layout_constraintTop_toBottomOf="@+id/gifImageView" />
+        app:layout_constraintEnd_toEndOf="@+id/gifFragmentSearchLogo"
+        app:layout_constraintStart_toStartOf="@+id/gifFragmentSearchLogo"
+        app:layout_constraintTop_toBottomOf="@+id/gifFragmentSearchLogo" />
 
     <TextView
-        android:id="@+id/tvTitleDescription"
+        android:id="@+id/tvFragmentSearchTitleDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/anime_ace_v3"
-        android:text="supported shikimori.one"
-        android:textSize="10dp"
+        android:text="@string/fragment_search_tvFragmentSearchTitleDescription_text"
+        android:textSize="@dimen/fragment_search_tvFragmentSearchTitleDescription_textSize"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/tvTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
-
+        app:layout_constraintEnd_toEndOf="@+id/tvFragmentSearchTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvFragmentSearchTitle"
+        tools:ignore="SmallSp" />
 
 
     <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/gifImageView"
+        android:id="@+id/gifFragmentSearchLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="center"
@@ -74,24 +68,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <View
-        android:id="@+id/view"
+        android:id="@+id/vFragmentSearchLine"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/fragment_search_vFragmentSearchLine_layout_height"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/fragment_search_vFragmentSearchLine_layout_marginTop"
         android:alpha="0.6"
         android:background="?android:windowBackground"
-        app:layout_constraintBottom_toTopOf="@id/rvList"
+        app:layout_constraintBottom_toTopOf="@id/rvFragmentSearchList"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvFragmentSearchCard" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvList"
+        android:id="@+id/rvFragmentSearchList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvCard"
-        tools:layout_editor_absoluteX="-16dp" />
+        app:layout_constraintTop_toBottomOf="@+id/vFragmentSearchLine" />
 </androidx.constraintlayout.widget.ConstraintLayout>

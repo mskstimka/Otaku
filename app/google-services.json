@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "344068429726",
-    "project_id": "animator-b12a5",
-    "storage_bucket": "animator-b12a5.appspot.com"
+    "project_number": "543857415184",
+    "project_id": "an1mator",
+    "storage_bucket": "an1mator.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:344068429726:android:69049acfc1118b0664688f",
+        "mobilesdk_app_id": "1:543857415184:android:cc3ec6b506258e3e886695",
         "android_client_info": {
-          "package_name": "com.example.rxjava"
+          "package_name": "com.app.animator"
         }
       },
       "oauth_client": [
         {
-          "client_id": "344068429726-hgm9ug9k7ic4utfqobmvsoju135qq998.apps.googleusercontent.com",
+          "client_id": "543857415184-qgv0iak5tkkanfdedommlohtgfsc0go4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.rxjava",
+            "package_name": "com.app.animator",
             "certificate_hash": "18983cc7609d79f41c2d450a6ba8273478369ecb"
           }
         },
         {
-          "client_id": "344068429726-ui1kcp1cc09kmif6045f8damg798rach.apps.googleusercontent.com",
+          "client_id": "543857415184-ljm98fdq4kc4hidrd7nk5m6n67ak488k.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBAzJp9A9ygW9fWR33MMLsJA4DfzDOzdWM"
+          "current_key": "AIzaSyDv5KX8dLAlyBCbVpHXPK7CE_mDH8QcDZo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "344068429726-ui1kcp1cc09kmif6045f8damg798rach.apps.googleusercontent.com",
+              "client_id": "543857415184-ljm98fdq4kc4hidrd7nk5m6n67ak488k.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

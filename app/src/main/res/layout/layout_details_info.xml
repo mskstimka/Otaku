@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:background="@color/activity_background_color">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glDetailsLineStart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/fragment_details_line_layout_constraintGuide" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glDetailsLineEnd"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/fragment_details_line_layout_constraintGuide" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glDetailsLineTop"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/fragment_details_line_layout_constraintGuide" />
+
+    <ImageView
+        android:id="@+id/ivBackPressed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/fragment_details_ivBackPressed_contentDescription"
+        android:src="@drawable/icon_back"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toTopOf="@+id/glDetailsLineTop" />
+
+    <TextView
+        android:id="@+id/tvKind"
+        style="@style/text_style_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+        app:layout_constraintTop_toTopOf="@+id/glDetailsLineTop"
+        tools:text="@string/fragment_details_tvKind_text" />
+
+    <ImageView
+        android:id="@+id/ivImageBackground"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_details_background_Images_layout_height"
+        android:alpha="0.2"
+        android:contentDescription="@string/fragment_details_ivImageBackground_contentDescription"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/icon_default" />
+
+
+    <ImageView
+        android:id="@+id/ivGradientImage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_details_background_Images_layout_height"
+        android:contentDescription="@string/fragment_details_ivGradientImage_contentDescription"
+        android:src="@drawable/shadow_effect"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivImageFranchises"
+        android:layout_width="@dimen/fragment_details_cvImage_layout_width"
+        android:layout_height="@dimen/fragment_details_cvImage_layout_height"
+        app:cardCornerRadius="@dimen/fragment_details_cvImage_cardRadius"
+        app:layout_constraintBottom_toBottomOf="@+id/ivImageBackground"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/roundedImageView"
+        tools:src="@drawable/icon_default" />
+
+
+    <TextView
+        android:id="@+id/tvScore"
+        style="@style/text_style_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fragment_details_tvScore_layout_marginStart"
+        android:layout_marginTop="@dimen/fragment_details_tvScore_layout_marginTop"
+        android:drawablePadding="@dimen/fragment_details_tvScore_drawablePadding"
+        android:gravity="center"
+        app:drawableStartCompat="@drawable/icon_star"
+        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/ivImageFranchises"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleRussian"
+        tools:text="6.53" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/text_style_main_title"
+        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+        app:layout_constraintStart_toEndOf="@+id/ivImageFranchises"
+        app:layout_constraintTop_toTopOf="@+id/ivImageFranchises"
+        tools:text="@string/fragment_details_tvTitle_text" />
+
+    <TextView
+        android:id="@+id/tvTitleRussian"
+        style="@style/text_style_russian_title"
+        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+        app:layout_constraintStart_toEndOf="@+id/ivImageFranchises"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        tools:text="@string/fragment_details_tvTitleRussian_text" />
+
+    <TextView
+        android:id="@+id/tvEpisodeTitle"
+        style="@style/text_style_title_details"
+        android:text="@string/fragment_details_tvEpisodeTitle_text"
+        app:layout_constraintBottom_toBottomOf="@id/ivImageBackground"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart" />
+
+    <TextView
+        android:id="@+id/tvEpisode"
+        style="@style/text_style_values"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvEpisodeTitle"
+        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/tvEpisodeTitle"
+        tools:text="12" />
+
+    <TextView
+        android:id="@+id/tvStatusTitle"
+        style="@style/text_style_title_details"
+        android:text="@string/fragment_details_tvStatusTitle_text"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toBottomOf="@+id/ivImageBackground" />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        style="@style/text_style_values"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvStatusTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/tvStatusTitle"
+        tools:text="ongoing" />
+
+    <TextView
+        android:id="@+id/tvDateTitle"
+        style="@style/text_style_title_details"
+        android:text="@string/fragment_details_tvDateTitle_text"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvStatusTitle" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        style="@style/text_style_values"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvDateTitle"
+        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/tvDateTitle"
+        tools:text="12.02.2222" />
+
+    <TextView
+        android:id="@+id/tvGenreTitle"
+        style="@style/text_style_title_items"
+        android:text="@string/fragment_details_tvGenreTitle_text"
+        android:layout_marginStart="0dp"
+        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvDateTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvGenre"
+        style="@style/recycler_style"
+        tools:listitem="@layout/item_details_genres"
+        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGenreTitle" />
+
+
+    <TextView
+        android:id="@+id/tvDescriptionTitle"
+        style="@style/text_style_title_items"
+        android:layout_marginStart="0dp"
+        android:text="@string/fragment_details_tvDescriptionTitle_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toBottomOf="@id/rvGenre" />
+
+
+    <com.ms.square.android.expandabletextview.ExpandableTextView
+        android:id="@+id/exDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescriptionTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        expandableTextView:animDuration="300"
+        expandableTextView:maxCollapsedLines="5">
+
+        <TextView
+            android:id="@+id/expandable_text"
+            style="@style/text_expandable_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@id/expand_collapse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/fragment_details_expand_collapse_contentDescription" />
+    </com.ms.square.android.expandabletextview.ExpandableTextView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

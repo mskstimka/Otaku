@@ -3,37 +3,38 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/item_details_videos_root_layout_width"
-    android:layout_height="@dimen/item_details_videos_root_layout_height">
+    android:layout_height="@dimen/item_details_videos_root_layout_height"
+    android:background="@color/activity_background_color"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvImageVideosItem"
-        style="@style/item_card_style"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/item_details_videos_cvImageVideosItem_layout_height"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivImageVideosItem"
+            tools:src="@drawable/icon_default"
+            style="@style/item_card_style"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/item_details_videos_cvImageVideosItem_layout_height"
+            app:shapeAppearanceOverlay="@style/roundedImageView"
             android:contentDescription="@string/item_details_videos_ivImageVideoItem_contentDescription"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/tvTitleVideosItem"
         style="@style/item_title_text_style"
         android:textSize="@dimen/item_details_videos_tvTitleVideosItem_textSize"
-        app:layout_constraintEnd_toEndOf="@+id/cvImageVideosItem"
-        app:layout_constraintStart_toStartOf="@+id/cvImageVideosItem"
-        app:layout_constraintTop_toBottomOf="@+id/cvImageVideosItem" />
+        tools:text="not found"
+        app:layout_constraintEnd_toEndOf="@+id/ivImageVideosItem"
+        app:layout_constraintStart_toStartOf="@+id/ivImageVideosItem"
+        app:layout_constraintTop_toBottomOf="@+id/ivImageVideosItem" />
 
     <TextView
         android:id="@+id/tvHostingVideosItem"
         style="@style/item_description_text_style"
+        tools:text="not found"
         app:layout_constraintEnd_toEndOf="@+id/tvTitleVideosItem"
         app:layout_constraintStart_toStartOf="@+id/tvTitleVideosItem"
         app:layout_constraintTop_toBottomOf="@+id/tvTitleVideosItem" />

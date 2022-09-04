@@ -49,4 +49,19 @@
     <string name="foreground_notification_channel_name" translatable="true">Foreground</string>
 
     <string name="status_content_text">%1$s / %2$s</string>
+    <string name="fragment_details_ivBackPressed_contentDescription">Back Pressed Icon</string>
+    <string name="fragment_search_svFragmentSearchSearch_queryHint">Search...</string>
+    <string name="fragment_search_tvFragmentSearchTitle_text">An1mator</string>
+    <string name="fragment_search_tvFragmentSearchTitleDescription_text">supported shikimori.one</string>
+    <string name="fragment_settings_tvFragmentSettingsTitle_text">Settings</string>
+    <string name="fragment_settings_sFragmentSettingsNotificationPush_text">Push Notification</string>
+    <string name="navigation_bottom_homeFragment_title">Home</string>
+    <string name="navigation_bottom_searchFragment_title">Search</string>
+    <string name="navigation_bottom_settingsFragment_title">Settings</string>
+
+    <string name="episode_text">Episodes: %1$s</string>
+
+    <string name="notification_channel_id">Notification Push</string>
+    <string name="default_notification_title">Animator</string>
+
 </resources>

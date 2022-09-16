@@ -11,8 +11,10 @@ import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreen
 import com.example.animator_domain.usecases.*
 import com.example.animator.utils.SingleLiveEvent
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 
-@SuppressLint("NullSafeMutableLiveData")
+
 class DetailsViewModel(
     private val getAnimeDetailsFromIdUseCase: GetAnimeDetailsFromIdUseCase,
     private val getAnimeScreenshotsFromIdUseCase: GetAnimeScreenshotsFromIdUseCase,
@@ -21,32 +23,33 @@ class DetailsViewModel(
 ) : ViewModel() {
 
 
-    private val _actionError = SingleLiveEvent<String>()
-    val actionError: LiveData<String> get() = _actionError
+    private val _actionError = MutableSharedFlow<String>()
+    val actionError: SharedFlow<String> get() = _actionError
 
-    private val _pageAnimeDetailsAction = MutableLiveData<AnimeDetailsEntity>()
-    val pageAnimeDetailsAction: LiveData<AnimeDetailsEntity> get() = _pageAnimeDetailsAction
+    private val _pageAnimeDetailsAction = MutableSharedFlow<AnimeDetailsEntity>()
+    val pageAnimeDetailsAction: SharedFlow<AnimeDetailsEntity> get() = _pageAnimeDetailsAction
 
-    private val _pageAnimeScreenshotsAction = MutableLiveData<List<AnimeDetailsScreenshotsEntity>>()
-    val pageAnimeScreenshotsAction: LiveData<List<AnimeDetailsScreenshotsEntity>> get() = _pageAnimeScreenshotsAction
+    private val _pageAnimeScreenshotsAction =
+        MutableSharedFlow<List<AnimeDetailsScreenshotsEntity>>()
+    val pageAnimeScreenshotsAction: SharedFlow<List<AnimeDetailsScreenshotsEntity>> get() = _pageAnimeScreenshotsAction
 
-    private val _pageAnimeFranchisesAction = MutableLiveData<List<AnimeDetailsFranchisesEntity>>()
-    val pageAnimeFranchisesAction: LiveData<List<AnimeDetailsFranchisesEntity>> get() = _pageAnimeFranchisesAction
+    private val _pageAnimeFranchisesAction = MutableSharedFlow<List<AnimeDetailsFranchisesEntity>>()
+    val pageAnimeFranchisesAction: SharedFlow<List<AnimeDetailsFranchisesEntity>> get() = _pageAnimeFranchisesAction
 
-    private val _pageAnimeRolesAction = MutableLiveData<AnimeDetailsRolesEntity>()
-    val pageAnimeRolesAction: LiveData<AnimeDetailsRolesEntity> get() = _pageAnimeRolesAction
+    private val _pageAnimeRolesAction = MutableSharedFlow<AnimeDetailsRolesEntity>()
+    val pageAnimeRolesAction: SharedFlow<AnimeDetailsRolesEntity> get() = _pageAnimeRolesAction
 
     private val responses = mutableListOf<Boolean>()
 
-    private val _actionAdapter = MutableLiveData<Int>()
-    val actionAdapter: LiveData<Int> get() = _actionAdapter
+    private val _actionAdapter = MutableSharedFlow<Int>()
+    val actionAdapter: SharedFlow<Int> get() = _actionAdapter
 
 
-    private fun putResponses(value: Boolean) {
+    private suspend fun putResponses(value: Boolean) {
         responses.add(value)
 
-        if (responses.count() == 4) {
-            _actionAdapter.postValue(ProgressBar.INVISIBLE)
+        if (responses.count() >= 4) {
+            _actionAdapter.emit(ProgressBar.INVISIBLE)
         }
     }
 
@@ -55,11 +58,11 @@ class DetailsViewModel(
 
             when (val response = getAnimeDetailsFromIdUseCase.execute(id = id)) {
                 is Results.Success -> {
-                    _pageAnimeDetailsAction.postValue(response.data)
+                    _pageAnimeDetailsAction.emit(response.data)
                     putResponses(true)
                 }
                 is Results.Error -> {
-                    _actionError.postValue(response.exception.message)
+                    _actionError.emit(response.exception.message.toString())
                     putResponses(false)
                 }
             }
@@ -71,11 +74,11 @@ class DetailsViewModel(
 
             when (val response = getAnimeScreenshotsFromIdUseCase.execute(id = id)) {
                 is Results.Success -> {
-                    _pageAnimeScreenshotsAction.postValue(response.data)
+                    _pageAnimeScreenshotsAction.emit(response.data)
                     putResponses(true)
                 }
                 is Results.Error -> {
-                    _actionError.postValue(response.exception.message)
+                    _actionError.emit(response.exception.message.toString())
                     putResponses(false)
                 }
             }
@@ -87,11 +90,11 @@ class DetailsViewModel(
 
             when (val response = getAnimeFranchisesFromIdUseCase.execute(id = id)) {
                 is Results.Success -> {
-                    _pageAnimeFranchisesAction.postValue(response.data)
+                    _pageAnimeFranchisesAction.emit(response.data)
                     putResponses(true)
                 }
                 is Results.Error -> {
-                    _actionError.postValue(response.exception.message)
+                    _actionError.emit(response.exception.message.toString())
                     putResponses(false)
                 }
             }
@@ -102,11 +105,11 @@ class DetailsViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             when (val response = getAnimeRolesFromIdUseCase.execute(id = id)) {
                 is Results.Success -> {
-                    _pageAnimeRolesAction.postValue(response.data)
+                    _pageAnimeRolesAction.emit(response.data)
                     putResponses(true)
                 }
                 is Results.Error -> {
-                    _actionError.postValue(response.exception.message)
+                    _actionError.emit(response.exception.message.toString())
                     putResponses(false)
                 }
             }

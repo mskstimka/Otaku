@@ -1,25 +1,17 @@
 package com.example.animator.details.ui
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.core.content.ContextCompat.startForegroundService
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
 import com.example.animator_domain.*
-import com.example.animator.R
 import com.example.animator.app.App
 import com.example.animator.details.services.StatusForegroundService
 import com.example.animator.utils.BannerUtils
@@ -37,7 +29,7 @@ import com.example.animator.details.adapters.studios.ContainerStudios
 import com.example.animator.details.adapters.studios.ContainerStudiosAdapter
 import com.example.animator.details.adapters.videos.ContainerVideos
 import com.example.animator.details.adapters.videos.ContainerVideosAdapter
-import kotlinx.coroutines.launch
+import com.example.animator.utils.subscribeToFlow
 import javax.inject.Inject
 
 
@@ -101,8 +93,7 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        subscribeToLiveData()
-
+        subscribesToFlow()
     }
 
     override fun onStop() {
@@ -115,85 +106,75 @@ class DetailsFragment : Fragment() {
         )
     }
 
-    private fun getAnimeDetails(id: Int) {
-        with(dViewModel) {
-            getAnimeDetailsFromId(id = id)
-            getAnimeDetailsScreenshotsFromId(id = id)
-            getAnimeDetailsFranchisesFromId(id = id)
-            getAnimeDetailsRolesFromId(id = id)
-        }
+    private fun getAnimeDetails(id: Int) = with(dViewModel) {
+        getAnimeDetailsFromId(id = id)
+        getAnimeDetailsScreenshotsFromId(id = id)
+        getAnimeDetailsFranchisesFromId(id = id)
+        getAnimeDetailsRolesFromId(id = id)
     }
 
 
-    private fun subscribeToLiveData() {
+    private fun subscribesToFlow() = with(dViewModel) {
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        pageAnimeDetailsAction.subscribeToFlow(
+            flow = pageAnimeDetailsAction,
+            lifecycleOwner = viewLifecycleOwner
+        ) { item ->
+            containerDetailsAdapter.submitList(listOf(item))
+            containerVideosAdapter.submitList(listOf(ContainerVideos(item.videos)))
+            containerStudiosAdapter.submitList(listOf(ContainerStudios(item.studios)))
 
-                dViewModel.pageAnimeDetailsAction.collect { item ->
+            val statusIntent =
+                Intent(requireActivity(), StatusForegroundService::class.java)
 
-                    containerDetailsAdapter.submitList(listOf(item))
-                    containerVideosAdapter.submitList(listOf(ContainerVideos(item.videos)))
-                    containerStudiosAdapter.submitList(listOf(ContainerStudios(item.studios)))
+            statusIntent
+                .putExtra(STATUS_FOREGROUND_ENGLISH_NAME_KEY, item.name)
+                .putExtra(STATUS_FOREGROUND_RUSSIAN_NAME_KEY, item.russian)
+                .putExtra(STATUS_FOREGROUND_KIND_KEY, item.kind)
+            startForegroundService(requireContext(), statusIntent)
 
-                    val statusIntent =
-                        Intent(requireActivity(), StatusForegroundService::class.java)
-
-                    statusIntent
-                        .putExtra(STATUS_FOREGROUND_ENGLISH_NAME_KEY, item.name)
-                        .putExtra(STATUS_FOREGROUND_RUSSIAN_NAME_KEY, item.russian)
-                        .putExtra(STATUS_FOREGROUND_KIND_KEY, item.kind)
-                    startForegroundService(requireContext(), statusIntent)
-
-                }
-            }
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                dViewModel.pageAnimeScreenshotsAction.collect { item ->
-                    containerScreenshotsAdapter.submitList(listOf(ContainerScreenshots(list = item)))
-                }
-            }
+        pageAnimeScreenshotsAction.subscribeToFlow(
+            flow = pageAnimeScreenshotsAction,
+            lifecycleOwner = viewLifecycleOwner
+        ) { list ->
+            containerScreenshotsAdapter.submitList(listOf(ContainerScreenshots(list = list)))
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                dViewModel.pageAnimeFranchisesAction.collect { item ->
-                    containerFranchisesAdapter.submitList(listOf(ContainerFranchises(item)))
-                }
-            }
+
+        pageAnimeFranchisesAction.subscribeToFlow(
+            flow = pageAnimeFranchisesAction,
+            lifecycleOwner = viewLifecycleOwner
+        ) { item ->
+            containerFranchisesAdapter.submitList(listOf(ContainerFranchises(item)))
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                dViewModel.pageAnimeRolesAction.collect { item ->
-                    containerCharactersAdapter.submitList(listOf(ContainerCharacters(list = item.character)))
-                    containerAuthorsAdapter.submitList(listOf(ContainerAuthors(list = item.person)))
-                }
-            }
+        pageAnimeRolesAction.subscribeToFlow(
+            flow = pageAnimeRolesAction,
+            lifecycleOwner = viewLifecycleOwner
+        ) { item ->
+            containerCharactersAdapter.submitList(listOf(ContainerCharacters(list = item.character)))
+            containerAuthorsAdapter.submitList(listOf(ContainerAuthors(list = item.person)))
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                dViewModel.actionError.collect {
-                    BannerUtils.showToast(
-                        getString(R.string.an_error_has_occurred, it),
-                        requireContext()
-                    )
-                }
-            }
+        actionError.subscribeToFlow(
+            flow = actionError,
+            lifecycleOwner = viewLifecycleOwner
+        ) { message ->
+            BannerUtils.showToast(
+                message,
+                requireContext()
+            )
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                dViewModel.actionAdapter.collect { visibility ->
-                    with(binding) {
-                        pbLoading.visibility = visibility
-                        rvRoot.adapter = rootAdapter
-                    }
-
-                }
+        actionAdapter.subscribeToFlow(
+            flow = actionAdapter,
+            lifecycleOwner = viewLifecycleOwner
+        ) { visibility ->
+            with(binding) {
+                pbLoading.visibility = visibility
+                rvRoot.adapter = rootAdapter
             }
         }
     }

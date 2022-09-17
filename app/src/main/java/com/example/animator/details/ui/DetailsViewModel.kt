@@ -23,25 +23,25 @@ class DetailsViewModel(
 ) : ViewModel() {
 
 
-    private val _actionError = MutableSharedFlow<String>()
+    private val _actionError = MutableSharedFlow<String>(replay = 1)
     val actionError: SharedFlow<String> get() = _actionError
 
-    private val _pageAnimeDetailsAction = MutableSharedFlow<AnimeDetailsEntity>()
+    private val _pageAnimeDetailsAction = MutableSharedFlow<AnimeDetailsEntity>(replay = 1)
     val pageAnimeDetailsAction: SharedFlow<AnimeDetailsEntity> get() = _pageAnimeDetailsAction
 
     private val _pageAnimeScreenshotsAction =
-        MutableSharedFlow<List<AnimeDetailsScreenshotsEntity>>()
+        MutableSharedFlow<List<AnimeDetailsScreenshotsEntity>>(replay = 1)
     val pageAnimeScreenshotsAction: SharedFlow<List<AnimeDetailsScreenshotsEntity>> get() = _pageAnimeScreenshotsAction
 
-    private val _pageAnimeFranchisesAction = MutableSharedFlow<List<AnimeDetailsFranchisesEntity>>()
+    private val _pageAnimeFranchisesAction = MutableSharedFlow<List<AnimeDetailsFranchisesEntity>>(replay = 1)
     val pageAnimeFranchisesAction: SharedFlow<List<AnimeDetailsFranchisesEntity>> get() = _pageAnimeFranchisesAction
 
-    private val _pageAnimeRolesAction = MutableSharedFlow<AnimeDetailsRolesEntity>()
+    private val _pageAnimeRolesAction = MutableSharedFlow<AnimeDetailsRolesEntity>(replay = 1)
     val pageAnimeRolesAction: SharedFlow<AnimeDetailsRolesEntity> get() = _pageAnimeRolesAction
 
     private val responses = mutableListOf<Boolean>()
 
-    private val _actionAdapter = MutableSharedFlow<Int>()
+    private val _actionAdapter = MutableSharedFlow<Int>(replay = 1)
     val actionAdapter: SharedFlow<Int> get() = _actionAdapter
 
 

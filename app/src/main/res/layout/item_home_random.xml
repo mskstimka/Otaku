@@ -5,14 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvItemHomeRandomScreenshots"
         style="@style/recycler_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
         android:orientation="horizontal"
+        android:paddingBottom="@dimen/item_home_random_rvItemHomeRandomScreenshots_paddingBottom"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,11 +22,11 @@
         android:id="@+id/view_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rvItemHomeRandomScreenshots"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvItemHomeRandomScreenshots" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="0dp"
@@ -44,10 +43,11 @@
 
     <ImageView
         android:id="@+id/ivItemHomeRandomRefresh"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
+        android:layout_width="@dimen/item_home_random_ivItemHomeRandomRefresh_layout_width"
+        android:layout_height="@dimen/item_home_random_ivItemHomeRandomRefresh_layout_height"
+        android:layout_marginTop="@dimen/item_home_random_ivItemHomeRandomRefresh_layout_marginTop"
+        android:layout_marginEnd="@dimen/item_home_random_ivItemHomeRandomRefresh_layout_marginEnd"
+        android:contentDescription="@string/item_home_random_ivItemHomeRandomRefresh_contentDescription"
         android:src="@drawable/icon_refresh"
         app:layout_constraintBottom_toTopOf="@+id/rvItemHomeRandomScreenshots"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,11 +59,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="0dp"
-        android:textStyle="normal"
+        android:drawablePadding="@dimen/item_home_random_tvItemHomeRandomTitle"
         android:gravity="center"
-        android:drawablePadding="4dp"
-        android:textSize="20dp"
-        android:text="Случайное"
+        android:text="@string/item_home_random_tvItemHomeRandomTitle_text"
+        android:textSize="@dimen/item_home_random_tvItemHomeRandomTitle_textSize"
+        android:textStyle="normal"
         app:drawableLeftCompat="@drawable/icon_dots"
         app:layout_constraintBottom_toBottomOf="@+id/ivItemHomeRandomRefresh"
         app:layout_constraintEnd_toStartOf="@+id/ivItemHomeRandomRefresh"
@@ -77,9 +77,9 @@
         style="@style/text_style_main_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/item_home_random_tvItemHomeRandomName_layout_marginTop"
         android:maxLines="2"
-        android:textSize="16sp"
+        android:textSize="@dimen/item_home_random_tvItemHomeRandomName_textSize"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@+id/ivItemHomeRandomImage"
@@ -92,7 +92,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:maxLines="1"
-        android:textSize="14sp"
+        android:textSize="@dimen/item_home_random_tvItemHomeRandomRussian_textSize"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@+id/ivItemHomeRandomImage"
@@ -102,7 +102,7 @@
     <TextView
         android:id="@+id/tvItemHomeRandomEpisodes"
         style="@style/item_description_text_style"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="@dimen/item_home_random_tvItemHomeRandomEpisodes_layout_marginStart"
         android:gravity="start"
         android:textSize="@dimen/item_home_genres_item_tvEpisodesHomeGenre"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
@@ -114,9 +114,9 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivItemHomeRandomImage"
-        android:layout_width="80dp"
-        android:layout_height="120dp"
-        android:layout_marginBottom="20dp"
+        android:layout_width="@dimen/item_home_random_ivItemHomeRandomImage_layout_width"
+        android:layout_height="@dimen/item_home_random_ivItemHomeRandomImage"
+        android:layout_marginBottom="@dimen/item_home_random_ivItemHomeRandomImage_layout_marginBottom"
         android:scaleType="centerCrop"
         android:src="@drawable/icon_default"
         app:layout_constraintBottom_toBottomOf="parent"

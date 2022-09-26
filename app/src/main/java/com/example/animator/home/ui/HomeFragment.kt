@@ -55,6 +55,7 @@ class HomeFragment : Fragment() {
         (requireActivity().applicationContext as App).appComponent.inject(this)
 
         hViewModel = ViewModelProvider(this, vmFactory)[HomeViewModel::class.java]
+
         subscribeToFlow()
 
         return binding.root

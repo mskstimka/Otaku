@@ -65,5 +65,7 @@
     <string name="default_notification_title">Animator</string>
     <string name="item_home_poster_tvItemHomePosterTextOne_text">An1m</string>
     <string name="item_home_poster_tvItemHomePosterTextTwo_text">ator</string>
+    <string name="item_home_random_ivItemHomeRandomRefresh_contentDescription">Refresh Icon</string>
+    <string name="item_home_random_tvItemHomeRandomTitle_text">Случайное</string>
 
 </resources>

@@ -116,7 +116,7 @@ class DetailsFragment : Fragment() {
 
     private fun subscribesToFlow() = with(dViewModel) {
 
-        pageAnimeDetailsAction.subscribeToFlow(
+        subscribeToFlow(
             flow = pageAnimeDetailsAction,
             lifecycleOwner = viewLifecycleOwner
         ) { item ->
@@ -135,7 +135,7 @@ class DetailsFragment : Fragment() {
 
         }
 
-        pageAnimeScreenshotsAction.subscribeToFlow(
+        subscribeToFlow(
             flow = pageAnimeScreenshotsAction,
             lifecycleOwner = viewLifecycleOwner
         ) { list ->
@@ -143,14 +143,14 @@ class DetailsFragment : Fragment() {
         }
 
 
-        pageAnimeFranchisesAction.subscribeToFlow(
+        subscribeToFlow(
             flow = pageAnimeFranchisesAction,
             lifecycleOwner = viewLifecycleOwner
         ) { item ->
             containerFranchisesAdapter.submitList(listOf(ContainerFranchises(item)))
         }
 
-        pageAnimeRolesAction.subscribeToFlow(
+        subscribeToFlow(
             flow = pageAnimeRolesAction,
             lifecycleOwner = viewLifecycleOwner
         ) { item ->
@@ -158,7 +158,7 @@ class DetailsFragment : Fragment() {
             containerAuthorsAdapter.submitList(listOf(ContainerAuthors(list = item.person)))
         }
 
-        actionError.subscribeToFlow(
+        subscribeToFlow(
             flow = actionError,
             lifecycleOwner = viewLifecycleOwner
         ) { message ->
@@ -168,7 +168,7 @@ class DetailsFragment : Fragment() {
             )
         }
 
-        actionAdapter.subscribeToFlow(
+        subscribeToFlow(
             flow = actionAdapter,
             lifecycleOwner = viewLifecycleOwner
         ) { visibility ->

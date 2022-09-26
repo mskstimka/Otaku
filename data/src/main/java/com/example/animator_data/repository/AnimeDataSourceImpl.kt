@@ -13,7 +13,6 @@ import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreen
 import com.example.animator_domain.models.poster.AnimePosterEntity
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
-import java.lang.Exception
 
 class AnimeDataSourceImpl(
     private val animeApi: AnimeApi,
@@ -48,7 +47,11 @@ class AnimeDataSourceImpl(
                     AnimeDetailsResponseMapper.toAnimeScreenshotsEntity(list = response.body()!!)
                 Results.Success(data = list)
             } else {
-                Results.Error(exception = Exception(response.message()))
+                if (response.code() == 429) {
+                    getScreenshots(id)
+                } else {
+                    Results.Error(exception = Exception(response.message()))
+                }
             }
         } catch (e: Exception) {
             Results.Error(exception = e)
@@ -122,4 +125,33 @@ class AnimeDataSourceImpl(
         }
     }
 
+    override suspend fun getRandomPoster(
+        limit: Int,
+        censored: Boolean,
+        order: String
+    ): Results<List<AnimePosterEntity>> {
+
+        return try {
+            val response = animeApi.getRandom()
+
+            when (response.isSuccessful) {
+                true -> {
+                    val list =
+                        AnimePosterResponseMapper.toListAnimePosterEntity(list = response.body()!!)
+
+                    Results.Success(data = list)
+                }
+                false -> {
+                    if (response.code() == 429) {
+                        getRandomPoster(1, true, "random")
+                    } else
+                        Results.Error(exception = Exception(response.message()))
+                }
+            }
+
+        } catch (e: Exception) {
+            Results.Error(exception = e)
+
+        }
+    }
 }

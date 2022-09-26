@@ -28,10 +28,14 @@ class AppModule(private val context: Context) {
 
     @Provides
     fun provideHomeViewModelFactory(
-        getAnimePrevPosterFromGenreUseCase: GetAnimePrevPosterFromGenreUseCase
+        getAnimePrevPosterFromGenreUseCase: GetAnimePrevPosterFromGenreUseCase,
+        getAnimeRandomPosterUseCase: GetAnimeRandomPosterUseCase,
+        getAnimeScreenshotsFromIdUseCase: GetAnimeScreenshotsFromIdUseCase
     ): HomeViewModelFactory {
         return HomeViewModelFactory(
-            getAnimePrevPosterFromGenreUseCase = getAnimePrevPosterFromGenreUseCase
+            getAnimePrevPosterFromGenreUseCase = getAnimePrevPosterFromGenreUseCase,
+            getAnimeRandomPosterUseCase = getAnimeRandomPosterUseCase,
+            getAnimeScreenshotsFromIdUseCase = getAnimeScreenshotsFromIdUseCase
         )
     }
 

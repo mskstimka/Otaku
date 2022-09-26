@@ -1,14 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ivItemHomePosterImage"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/item_home_poster_ivItemHomePosterImage_layout_width"
-    android:adjustViewBounds="true"
-    android:contentDescription="@string/item_home_poster_ivImagePoster_contentDescription"
-    android:src="@drawable/ukraine_poster" />
+    android:layout_height="@dimen/item_home_poster_root_layout_height">
+
+    <ImageView
+        android:id="@+id/ivItemHomePosterImage"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/item_home_poster_ivItemHomePosterImage_layout_width"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/item_home_poster_ivImagePoster_contentDescription"
+        android:paddingBottom="@dimen/item_home_poster_ivItemHomePosterImage_paddingBottom"
+        android:src="@drawable/ukraine_poster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvItemHomePosterTextOne"
+        style="@style/text_style_main_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:fontFamily="@font/anime_ace_v3"
+        android:text="@string/item_home_poster_tvItemHomePosterTextOne_text"
+        android:textColor="@color/blue_status"
+        android:textSize="@dimen/item_home_poster_tvItemHomePosterTextOne_textSize"
+        app:layout_constraintEnd_toStartOf="@id/tvItemHomePosterTextTwo"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/ivItemHomePosterImage"
+        app:layout_constraintTop_toBottomOf="@+id/ivItemHomePosterImage" />
+
+    <TextView
+        android:id="@+id/tvItemHomePosterTextTwo"
+        style="@style/text_style_main_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:fontFamily="@font/anime_ace_v3"
+        android:text="@string/item_home_poster_tvItemHomePosterTextTwo_text"
+        android:textColor="@color/yellow"
+        android:textSize="@dimen/item_home_poster_tvItemHomePosterTextTwo_textSize"
+        app:layout_constraintEnd_toEndOf="@+id/ivItemHomePosterImage"
+        app:layout_constraintStart_toEndOf="@id/tvItemHomePosterTextOne"
+        app:layout_constraintTop_toBottomOf="@+id/ivItemHomePosterImage" />
 
 
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gItemHomePosterUkraineGif"
+        android:layout_width="@dimen/item_home_poster_gItemHomePosterUkraineGif_layout_width"
+        android:layout_height="@dimen/item_home_poster_gItemHomePosterUkraineGif_layout_height"
+        android:src="@drawable/ukraine_gif"
+        app:layout_constraintEnd_toEndOf="@+id/tvItemHomePosterTextTwo"
+        app:layout_constraintStart_toStartOf="@+id/tvItemHomePosterTextOne"
+        app:layout_constraintTop_toBottomOf="@+id/tvItemHomePosterTextTwo" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

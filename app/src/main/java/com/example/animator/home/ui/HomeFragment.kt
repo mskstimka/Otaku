@@ -7,16 +7,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.MergeAdapter
 import com.example.animator.R
 import com.example.animator.app.App
 import com.example.animator.databinding.FragmentHomeBinding
-import com.example.animator.home.adapters.DisplayableAdapter
+import com.example.animator.home.adapters.genres.ContainerGenresListAdapter
+import com.example.animator.home.adapters.poster.ContainerPoster
+import com.example.animator.home.adapters.poster.ContainerPosterAdapter
+import com.example.animator.home.adapters.random.ContainerRandomAdapter
 import com.example.animator.utils.BannerUtils
-import kotlinx.coroutines.launch
+import com.example.animator.utils.subscribeToFlow
 import javax.inject.Inject
 
 
 class HomeFragment : Fragment() {
+
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -25,7 +30,20 @@ class HomeFragment : Fragment() {
 
     private lateinit var hViewModel: HomeViewModel
 
-    private val adapter: DisplayableAdapter by lazy { DisplayableAdapter() }
+    private val posterAdapter by lazy { ContainerPosterAdapter() }
+    private val randomAdapter by lazy { ContainerRandomAdapter { refresh() } }
+    private val genreAdapter by lazy { ContainerGenresListAdapter() }
+
+    private val mergeAdapter by lazy { MergeAdapter(posterAdapter, randomAdapter, genreAdapter) }
+
+    init {
+        posterAdapter.submitList(listOf(ContainerPoster {
+            BannerUtils.showToast(
+                getString(R.string.ukraine_message),
+                requireContext()
+            )
+        }))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,12 +52,10 @@ class HomeFragment : Fragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         _binding = FragmentHomeBinding.inflate(layoutInflater)
 
-
         (requireActivity().applicationContext as App).appComponent.inject(this)
 
-        initAdapter()
-
         hViewModel = ViewModelProvider(this, vmFactory)[HomeViewModel::class.java]
+        subscribeToFlow()
 
         return binding.root
     }
@@ -47,32 +63,48 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        subscribeToLiveData()
-
+        initAdapter()
     }
 
+    private fun refresh() = hViewModel.getAnimeRandomPoster()
+
     private fun initAdapter() = with(binding) {
-        recyclerView.adapter = adapter
+        recyclerView.adapter = mergeAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
 
-    private fun subscribeToLiveData() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                hViewModel.actionError.collect {
-                    BannerUtils.showToast(
-                        getString(R.string.an_error_has_occurred, it),
-                        requireContext()
-                    )
-                }
-            }
+    private fun subscribeToFlow() = with(hViewModel) {
+
+        subscribeToFlow(
+            flow = actionError,
+            lifecycleOwner = viewLifecycleOwner
+        ) { message ->
+            BannerUtils.showToast(
+                message,
+                requireContext()
+            )
         }
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                hViewModel.pageAnimePosterAction.collect {
-                    adapter.submitList(it)
-                }
-            }
+
+        subscribeToFlow(
+            flow = pageAnimePosterAction,
+            lifecycleOwner = viewLifecycleOwner
+        ) { item ->
+            genreAdapter.submitList(item)
+        }
+
+        subscribeToFlow(
+            flow = pageAnimeScreenshotsAction,
+            lifecycleOwner = viewLifecycleOwner
+        ) { list ->
+            randomAdapter.setItemsScreenshots(list = list)
+        }
+
+        subscribeToFlow(
+            flow = pageAnimeRandomAction,
+            lifecycleOwner = viewLifecycleOwner
+        ) { item ->
+            randomAdapter.submitList(item)
         }
     }
 }
+

@@ -25,5 +25,6 @@
     <color name="items_textColor">#ffffff</color>
     <color name="post_item_background">#6880C1</color>
     <color name="skeleton_color">#999999</color>
+    <color name="yellow">#FFC107</color>
 
 </resources>

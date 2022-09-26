@@ -38,4 +38,8 @@ class DomainModule {
         return GetAnimePrevPosterFromGenreUseCase(repository = repository)
     }
 
+    @Provides
+    fun provideGetAnimeRandomPosterUseCase(repository: AnimeRepository): GetAnimeRandomPosterUseCase {
+        return GetAnimeRandomPosterUseCase(repository = repository)
+    }
 }

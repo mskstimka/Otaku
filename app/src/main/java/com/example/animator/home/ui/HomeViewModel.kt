@@ -1,31 +1,44 @@
 package com.example.animator.home.ui
 
 import androidx.lifecycle.*
+import com.example.animator.home.adapters.genres.ContainerGenresList
+import com.example.animator.home.adapters.random.ContainerRandom
 import com.example.animator_domain.*
 import com.example.animator_domain.common.Results
+import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.animator_domain.usecases.*
-import com.example.animator.home.adapters.models.DisplayableItem
-import com.example.animator.home.adapters.models.HomePosterEntity
-import com.example.animator.home.adapters.models.HomeGenreEntity
 import com.example.animator_domain.models.home.PrevPoster
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val getAnimePrevPosterFromGenreUseCase: GetAnimePrevPosterFromGenreUseCase
+    private val getAnimePrevPosterFromGenreUseCase: GetAnimePrevPosterFromGenreUseCase,
+    private val getAnimeRandomPosterUseCase: GetAnimeRandomPosterUseCase,
+    private val getAnimeScreenshotsFromIdUseCase: GetAnimeScreenshotsFromIdUseCase
 ) : ViewModel() {
 
-    private val _actionError = MutableSharedFlow<String>()
+    private val responses = mutableListOf<Boolean>()
+
+    private val _actionError = MutableSharedFlow<String>(replay = 1)
     val actionError: SharedFlow<String> = _actionError
 
-    private val _pageAnimePosterAction = MutableStateFlow<List<DisplayableItem>>(emptyList())
-    val pageAnimePosterAction: StateFlow<List<DisplayableItem>> = _pageAnimePosterAction
+    private val _pageAnimePosterAction = MutableSharedFlow<List<ContainerGenresList>>(replay = 1)
+    val pageAnimePosterAction: SharedFlow<List<ContainerGenresList>> = _pageAnimePosterAction
 
-    private val list = mutableListOf<DisplayableItem>(HomePosterEntity()).also {
+    private val _pageAnimeRandomAction = MutableSharedFlow<List<ContainerRandom>>(replay = 1)
+    val pageAnimeRandomAction: SharedFlow<List<ContainerRandom>> = _pageAnimeRandomAction
+
+    private val _pageAnimeScreenshotsAction =
+        MutableSharedFlow<List<AnimeDetailsScreenshotsEntity>>(replay = 1)
+    val pageAnimeScreenshotsAction: SharedFlow<List<AnimeDetailsScreenshotsEntity>> get() = _pageAnimeScreenshotsAction
+
+
+    private val list = mutableListOf<ContainerGenresList>().also {
         getList(
             ARRAY_PREV_POSTERS
         )
+        getAnimeRandomPoster()
     }
 
     private fun getList(list: List<PrevPoster>) {
@@ -39,18 +52,62 @@ class HomeViewModel(
         }
     }
 
+    fun getAnimeRandomPoster() {
+        viewModelScope.launch {
+            when (val response = getAnimeRandomPosterUseCase.execute()) {
+                is Results.Success -> {
+                    _pageAnimeRandomAction.emit(
+                        listOf(
+                            ContainerRandom(
+                                item = response.data.first()
+                            )
+                        )
+                    )
+                    getAnimeDetailsScreenshotsFromId(response.data.first().id)
+                }
+                is Results.Error -> {
+                    _actionError.emit(response.exception.message.toString())
+                }
+            }
+        }
+    }
+
+    private fun getAnimeDetailsScreenshotsFromId(id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            when (val response = getAnimeScreenshotsFromIdUseCase.execute(id = id)) {
+                is Results.Success -> {
+                    if (response.data.first().original == NOT_FOUND_TEXT) {
+                        _pageAnimeScreenshotsAction.emit(emptyList())
+                    } else {
+                        _pageAnimeScreenshotsAction.emit(response.data)
+                    }
+                }
+                is Results.Error -> {
+                    _actionError.emit(response.exception.message.toString())
+                }
+            }
+        }
+    }
+
+    private suspend fun putResponses(value: Boolean) = viewModelScope.launch {
+        responses.add(value)
+
+        if (responses.count() >= 6) {
+            _pageAnimePosterAction.emit(list)
+        }
+    }
 
     private fun getAnimePrevPosterActionFromGenre(genresId: Int, genreName: String) {
         viewModelScope.launch(Dispatchers.IO) {
 
             when (val response = getAnimePrevPosterFromGenreUseCase.execute(genresId)) {
                 is Results.Success -> {
-                    list.add(HomeGenreEntity(genreName, response.data))
-                    _pageAnimePosterAction.value = list
+                    list.add(ContainerGenresList(genreName, list = response.data))
+                    putResponses(true)
                 }
                 is Results.Error -> {
-                    list.add(HomeGenreEntity(genreName))
-                    _pageAnimePosterAction.value = list
+                    putResponses(false)
                     _actionError.emit(response.exception.message.toString())
                 }
             }

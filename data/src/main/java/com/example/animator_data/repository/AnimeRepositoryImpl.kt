@@ -34,4 +34,12 @@ class AnimeRepositoryImpl(private val animeDataSource: AnimeDataSource) : AnimeR
     override suspend fun getGenrePosters(genreId: Int): Results<List<AnimePosterEntity>> {
         return animeDataSource.getGenrePosters(genreId = genreId)
     }
+
+    override suspend fun getRandomPoster(
+        limit: Int,
+        censored: Boolean,
+        order: String
+    ): Results<List<AnimePosterEntity>> {
+        return animeDataSource.getRandomPoster(limit = limit, censored = censored, order = order)
+    }
 }

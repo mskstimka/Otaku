@@ -1,6 +1,5 @@
 package com.example.animator.details.ui
 
-import android.annotation.SuppressLint
 import android.widget.ProgressBar
 import androidx.lifecycle.*
 import com.example.animator_domain.common.Results
@@ -9,7 +8,6 @@ import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchis
 import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.animator_domain.usecases.*
-import com.example.animator.utils.SingleLiveEvent
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow

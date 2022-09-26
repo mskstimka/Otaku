@@ -1,6 +1,5 @@
 package com.example.animator.details.adapters.characters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -39,7 +38,6 @@ class ContainerCharactersAdapter :
         LayoutCharactersInfoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("SetTextI18n")
         fun bind(item: ContainerCharacters) = with(binding) {
 
             charactersAdapter.submitList(item.list)

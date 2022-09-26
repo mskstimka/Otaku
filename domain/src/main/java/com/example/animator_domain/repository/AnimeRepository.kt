@@ -65,4 +65,20 @@ interface AnimeRepository {
     */
      */
     suspend fun getGenrePosters(genreId: Int): Results<List<AnimePosterEntity>>
+
+
+    /**
+     * Getting Preview Posters on genreId
+     *
+     * @param limit - limit of the posters
+     * @param censored - not 18+ rating
+     * @param order - sorted mode     *
+     * @return Results of list of Anime Posters or Results of error
+     *
+     */
+    suspend fun getRandomPoster(
+        limit: Int,
+        censored: Boolean,
+        order: String
+    ): Results<List<AnimePosterEntity>>
 }

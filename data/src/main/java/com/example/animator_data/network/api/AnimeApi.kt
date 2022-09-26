@@ -49,7 +49,7 @@ interface AnimeApi {
      */
     @GET("api/animes")
     suspend fun getGenrePosters(
-        @Query(value = "genre") genreId: Int,
+        @Query(value = "genre") genreId: Int = 0,
         @Query(value = "limit") limit: Int = 20,
         @Query(value = "censored") censored: Boolean = true,
         @Query(value = "order") order: String = "random"
@@ -90,4 +90,21 @@ interface AnimeApi {
     suspend fun getRoles(
         @Path(value = "id") id: Int
     ): Response<List<AnimeDetailsRolesEntityResponse>>
+
+
+    /**
+     * Getting Preview Posters (random)
+     *
+     * @param limit - limit of the posters
+     * @param censored - not 18+ rating
+     * @param order - sorted mode
+     *
+     * @return Response list of Anime Posters
+     */
+    @GET("api/animes")
+    suspend fun getRandom(
+        @Query(value = "limit") limit: Int = 1,
+        @Query(value = "censored") censored: Boolean = true,
+        @Query(value = "order") order: String = "random"
+    ): Response<List<AnimePosterEntityResponse>>
 }

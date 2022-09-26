@@ -8,6 +8,7 @@ import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.animator_domain.models.poster.AnimePosterEntity
 import io.reactivex.Observable
+import retrofit2.http.Query
 
 interface AnimeDataSource {
 
@@ -66,5 +67,21 @@ interface AnimeDataSource {
     */
      */
     suspend fun getGenrePosters(genreId: Int): Results<List<AnimePosterEntity>>
+
+
+    /**
+     * Getting Preview Posters on genreId
+     *
+     * @param limit - limit of the posters
+     * @param censored - not 18+ rating
+     * @param order - sorted mode     *
+     * @return Results of list of Anime Posters or Results of error
+     *
+     */
+    suspend fun getRandomPoster(
+        limit: Int,
+        censored: Boolean,
+        order: String
+    ): Results<List<AnimePosterEntity>>
 
 }

@@ -19,7 +19,7 @@ fun ImageView.setImageStudioByURL(url: String) {
         .error(R.drawable.icon_studio_default).into(this)
 }
 
-fun <T> SharedFlow<T>.subscribeToFlow(flow: SharedFlow<T>,lifecycleOwner: LifecycleOwner, active: (item: T) -> Unit) {
+fun <T> ViewModel.subscribeToFlow(flow: SharedFlow<T>,lifecycleOwner: LifecycleOwner, active: (item: T) -> Unit) {
     lifecycleOwner.lifecycleScope.launch {
         lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
             flow.collect(){

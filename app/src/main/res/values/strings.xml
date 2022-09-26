@@ -63,5 +63,7 @@
 
     <string name="notification_channel_id">Notification Push</string>
     <string name="default_notification_title">Animator</string>
+    <string name="item_home_poster_tvItemHomePosterTextOne_text">An1m</string>
+    <string name="item_home_poster_tvItemHomePosterTextTwo_text">ator</string>
 
 </resources>

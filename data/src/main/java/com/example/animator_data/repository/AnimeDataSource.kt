@@ -19,7 +19,7 @@ interface AnimeDataSource {
      *
      * @return Observable list of Anime Posters
      */
-    fun getSearchPosters(searchName: String): Observable<List<AnimePosterEntity>>
+    suspend fun getSearchPosters(searchName: String): Results<List<AnimePosterEntity>>
 
     /**
      * Getting Details of Anime on id

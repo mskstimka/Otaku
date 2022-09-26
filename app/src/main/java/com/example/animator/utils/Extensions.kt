@@ -1,12 +1,10 @@
 package com.example.animator.utils
 
-import android.content.Context
 import android.widget.ImageView
 import androidx.lifecycle.*
 import com.example.animator.R
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 fun ImageView.setImageByURL(url: String) {
@@ -19,10 +17,14 @@ fun ImageView.setImageStudioByURL(url: String) {
         .error(R.drawable.icon_studio_default).into(this)
 }
 
-fun <T> ViewModel.subscribeToFlow(flow: SharedFlow<T>,lifecycleOwner: LifecycleOwner, active: (item: T) -> Unit) {
+fun <T> ViewModel.subscribeToFlow(
+    flow: SharedFlow<T>,
+    lifecycleOwner: LifecycleOwner,
+    active: (item: T) -> Unit
+) {
     lifecycleOwner.lifecycleScope.launch {
         lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-            flow.collect(){
+            flow.collect() {
                 active(it)
             }
 

@@ -11,7 +11,7 @@ import io.reactivex.Observable
 
 class AnimeRepositoryImpl(private val animeDataSource: AnimeDataSource) : AnimeRepository {
 
-    override fun getSearchPosters(searchName: String): Observable<List<AnimePosterEntity>> {
+    override suspend fun getSearchPosters(searchName: String): Results<List<AnimePosterEntity>> {
         return animeDataSource.getSearchPosters(searchName = searchName)
     }
 

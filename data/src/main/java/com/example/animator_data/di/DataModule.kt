@@ -39,7 +39,6 @@ class DataModule(private val context: Context) {
 
         return Retrofit.Builder()
             .baseUrl(SHIKIMORI_URL)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()

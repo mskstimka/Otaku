@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.animator_domain.usecases.*
 import com.example.animator.details.ui.DetailsViewModelFactory
 import com.example.animator.home.ui.HomeViewModelFactory
+import com.example.animator.search.ui.SearchViewModelFactory
 import com.example.animator.utils.SharedPreferencesHelper
 import dagger.Module
 import dagger.Provides
@@ -27,6 +28,15 @@ class AppModule(private val context: Context) {
     }
 
     @Provides
+    fun provideSearchViewModelFactory(
+        getAnimePostersFromSearchUseCase: GetAnimePostersFromSearchUseCase
+    ): SearchViewModelFactory {
+        return SearchViewModelFactory(
+            getAnimePostersFromSearchUseCase = getAnimePostersFromSearchUseCase
+        )
+    }
+
+    @Provides
     fun provideHomeViewModelFactory(
         getAnimePrevPosterFromGenreUseCase: GetAnimePrevPosterFromGenreUseCase,
         getAnimeRandomPosterUseCase: GetAnimeRandomPosterUseCase,
@@ -38,7 +48,6 @@ class AppModule(private val context: Context) {
             getAnimeScreenshotsFromIdUseCase = getAnimeScreenshotsFromIdUseCase
         )
     }
-
 
     @Provides
     fun provideSharedPreference(): SharedPreferencesHelper {

@@ -1,28 +1,26 @@
 package com.example.animator.search.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.animator_domain.common.Results
-import com.example.animator_domain.models.poster.AnimePosterEntity
+import androidx.recyclerview.widget.RecyclerView
 import com.example.animator_domain.usecases.GetAnimePostersFromSearchUseCase
 import com.example.animator.R
 import com.example.animator.app.App
 import com.example.animator.databinding.FragmentSearchBinding
 import com.example.animator.details.ui.DetailsFragment
 import com.example.animator.search.adapters.PostersAdapter
-import com.example.animator.utils.AnimatorUtils
-import com.example.animator.utils.BannerUtils
-import com.example.animator.utils.RxSearchObservable
+import com.example.animator.utils.*
 import javax.inject.Inject
 
 
-class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> {
+class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
@@ -34,18 +32,20 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
     }
 
     @Inject
+    lateinit var vmFactory: SearchViewModelFactory
+
+    private lateinit var sViewModel: SearchViewModel
+
+    @Inject
     lateinit var getAnimePostersFromSearchUseCase: GetAnimePostersFromSearchUseCase
 
-    private lateinit var presenter: SearchPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireActivity().applicationContext as App).appComponent.inject(this)
 
-        presenter = SearchPresenter(
-            getAnimePostersFromSearchUseCase = getAnimePostersFromSearchUseCase,
-            view = this
-        )
+        sViewModel = ViewModelProvider(this, vmFactory)[SearchViewModel::class.java]
+
     }
 
     override fun onCreateView(
@@ -55,14 +55,8 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
         super.onCreateView(inflater, container, savedInstanceState)
         _binding = FragmentSearchBinding.inflate(layoutInflater)
 
-        binding.svFragmentSearchSearch.setOnClickListener {
-            binding.svFragmentSearchSearch.onActionViewExpanded()
-        }
-
-        binding.svFragmentSearchSearch.setOnCloseListener {
-            binding.svFragmentSearchSearch.onActionViewExpanded()
-            false
-        }
+        bindView()
+        subscribeToFlow()
 
         if (savedInstanceState != null) {
             binding.gifFragmentSearchLogo.alpha = savedInstanceState.getFloat(GIF_KEY)
@@ -74,11 +68,94 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
-        onSearch()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        if (_binding != null) {
+            outState.putFloat(GIF_KEY, binding.gifFragmentSearchLogo.alpha)
+            outState.putFloat(TITLE_KEY, binding.tvFragmentSearchTitle.alpha)
+            outState.putFloat(DESCRIPTION_KEY, binding.tvFragmentSearchTitleDescription.alpha)
+        }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+
+    private fun setAdapter() = with(binding) {
+        rvFragmentSearchList.adapter = this@SearchFragment.adapter
+        rvFragmentSearchList.layoutManager = LinearLayoutManager(context)
+    }
+
+    private fun bindView() = with(binding) {
+        svFragmentSearchSearch.setOnClickListener {
+            binding.svFragmentSearchSearch.onActionViewExpanded()
+        }
+
+        svFragmentSearchSearch.setOnCloseListener {
+            binding.svFragmentSearchSearch.onActionViewExpanded()
+            false
+        }
+
+        svFragmentSearchSearch.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(p0: String?): Boolean {
+                if (p0 == "") {
+                    startAnim()
+                    sViewModel.onTextChanged(p0.toString())
+                } else {
+                    endAnim()
+                    sViewModel.onTextChanged(p0.toString())
+                }
+                return false
+            }
+
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+        })
+    }
+
+    private fun subscribeToFlow() = with(sViewModel) {
+        subscribeToFlow(lifecycleOwner = viewLifecycleOwner, flow = actionSearch) {
+            if (binding.svFragmentSearchSearch.query != "") {
+                adapter.submitList(it)
+            }
+        }
+
+        subscribeToFlow(lifecycleOwner = viewLifecycleOwner, flow = actionError) { message ->
+            BannerUtils.showToast(
+                message,
+                requireContext()
+            )
+        }
+    }
+
+    fun startAnim() = with(binding) {
+        AnimatorUtils.toStartView(
+            requireContext(),
+            gifFragmentSearchLogo,
+            tvFragmentSearchTitle,
+            tvFragmentSearchTitleDescription
+        )
+        binding.rvFragmentSearchList.visibility = RecyclerView.INVISIBLE
+    }
+
+    fun endAnim() = with(binding) {
+        AnimatorUtils.toCloseView(
+            requireContext(),
+            gifFragmentSearchLogo,
+            tvFragmentSearchTitle,
+            tvFragmentSearchTitleDescription
+        )
+
+        binding.rvFragmentSearchList.visibility = RecyclerView.VISIBLE
     }
 
     private fun openDetailsPage(posterId: Int) {
@@ -96,83 +173,6 @@ class SearchFragment : Fragment(), SearchContract.View<List<AnimePosterEntity>> 
                 )
             )
         }
-    }
-
-    @SuppressLint("CheckResult")
-    private fun onSearch() {
-        RxSearchObservable.fromView(binding.svFragmentSearchSearch)
-            .subscribe {
-                presenter.getAnimePostersFromSearch(it)
-                if (it == "") {
-                    with(binding) {
-                        AnimatorUtils.toStartView(
-                            requireContext(),
-                            gifFragmentSearchLogo,
-                            tvFragmentSearchTitle,
-                            tvFragmentSearchTitleDescription
-                        )
-                    }
-                    clearFragmentStack()
-                } else {
-                    with(binding) {
-                        AnimatorUtils.toCloseView(
-                            requireContext(),
-                            gifFragmentSearchLogo,
-                            tvFragmentSearchTitle,
-                            tvFragmentSearchTitleDescription
-                        )
-                    }
-                }
-            }
-    }
-
-    private fun clearFragmentStack() {
-        val fragment: Fragment? =
-            parentFragmentManager.findFragmentByTag(DetailsFragment.TAG_FRAGMENT)
-        if (fragment != null) {
-            parentFragmentManager.beginTransaction().remove(fragment).commit()
-        }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        if (_binding != null) {
-            outState.putFloat(GIF_KEY, binding.gifFragmentSearchLogo.alpha)
-            outState.putFloat(TITLE_KEY, binding.tvFragmentSearchTitle.alpha)
-            outState.putFloat(DESCRIPTION_KEY, binding.tvFragmentSearchTitleDescription.alpha)
-        }
-    }
-
-
-    private fun setAdapter() = with(binding) {
-        rvFragmentSearchList.adapter = this@SearchFragment.adapter
-        rvFragmentSearchList.layoutManager = LinearLayoutManager(context)
-    }
-
-
-    override fun updateViewData(result: Results<List<AnimePosterEntity>>) {
-
-        when (result) {
-            is Results.Success -> {
-                adapter.submitList(result.data)
-            }
-            is Results.Error -> {
-                BannerUtils.showToast(
-                    getString(R.string.an_error_has_occurred, result.exception),
-                    requireContext()
-                )
-            }
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.clearDisposable()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     companion object {

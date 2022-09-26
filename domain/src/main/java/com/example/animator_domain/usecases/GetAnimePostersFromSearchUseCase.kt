@@ -4,7 +4,7 @@ import com.example.animator_domain.repository.AnimeRepository
 
 class GetAnimePostersFromSearchUseCase(private val repository: AnimeRepository) {
 
-   fun execute(searchName: String) =
+    suspend fun execute(searchName: String) =
         repository.getSearchPosters(searchName = searchName)
 
 }

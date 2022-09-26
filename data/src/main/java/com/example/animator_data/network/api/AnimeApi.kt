@@ -19,11 +19,11 @@ interface AnimeApi {
      * @return Observable list of Anime Posters
      * */
     @GET("api/animes")
-    fun getSearchPosters(
+    suspend fun getSearchPosters(
         @Query(value = "search") search: String = "",
         @Query(value = "limit") limit: Int = 20,
         @Query(value = "censored") censored: Boolean = true
-    ): Observable<List<AnimePosterEntityResponse>>
+    ): Response<List<AnimePosterEntityResponse>>
 
     /**
      * Getting Details of Anime on id

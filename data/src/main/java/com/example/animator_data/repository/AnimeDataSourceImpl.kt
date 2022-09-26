@@ -18,10 +18,19 @@ class AnimeDataSourceImpl(
     private val animeApi: AnimeApi,
     private val shikimoriDAO: ShikimoriDAO
 ) : AnimeDataSource {
-    override fun getSearchPosters(searchName: String): Observable<List<AnimePosterEntity>> {
-        return animeApi.getSearchPosters(search = searchName)
-            .subscribeOn(Schedulers.io())
-            .map { AnimePosterResponseMapper.toListAnimePosterEntity(it) }
+    override suspend fun getSearchPosters(searchName: String): Results<List<AnimePosterEntity>> {
+        return try {
+            val response = animeApi.getSearchPosters(search = searchName)
+            if (response.isSuccessful) {
+                val item =
+                    AnimePosterResponseMapper.toListAnimePosterEntity(response.body()!!)
+                Results.Success(data = item)
+            } else {
+                Results.Error(exception = Exception(response.message()))
+            }
+        } catch (e: Exception) {
+            Results.Error(exception = e)
+        }
     }
 
     override suspend fun getDetails(id: Int): Results<AnimeDetailsEntity> {

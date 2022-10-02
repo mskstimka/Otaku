@@ -11,13 +11,13 @@ import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchis
 import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.animator_domain.models.poster.AnimePosterEntity
-import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
 
 class AnimeDataSourceImpl(
     private val animeApi: AnimeApi,
     private val shikimoriDAO: ShikimoriDAO
 ) : AnimeDataSource {
+
+
     override suspend fun getSearchPosters(searchName: String): Results<List<AnimePosterEntity>> {
         return try {
             val response = animeApi.getSearchPosters(search = searchName)

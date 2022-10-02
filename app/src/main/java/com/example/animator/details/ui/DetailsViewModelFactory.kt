@@ -8,7 +8,9 @@ class DetailsViewModelFactory(
     private val getAnimeDetailsFromIdUseCase: GetAnimeDetailsFromIdUseCase,
     private val getAnimeScreenshotsFromIdUseCase: GetAnimeScreenshotsFromIdUseCase,
     private val getAnimeFranchisesFromIdUseCase: GetAnimeFranchisesFromIdUseCase,
-    private val getAnimeRolesFromIdUseCase: GetAnimeRolesFromIdUseCase
+    private val getAnimeRolesFromIdUseCase: GetAnimeRolesFromIdUseCase,
+    private val getSeriesUseCase: GetSeriesUseCase,
+    private val getVideoUseCase: GetVideoUseCase
 ) : ViewModelProvider.Factory {
 
 
@@ -17,7 +19,9 @@ class DetailsViewModelFactory(
             getAnimeDetailsFromIdUseCase = getAnimeDetailsFromIdUseCase,
             getAnimeScreenshotsFromIdUseCase = getAnimeScreenshotsFromIdUseCase,
             getAnimeFranchisesFromIdUseCase = getAnimeFranchisesFromIdUseCase,
-            getAnimeRolesFromIdUseCase = getAnimeRolesFromIdUseCase
+            getAnimeRolesFromIdUseCase = getAnimeRolesFromIdUseCase,
+            getSeriesUseCase = getSeriesUseCase,
+            getVideoUseCase = getVideoUseCase
         ) as T
     }
 }

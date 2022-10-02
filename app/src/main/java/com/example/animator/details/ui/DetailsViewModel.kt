@@ -1,9 +1,11 @@
 package com.example.animator.details.ui
 
+import android.util.Log
 import android.widget.ProgressBar
 import androidx.lifecycle.*
 import com.example.animator_domain.common.Results
 import com.example.animator_domain.models.details.AnimeDetailsEntity
+import com.example.animator_domain.models.details.Translation
 import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchisesEntity
 import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
@@ -17,7 +19,9 @@ class DetailsViewModel(
     private val getAnimeDetailsFromIdUseCase: GetAnimeDetailsFromIdUseCase,
     private val getAnimeScreenshotsFromIdUseCase: GetAnimeScreenshotsFromIdUseCase,
     private val getAnimeFranchisesFromIdUseCase: GetAnimeFranchisesFromIdUseCase,
-    private val getAnimeRolesFromIdUseCase: GetAnimeRolesFromIdUseCase
+    private val getAnimeRolesFromIdUseCase: GetAnimeRolesFromIdUseCase,
+    private val getSeriesUseCase: GetSeriesUseCase,
+    private val getVideoUseCase: GetVideoUseCase
 ) : ViewModel() {
 
 
@@ -31,7 +35,8 @@ class DetailsViewModel(
         MutableSharedFlow<List<AnimeDetailsScreenshotsEntity>>(replay = 1)
     val pageAnimeScreenshotsAction: SharedFlow<List<AnimeDetailsScreenshotsEntity>> get() = _pageAnimeScreenshotsAction
 
-    private val _pageAnimeFranchisesAction = MutableSharedFlow<List<AnimeDetailsFranchisesEntity>>(replay = 1)
+    private val _pageAnimeFranchisesAction =
+        MutableSharedFlow<List<AnimeDetailsFranchisesEntity>>(replay = 1)
     val pageAnimeFranchisesAction: SharedFlow<List<AnimeDetailsFranchisesEntity>> get() = _pageAnimeFranchisesAction
 
     private val _pageAnimeRolesAction = MutableSharedFlow<AnimeDetailsRolesEntity>(replay = 1)
@@ -42,6 +47,8 @@ class DetailsViewModel(
     private val _actionAdapter = MutableSharedFlow<Int>(replay = 1)
     val actionAdapter: SharedFlow<Int> get() = _actionAdapter
 
+    private val _actionVideo = MutableSharedFlow<List<Translation>>(replay = 1)
+    val actionVideo: SharedFlow<List<Translation>> get() = _actionVideo
 
     private suspend fun putResponses(value: Boolean) {
         responses.add(value)
@@ -57,6 +64,13 @@ class DetailsViewModel(
             when (val response = getAnimeDetailsFromIdUseCase.execute(id = id)) {
                 is Results.Success -> {
                     _pageAnimeDetailsAction.emit(response.data)
+                    getSeries(response.data.id.toLong(), response.data.name.toString())
+                    getVideos(
+                        malId = response.data.id.toLong(),
+                        name = response.data.name.toString(),
+                        episode = 1,
+                        kind = response.data.kind.toString()
+                    )
                     putResponses(true)
                 }
                 is Results.Error -> {
@@ -65,6 +79,47 @@ class DetailsViewModel(
                 }
             }
         }
+    }
+
+    private fun getSeries(malId: Long, name: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            when (val response = getSeriesUseCase.execute(malId = malId, name = name)) {
+                is Results.Success -> {
+                    Log.d("SERIES", response.data.toString())
+                }
+                is Results.Error -> {
+                    Log.d("ERROR", response.exception.message.toString())
+                }
+            }
+        }
+    }
+
+    fun getVideos(
+        malId: Long,
+        episode: Int,
+        name: String,
+        kind: String
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            when (val response = getVideoUseCase.execute(
+                malId = malId,
+                episode = episode,
+                name = name,
+                kind = kind
+            )) {
+                is Results.Success -> {
+
+                    _actionVideo.emit(response.data)
+                }
+                is Results.Error -> {
+                    Log.d("ERROR", response.exception.message.toString())
+
+                }
+            }
+        }
+
     }
 
     fun getAnimeDetailsScreenshotsFromId(id: Int) {

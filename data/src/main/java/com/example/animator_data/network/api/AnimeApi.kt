@@ -1,13 +1,30 @@
 package com.example.animator_data.network.api
 
 import com.example.animator_data.network.models.*
+import com.example.animator_domain.common.Results
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import io.reactivex.Observable
+import io.reactivex.Single
 
 interface AnimeApi {
+
+    @GET("/api/anime/episodes")
+    suspend fun getEpisodes(
+        @Query("id") malId: Long,
+        @Query("name") name: String
+    ): Response<Int>
+
+    @GET("/api/anime/query")
+    suspend fun getVideo(
+    @Query("id") malId: Long,
+    @Query("name") name: String,
+    @Query("episode") episode: Int,
+    @Query("hostingId") hostingId : Int,
+    @Query("kind") translationType: String?
+    ): Response<List<TranslationResponse>>
 
     /**
      * Getting Anime Posters on Search

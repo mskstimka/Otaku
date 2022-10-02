@@ -2,14 +2,22 @@ package com.example.animator_domain.repository
 
 import com.example.animator_domain.common.Results
 import com.example.animator_domain.models.details.AnimeDetailsEntity
+import com.example.animator_domain.models.details.Translation
 import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchisesEntity
 import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.animator_domain.models.poster.AnimePosterEntity
-import io.reactivex.Observable
 
 interface AnimeRepository {
 
+    suspend fun getVideo(
+        malId: Long,
+        episode: Int,
+        name: String,
+        kind: String
+    ): Results<List<Translation>>
+
+    suspend fun getSeries(malId: Long,name: String): Results<Int>
     /**
      * Getting Anime Posters from Search
      *

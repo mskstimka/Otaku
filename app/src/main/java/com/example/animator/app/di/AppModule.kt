@@ -17,15 +17,20 @@ class AppModule(private val context: Context) {
         getAnimeDetailsFromIdUseCase: GetAnimeDetailsFromIdUseCase,
         getAnimeScreenshotsFromIdUseCase: GetAnimeScreenshotsFromIdUseCase,
         getAnimeFranchisesFromIdUseCase: GetAnimeFranchisesFromIdUseCase,
-        getAnimeRolesFromIdUseCase: GetAnimeRolesFromIdUseCase
+        getAnimeRolesFromIdUseCase: GetAnimeRolesFromIdUseCase,
+        getSeriesUseCase: GetSeriesUseCase,
+        getVideoUseCase: GetVideoUseCase
     ): DetailsViewModelFactory {
         return DetailsViewModelFactory(
             getAnimeDetailsFromIdUseCase = getAnimeDetailsFromIdUseCase,
             getAnimeScreenshotsFromIdUseCase = getAnimeScreenshotsFromIdUseCase,
             getAnimeFranchisesFromIdUseCase = getAnimeFranchisesFromIdUseCase,
-            getAnimeRolesFromIdUseCase = getAnimeRolesFromIdUseCase
+            getAnimeRolesFromIdUseCase = getAnimeRolesFromIdUseCase,
+            getSeriesUseCase = getSeriesUseCase,
+            getVideoUseCase = getVideoUseCase
         )
     }
+
 
     @Provides
     fun provideSearchViewModelFactory(

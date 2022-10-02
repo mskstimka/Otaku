@@ -2,14 +2,31 @@ package com.example.animator_data.repository
 
 import com.example.animator_domain.common.Results
 import com.example.animator_domain.models.details.AnimeDetailsEntity
+import com.example.animator_domain.models.details.Translation
 import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchisesEntity
 import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.animator_domain.models.poster.AnimePosterEntity
 import com.example.animator_domain.repository.AnimeRepository
-import io.reactivex.Observable
 
-class AnimeRepositoryImpl(private val animeDataSource: AnimeDataSource) : AnimeRepository {
+class AnimeRepositoryImpl(
+    private val animeDataSource: AnimeDataSource,
+    private val watchDataSourceImpl: WatchDataSource
+) : AnimeRepository {
+    override suspend fun getVideo(
+        malId: Long,
+        episode: Int,
+        name: String,
+        kind: String
+    ): Results<List<Translation>> {
+        return watchDataSourceImpl.getVideo(
+            malId = malId, episode = episode, name = name, kind = kind
+        )
+    }
+
+    override suspend fun getSeries(malId: Long, name: String): Results<Int> {
+        return watchDataSourceImpl.getSeries(malId, name)
+    }
 
     override suspend fun getSearchPosters(searchName: String): Results<List<AnimePosterEntity>> {
         return animeDataSource.getSearchPosters(searchName = searchName)

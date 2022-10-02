@@ -6,13 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.core.content.ContextCompat.startForegroundService
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
+import com.example.animator.R
 import com.example.animator_domain.*
 import com.example.animator.app.App
+import com.example.animator.app.webPlayer.WebPlayerFragment
 import com.example.animator.details.services.StatusForegroundService
 import com.example.animator.utils.BannerUtils
 import com.example.animator.databinding.FragmentDetailsBinding
@@ -29,7 +33,10 @@ import com.example.animator.details.adapters.studios.ContainerStudios
 import com.example.animator.details.adapters.studios.ContainerStudiosAdapter
 import com.example.animator.details.adapters.videos.ContainerVideos
 import com.example.animator.details.adapters.videos.ContainerVideosAdapter
+import com.example.animator.search.ui.SearchFragmentDirections
 import com.example.animator.utils.subscribeToFlow
+import com.example.animator_domain.models.details.Translation
+import com.google.android.material.button.MaterialButton
 import javax.inject.Inject
 
 
@@ -70,6 +77,7 @@ class DetailsFragment : Fragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
 
+    private var watch: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,6 +93,8 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailsBinding.inflate(layoutInflater)
+
+        binding.btWatch.visibility = MaterialButton.INVISIBLE
 
         binding.rvRoot.layoutManager = LinearLayoutManager(context)
         return binding.root
@@ -167,6 +177,21 @@ class DetailsFragment : Fragment() {
                 requireContext()
             )
         }
+
+
+        subscribeToFlow(
+            flow = actionVideo,
+            lifecycleOwner = viewLifecycleOwner
+        ) { item ->
+            binding.btWatch.visibility = MaterialButton.VISIBLE
+            binding.btWatch.setOnClickListener {
+                findNavController().navigate(
+                    DetailsFragmentDirections.actionDetailsFragmentToWebPlayerFragment(item.first().url)
+                )
+            }
+        }
+
+
 
         subscribeToFlow(
             flow = actionAdapter,

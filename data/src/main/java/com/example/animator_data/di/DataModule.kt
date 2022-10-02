@@ -4,10 +4,9 @@ import android.content.Context
 import com.example.animator_data.database.dao.ShikimoriDAO
 import com.example.animator_data.database.dao.ShikimoriDataBase
 import com.example.animator_data.network.api.AnimeApi
-import com.example.animator_data.repository.AnimeDataSource
-import com.example.animator_data.repository.AnimeDataSourceImpl
-import com.example.animator_data.repository.AnimeRepositoryImpl
+import com.example.animator_data.repository.*
 import com.example.animator_domain.SHIKIMORI_URL
+import com.example.animator_domain.SHIMORI_URL
 import com.example.animator_domain.repository.AnimeRepository
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -15,7 +14,6 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 
@@ -54,12 +52,41 @@ class DataModule(private val context: Context) {
     }
 
     @Provides
+    fun provideWatchDataSource(): WatchDataSource {
+        val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
+            setLevel(HttpLoggingInterceptor.Level.BASIC)
+        }
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(httpLoggingInterceptor)
+            .build()
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(SHIMORI_URL)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(client)
+            .build()
+
+        return WatchDataSourceImpl(retrofit.create(AnimeApi::class.java))
+    }
+
+
+    @Provides
     fun provideShikimoriDataBase(): ShikimoriDAO {
         return ShikimoriDataBase.getDatabase(context = context).getCurrencyDao()
     }
 
     @Provides
-    fun provideAnimeRepository(animeDataSource: AnimeDataSource): AnimeRepository {
-        return AnimeRepositoryImpl(animeDataSource = animeDataSource)
+    fun provideAnimeRepository(
+        animeDataSource: AnimeDataSource,
+        watchDataSourceImpl: WatchDataSource
+    ): AnimeRepository {
+        return AnimeRepositoryImpl(
+            animeDataSource = animeDataSource,
+            watchDataSourceImpl = watchDataSourceImpl
+        )
     }
 }

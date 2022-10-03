@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -29,21 +27,21 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btWatch"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginEnd="20dp"
+        android:layout_height="@dimen/fragment_details_btWatch_layout_width"
+        android:layout_marginEnd="@dimen/fragment_details_btWatch_layout_marginEnd"
+        android:layout_marginBottom="@dimen/fragment_details_btWatch_layout_marginBottom"
         android:backgroundTint="?colorSecondary"
-        android:shadowColor="@color/black"
         android:fontFamily="@font/google_sans_medium"
-        android:text="Смотреть"
         android:insetRight="0dp"
-        android:layout_marginBottom="10dp"
+        android:shadowColor="@color/black"
+        android:text="@string/fragment_details_btWatch_text"
         android:textAlignment="center"
-        android:textSize="16dp"
-        app:cornerRadius="20dp"
         android:textColor="@color/activity_background_color"
-        app:iconTint="@color/activity_background_color"
+        android:textSize="@dimen/fragment_details_btWatch_textSize"
+        app:cornerRadius="@dimen/fragment_details_btWatch_cornerRadius"
         app:icon="@drawable/icon_play"
-        app:iconSize="25dp"
+        app:iconSize="@dimen/fragment_details_btWatch_iconSize"
+        app:iconTint="@color/activity_background_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

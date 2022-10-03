@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/text_style_russian_title"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_episodes_header_root_layout_height"
+    android:layout_margin="0dp"
+    android:gravity="center"
+    android:text="@string/item_episodes_header_root_text"
+    android:textColor="@color/title_color"
+    android:textSize="@dimen/item_episodes_header_root_textSize" />

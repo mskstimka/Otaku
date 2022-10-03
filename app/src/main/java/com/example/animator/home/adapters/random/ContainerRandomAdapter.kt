@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animator.R
 import com.example.animator.databinding.ItemHomeRandomBinding
-import com.example.animator.details.adapters.screenshots.ScreenshotsAdapter
+import com.example.animator.details.info.adapters.screenshots.ScreenshotsAdapter
 import com.example.animator.home.ui.HomeFragmentDirections
 import com.example.animator.utils.setImageByURL
 import com.example.animator_domain.SHIKIMORI_URL

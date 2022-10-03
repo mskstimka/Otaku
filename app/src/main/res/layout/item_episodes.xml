@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.button.MaterialButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/text_style_main_title"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_episodes_root_layout_height"
+    android:layout_margin="0dp"
+    android:backgroundTint="?colorSecondary"
+    android:ellipsize="end"
+    android:gravity="center"
+    android:textAlignment="textStart"
+    android:textColor="@color/activity_background_color"
+    android:textSize="@dimen/item_episodes_root_textSize"
+    android:textStyle="normal"
+    app:cornerRadius="@dimen/item_episodes_root_cornerRadius"
+    app:icon="@drawable/icon_dots"
+    app:iconTint="@color/activity_background_color"
+    tools:ignore="RtlCompat"
+    tools:text="Episode: N" />
+
+
+

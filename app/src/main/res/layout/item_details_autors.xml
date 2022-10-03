@@ -30,9 +30,10 @@
     <TextView
         android:id="@+id/tvRoleAutorsItem"
         style="@style/item_description_text_style"
-        android:maxLines="3"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="@+id/tvTitleAutorsItem"
         app:layout_constraintStart_toStartOf="@+id/tvTitleAutorsItem"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitleAutorsItem" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleAutorsItem"
+        tools:text="Автор" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.animator.details.ui.DetailsFragment"
+        android:name="com.example.animator.details.info.ui.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" >
         <action
@@ -66,8 +66,8 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_detailsFragment_to_webPlayerFragment"
-            app:destination="@id/webPlayerFragment" />
+            android:id="@+id/action_detailsFragment_to_episodesFragment"
+            app:destination="@id/episodesFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -76,10 +76,34 @@
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/webPlayerFragment"
-        android:name="com.example.animator.app.webPlayer.WebPlayerFragment"
+        android:name="com.example.animator.details.webPlayer.ui.WebPlayerFragment"
         android:label="WebPlayerFragment" >
         <argument
             android:name="url"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_webPlayerFragment_to_episodesFragment"
+            app:destination="@id/episodesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/episodesFragment"
+        android:name="com.example.animator.details.episodes.ui.EpisodesFragment"
+        android:label="fragment_episodes"
+        tools:layout="@layout/fragment_episodes" >
+        <action
+            android:id="@+id/action_episodesFragment_to_webPlayerFragment"
+            app:destination="@id/webPlayerFragment" />
+        <argument
+            android:name="episodes"
+            app:argType="integer" />
+        <argument
+            android:name="kind"
+            app:argType="string" />
+        <argument
+            android:name="malId"
+            app:argType="long" />
+        <argument
+            android:name="name"
             app:argType="string" />
     </fragment>
 </navigation>

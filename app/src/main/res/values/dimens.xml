@@ -15,7 +15,7 @@
     <dimen name="item_details_characters_cvImageCharactersItem_layout_width">120dp</dimen>
     <dimen name="item_details_characters_cvImageCharactersItem_layout_height">170dp</dimen>
     <dimen name="item_details_autors_root_layout_width">120dp</dimen>
-    <dimen name="item_details_autors_root_layout_height">230dp</dimen>
+    <dimen name="item_details_autors_root_layout_height">200dp</dimen>
     <dimen name="item_details_autors_layout_width">100dp</dimen>
     <dimen name="item_details_autors_layout_height">150dp</dimen>
     <dimen name="item_details_screenshots_root_layout_width">240dp</dimen>
@@ -111,6 +111,19 @@
     <dimen name="item_home_random_ivItemHomeRandomImage_layout_width">80dp</dimen>
     <dimen name="item_home_random_ivItemHomeRandomImage">120dp</dimen>
     <dimen name="item_home_random_ivItemHomeRandomImage_layout_marginBottom">20dp</dimen>
+    <dimen name="item_episodes_header_root_layout_height">190dp</dimen>
+    <dimen name="item_episodes_header_root_textSize">40sp</dimen>
+    <dimen name="fragment_episodes_root_paddingHorizontal">20dp</dimen>
+    <dimen name="fragment_episodes_root_paddingBottom">40dp</dimen>
+    <dimen name="item_episodes_root_textSize">16sp</dimen>
+    <dimen name="item_episodes_root_layout_height">50dp</dimen>
+    <dimen name="item_episodes_root_cornerRadius">12dp</dimen>
+    <dimen name="fragment_details_btWatch_textSize">16sp</dimen>
+    <dimen name="fragment_details_btWatch_cornerRadius">20dp</dimen>
+    <dimen name="fragment_details_btWatch_iconSize">25dp</dimen>
+    <dimen name="fragment_details_btWatch_layout_marginBottom">10dp</dimen>
+    <dimen name="fragment_details_btWatch_layout_marginEnd">20dp</dimen>
+    <dimen name="fragment_details_btWatch_layout_width">60dp</dimen>
 
     <bool name="isLightTheme">true</bool>
     <bool name="isTablet">false</bool>

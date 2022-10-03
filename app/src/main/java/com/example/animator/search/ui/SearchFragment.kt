@@ -14,7 +14,7 @@ import com.example.animator_domain.usecases.GetAnimePostersFromSearchUseCase
 import com.example.animator.R
 import com.example.animator.app.App
 import com.example.animator.databinding.FragmentSearchBinding
-import com.example.animator.details.ui.DetailsFragment
+import com.example.animator.details.info.ui.DetailsFragment
 import com.example.animator.search.adapters.PostersAdapter
 import com.example.animator.utils.*
 import javax.inject.Inject

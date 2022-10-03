@@ -38,7 +38,7 @@
         </service>
 
         <service
-            android:name="com.example.animator.details.services.StatusForegroundService"
+            android:name="com.example.animator.details.info.services.StatusForegroundService"
             android:exported="false" />
 
         <activity

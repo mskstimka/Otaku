@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/recycler_style"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="0dp"
+    android:paddingHorizontal="@dimen/fragment_episodes_root_paddingHorizontal"
+    android:paddingBottom="@dimen/fragment_episodes_root_paddingBottom"
+    tools:context=".details.episodes.ui.EpisodesFragment"
+    tools:itemCount="12"
+    tools:listitem="@layout/item_episodes" />

@@ -45,6 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fragment_settings_tvFragmentSettingsTitle_text"
+            android:layout_marginStart="0dp"
             android:textColor="@color/title_color"
             android:textSize="@dimen/fragment_settings_tvFragmentSettingsTitle_textSize"
             app:layout_constraintEnd_toEndOf="parent"

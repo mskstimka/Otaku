@@ -1,4 +1,4 @@
-package com.example.animator.details.info.adapters.authors
+package com.example.animator.details.info.adapters.persons
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -12,8 +12,8 @@ import com.example.animator.databinding.ItemDetailsAutorsBinding
 import com.example.animator.utils.setImageByURL
 
 
-class AuthorsAdapter :
-    ListAdapter<Person, AuthorsAdapter.AuthorsViewHolder>(
+class PersonAdapter :
+    ListAdapter<Person, PersonAdapter.AuthorsViewHolder>(
         CharactersDiffCallback
     ) {
 

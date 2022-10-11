@@ -6,6 +6,7 @@ import com.example.animator_data.mapper.AnimeDetailsResponseMapper
 import com.example.animator_data.mapper.AnimePosterResponseMapper
 import com.example.animator_data.network.api.AnimeApi
 import com.example.animator_domain.common.Results
+import com.example.animator_domain.models.characters.CharacterDetailsEntity
 import com.example.animator_domain.models.details.AnimeDetailsEntity
 import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchisesEntity
 import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
@@ -41,7 +42,11 @@ class AnimeDataSourceImpl(
                     AnimeDetailsResponseMapper.toAnimeDetailsEntity(item = response.body()!!)
                 Results.Success(data = item)
             } else {
-                Results.Error(exception = Exception(response.message()))
+                if (response.code() == 429) {
+                    getDetails(id)
+                } else {
+                    Results.Error(exception = Exception(response.message()))
+                }
             }
         } catch (e: Exception) {
             Results.Error(exception = e)
@@ -75,7 +80,11 @@ class AnimeDataSourceImpl(
                     AnimeDetailsResponseMapper.toListAnimeFranchisesEntity(item = response.body()!!)
                 Results.Success(data = list)
             } else {
-                Results.Error(exception = Exception(response.message()))
+                if (response.code() == 429) {
+                    getFranchises(id)
+                } else {
+                    Results.Error(exception = Exception(response.message()))
+                }
             }
         } catch (e: Exception) {
             Results.Error(exception = e)
@@ -89,7 +98,11 @@ class AnimeDataSourceImpl(
                 val list = AnimeDetailsResponseMapper.toListAnimeRolesEntity(response.body()!!)
                 Results.Success(data = list)
             } else {
-                Results.Error(exception = Exception(response.message()))
+                if (response.code() == 429) {
+                    getRoles(id)
+                } else {
+                    Results.Error(exception = Exception(response.message()))
+                }
             }
         } catch (e: Exception) {
             Results.Error(exception = e)
@@ -161,6 +174,30 @@ class AnimeDataSourceImpl(
         } catch (e: Exception) {
             Results.Error(exception = e)
 
+        }
+    }
+
+    override suspend fun getCharacters(id: Int): Results<CharacterDetailsEntity> {
+
+        return try {
+            val response = animeApi.getCharacters(id = id)
+
+            when (response.isSuccessful) {
+                true -> {
+                    val item: CharacterDetailsEntity =
+                        AnimeDetailsResponseMapper.toCharacterDetailsEntity(response.body()!!)
+                    Results.Success(data = item)
+                }
+                false -> {
+                    if (response.code() == 429) {
+                        getCharacters(id = id)
+                    } else {
+                        Results.Error(exception = Exception(response.message()))
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Results.Error(exception = e)
         }
     }
 }

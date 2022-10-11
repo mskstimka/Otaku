@@ -7,7 +7,7 @@
     <dimen name="fragment_details_cvImage_layout_marginStart">20dp</dimen>
     <dimen name="fragment_details_cvImage_cardRadius">10dp</dimen>
     <dimen name="item_details_franchises_root_layout_width">120dp</dimen>
-    <dimen name="item_details_franchises_root_layout_height">210dp</dimen>
+    <dimen name="item_details_franchises_root_layout_height">225dp</dimen>
     <dimen name="item_details_franchises_cvImageFranchisesItem_layout_width">100dp</dimen>
     <dimen name="item_details_franchises_cvImageFranchisesItem_layout_height">150dp</dimen>
     <dimen name="item_details_characters_root_layout_width">140dp</dimen>

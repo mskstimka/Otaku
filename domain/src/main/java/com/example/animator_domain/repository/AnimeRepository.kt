@@ -1,6 +1,7 @@
 package com.example.animator_domain.repository
 
 import com.example.animator_domain.common.Results
+import com.example.animator_domain.models.characters.CharacterDetailsEntity
 import com.example.animator_domain.models.details.AnimeDetailsEntity
 import com.example.animator_domain.models.details.Translation
 import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchisesEntity
@@ -17,7 +18,8 @@ interface AnimeRepository {
         kind: String
     ): Results<List<Translation>>
 
-    suspend fun getSeries(malId: Long,name: String): Results<Int>
+    suspend fun getSeries(malId: Long, name: String): Results<Int>
+
     /**
      * Getting Anime Posters from Search
      *
@@ -89,4 +91,15 @@ interface AnimeRepository {
         censored: Boolean,
         order: String
     ): Results<List<AnimePosterEntity>>
+
+    /**
+     * Getting details of Character
+     *
+     * @param id - id of character
+     *
+     * @return Results item of Characters info
+     */
+    suspend fun getCharacters(
+        id: Int
+    ): Results<CharacterDetailsEntity>
 }

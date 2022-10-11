@@ -2,6 +2,8 @@ package com.example.animator.home.adapters.random
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,7 +53,15 @@ class ContainerRandomAdapter(private val action: () -> Unit) :
         fun bind(model: ContainerRandom) = with(binding) {
 
             ivItemHomeRandomRefresh.setOnClickListener {
+
                 action()
+                val rotateAnimation= RotateAnimation(0f, 359f,
+                    Animation.RELATIVE_TO_SELF, 0.5f,
+                    Animation.RELATIVE_TO_SELF, 0.5f)
+                rotateAnimation.duration = 300
+                it.startAnimation(rotateAnimation)
+
+
             }
 
             viewContainer.setOnClickListener {

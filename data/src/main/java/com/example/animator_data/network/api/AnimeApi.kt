@@ -124,4 +124,17 @@ interface AnimeApi {
         @Query(value = "censored") censored: Boolean = true,
         @Query(value = "order") order: String = "random"
     ): Response<List<AnimePosterEntityResponse>>
+
+
+    /**
+     * Getting details of Character
+     *
+     * @param id - id of character
+     *
+     * @return Response item of Characters info
+     */
+    @GET("api/characters/{id}")
+    suspend fun getCharacters(
+        @Path(value = "id") id: Int
+    ): Response<CharacterDetailsResponse>
 }

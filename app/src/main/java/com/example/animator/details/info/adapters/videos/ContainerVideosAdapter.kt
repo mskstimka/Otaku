@@ -1,6 +1,5 @@
 package com.example.animator.details.info.adapters.videos
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.animator.databinding.LayoutVideosInfoBinding
+import com.example.animator.databinding.LayoutDetailsVideosInfoBinding
 
 class ContainerVideosAdapter(private val openActivity: (intent: Intent) -> Unit) :
     ListAdapter<ContainerVideos, ContainerVideosAdapter.ParentVideosViewHolder>(
@@ -20,7 +19,7 @@ class ContainerVideosAdapter(private val openActivity: (intent: Intent) -> Unit)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentVideosViewHolder {
         val binding =
-            LayoutVideosInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            LayoutDetailsVideosInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         binding.rvVideos.layoutManager =
             LinearLayoutManager(parent.context, RecyclerView.HORIZONTAL, false)
@@ -37,10 +36,9 @@ class ContainerVideosAdapter(private val openActivity: (intent: Intent) -> Unit)
 
     inner class ParentVideosViewHolder(
         private val binding:
-        LayoutVideosInfoBinding
+        LayoutDetailsVideosInfoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("SetTextI18n")
         fun bind(item: ContainerVideos) = with(binding) {
 
             videosAdapter.submitList(item.list)

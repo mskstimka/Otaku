@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/text_style_russian_title"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/item_episodes_header_root_layout_height"
-    android:layout_margin="0dp"
-    android:gravity="center"
-    android:text="@string/item_episodes_header_root_text"
-    android:textColor="@color/title_color"
-    android:textSize="@dimen/item_episodes_header_root_textSize" />
+    android:layout_height="190dp">
+
+    <TextView
+        android:id="@+id/episodesTitle"
+        style="@style/text_style_russian_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:gravity="center"
+        android:text="@string/item_episodes_header_root_text"
+        android:textColor="@color/title_color"
+        android:textSize="@dimen/item_episodes_header_root_textSize"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivBackPressed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/fragment_details_ivBackPressed_contentDescription"
+        android:src="@drawable/icon_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

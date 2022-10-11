@@ -38,4 +38,15 @@ object AnimatorUtils {
         animation = true
     }
 
-}
+    fun toLineAnimate(context: Context, vararg views: View) {
+            views.forEach { view ->
+                AnimatorInflater.loadAnimator(
+                    context, R.animator.line_anim
+                ).apply {
+                    setTarget(view)
+                    start()
+                }
+            }
+        }
+    }
+

@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/tvTitleAutors"
         style="@style/text_style_title_items"
-        android:text="@string/fragment_details_tvTitleAutors_text"
+        tools:text="@string/fragment_details_tvTitleAutors_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"

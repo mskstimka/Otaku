@@ -2,6 +2,7 @@ package com.example.animator.details.info.adapters.details
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
@@ -88,6 +89,7 @@ class ContainerDetailsAdapter(private val onBackPressed: () -> Unit) :
             oldItem: AnimeDetailsEntity,
             newItem: AnimeDetailsEntity
         ): Boolean {
+            Log.d((oldItem.id == newItem.id).toString(), "INFO")
             return oldItem.id == newItem.id
         }
 

@@ -1,6 +1,8 @@
 package com.example.animator.home.ui
 
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,15 +10,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.example.animator.R
 import com.example.animator.app.App
 import com.example.animator.databinding.FragmentHomeBinding
+import com.example.animator.home.adapters.genres.ContainerGenresList
 import com.example.animator.home.adapters.genres.ContainerGenresListAdapter
 import com.example.animator.home.adapters.poster.ContainerPoster
 import com.example.animator.home.adapters.poster.ContainerPosterAdapter
 import com.example.animator.home.adapters.random.ContainerRandomAdapter
 import com.example.animator.utils.BannerUtils
 import com.example.animator.utils.subscribeToFlow
+import com.example.animator_domain.ARRAY_PREV_POSTERS
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -56,6 +63,18 @@ class HomeFragment : Fragment() {
 
         hViewModel = ViewModelProvider(this, vmFactory)[HomeViewModel::class.java]
 
+        with(binding.swipeToRefresh) {
+            setOnRefreshListener {
+                lifecycleScope.launch {
+                    hViewModel.list.clear()
+                    hViewModel.responses.clear()
+                    hViewModel.refresh(ARRAY_PREV_POSTERS)
+                    delay(1000)
+                    isRefreshing = false
+                }
+            }
+        }
+
         subscribeToFlow()
 
         return binding.root
@@ -90,7 +109,12 @@ class HomeFragment : Fragment() {
             flow = pageAnimePosterAction,
             lifecycleOwner = viewLifecycleOwner
         ) { item ->
-            genreAdapter.submitList(item)
+            val list = mutableListOf<ContainerGenresList>()
+            item.map {
+                list.add(it)
+            }
+            genreAdapter.submitList(list)
+            Log.d("UPDATED", "GENRES------------------------")
         }
 
         subscribeToFlow(

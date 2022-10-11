@@ -3,12 +3,14 @@ package com.example.animator.details.info.adapters.characters
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animator_domain.SHIKIMORI_URL
 import com.example.animator_domain.models.details.roles.Character
 import com.example.animator.databinding.ItemDetailsCharactersBinding
+import com.example.animator.details.info.ui.DetailsFragmentDirections
 import com.example.animator.utils.setImageByURL
 
 class CharactersAdapter :
@@ -38,6 +40,12 @@ class CharactersAdapter :
 
             ivImageCharactersItem.setImageByURL(SHIKIMORI_URL + model.image.original)
             tvTitleCharactersItem.text = model.name
+
+            itemView.setOnClickListener {
+                itemView.findNavController().navigate(
+                    DetailsFragmentDirections.actionDetailsFragmentToCharactersFragment(model.id)
+                )
+            }
         }
     }
 

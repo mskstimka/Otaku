@@ -7,5 +7,5 @@ import java.util.*
 @Keep
 data class ContainerScreenshots(
     val list: List<AnimeDetailsScreenshotsEntity>,
-    val id: String = UUID.randomUUID().toString()
+    val id: String = "screenshots_id"
 )

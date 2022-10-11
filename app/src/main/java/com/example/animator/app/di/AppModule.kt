@@ -1,6 +1,8 @@
 package com.example.animator.app.di
 
 import android.content.Context
+import com.example.animator.details.characters.ui.CharactersFragment
+import com.example.animator.details.characters.ui.CharactersViewModelFactory
 import com.example.animator_domain.usecases.*
 import com.example.animator.details.info.ui.DetailsViewModelFactory
 import com.example.animator.home.ui.HomeViewModelFactory
@@ -51,6 +53,15 @@ class AppModule(private val context: Context) {
             getAnimePrevPosterFromGenreUseCase = getAnimePrevPosterFromGenreUseCase,
             getAnimeRandomPosterUseCase = getAnimeRandomPosterUseCase,
             getAnimeScreenshotsFromIdUseCase = getAnimeScreenshotsFromIdUseCase
+        )
+    }
+
+    @Provides
+    fun provideCharactersViewModelFactory(
+        getCharacterDetailsUseCase: GetCharacterDetailsUseCase
+    ): CharactersViewModelFactory {
+        return CharactersViewModelFactory(
+            getCharacterDetailsUseCase = getCharacterDetailsUseCase
         )
     }
 

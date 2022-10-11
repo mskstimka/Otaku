@@ -53,4 +53,9 @@ class DomainModule {
     fun provideGetVideoUseCase(repository: AnimeRepository): GetVideoUseCase {
         return GetVideoUseCase(repository = repository)
     }
+
+    @Provides
+    fun provideGetCharactersDetailsUseCase(repository: AnimeRepository): GetCharacterDetailsUseCase {
+        return GetCharacterDetailsUseCase(repository = repository)
+    }
 }

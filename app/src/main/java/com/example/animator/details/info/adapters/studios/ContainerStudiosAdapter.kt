@@ -1,13 +1,12 @@
 package com.example.animator.details.info.adapters.studios
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.animator.databinding.LayoutStudiosInfoBinding
+import com.example.animator.databinding.LayoutDetailsStudiosInfoBinding
 
 class ContainerStudiosAdapter :
     ListAdapter<ContainerStudios, ContainerStudiosAdapter.ParentStudiosViewHolder>(
@@ -19,7 +18,7 @@ class ContainerStudiosAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentStudiosViewHolder {
         val binding =
-            LayoutStudiosInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            LayoutDetailsStudiosInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         binding.rvStudios.layoutManager =
             LinearLayoutManager(parent.context, RecyclerView.HORIZONTAL, false)
@@ -36,10 +35,9 @@ class ContainerStudiosAdapter :
 
     inner class ParentStudiosViewHolder(
         private val binding:
-        LayoutStudiosInfoBinding
+        LayoutDetailsStudiosInfoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("SetTextI18n")
         fun bind(item: ContainerStudios) = with(binding) {
 
             studiosAdapter.submitList(item.list)

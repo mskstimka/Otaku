@@ -1,13 +1,12 @@
 package com.example.animator.details.info.adapters.franchises
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.animator.databinding.LayoutFranchisesInfoBinding
+import com.example.animator.databinding.LayoutDetailsFranchisesInfoBinding
 
 class ContainerFranchisesAdapter :
     ListAdapter<ContainerFranchises, ContainerFranchisesAdapter.ParentFranchisesViewHolder>(
@@ -19,7 +18,7 @@ class ContainerFranchisesAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentFranchisesViewHolder {
         val binding =
-            LayoutFranchisesInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            LayoutDetailsFranchisesInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         binding.rvFranchises.layoutManager =
             LinearLayoutManager(parent.context, RecyclerView.HORIZONTAL, false)
@@ -36,10 +35,9 @@ class ContainerFranchisesAdapter :
 
     inner class ParentFranchisesViewHolder(
         private val binding:
-        LayoutFranchisesInfoBinding
+        LayoutDetailsFranchisesInfoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("SetTextI18n")
         fun bind(item: ContainerFranchises) = with(binding) {
 
             franchisesAdapter.submitList(item.list)
@@ -52,7 +50,7 @@ class ContainerFranchisesAdapter :
             oldItem: ContainerFranchises,
             newItem: ContainerFranchises
         ): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.id.equals(oldItem.id, true)
         }
 
         override fun areContentsTheSame(

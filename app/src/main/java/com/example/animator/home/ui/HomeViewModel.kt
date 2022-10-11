@@ -1,13 +1,17 @@
 package com.example.animator.home.ui
 
+import android.util.Log
 import androidx.lifecycle.*
+import androidx.work.impl.model.Preference
 import com.example.animator.home.adapters.genres.ContainerGenresList
 import com.example.animator.home.adapters.random.ContainerRandom
+import com.example.animator.utils.CountUtls
 import com.example.animator_domain.*
 import com.example.animator_domain.common.Results
 import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.animator_domain.usecases.*
 import com.example.animator_domain.models.home.PrevPoster
+import com.example.animator_domain.models.poster.AnimePosterEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -18,7 +22,7 @@ class HomeViewModel(
     private val getAnimeScreenshotsFromIdUseCase: GetAnimeScreenshotsFromIdUseCase
 ) : ViewModel() {
 
-    private val responses = mutableListOf<Boolean>()
+    val responses = mutableListOf<Boolean>()
 
     private val _actionError = MutableSharedFlow<String>(replay = 1)
     val actionError: SharedFlow<String> = _actionError
@@ -33,12 +37,17 @@ class HomeViewModel(
         MutableSharedFlow<List<AnimeDetailsScreenshotsEntity>>(replay = 1)
     val pageAnimeScreenshotsAction: SharedFlow<List<AnimeDetailsScreenshotsEntity>> get() = _pageAnimeScreenshotsAction
 
+    val list = mutableListOf<ContainerGenresList>().also {
+        refresh(ARRAY_PREV_POSTERS)
+    }
 
-    private val list = mutableListOf<ContainerGenresList>().also {
+    fun refresh(list: List<PrevPoster>) {
+
         getList(
-            ARRAY_PREV_POSTERS
+            list
         )
         getAnimeRandomPoster()
+
     }
 
     private fun getList(list: List<PrevPoster>) {
@@ -59,6 +68,7 @@ class HomeViewModel(
                     _pageAnimeRandomAction.emit(
                         listOf(
                             ContainerRandom(
+                                id = CONTAINER_RANDOM_ID,
                                 item = response.data.first()
                             )
                         )
@@ -103,7 +113,7 @@ class HomeViewModel(
 
             when (val response = getAnimePrevPosterFromGenreUseCase.execute(genresId)) {
                 is Results.Success -> {
-                    list.add(ContainerGenresList(genreName, list = response.data))
+                    list.add(ContainerGenresList(title = genreName, list = response.data))
                     putResponses(true)
                 }
                 is Results.Error -> {
@@ -112,5 +122,10 @@ class HomeViewModel(
                 }
             }
         }
+    }
+
+    companion object {
+        const val CONTAINER_RANDOM_ID = 1
+        const val CONTAINER_GENRES_ID = 2
     }
 }

@@ -1,6 +1,7 @@
 package com.example.animator.details.episodes.adapters
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -12,7 +13,10 @@ import com.example.animator.details.episodes.models.ContainerEpisodeHeader
 import com.example.animator.details.episodes.models.ContainerEpisodes
 import com.example.animator.details.episodes.models.DisplayableItem
 
-class EpisodesAdapter(private val actionSearch: (Int) -> Unit) :
+class EpisodesAdapter(
+    private val actionSearch: (Int) -> Unit,
+    private val onBackPressed: () -> Unit
+) :
     ListAdapter<DisplayableItem, RecyclerView.ViewHolder>(
         EpisodesDiffCallback
     ) {
@@ -23,6 +27,10 @@ class EpisodesAdapter(private val actionSearch: (Int) -> Unit) :
             is ContainerEpisodeHeader -> HEADER_TYPE
             else -> throw IllegalArgumentException()
         }
+    }
+
+    override fun getItemId(position: Int): Long {
+        return currentList[position].hashCode().toLong()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -78,7 +86,11 @@ class EpisodesAdapter(private val actionSearch: (Int) -> Unit) :
 
         fun bind(item: ContainerEpisodeHeader) = with(binding) {
 
-            root.setOnClickListener {
+            ivBackPressed.setOnClickListener {
+                onBackPressed()
+            }
+
+            episodesTitle.setOnClickListener {
                 item.action()
             }
         }
@@ -89,7 +101,14 @@ class EpisodesAdapter(private val actionSearch: (Int) -> Unit) :
             oldItem: DisplayableItem,
             newItem: DisplayableItem
         ): Boolean {
-            return oldItem.id == newItem.id
+
+            return if (oldItem is ContainerEpisodes && newItem is ContainerEpisodes) {
+                oldItem.episode == newItem.episode
+            } else if (oldItem is ContainerEpisodeHeader && newItem is ContainerEpisodeHeader) {
+                oldItem.title == newItem.title
+            } else {
+                oldItem.id == oldItem.id
+            }
         }
 
         @SuppressLint("DiffUtilEquals")

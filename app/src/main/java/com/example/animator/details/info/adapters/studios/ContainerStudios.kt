@@ -7,5 +7,5 @@ import java.util.*
 @Keep
 data class ContainerStudios(
     val list: List<Studio>,
-    val id: String = UUID.randomUUID().toString()
+    val id: String = "studios_id"
 )

@@ -31,3 +31,4 @@ fun <T> ViewModel.subscribeToFlow(
         }
     }
 }
+

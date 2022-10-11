@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,9 +12,10 @@ import com.example.animator_domain.SHIKIMORI_URL
 import com.example.animator_domain.models.poster.AnimePosterEntity
 import com.example.animator.R
 import com.example.animator.databinding.ItemSearchPostersBinding
+import com.example.animator.search.ui.SearchFragmentDirections
 import com.example.animator.utils.setImageByURL
 
-class PostersAdapter(private val callbackClick: (posterId: Int) -> Unit) :
+class PostersAdapter :
     ListAdapter<AnimePosterEntity, PostersAdapter.TitleViewHolder>(PosterDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TitleViewHolder {
@@ -49,7 +51,11 @@ class PostersAdapter(private val callbackClick: (posterId: Int) -> Unit) :
             ivSearchPosterImage.setImageByURL(SHIKIMORI_URL + model.image.original)
 
             itemView.setOnClickListener {
-                callbackClick.invoke(model.id)
+                itemView.findNavController().navigate(
+                    SearchFragmentDirections.actionSearchFragmentToDetailsFragment(
+                        id = model.id
+                    )
+                )
             }
         }
     }

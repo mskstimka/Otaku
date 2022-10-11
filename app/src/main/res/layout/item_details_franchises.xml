@@ -22,6 +22,7 @@
         android:id="@+id/tvTitleFranchisesItem"
         style="@style/item_title_text_style"
         android:fontFamily="@font/google_sans_medium"
+        android:maxLines="2"
         app:layout_constraintEnd_toEndOf="@+id/ivImageFranchisesItem"
         app:layout_constraintStart_toStartOf="@+id/ivImageFranchisesItem"
         app:layout_constraintTop_toBottomOf="@+id/ivImageFranchisesItem"

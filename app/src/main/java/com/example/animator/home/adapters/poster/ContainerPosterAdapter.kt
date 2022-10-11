@@ -1,12 +1,18 @@
 package com.example.animator.home.adapters.poster
 
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animator.databinding.ItemHomePosterBinding
+import com.example.animator.utils.AnimatorUtils
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 
 class ContainerPosterAdapter :
     ListAdapter<ContainerPoster, ContainerPosterAdapter.ContainerPosterViewHolder>(
@@ -38,6 +44,7 @@ class ContainerPosterAdapter :
 
             itemView.setOnClickListener {
                 model.action()
+                AnimatorUtils.toLineAnimate(itemView.context, line1, line2)
             }
 
         }

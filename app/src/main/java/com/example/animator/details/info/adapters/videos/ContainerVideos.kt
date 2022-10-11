@@ -7,5 +7,5 @@ import java.util.*
 @Keep
 data class ContainerVideos(
     val list: List<Video>,
-    val id: String = UUID.randomUUID().toString()
+    val id: String = "videos_id"
 )

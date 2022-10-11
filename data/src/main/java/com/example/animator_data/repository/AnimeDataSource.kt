@@ -1,13 +1,17 @@
 package com.example.animator_data.repository
 
 
+import com.example.animator_data.network.models.CharacterDetailsResponse
 import com.example.animator_domain.common.Results
+import com.example.animator_domain.models.characters.CharacterDetailsEntity
 import com.example.animator_domain.models.details.AnimeDetailsEntity
 import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchisesEntity
 import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.animator_domain.models.poster.AnimePosterEntity
 import io.reactivex.Observable
+import retrofit2.Response
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface AnimeDataSource {
@@ -83,5 +87,17 @@ interface AnimeDataSource {
         censored: Boolean,
         order: String
     ): Results<List<AnimePosterEntity>>
+
+
+    /**
+     * Getting details of Character
+     *
+     * @param id - id of character
+     *
+     * @return Results item of Characters info
+     */
+    suspend fun getCharacters(
+       id: Int
+    ): Results<CharacterDetailsEntity>
 
 }

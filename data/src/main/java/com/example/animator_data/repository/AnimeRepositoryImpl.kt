@@ -1,6 +1,7 @@
 package com.example.animator_data.repository
 
 import com.example.animator_domain.common.Results
+import com.example.animator_domain.models.characters.CharacterDetailsEntity
 import com.example.animator_domain.models.details.AnimeDetailsEntity
 import com.example.animator_domain.models.details.Translation
 import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchisesEntity
@@ -58,5 +59,9 @@ class AnimeRepositoryImpl(
         order: String
     ): Results<List<AnimePosterEntity>> {
         return animeDataSource.getRandomPoster(limit = limit, censored = censored, order = order)
+    }
+
+    override suspend fun getCharacters(id: Int): Results<CharacterDetailsEntity> {
+        return animeDataSource.getCharacters(id = id)
     }
 }

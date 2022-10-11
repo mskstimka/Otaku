@@ -1,29 +1,32 @@
-package com.example.animator.details.info.adapters.authors
+package com.example.animator.details.info.adapters.persons
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.animator.databinding.LayoutAuthorsInfoBinding
+import com.example.animator.databinding.LayoutDetailsAuthorsInfoBinding
 
-class ContainerAuthorsAdapter :
-    ListAdapter<ContainerAuthors, ContainerAuthorsAdapter.ParentAuthorsViewHolder>(
+class ContainerPersonAdapter :
+    ListAdapter<ContainerPerson, ContainerPersonAdapter.ParentAuthorsViewHolder>(
         ParentAuthorsDiffCallback
     ) {
 
-    private val authorsAdapter by lazy { AuthorsAdapter() }
+    private val personAdapter by lazy { PersonAdapter() }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentAuthorsViewHolder {
         val binding =
-            LayoutAuthorsInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            LayoutDetailsAuthorsInfoBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
 
         binding.rvAutors.layoutManager =
             LinearLayoutManager(parent.context, RecyclerView.HORIZONTAL, false)
-        binding.rvAutors.adapter = authorsAdapter
+        binding.rvAutors.adapter = personAdapter
 
         return ParentAuthorsViewHolder(binding)
     }
@@ -36,28 +39,29 @@ class ContainerAuthorsAdapter :
 
     inner class ParentAuthorsViewHolder(
         private val binding:
-        LayoutAuthorsInfoBinding
+        LayoutDetailsAuthorsInfoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("SetTextI18n")
-        fun bind(item: ContainerAuthors) = with(binding) {
+        fun bind(item: ContainerPerson) = with(binding) {
 
-            authorsAdapter.submitList(item.list)
+            personAdapter.submitList(item.list)
+
+            binding.tvTitleAutors.text = item.title
         }
     }
 
 
-    object ParentAuthorsDiffCallback : DiffUtil.ItemCallback<ContainerAuthors>() {
+    object ParentAuthorsDiffCallback : DiffUtil.ItemCallback<ContainerPerson>() {
         override fun areItemsTheSame(
-            oldItem: ContainerAuthors,
-            newItem: ContainerAuthors
+            oldItem: ContainerPerson,
+            newItem: ContainerPerson
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: ContainerAuthors,
-            newItem: ContainerAuthors
+            oldItem: ContainerPerson,
+            newItem: ContainerPerson
         ): Boolean {
             return oldItem == newItem
         }

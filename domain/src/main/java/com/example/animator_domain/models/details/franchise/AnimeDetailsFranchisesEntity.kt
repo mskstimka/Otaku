@@ -10,6 +10,5 @@ data class AnimeDetailsFranchisesEntity(
     val kind: String?,
     val name: String?,
     val url: String?,
-    val weight: Int?,
     val year: Int?
 )

@@ -1,6 +1,7 @@
 package com.example.animator.app.di
 
 import com.example.animator.app.App
+import com.example.animator.details.characters.ui.CharactersFragment
 import com.example.animator.details.episodes.ui.EpisodesFragment
 import com.example.animator.details.info.ui.DetailsFragment
 import com.example.animator.home.ui.HomeFragment
@@ -17,5 +18,6 @@ interface AppComponent {
     fun inject(homeFragment: HomeFragment)
     fun inject(settingsFragment: SettingsFragment)
     fun inject(episodesFragment: EpisodesFragment)
+    fun inject(charactersFragment: CharactersFragment)
     fun inject(app: App)
 }

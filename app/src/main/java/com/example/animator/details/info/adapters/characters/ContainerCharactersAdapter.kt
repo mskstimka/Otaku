@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.animator.databinding.LayoutCharactersInfoBinding
+import com.example.animator.databinding.LayoutDetailsCharactersInfoBinding
 
 class ContainerCharactersAdapter :
     ListAdapter<ContainerCharacters, ContainerCharactersAdapter.ParentCharactersViewHolder>(
@@ -18,7 +18,7 @@ class ContainerCharactersAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentCharactersViewHolder {
         val binding =
-            LayoutCharactersInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            LayoutDetailsCharactersInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         binding.rvCharacters.layoutManager =
             LinearLayoutManager(parent.context, RecyclerView.HORIZONTAL, false)
@@ -35,7 +35,7 @@ class ContainerCharactersAdapter :
 
     inner class ParentCharactersViewHolder(
         private val binding:
-        LayoutCharactersInfoBinding
+        LayoutDetailsCharactersInfoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ContainerCharacters) = with(binding) {

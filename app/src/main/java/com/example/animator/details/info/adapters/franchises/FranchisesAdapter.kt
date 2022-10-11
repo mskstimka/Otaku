@@ -7,9 +7,11 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.animator.R
 import com.example.animator_domain.NOT_FOUND_TEXT
 import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchisesEntity
 import com.example.animator.databinding.ItemDetailsFranchisesBinding
+import com.example.animator.details.characters.ui.CharactersFragmentDirections
 import com.example.animator.details.info.ui.DetailsFragmentDirections
 import com.example.animator.utils.setImageByURL
 
@@ -45,13 +47,27 @@ class FranchisesAdapter :
             )
 
             tvTitleFranchisesItem.text = model.name
-            tvKindDateFranchisesItem.text = "${model.kind} / ${model.year}"
-
+            tvKindDateFranchisesItem.text = if (model.year == null) {
+                "${model.kind}"
+            } else {
+                "${model.kind} / ${model.year}"
+            }
             itemView.setOnClickListener {
                 if (model.kind != NOT_FOUND_TEXT)
-                    itemView.findNavController().navigate(
-                        DetailsFragmentDirections.actionDetailsFragmentSelf(model.id)
-                    )
+                    when (itemView.findNavController().currentDestination?.id) {
+                        R.id.detailsFragment -> {
+                            itemView.findNavController().navigate(
+                                DetailsFragmentDirections.actionDetailsFragmentSelf(model.id)
+                            )
+                        }
+                        R.id.charactersFragment -> {
+                            itemView.findNavController().navigate(
+                                CharactersFragmentDirections.actionCharactersFragmentToDetailsFragment(
+                                    model.id
+                                )
+                            )
+                        }
+                    }
             }
         }
     }

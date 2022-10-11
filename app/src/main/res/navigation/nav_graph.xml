@@ -13,14 +13,18 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment"
-            app:launchSingleTop="true" />
+            app:launchSingleTop="false" />
         <action
             android:id="@+id/action_homeFragment_to_detailsFragment"
             app:destination="@id/detailsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_homeFragment_self"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -37,7 +41,6 @@
             app:destination="@id/detailsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
@@ -45,7 +48,7 @@
         android:id="@+id/detailsFragment"
         android:name="com.example.animator.details.info.ui.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" >
+        tools:layout="@layout/fragment_details">
         <action
             android:id="@+id/action_detailsFragment_to_searchFragment"
             app:destination="@id/searchFragment"
@@ -62,12 +65,19 @@
             app:destination="@id/detailsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="false"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_detailsFragment_to_episodesFragment"
-            app:destination="@id/episodesFragment" />
+            app:destination="@id/episodesFragment"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_detailsFragment_to_charactersFragment"
+            app:destination="@id/charactersFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -77,7 +87,7 @@
     <fragment
         android:id="@+id/webPlayerFragment"
         android:name="com.example.animator.details.webPlayer.ui.WebPlayerFragment"
-        android:label="WebPlayerFragment" >
+        android:label="WebPlayerFragment">
         <argument
             android:name="url"
             app:argType="string" />
@@ -89,7 +99,7 @@
         android:id="@+id/episodesFragment"
         android:name="com.example.animator.details.episodes.ui.EpisodesFragment"
         android:label="fragment_episodes"
-        tools:layout="@layout/fragment_episodes" >
+        tools:layout="@layout/fragment_episodes">
         <action
             android:id="@+id/action_episodesFragment_to_webPlayerFragment"
             app:destination="@id/webPlayerFragment" />
@@ -105,5 +115,21 @@
         <argument
             android:name="name"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/charactersFragment"
+        android:name="com.example.animator.details.characters.ui.CharactersFragment"
+        android:label="fragment_characters"
+        tools:layout="@layout/fragment_characters" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_charactersFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 </navigation>

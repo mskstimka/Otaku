@@ -2,37 +2,37 @@ package com.example.animator.details.info.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startForegroundService
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
-import com.example.animator_domain.*
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
+import com.example.animator.R
 import com.example.animator.app.App
-import com.example.animator.details.info.services.StatusForegroundService
-import com.example.animator.utils.BannerUtils
 import com.example.animator.databinding.FragmentDetailsBinding
-import com.example.animator.details.info.adapters.authors.ContainerAuthors
+import com.example.animator.details.info.adapters.persons.ContainerPerson
+import com.example.animator.details.info.adapters.persons.ContainerPersonAdapter
+import com.example.animator.details.info.adapters.characters.ContainerCharacters
 import com.example.animator.details.info.adapters.characters.ContainerCharactersAdapter
 import com.example.animator.details.info.adapters.details.ContainerDetailsAdapter
-import com.example.animator.details.info.adapters.franchises.ContainerFranchises
 import com.example.animator.details.info.adapters.franchises.ContainerFranchisesAdapter
-import com.example.animator.details.info.adapters.authors.ContainerAuthorsAdapter
-import com.example.animator.details.info.adapters.characters.ContainerCharacters
-import com.example.animator.details.info.adapters.screenshots.ContainerScreenshots
 import com.example.animator.details.info.adapters.screenshots.ContainerScreenshotsAdapter
 import com.example.animator.details.info.adapters.studios.ContainerStudios
 import com.example.animator.details.info.adapters.studios.ContainerStudiosAdapter
 import com.example.animator.details.info.adapters.videos.ContainerVideos
 import com.example.animator.details.info.adapters.videos.ContainerVideosAdapter
+import com.example.animator.details.info.services.StatusForegroundService
+import com.example.animator.utils.BannerUtils
 import com.example.animator.utils.subscribeToFlow
+import com.example.animator_domain.*
 import com.example.animator_domain.models.details.AnimeDetailsEntity
-import com.google.android.material.button.MaterialButton
 import javax.inject.Inject
 
 
@@ -43,10 +43,13 @@ class DetailsFragment : Fragment() {
     @Inject
     lateinit var vmFactory: DetailsViewModelFactory
 
+    private var isWatch = false
+
     private lateinit var dViewModel: DetailsViewModel
 
-    private val containerScreenshotsAdapter by lazy { ContainerScreenshotsAdapter() }
-    private val containerDetailsAdapter by lazy { ContainerDetailsAdapter { activity?.onBackPressed() } }
+    private val containerDetailsAdapter by lazy {
+        ContainerDetailsAdapter { activity?.onBackPressed() }
+    }
     private val containerVideosAdapter by lazy {
         ContainerVideosAdapter { intent ->
             startActivity(
@@ -54,8 +57,9 @@ class DetailsFragment : Fragment() {
             )
         }
     }
+    private val containerScreenshotsAdapter by lazy { ContainerScreenshotsAdapter() }
     private val containerCharactersAdapter by lazy { ContainerCharactersAdapter() }
-    private val containerAuthorsAdapter by lazy { ContainerAuthorsAdapter() }
+    private val containerPersonAdapter by lazy { ContainerPersonAdapter() }
     private val containerFranchisesAdapter by lazy { ContainerFranchisesAdapter() }
     private val containerStudiosAdapter by lazy { ContainerStudiosAdapter() }
 
@@ -64,7 +68,7 @@ class DetailsFragment : Fragment() {
         containerScreenshotsAdapter,
         containerVideosAdapter,
         containerCharactersAdapter,
-        containerAuthorsAdapter,
+        containerPersonAdapter,
         containerFranchisesAdapter,
         containerStudiosAdapter
     )
@@ -89,10 +93,33 @@ class DetailsFragment : Fragment() {
     ): View {
         _binding = FragmentDetailsBinding.inflate(layoutInflater)
 
-        binding.btWatch.visibility = MaterialButton.INVISIBLE
+        (binding.rvRoot.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
-        binding.rvRoot.layoutManager = LinearLayoutManager(context)
+        initRecycler()
+
         return binding.root
+    }
+
+    private fun initRecycler() = with(binding.rvRoot) {
+        addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    checkVisibility(View.GONE)
+                } else {
+                    checkVisibility(View.VISIBLE)
+                }
+            }
+
+        })
+        layoutManager = LinearLayoutManager(context)
+
+    }
+
+    private fun checkVisibility(state: Int) {
+        if (isWatch) {
+            binding.btWatch.visibility = state
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -126,8 +153,20 @@ class DetailsFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         ) { item ->
             containerDetailsAdapter.submitList(listOf(item))
-            containerVideosAdapter.submitList(listOf(ContainerVideos(item.videos)))
-            containerStudiosAdapter.submitList(listOf(ContainerStudios(item.studios)))
+            containerVideosAdapter.submitList(
+                listOf(
+                    ContainerVideos(
+                        list = item.videos
+                    )
+                )
+            )
+            containerStudiosAdapter.submitList(
+                listOf(
+                    ContainerStudios(
+                        list = item.studios
+                    )
+                )
+            )
 
             currentItem = item
 
@@ -145,8 +184,8 @@ class DetailsFragment : Fragment() {
         subscribeToFlow(
             flow = pageAnimeScreenshotsAction,
             lifecycleOwner = viewLifecycleOwner
-        ) { list ->
-            containerScreenshotsAdapter.submitList(listOf(ContainerScreenshots(list = list)))
+        ) { item ->
+            containerScreenshotsAdapter.submitList(listOf(item))
         }
 
 
@@ -154,15 +193,28 @@ class DetailsFragment : Fragment() {
             flow = pageAnimeFranchisesAction,
             lifecycleOwner = viewLifecycleOwner
         ) { item ->
-            containerFranchisesAdapter.submitList(listOf(ContainerFranchises(item)))
+            containerFranchisesAdapter.submitList(listOf(item))
         }
 
         subscribeToFlow(
             flow = pageAnimeRolesAction,
             lifecycleOwner = viewLifecycleOwner
         ) { item ->
-            containerCharactersAdapter.submitList(listOf(ContainerCharacters(list = item.character)))
-            containerAuthorsAdapter.submitList(listOf(ContainerAuthors(list = item.person)))
+            containerCharactersAdapter.submitList(
+                listOf(
+                    ContainerCharacters(
+                        list = item.character
+                    )
+                )
+            )
+            containerPersonAdapter.submitList(
+                listOf(
+                    ContainerPerson(
+                        list = item.person,
+                        title = getString(R.string.fragment_details_tvTitleAutors_text)
+                    )
+                )
+            )
         }
 
         subscribeToFlow(
@@ -181,17 +233,21 @@ class DetailsFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         ) { episodes ->
             if (episodes != 0) {
-                binding.btWatch.visibility = MaterialButton.VISIBLE
-                binding.btWatch.setOnClickListener {
-                    findNavController().navigate(
-                        DetailsFragmentDirections.actionDetailsFragmentToEpisodesFragment(
-                            episodes = episodes,
-                            kind = currentItem?.kind!!,
-                            name = currentItem?.name!!,
-                            malId = currentItem?.id!!.toLong()
+                binding.btWatch.apply {
+                    visibility = View.VISIBLE
+                    isWatch = true
+                    setOnClickListener {
+                        findNavController().navigate(
+                            DetailsFragmentDirections.actionDetailsFragmentToEpisodesFragment(
+                                episodes = episodes,
+                                kind = currentItem?.kind!!,
+                                name = currentItem?.name!!,
+                                malId = currentItem?.id!!.toLong()
+                            )
                         )
-                    )
+                    }
                 }
+
             }
 
         }
@@ -211,16 +267,6 @@ class DetailsFragment : Fragment() {
 
 
     companion object {
-        fun newInstance(posterId: Int): DetailsFragment {
-            return DetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(POSTER_ID_KEY, posterId)
-                }
-            }
-        }
-
-        private const val POSTER_ID_KEY = "id"
-        const val TAG_FRAGMENT = "details_fragment_tag"
         const val ZERO_TEXT = "0"
     }
 }

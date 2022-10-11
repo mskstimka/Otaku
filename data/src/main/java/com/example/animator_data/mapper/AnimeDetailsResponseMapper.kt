@@ -3,6 +3,7 @@ package com.example.animator_data.mapper
 import com.example.animator_data.network.models.*
 import com.example.animator_domain.*
 import com.example.animator_domain.models.Image
+import com.example.animator_domain.models.characters.CharacterDetailsEntity
 import com.example.animator_domain.models.details.AnimeDetailsEntity
 import com.example.animator_domain.models.details.Genre
 import com.example.animator_domain.models.details.Studio
@@ -12,6 +13,7 @@ import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.animator_domain.models.details.roles.Character
 import com.example.animator_domain.models.details.roles.Person
 import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
+import com.example.animator_domain.models.poster.AnimePosterEntity
 
 object AnimeDetailsResponseMapper {
 
@@ -64,7 +66,7 @@ object AnimeDetailsResponseMapper {
     private val defaultFranchise =
         AnimeDetailsFranchisesEntity(
             date = 404, id = 0, image_url = "x96", kind = NOT_FOUND_TEXT, name = NOT_FOUND_TEXT,
-            url = NOT_FOUND_TEXT, weight = 404, year = 404
+            url = NOT_FOUND_TEXT, year = 404
         )
 
 
@@ -130,7 +132,6 @@ object AnimeDetailsResponseMapper {
                         kind = it.kind,
                         name = it.name,
                         url = it.image_url,
-                        weight = it.weight,
                         year = it.year
                     )
                 )
@@ -153,7 +154,8 @@ object AnimeDetailsResponseMapper {
         } else characterNotNull
 
 
-        return AnimeDetailsRolesEntity(character = listCharacters, person = listPerson)
+
+        return AnimeDetailsRolesEntity(character = listCharacters.reversed(), person = listPerson)
     }
 
     private fun checkVideoList(list: List<Video>): List<Video> {
@@ -176,4 +178,35 @@ object AnimeDetailsResponseMapper {
             else -> list
         }
     }
+
+
+    fun toCharacterDetailsEntity(item: CharacterDetailsResponse): CharacterDetailsEntity {
+        return CharacterDetailsEntity(
+            item.id,
+            item.name,
+            item.nameRu,
+            item.image,
+            item.url,
+            item.nameAlt,
+            item.nameJp,
+            item.description,
+            item.description_html,
+            item.seyu,
+            toFranchisesEntity(item.animes)
+        )
+    }
+
+    private fun toFranchisesEntity(list: List<CharacterDetailsSimiliarResponse>): List<AnimeDetailsFranchisesEntity> =
+        list.map {
+            AnimeDetailsFranchisesEntity(
+                id = it.id,
+                image_url = SHIKIMORI_URL + it.image?.original,
+                date = null,
+                kind = it.kind,
+                name = it.name,
+                url = it.url,
+                year = null
+            )
+        }
+
 }

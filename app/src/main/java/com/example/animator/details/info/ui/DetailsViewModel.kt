@@ -3,12 +3,12 @@ package com.example.animator.details.info.ui
 import android.util.Log
 import android.widget.ProgressBar
 import androidx.lifecycle.*
+import com.example.animator.details.info.adapters.franchises.ContainerFranchises
+import com.example.animator.details.info.adapters.screenshots.ContainerScreenshots
 import com.example.animator_domain.common.Results
 import com.example.animator_domain.models.details.AnimeDetailsEntity
 import com.example.animator_domain.models.details.Translation
-import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchisesEntity
 import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
-import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.animator_domain.usecases.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -32,12 +32,12 @@ class DetailsViewModel(
     val pageAnimeDetailsAction: SharedFlow<AnimeDetailsEntity> get() = _pageAnimeDetailsAction
 
     private val _pageAnimeScreenshotsAction =
-        MutableSharedFlow<List<AnimeDetailsScreenshotsEntity>>(replay = 1)
-    val pageAnimeScreenshotsAction: SharedFlow<List<AnimeDetailsScreenshotsEntity>> get() = _pageAnimeScreenshotsAction
+        MutableSharedFlow<ContainerScreenshots>(replay = 1)
+    val pageAnimeScreenshotsAction: SharedFlow<ContainerScreenshots> get() = _pageAnimeScreenshotsAction
 
     private val _pageAnimeFranchisesAction =
-        MutableSharedFlow<List<AnimeDetailsFranchisesEntity>>(replay = 1)
-    val pageAnimeFranchisesAction: SharedFlow<List<AnimeDetailsFranchisesEntity>> get() = _pageAnimeFranchisesAction
+        MutableSharedFlow<ContainerFranchises>(replay = 1)
+    val pageAnimeFranchisesAction: SharedFlow<ContainerFranchises> get() = _pageAnimeFranchisesAction
 
     private val _pageAnimeRolesAction = MutableSharedFlow<AnimeDetailsRolesEntity>(replay = 1)
     val pageAnimeRolesAction: SharedFlow<AnimeDetailsRolesEntity> get() = _pageAnimeRolesAction
@@ -124,7 +124,9 @@ class DetailsViewModel(
 
             when (val response = getAnimeScreenshotsFromIdUseCase.execute(id = id)) {
                 is Results.Success -> {
-                    _pageAnimeScreenshotsAction.emit(response.data)
+                    _pageAnimeScreenshotsAction.emit(
+                        ContainerScreenshots(list = response.data)
+                    )
                     putResponses(true)
                 }
                 is Results.Error -> {
@@ -140,7 +142,9 @@ class DetailsViewModel(
 
             when (val response = getAnimeFranchisesFromIdUseCase.execute(id = id)) {
                 is Results.Success -> {
-                    _pageAnimeFranchisesAction.emit(response.data)
+                    _pageAnimeFranchisesAction.emit(
+                        ContainerFranchises(list = response.data)
+                    )
                     putResponses(true)
                 }
                 is Results.Error -> {

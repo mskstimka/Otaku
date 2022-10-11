@@ -1,13 +1,12 @@
 package com.example.animator.details.info.adapters.screenshots
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.animator.databinding.LayoutScreenshotsInfoBinding
+import com.example.animator.databinding.LayoutDetailsScreenshotsInfoBinding
 
 class ContainerScreenshotsAdapter :
     ListAdapter<ContainerScreenshots, ContainerScreenshotsAdapter.ParentScreenshotsViewHolder>(
@@ -19,7 +18,7 @@ class ContainerScreenshotsAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentScreenshotsViewHolder {
         val binding =
-            LayoutScreenshotsInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            LayoutDetailsScreenshotsInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         binding.rvScreenshots.layoutManager =
             LinearLayoutManager(parent.context, RecyclerView.HORIZONTAL, false)
@@ -36,10 +35,9 @@ class ContainerScreenshotsAdapter :
 
     inner class ParentScreenshotsViewHolder(
         private val binding:
-        LayoutScreenshotsInfoBinding
+        LayoutDetailsScreenshotsInfoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("SetTextI18n")
         fun bind(item: ContainerScreenshots) = with(binding) {
 
             screenshotsAdapter.submitList(item.list)

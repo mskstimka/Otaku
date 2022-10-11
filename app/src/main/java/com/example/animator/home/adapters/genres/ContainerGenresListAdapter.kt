@@ -1,5 +1,6 @@
 package com.example.animator.home.adapters.genres
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -52,7 +53,8 @@ class ContainerGenresListAdapter :
             oldItem: ContainerGenresList,
             newItem: ContainerGenresList
         ): Boolean {
-            return oldItem.title == newItem.title
+            Log.d(oldItem.id.equals(newItem.id, true).toString(),"CHECK ---------------")
+            return oldItem.id.equals(newItem.id, true)
         }
 
         override fun areContentsTheSame(

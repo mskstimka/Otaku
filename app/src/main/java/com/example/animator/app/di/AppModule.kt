@@ -5,6 +5,7 @@ import com.example.animator.details.characters.ui.CharactersFragment
 import com.example.animator.details.characters.ui.CharactersViewModelFactory
 import com.example.animator_domain.usecases.*
 import com.example.animator.details.info.ui.DetailsViewModelFactory
+import com.example.animator.details.persons.ui.PersonViewModelFactory
 import com.example.animator.home.ui.HomeViewModelFactory
 import com.example.animator.search.ui.SearchViewModelFactory
 import com.example.animator.utils.SharedPreferencesHelper
@@ -66,8 +67,16 @@ class AppModule(private val context: Context) {
     }
 
     @Provides
+    fun providePersonViewModelFactory(
+        getPersonUseCase: GetPersonUseCase
+    ): PersonViewModelFactory {
+        return PersonViewModelFactory(getPersonUseCase = getPersonUseCase)
+    }
+
+    @Provides
     fun provideSharedPreference(): SharedPreferencesHelper {
         return SharedPreferencesHelper(context)
     }
+
 
 }

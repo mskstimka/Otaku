@@ -1,8 +1,12 @@
 package com.example.animator_data.mapper
 
+import android.util.Log
 import com.example.animator_data.network.models.*
 import com.example.animator_domain.*
 import com.example.animator_domain.models.Image
+import com.example.animator_domain.models.PersonEntity
+import com.example.animator_domain.models.SeyuWorks
+import com.example.animator_domain.models.WorkEntity
 import com.example.animator_domain.models.characters.CharacterDetailsEntity
 import com.example.animator_domain.models.details.AnimeDetailsEntity
 import com.example.animator_domain.models.details.Genre
@@ -14,6 +18,7 @@ import com.example.animator_domain.models.details.roles.Character
 import com.example.animator_domain.models.details.roles.Person
 import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.animator_domain.models.poster.AnimePosterEntity
+import com.google.gson.annotations.SerializedName
 
 object AnimeDetailsResponseMapper {
 
@@ -209,4 +214,48 @@ object AnimeDetailsResponseMapper {
             )
         }
 
+    fun toPersonEntity(item: PersonResponse): PersonEntity {
+        return PersonEntity(
+            id = item.id,
+            name = item.name ?: "",
+            nameRu = item.nameRu ?: "",
+            nameJp = item.nameJp ?: "",
+            image = item.image,
+            url = item.url ?: "",
+            jobTitle = item.jobTitle ?: "",
+            birthDay = "${item.birthDay?.day}.${item.birthDay?.month}.${item.birthDay?.year}",
+            works = toWorksEntity(item.works ?: emptyList()),
+            roles = toSeyuWorks(item.roles ?: emptyList())
+        )
+    }
+
+    private fun toWorksEntity(list: List<WorkResponse?>): List<WorkEntity> {
+
+        return if (list.isNotEmpty()) {
+            list.map {
+                if (it?.anime != null) {
+                    WorkEntity(
+                        anime = AnimePosterResponseMapper.toAnimePosterEntity(it.anime),
+                        role = it.role
+                    )
+                } else {
+                    null
+                }
+            }.filterNotNull()
+        } else {
+            emptyList()
+        }
+
+
+    }
+
+
+    private fun toSeyuWorks(list: List<SeyuWorksResponse>): List<SeyuWorks> {
+        return if (list.isNotEmpty()) {
+            list.map { SeyuWorks(characters = it.characters) }
+        } else {
+            emptyList()
+        }
+    }
 }
+

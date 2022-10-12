@@ -1,6 +1,7 @@
 package com.example.animator_data.repository
 
 import com.example.animator_domain.common.Results
+import com.example.animator_domain.models.PersonEntity
 import com.example.animator_domain.models.characters.CharacterDetailsEntity
 import com.example.animator_domain.models.details.AnimeDetailsEntity
 import com.example.animator_domain.models.details.Translation
@@ -63,5 +64,9 @@ class AnimeRepositoryImpl(
 
     override suspend fun getCharacters(id: Int): Results<CharacterDetailsEntity> {
         return animeDataSource.getCharacters(id = id)
+    }
+
+    override suspend fun getPersons(id: Int): Results<PersonEntity> {
+        return animeDataSource.getPersons(id = id)
     }
 }

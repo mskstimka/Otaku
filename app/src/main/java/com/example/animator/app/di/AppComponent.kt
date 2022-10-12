@@ -4,6 +4,7 @@ import com.example.animator.app.App
 import com.example.animator.details.characters.ui.CharactersFragment
 import com.example.animator.details.episodes.ui.EpisodesFragment
 import com.example.animator.details.info.ui.DetailsFragment
+import com.example.animator.details.persons.ui.PersonFragment
 import com.example.animator.home.ui.HomeFragment
 import com.example.animator.search.ui.SearchFragment
 import com.example.animator.settings.ui.SettingsFragment
@@ -19,5 +20,6 @@ interface AppComponent {
     fun inject(settingsFragment: SettingsFragment)
     fun inject(episodesFragment: EpisodesFragment)
     fun inject(charactersFragment: CharactersFragment)
+    fun inject(personFragment: PersonFragment)
     fun inject(app: App)
 }

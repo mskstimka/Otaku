@@ -1,11 +1,13 @@
 package com.example.animator_data.repository
 
+import android.util.Log
 import com.example.animator_data.database.models.LocalAnimePosterEntity
 import com.example.animator_data.database.dao.ShikimoriDAO
 import com.example.animator_data.mapper.AnimeDetailsResponseMapper
 import com.example.animator_data.mapper.AnimePosterResponseMapper
 import com.example.animator_data.network.api.AnimeApi
 import com.example.animator_domain.common.Results
+import com.example.animator_domain.models.PersonEntity
 import com.example.animator_domain.models.characters.CharacterDetailsEntity
 import com.example.animator_domain.models.details.AnimeDetailsEntity
 import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchisesEntity
@@ -191,6 +193,28 @@ class AnimeDataSourceImpl(
                 false -> {
                     if (response.code() == 429) {
                         getCharacters(id = id)
+                    } else {
+                        Results.Error(exception = Exception(response.message()))
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Results.Error(exception = e)
+        }
+    }
+
+    override suspend fun getPersons(id: Int): Results<PersonEntity> {
+        return try {
+            val response = animeApi.getPersons(id = id)
+
+            when (response.isSuccessful) {
+                true -> {
+                    val item = AnimeDetailsResponseMapper.toPersonEntity(response.body()!!)
+                    Results.Success(data = item)
+                }
+                false -> {
+                    if (response.code() == 429) {
+                        getPersons(id = id)
                     } else {
                         Results.Error(exception = Exception(response.message()))
                     }

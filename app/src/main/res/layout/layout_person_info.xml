@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:background="@color/activity_background_color">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glDetailsLineStart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/fragment_details_line_layout_constraintGuide" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glDetailsLineEnd"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/fragment_details_line_layout_constraintGuide" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glDetailsLineTop"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/fragment_details_line_layout_constraintGuide" />
+
+    <ImageView
+        android:id="@+id/ivBackPressed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/fragment_details_ivBackPressed_contentDescription"
+        android:src="@drawable/icon_back"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toTopOf="@+id/glDetailsLineTop" />
+
+    <TextView
+        android:id="@+id/tvJapan"
+        style="@style/text_style_bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+        app:layout_constraintStart_toEndOf="@+id/ivBackPressed"
+        app:layout_constraintTop_toTopOf="@+id/glDetailsLineTop"
+        tools:text="グリフィス" />
+
+    <TextView
+        android:id="@+id/tvKind"
+        style="@style/text_style_bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:textStyle="normal"
+        android:maxLines="1"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toBottomOf="@+id/ivImageFranchises"
+        tools:text="Сейю" />
+
+    <ImageView
+        android:id="@+id/ivImageBackground"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_details_background_Images_layout_height"
+        android:alpha="0.2"
+        android:contentDescription="@string/fragment_details_ivImageBackground_contentDescription"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/icon_default" />
+
+
+    <ImageView
+        android:id="@+id/ivGradientImage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_details_background_Images_layout_height"
+        android:contentDescription="@string/fragment_details_ivGradientImage_contentDescription"
+        android:src="@drawable/shadow_effect"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivImageFranchises"
+        android:layout_width="150dp"
+        android:layout_height="230dp"
+        android:layout_marginTop="80dp"
+        android:scaleType="centerCrop"
+        app:cardCornerRadius="@dimen/fragment_details_cvImage_cardRadius"
+        app:layout_constraintBottom_toBottomOf="@+id/ivImageBackground"
+        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/roundedImageView"
+        tools:src="@drawable/icon_default" />
+
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/text_style_main_title"
+        android:layout_marginTop="21dp"
+        android:layout_marginStart="0dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvKind"
+        tools:text="@string/fragment_details_tvTitle_text" />
+
+    <TextView
+        android:id="@+id/tvTitleRussian"
+        style="@style/text_style_russian_title"
+        android:gravity="center"
+        android:layout_marginStart="0dp"
+        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        tools:text="@string/fragment_details_tvTitleRussian_text" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

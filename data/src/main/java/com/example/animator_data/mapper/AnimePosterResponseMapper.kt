@@ -29,4 +29,18 @@ object AnimePosterResponseMapper {
         else -> GREEN_STATUS_COLOR
     }
 
+    fun toAnimePosterEntity(item: AnimePosterEntityResponse): AnimePosterEntity {
+        return AnimePosterEntity(
+            id = item.id,
+            image = item.image,
+            name = item.name,
+            score = item.score,
+            episodes = item.episodes,
+            episodesAired = item.episodesAired,
+            url = item.url,
+            status = item.status,
+            statusColor = checkStatusColor(item.status),
+            russian = item.russian
+        )
+    }
 }

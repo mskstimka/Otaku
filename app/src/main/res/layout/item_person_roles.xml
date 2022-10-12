@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/fragment_details_line_layout_constraintGuide" />
+
+
+    <TextView
+        android:id="@+id/tvRole"
+        style="@style/text_style_title_details"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/item_home_random_tvItemHomeRandomTitle"
+        android:gravity="center_vertical|end"
+        android:textSize="14dp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Режисер"
+        app:drawableEndCompat="@drawable/icon_star" />
+
+
+    <TextView
+        android:id="@+id/tvName"
+        style="@style/text_style_main_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_home_random_tvItemHomeRandomName_layout_marginTop"
+        android:maxLines="2"
+        android:textSize="@dimen/item_home_random_tvItemHomeRandomName_textSize"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/ivImage"
+        app:layout_constraintTop_toBottomOf="@id/tvRole"
+        tools:text="Name" />
+
+    <TextView
+        android:id="@+id/tvRussian"
+        style="@style/text_style_russian_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textSize="@dimen/item_home_random_tvItemHomeRandomRussian_textSize"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/ivImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        tools:text="Название" />
+
+    <TextView
+        android:id="@+id/tvEpisodes"
+        style="@style/item_description_text_style"
+        android:layout_marginStart="@dimen/item_home_random_tvItemHomeRandomEpisodes_layout_marginStart"
+        android:gravity="start"
+        android:textSize="@dimen/item_home_genres_item_tvEpisodesHomeGenre"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/ivImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvRussian"
+        tools:text="Episodes: 0" />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        style="@style/item_description_text_style"
+        android:gravity="center"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/ivImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvEpisodes"
+        tools:text="anons" />
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivImage"
+        android:layout_width="100dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/icon_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvRole"
+        app:shapeAppearanceOverlay="@style/roundedImageView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

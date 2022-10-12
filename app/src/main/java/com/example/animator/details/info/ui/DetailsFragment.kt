@@ -58,9 +58,25 @@ class DetailsFragment : Fragment() {
         }
     }
     private val containerScreenshotsAdapter by lazy { ContainerScreenshotsAdapter() }
-    private val containerCharactersAdapter by lazy { ContainerCharactersAdapter() }
-    private val containerPersonAdapter by lazy { ContainerPersonAdapter() }
-    private val containerFranchisesAdapter by lazy { ContainerFranchisesAdapter() }
+    private val containerCharactersAdapter by lazy {
+        ContainerCharactersAdapter {
+            findNavController().navigate(
+                DetailsFragmentDirections.actionDetailsFragmentToCharactersFragment(it)
+            )
+        }
+    }
+    private val containerPersonAdapter by lazy {
+        ContainerPersonAdapter {
+            findNavController().navigate(
+                DetailsFragmentDirections.actionDetailsFragmentToPersonFragment(it)
+            )
+        }
+    }
+    private val containerFranchisesAdapter by lazy {
+        ContainerFranchisesAdapter {
+            findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentSelf(it))
+        }
+    }
     private val containerStudiosAdapter by lazy { ContainerStudiosAdapter() }
 
     private val listAdapters = listOf(

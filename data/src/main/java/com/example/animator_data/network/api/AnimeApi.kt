@@ -137,4 +137,9 @@ interface AnimeApi {
     suspend fun getCharacters(
         @Path(value = "id") id: Int
     ): Response<CharacterDetailsResponse>
+
+    @GET("api/people/{id}")
+    suspend fun getPersons(
+        @Path(value = "id") id: Int
+    ): Response<PersonResponse>
 }

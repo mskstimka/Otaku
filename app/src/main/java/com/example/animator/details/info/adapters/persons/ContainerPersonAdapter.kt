@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animator.databinding.LayoutDetailsAuthorsInfoBinding
 
-class ContainerPersonAdapter :
+class ContainerPersonAdapter(private val actionToPerson: (id: Int) -> Unit) :
     ListAdapter<ContainerPerson, ContainerPersonAdapter.ParentAuthorsViewHolder>(
         ParentAuthorsDiffCallback
     ) {
 
-    private val personAdapter by lazy { PersonAdapter() }
+    private val personAdapter by lazy { PersonAdapter { actionToPerson(it) } }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentAuthorsViewHolder {

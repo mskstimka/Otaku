@@ -2,7 +2,9 @@ package com.example.animator_data.repository
 
 
 import com.example.animator_data.network.models.CharacterDetailsResponse
+import com.example.animator_data.network.models.PersonResponse
 import com.example.animator_domain.common.Results
+import com.example.animator_domain.models.PersonEntity
 import com.example.animator_domain.models.characters.CharacterDetailsEntity
 import com.example.animator_domain.models.details.AnimeDetailsEntity
 import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchisesEntity
@@ -97,7 +99,19 @@ interface AnimeDataSource {
      * @return Results item of Characters info
      */
     suspend fun getCharacters(
-       id: Int
+        id: Int
     ): Results<CharacterDetailsEntity>
+
+
+    /**
+     * Getting details of Person
+     *
+     * @param id - id of character
+     *
+     * @return Results item of Person info
+     */
+    suspend fun getPersons(
+        id: Int
+    ): Results<PersonEntity>
 
 }

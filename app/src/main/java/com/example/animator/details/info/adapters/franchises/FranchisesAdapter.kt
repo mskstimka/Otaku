@@ -15,7 +15,7 @@ import com.example.animator.details.characters.ui.CharactersFragmentDirections
 import com.example.animator.details.info.ui.DetailsFragmentDirections
 import com.example.animator.utils.setImageByURL
 
-class FranchisesAdapter :
+class FranchisesAdapter(private val actionToFranchises: (id : Int) -> Unit) :
     ListAdapter<AnimeDetailsFranchisesEntity, FranchisesAdapter.FranchisesViewHolder>(
         FranchisesDiffCallback
     ) {
@@ -52,39 +52,29 @@ class FranchisesAdapter :
             } else {
                 "${model.kind} / ${model.year}"
             }
+
             itemView.setOnClickListener {
-                if (model.kind != NOT_FOUND_TEXT)
-                    when (itemView.findNavController().currentDestination?.id) {
-                        R.id.detailsFragment -> {
-                            itemView.findNavController().navigate(
-                                DetailsFragmentDirections.actionDetailsFragmentSelf(model.id)
-                            )
-                        }
-                        R.id.charactersFragment -> {
-                            itemView.findNavController().navigate(
-                                CharactersFragmentDirections.actionCharactersFragmentToDetailsFragment(
-                                    model.id
-                                )
-                            )
-                        }
-                    }
+                if (model.kind != NOT_FOUND_TEXT) {
+                    actionToFranchises(model.id)
+                }
             }
         }
     }
+}
 
-    object FranchisesDiffCallback : DiffUtil.ItemCallback<AnimeDetailsFranchisesEntity>() {
-        override fun areItemsTheSame(
-            oldItem: AnimeDetailsFranchisesEntity,
-            newItem: AnimeDetailsFranchisesEntity
-        ): Boolean {
-            return oldItem.id == newItem.id
-        }
+object FranchisesDiffCallback : DiffUtil.ItemCallback<AnimeDetailsFranchisesEntity>() {
+    override fun areItemsTheSame(
+        oldItem: AnimeDetailsFranchisesEntity,
+        newItem: AnimeDetailsFranchisesEntity
+    ): Boolean {
+        return oldItem.id == newItem.id
+    }
 
-        override fun areContentsTheSame(
-            oldItem: AnimeDetailsFranchisesEntity,
-            newItem: AnimeDetailsFranchisesEntity
-        ): Boolean {
-            return oldItem == newItem
-        }
+    override fun areContentsTheSame(
+        oldItem: AnimeDetailsFranchisesEntity,
+        newItem: AnimeDetailsFranchisesEntity
+    ): Boolean {
+        return oldItem == newItem
     }
 }
+

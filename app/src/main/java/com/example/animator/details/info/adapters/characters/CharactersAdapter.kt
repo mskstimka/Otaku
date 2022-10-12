@@ -12,8 +12,9 @@ import com.example.animator_domain.models.details.roles.Character
 import com.example.animator.databinding.ItemDetailsCharactersBinding
 import com.example.animator.details.info.ui.DetailsFragmentDirections
 import com.example.animator.utils.setImageByURL
+import com.example.animator_domain.NOT_FOUND_TEXT
 
-class CharactersAdapter :
+class CharactersAdapter(private val actionToCharacters: (id: Int) -> Unit) :
     ListAdapter<Character, CharactersAdapter.CharactersViewHolder>(
         CharactersDiffCallback
     ) {
@@ -42,9 +43,9 @@ class CharactersAdapter :
             tvTitleCharactersItem.text = model.name
 
             itemView.setOnClickListener {
-                itemView.findNavController().navigate(
-                    DetailsFragmentDirections.actionDetailsFragmentToCharactersFragment(model.id)
-                )
+                if (model.name != NOT_FOUND_TEXT) {
+                    actionToCharacters(model.id)
+                }
             }
         }
     }

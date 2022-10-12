@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
@@ -17,6 +18,8 @@ import com.example.animator.details.info.adapters.franchises.ContainerFranchises
 import com.example.animator.details.info.adapters.persons.ContainerPerson
 import com.example.animator.details.info.adapters.persons.ContainerPersonAdapter
 import com.example.animator.details.info.adapters.franchises.ContainerFranchisesAdapter
+import com.example.animator.details.info.ui.DetailsFragmentDirections
+import com.example.animator.details.persons.ui.PersonFragment
 import com.example.animator.utils.BannerUtils
 import com.example.animator.utils.subscribeToFlow
 import javax.inject.Inject
@@ -37,8 +40,22 @@ class CharactersFragment : Fragment() {
             requireActivity().onBackPressed()
         }
     }
-    private val personAdapter by lazy { ContainerPersonAdapter() }
-    private val franchisesAdapter by lazy { ContainerFranchisesAdapter() }
+    private val personAdapter by lazy {
+        ContainerPersonAdapter {
+            findNavController().navigate(
+                CharactersFragmentDirections.actionCharactersFragmentToPersonFragment(it)
+            )
+        }
+    }
+    private val franchisesAdapter by lazy {
+        ContainerFranchisesAdapter {
+            findNavController().navigate(
+                CharactersFragmentDirections.actionCharactersFragmentToDetailsFragment(
+                    it
+                )
+            )
+        }
+    }
 
     private val rootAdapter by lazy { MergeAdapter(infoAdapter, personAdapter, franchisesAdapter) }
 

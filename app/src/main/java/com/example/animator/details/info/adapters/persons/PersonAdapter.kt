@@ -3,16 +3,19 @@ package com.example.animator.details.info.adapters.persons
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animator_domain.SHIKIMORI_URL
 import com.example.animator_domain.models.details.roles.Person
 import com.example.animator.databinding.ItemDetailsAutorsBinding
+import com.example.animator.details.info.ui.DetailsFragmentDirections
 import com.example.animator.utils.setImageByURL
+import com.example.animator_domain.NOT_FOUND_TEXT
 
 
-class PersonAdapter :
+class PersonAdapter(private val actionToPerson: (id: Int) -> Unit) :
     ListAdapter<Person, PersonAdapter.AuthorsViewHolder>(
         CharactersDiffCallback
     ) {
@@ -40,6 +43,12 @@ class PersonAdapter :
             ivImageAutorsItem.setImageByURL(SHIKIMORI_URL + model.image.original)
             tvTitleAutorsItem.text = model.name
             tvRoleAutorsItem.text = model.russian
+
+            itemView.setOnClickListener {
+                if (model.name != NOT_FOUND_TEXT) {
+                    actionToPerson(model.id)
+                }
+            }
         }
     }
 

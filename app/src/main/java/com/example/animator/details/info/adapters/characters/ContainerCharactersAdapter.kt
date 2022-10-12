@@ -8,17 +8,21 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animator.databinding.LayoutDetailsCharactersInfoBinding
 
-class ContainerCharactersAdapter :
+class ContainerCharactersAdapter(private val actionToCharacters: (id: Int) -> Unit) :
     ListAdapter<ContainerCharacters, ContainerCharactersAdapter.ParentCharactersViewHolder>(
         ParentCharactersDiffCallback
     ) {
 
-    private val charactersAdapter by lazy { CharactersAdapter() }
+    private val charactersAdapter by lazy { CharactersAdapter { actionToCharacters(it) } }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentCharactersViewHolder {
         val binding =
-            LayoutDetailsCharactersInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            LayoutDetailsCharactersInfoBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
 
         binding.rvCharacters.layoutManager =
             LinearLayoutManager(parent.context, RecyclerView.HORIZONTAL, false)

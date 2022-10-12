@@ -8,17 +8,21 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animator.databinding.LayoutDetailsFranchisesInfoBinding
 
-class ContainerFranchisesAdapter :
+class ContainerFranchisesAdapter(private val actionToFranchises: (id: Int) -> Unit) :
     ListAdapter<ContainerFranchises, ContainerFranchisesAdapter.ParentFranchisesViewHolder>(
         ParentFranchisesDiffCallback
     ) {
 
-    private val franchisesAdapter by lazy { FranchisesAdapter() }
+    private val franchisesAdapter by lazy { FranchisesAdapter { actionToFranchises(it) } }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentFranchisesViewHolder {
         val binding =
-            LayoutDetailsFranchisesInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            LayoutDetailsFranchisesInfoBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
 
         binding.rvFranchises.layoutManager =
             LinearLayoutManager(parent.context, RecyclerView.HORIZONTAL, false)

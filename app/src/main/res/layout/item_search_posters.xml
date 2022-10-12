@@ -51,9 +51,22 @@
             android:layout_marginTop="@dimen/item_search_poster_tvSearchPosterName_layout_marginTop"
             android:textColor="@color/title_color"
             app:layout_constraintEnd_toStartOf="@+id/glSearchPosterEnd"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/glSearchPosterStart"
             app:layout_constraintTop_toTopOf="@+id/ivSearchPosterImage"
             tools:text="Name" />
+
+        <TextView
+            android:id="@+id/tvSearchPosterRussianName"
+            style="@style/text_style_light"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/item_search_poster_tvSearchPosterRussianName_textSize"
+            app:layout_constraintEnd_toStartOf="@+id/glSearchPosterEnd"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/glSearchPosterStart"
+            app:layout_constraintTop_toBottomOf="@+id/tvSearchPosterName"
+            tools:text="НАЗВАНИЕ" />
 
         <TextView
             android:id="@+id/tvSearchPosterStatus"
@@ -61,6 +74,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/item_search_poster_tvSearchPosterStatus_layout_margin"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="released" />
@@ -79,17 +94,6 @@
             app:layout_constraintStart_toStartOf="@+id/glSearchPosterStart"
             app:layout_constraintTop_toBottomOf="@+id/tvSearchPosterRussianName"
             tools:text="Episodes: 12/12" />
-
-        <TextView
-            android:id="@+id/tvSearchPosterRussianName"
-            style="@style/text_style_light"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/item_search_poster_tvSearchPosterRussianName_textSize"
-            app:layout_constraintEnd_toStartOf="@+id/glSearchPosterEnd"
-            app:layout_constraintStart_toStartOf="@+id/glSearchPosterStart"
-            app:layout_constraintTop_toBottomOf="@+id/tvSearchPosterName"
-            tools:text="НАЗВАНИЕ" />
 
         <TextView
             android:id="@+id/tvSearchPosterScore"

@@ -63,4 +63,25 @@ class DomainModule {
     fun provideGetPersonUseCase(repository: AnimeRepository): GetPersonUseCase {
         return GetPersonUseCase(repository = repository)
     }
+
+    @Provides
+    fun provideGetFavoritesUseCase(repository: AnimeRepository): GetFavoritesUseCase {
+        return GetFavoritesUseCase(repository = repository)
+    }
+
+    @Provides
+    fun provideAddFavoritesUseCase(repository: AnimeRepository): AddFavoritesUseCase {
+        return AddFavoritesUseCase(repository = repository)
+    }
+
+    @Provides
+    fun provideDeleteFavoritesUseCase(repository: AnimeRepository): DeleteFavoritesUseCase {
+        return DeleteFavoritesUseCase(repository = repository)
+    }
+
+    @Provides
+    fun provideCheckIsFavoriteUseCase(repository: AnimeRepository): CheckIsFavoriteUseCase {
+        return CheckIsFavoriteUseCase(repository = repository)
+    }
+
 }

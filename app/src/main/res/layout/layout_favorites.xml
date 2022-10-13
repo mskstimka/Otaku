@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvGenreTitle"
+        style="@style/text_style_main_title"
+        android:layout_width="@dimen/item_home_genres_list_tvGenreTitle_layout_width"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="@dimen/item_home_genres_list_tvGenreTitle_layout_marginTop"
+        android:layout_marginEnd="20dp"
+        android:gravity="center_vertical|center"
+        android:text="Сохраненные"
+        android:textStyle="normal"
+        android:drawableEnd="@drawable/icon_dots"
+        android:textSize="20sp"
+        app:drawableStartCompat="@drawable/icon_dots"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvGenreList"
+        style="@style/recycler_style"
+        android:paddingBottom="@dimen/item_home_genres_list_rvGenreList_paddingBottom"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGenreTitle"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_favorites_posters" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -144,6 +144,11 @@
         <item name="cornerSize">12dp</item>
     </style>
 
+    <style name="favoritesImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">40dp</item>
+    </style>
+
 
     <style name="SplashTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>

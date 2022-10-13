@@ -142,4 +142,5 @@ interface AnimeApi {
     suspend fun getPersons(
         @Path(value = "id") id: Int
     ): Response<PersonResponse>
+
 }

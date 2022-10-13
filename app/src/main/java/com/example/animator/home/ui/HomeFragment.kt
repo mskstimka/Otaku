@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import com.example.animator.R
 import com.example.animator.app.App
 import com.example.animator.databinding.FragmentHomeBinding
+import com.example.animator.home.adapters.favorites.ContainerFavorites
+import com.example.animator.home.adapters.favorites.ContainerFavoritesAdapter
 import com.example.animator.home.adapters.genres.ContainerGenresList
 import com.example.animator.home.adapters.genres.ContainerGenresListAdapter
 import com.example.animator.home.adapters.poster.ContainerPoster
@@ -36,12 +38,19 @@ class HomeFragment : Fragment() {
     lateinit var vmFactory: HomeViewModelFactory
 
     private lateinit var hViewModel: HomeViewModel
-
+    private val favoriteAdapter by lazy { ContainerFavoritesAdapter() }
     private val posterAdapter by lazy { ContainerPosterAdapter() }
     private val randomAdapter by lazy { ContainerRandomAdapter { refresh() } }
     private val genreAdapter by lazy { ContainerGenresListAdapter() }
 
-    private val mergeAdapter by lazy { MergeAdapter(posterAdapter, randomAdapter, genreAdapter) }
+    private val mergeAdapter by lazy {
+        MergeAdapter(
+            posterAdapter,
+            favoriteAdapter,
+            randomAdapter,
+            genreAdapter
+        )
+    }
 
     init {
         posterAdapter.submitList(listOf(ContainerPoster {
@@ -114,7 +123,6 @@ class HomeFragment : Fragment() {
                 list.add(it)
             }
             genreAdapter.submitList(list)
-            Log.d("UPDATED", "GENRES------------------------")
         }
 
         subscribeToFlow(
@@ -129,6 +137,21 @@ class HomeFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         ) { item ->
             randomAdapter.submitList(item)
+        }
+
+        subscribeToFlow(
+            flow = actionFavorites,
+            lifecycleOwner = viewLifecycleOwner
+        ) { item ->
+            if (item.isNotEmpty()) {
+                favoriteAdapter.submitList(
+                    listOf(
+                        ContainerFavorites(
+                            list = item
+                        )
+                    )
+                )
+            }
         }
     }
 }

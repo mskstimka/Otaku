@@ -26,7 +26,9 @@
         <entry key="..\:/EPAM/Android/animator/app/src/main/res/layout/item_details_videos.xml" value="0.3625" />
         <entry key="..\:/EPAM/Android/animator/app/src/main/res/layout/item_episodes.xml" value="0.5" />
         <entry key="..\:/EPAM/Android/animator/app/src/main/res/layout/item_episodes_header.xml" value="0.3614583333333333" />
+        <entry key="..\:/EPAM/Android/animator/app/src/main/res/layout/item_favorites_posters.xml" value="0.2967079948696024" />
         <entry key="..\:/EPAM/Android/animator/app/src/main/res/layout/item_home_genres_item.xml" value="0.346875" />
+        <entry key="..\:/EPAM/Android/animator/app/src/main/res/layout/item_home_genres_list.xml" value="0.2975630611372381" />
         <entry key="..\:/EPAM/Android/animator/app/src/main/res/layout/item_home_poster.xml" value="0.3625" />
         <entry key="..\:/EPAM/Android/animator/app/src/main/res/layout/item_home_random.xml" value="0.3614583333333333" />
         <entry key="..\:/EPAM/Android/animator/app/src/main/res/layout/item_person_roles.xml" value="0.5" />
@@ -40,6 +42,7 @@
         <entry key="..\:/EPAM/Android/animator/app/src/main/res/layout/layout_details_screenshots_info.xml" value="0.3625" />
         <entry key="..\:/EPAM/Android/animator/app/src/main/res/layout/layout_details_studios_info.xml" value="0.2975630611372381" />
         <entry key="..\:/EPAM/Android/animator/app/src/main/res/layout/layout_details_videos_info.xml" value="0.2975630611372381" />
+        <entry key="..\:/EPAM/Android/animator/app/src/main/res/layout/layout_favorites.xml" value="0.75" />
         <entry key="..\:/EPAM/Android/animator/app/src/main/res/layout/layout_franchises_info.xml" value="0.1375" />
         <entry key="..\:/EPAM/Android/animator/app/src/main/res/layout/layout_person_info.xml" value="0.33" />
         <entry key="..\:/EPAM/Android/animator/app/src/main/res/layout/layout_person_role.xml" value="0.2967079948696024" />

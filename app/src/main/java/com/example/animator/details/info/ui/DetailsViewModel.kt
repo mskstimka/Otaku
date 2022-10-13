@@ -9,6 +9,7 @@ import com.example.animator_domain.common.Results
 import com.example.animator_domain.models.details.AnimeDetailsEntity
 import com.example.animator_domain.models.details.Translation
 import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
+import com.example.animator_domain.models.poster.AnimePosterEntity
 import com.example.animator_domain.usecases.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -21,7 +22,10 @@ class DetailsViewModel(
     private val getAnimeFranchisesFromIdUseCase: GetAnimeFranchisesFromIdUseCase,
     private val getAnimeRolesFromIdUseCase: GetAnimeRolesFromIdUseCase,
     private val getSeriesUseCase: GetSeriesUseCase,
-    private val getVideoUseCase: GetVideoUseCase
+    private val getVideoUseCase: GetVideoUseCase,
+    private val deleteFavoritesUseCase: DeleteFavoritesUseCase,
+    private val addFavoritesUseCase: AddFavoritesUseCase,
+    private val checkIsFavoriteUseCase: CheckIsFavoriteUseCase
 ) : ViewModel() {
 
 
@@ -59,6 +63,18 @@ class DetailsViewModel(
 
         if (responses.count() >= 4) {
             _actionAdapter.emit(ProgressBar.INVISIBLE)
+        }
+    }
+
+    fun addFavoritesId(item: AnimePosterEntity) =
+        viewModelScope.launch(Dispatchers.IO) { addFavoritesUseCase.execute(item) }
+
+    fun deleteFavoritesId(id: Int) =
+        viewModelScope.launch(Dispatchers.IO) { deleteFavoritesUseCase.execute(id) }
+
+    fun checkIsFavorite(id: Int): Boolean {
+        return runBlocking(Dispatchers.IO) {
+          return@runBlocking checkIsFavoriteUseCase.execute(id = id)
         }
     }
 

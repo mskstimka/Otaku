@@ -1,7 +1,6 @@
 package com.example.animator.app.di
 
 import android.content.Context
-import com.example.animator.details.characters.ui.CharactersFragment
 import com.example.animator.details.characters.ui.CharactersViewModelFactory
 import com.example.animator_domain.usecases.*
 import com.example.animator.details.info.ui.DetailsViewModelFactory
@@ -22,7 +21,10 @@ class AppModule(private val context: Context) {
         getAnimeFranchisesFromIdUseCase: GetAnimeFranchisesFromIdUseCase,
         getAnimeRolesFromIdUseCase: GetAnimeRolesFromIdUseCase,
         getSeriesUseCase: GetSeriesUseCase,
-        getVideoUseCase: GetVideoUseCase
+        getVideoUseCase: GetVideoUseCase,
+        addFavoritesUseCase: AddFavoritesUseCase,
+        deleteFavoritesUseCase: DeleteFavoritesUseCase,
+        checkIsFavoriteUseCase: CheckIsFavoriteUseCase
     ): DetailsViewModelFactory {
         return DetailsViewModelFactory(
             getAnimeDetailsFromIdUseCase = getAnimeDetailsFromIdUseCase,
@@ -30,7 +32,10 @@ class AppModule(private val context: Context) {
             getAnimeFranchisesFromIdUseCase = getAnimeFranchisesFromIdUseCase,
             getAnimeRolesFromIdUseCase = getAnimeRolesFromIdUseCase,
             getSeriesUseCase = getSeriesUseCase,
-            getVideoUseCase = getVideoUseCase
+            getVideoUseCase = getVideoUseCase,
+            addFavoritesUseCase = addFavoritesUseCase,
+            deleteFavoritesUseCase = deleteFavoritesUseCase,
+            checkIsFavoriteUseCase = checkIsFavoriteUseCase
         )
     }
 
@@ -48,12 +53,14 @@ class AppModule(private val context: Context) {
     fun provideHomeViewModelFactory(
         getAnimePrevPosterFromGenreUseCase: GetAnimePrevPosterFromGenreUseCase,
         getAnimeRandomPosterUseCase: GetAnimeRandomPosterUseCase,
-        getAnimeScreenshotsFromIdUseCase: GetAnimeScreenshotsFromIdUseCase
+        getAnimeScreenshotsFromIdUseCase: GetAnimeScreenshotsFromIdUseCase,
+        getFavoritesUseCase: GetFavoritesUseCase
     ): HomeViewModelFactory {
         return HomeViewModelFactory(
             getAnimePrevPosterFromGenreUseCase = getAnimePrevPosterFromGenreUseCase,
             getAnimeRandomPosterUseCase = getAnimeRandomPosterUseCase,
-            getAnimeScreenshotsFromIdUseCase = getAnimeScreenshotsFromIdUseCase
+            getAnimeScreenshotsFromIdUseCase = getAnimeScreenshotsFromIdUseCase,
+            getFavoritesUseCase = getFavoritesUseCase
         )
     }
 

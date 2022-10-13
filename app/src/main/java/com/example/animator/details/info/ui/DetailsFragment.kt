@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startForegroundService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +34,7 @@ import com.example.animator.utils.BannerUtils
 import com.example.animator.utils.subscribeToFlow
 import com.example.animator_domain.*
 import com.example.animator_domain.models.details.AnimeDetailsEntity
+import kotlinx.coroutines.async
 import javax.inject.Inject
 
 
@@ -48,7 +50,11 @@ class DetailsFragment : Fragment() {
     private lateinit var dViewModel: DetailsViewModel
 
     private val containerDetailsAdapter by lazy {
-        ContainerDetailsAdapter { activity?.onBackPressed() }
+        ContainerDetailsAdapter(
+            onBackPressed = { activity?.onBackPressed() },
+            addFavorites = { dViewModel.addFavoritesId(it) },
+            deleteFavorites = { dViewModel.deleteFavoritesId(it) },
+            checkIsFavorite = { dViewModel.checkIsFavorite(it) })
     }
     private val containerVideosAdapter by lazy {
         ContainerVideosAdapter { intent ->
@@ -102,6 +108,7 @@ class DetailsFragment : Fragment() {
 
         getAnimeDetails(args.id)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

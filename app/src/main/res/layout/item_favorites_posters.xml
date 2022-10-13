@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/item_home_genres_item_root_layout_width"
+    android:layout_height="wrap_content">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivImageHomeGenre"
+        style="@style/item_card_style"
+        android:layout_width="@dimen/item_home_genres_item_cvImageHomeGenre_layout_width"
+        android:layout_height="120dp"
+        android:contentDescription="@string/item_home_genres_item_ivImageHomeGenre_contentDescription"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/favoritesImageView"
+        tools:src="@drawable/icon_default" />
+
+    <TextView
+        android:id="@+id/tvTitleHomeGenre"
+        style="@style/item_title_text_style"
+        android:fontFamily="@font/google_sans_medium"
+        android:maxLines="2"
+        android:textSize="@dimen/item_home_genres_item_tvTitleHomeGenre_textSize"
+        app:layout_constraintEnd_toEndOf="@+id/ivImageHomeGenre"
+        app:layout_constraintStart_toStartOf="@+id/ivImageHomeGenre"
+        app:layout_constraintTop_toBottomOf="@+id/ivImageHomeGenre"
+        tools:text="Name" />
+
+    <TextView
+        android:id="@+id/tvEpisodesHomeGenre"
+        style="@style/item_description_text_style"
+        android:textSize="@dimen/item_home_genres_item_tvEpisodesHomeGenre"
+
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleHomeGenre"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleHomeGenre"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleHomeGenre"
+        tools:text="Episodes: 0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

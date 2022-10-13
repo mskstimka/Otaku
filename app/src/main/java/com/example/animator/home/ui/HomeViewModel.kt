@@ -19,7 +19,8 @@ import kotlinx.coroutines.launch
 class HomeViewModel(
     private val getAnimePrevPosterFromGenreUseCase: GetAnimePrevPosterFromGenreUseCase,
     private val getAnimeRandomPosterUseCase: GetAnimeRandomPosterUseCase,
-    private val getAnimeScreenshotsFromIdUseCase: GetAnimeScreenshotsFromIdUseCase
+    private val getAnimeScreenshotsFromIdUseCase: GetAnimeScreenshotsFromIdUseCase,
+    private val getFavoritesUseCase: GetFavoritesUseCase
 ) : ViewModel() {
 
     val responses = mutableListOf<Boolean>()
@@ -37,6 +38,11 @@ class HomeViewModel(
         MutableSharedFlow<List<AnimeDetailsScreenshotsEntity>>(replay = 1)
     val pageAnimeScreenshotsAction: SharedFlow<List<AnimeDetailsScreenshotsEntity>> get() = _pageAnimeScreenshotsAction
 
+    private val _actionFavorites =
+        MutableSharedFlow<List<AnimePosterEntity>>(replay = 1)
+    val actionFavorites: SharedFlow<List<AnimePosterEntity>> get() = _actionFavorites
+
+
     val list = mutableListOf<ContainerGenresList>().also {
         refresh(ARRAY_PREV_POSTERS)
     }
@@ -47,7 +53,12 @@ class HomeViewModel(
             list
         )
         getAnimeRandomPoster()
+        getFavoritePosters()
+    }
 
+
+    private fun getFavoritePosters() = viewModelScope.launch(Dispatchers.IO) {
+        _actionFavorites.emit(getFavoritesUseCase.execute())
     }
 
     private fun getList(list: List<PrevPoster>) {
@@ -129,3 +140,4 @@ class HomeViewModel(
         const val CONTAINER_GENRES_ID = 2
     }
 }
+

@@ -6,6 +6,7 @@ import com.example.animator_data.database.dao.ShikimoriDAO
 import com.example.animator_data.mapper.AnimeDetailsResponseMapper
 import com.example.animator_data.mapper.AnimePosterResponseMapper
 import com.example.animator_data.network.api.AnimeApi
+import com.example.animator_data.network.models.AnimePosterEntityResponse
 import com.example.animator_domain.common.Results
 import com.example.animator_domain.models.PersonEntity
 import com.example.animator_domain.models.characters.CharacterDetailsEntity
@@ -112,7 +113,6 @@ class AnimeDataSourceImpl(
     }
 
     override suspend fun getGenrePosters(genreId: Int): Results<List<AnimePosterEntity>> {
-        val isLocalNull: Boolean = shikimoriDAO.getPosterFromIdGenre(id = genreId) == null
 
         return try {
             val response = animeApi.getGenrePosters(genreId = genreId)
@@ -121,31 +121,19 @@ class AnimeDataSourceImpl(
                 true -> {
                     val list =
                         AnimePosterResponseMapper.toListAnimePosterEntity(list = response.body()!!)
-
-                    if (isLocalNull) {
-                        shikimoriDAO.insert(LocalAnimePosterEntity(list = list, id = genreId))
-                    } else {
-                        shikimoriDAO.update(list = list, id = genreId)
-                    }
                     Results.Success(data = list)
                 }
                 false -> {
                     if (response.code() == 429) {
                         getGenrePosters(genreId)
-                    } else if (isLocalNull) {
-                        Results.Error(exception = Exception(response.message()))
                     } else {
-                        Results.Success(data = shikimoriDAO.getPosterFromIdGenre(id = genreId)!!.list)
+                        Results.Error(exception = Exception(response.message()))
                     }
                 }
             }
 
         } catch (e: Exception) {
-            if (isLocalNull) {
-                Results.Error(exception = e)
-            } else {
-                Results.Success(data = shikimoriDAO.getPosterFromIdGenre(id = genreId)!!.list)
-            }
+            Results.Error(exception = e)
         }
     }
 
@@ -224,4 +212,33 @@ class AnimeDataSourceImpl(
             Results.Error(exception = e)
         }
     }
+
+    override suspend fun addLocalFavorites(item: AnimePosterEntity) {
+
+        shikimoriDAO.insert(AnimePosterResponseMapper.toLocalListAnimePosterEntity(item))
+
+    }
+
+    override suspend fun deleteLocalFavorites(id: Int) {
+        var isLocal = false
+        if (shikimoriDAO.getAllPosters().isNotEmpty()) {
+            shikimoriDAO.getAllPosters().forEach {
+                if (it.id == id) {
+                    isLocal = true
+                }
+            }
+        }
+        if (isLocal) {
+            shikimoriDAO.delete(id)
+        }
+    }
+
+    override fun getLocalFavorites(): List<AnimePosterEntity> {
+        return AnimePosterResponseMapper.localToListAnimePosterEntity(shikimoriDAO.getAllPosters())
+    }
+
+    override fun checkIsFavorite(id: Int): Boolean =
+        getLocalFavorites().find { it.id == id } != null
+
+
 }

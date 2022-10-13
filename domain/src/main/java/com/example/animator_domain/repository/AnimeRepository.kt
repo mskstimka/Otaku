@@ -115,4 +115,10 @@ interface AnimeRepository {
     suspend fun getPersons(
         id: Int
     ): Results<PersonEntity>
+
+    suspend fun addLocalFavorites(item: AnimePosterEntity)
+    suspend fun deleteLocalFavorites(id: Int)
+    fun getLocalFavorites(): List<AnimePosterEntity>
+    fun checkIsFavorite(id: Int): Boolean
+
 }

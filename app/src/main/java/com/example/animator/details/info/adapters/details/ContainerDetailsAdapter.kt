@@ -1,23 +1,32 @@
 package com.example.animator.details.info.adapters.details
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.animator.R
 import com.example.animator.databinding.LayoutDetailsInfoBinding
 import com.example.animator.details.info.ui.DetailsFragment
 import com.example.animator.utils.setImageByURL
 import com.example.animator_domain.NOT_FOUND_TEXT
 import com.example.animator_domain.SHIKIMORI_URL
 import com.example.animator_domain.models.details.AnimeDetailsEntity
+import com.example.animator_domain.models.poster.AnimePosterEntity
 
-class ContainerDetailsAdapter(private val onBackPressed: () -> Unit) :
+class ContainerDetailsAdapter(
+    private val onBackPressed: () -> Unit,
+    private val addFavorites: (id: AnimePosterEntity) -> Unit,
+    private val deleteFavorites: (id: Int) -> Unit,
+    private val checkIsFavorite: (id: Int) -> Boolean
+) :
     ListAdapter<AnimeDetailsEntity, ContainerDetailsAdapter.ParentDetailsViewHolder>(
         ParentDetailsDiffCallback
     ) {
@@ -53,6 +62,19 @@ class ContainerDetailsAdapter(private val onBackPressed: () -> Unit) :
 
         @SuppressLint("SetTextI18n")
         fun bind(item: AnimeDetailsEntity) = with(binding) {
+            val poster = AnimePosterEntity(
+                id = item.id,
+                image = item.image,
+                name = item.name ?: NOT_FOUND_TEXT,
+                score = item.score ?: "0.0",
+                episodes = item.episodes ?: 0,
+                episodesAired = item.episodes_aired ?: 0,
+                url = NOT_FOUND_TEXT,
+                status = item.status ?: NOT_FOUND_TEXT,
+                statusColor = "",
+                russian = item.russian ?: ""
+            )
+
             ivImageFranchises.setImageByURL(SHIKIMORI_URL + item.image.original)
             ivImageBackground.setImageByURL(SHIKIMORI_URL + item.image.original)
 
@@ -78,11 +100,64 @@ class ContainerDetailsAdapter(private val onBackPressed: () -> Unit) :
             tvStatus.text = item.status
             tvStatus.setTextColor(Color.parseColor(item.statusColor))
 
-            genresAdapter.submitList(item.genres)
+            if (checkIsFavorite(item.id)) {
+                addIsFavorite(tvFavorite, root.context, poster, false)
+            } else {
+                deleteIsFavorite(tvFavorite, root.context, item.id, false)
+            }
 
+
+            tvFavorite.setOnClickListener {
+                if (checkIsFavorite(item.id)) {
+                    deleteIsFavorite(tvFavorite, root.context, item.id, true)
+                } else {
+                    addIsFavorite(
+                        tvFavorite,
+                        root.context,
+                        poster,
+                        true
+                    )
+                }
+            }
+
+            genresAdapter.submitList(item.genres)
         }
     }
 
+    private fun addIsFavorite(
+        view: TextView,
+        context: Context,
+        item: AnimePosterEntity,
+        isLocal: Boolean
+    ) {
+        view.apply {
+            setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.icon_favorite_true,
+                0,
+                0,
+                0
+            )
+            text = "Сохранено"
+        }
+        if (isLocal) {
+            addFavorites(item)
+        }
+    }
+
+    private fun deleteIsFavorite(view: TextView, context: Context, id: Int, isLocal: Boolean) {
+        view.apply {
+            setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.icon_favorite_false,
+                0,
+                0,
+                0
+            )
+            text = "Сохранить"
+        }
+        if (isLocal) {
+            deleteFavorites(id)
+        }
+    }
 
     object ParentDetailsDiffCallback : DiffUtil.ItemCallback<AnimeDetailsEntity>() {
         override fun areItemsTheSame(

@@ -69,4 +69,21 @@ class AnimeRepositoryImpl(
     override suspend fun getPersons(id: Int): Results<PersonEntity> {
         return animeDataSource.getPersons(id = id)
     }
+
+    override suspend fun addLocalFavorites(item: AnimePosterEntity) {
+        return animeDataSource.addLocalFavorites(item = item)
+    }
+
+    override suspend fun deleteLocalFavorites(id: Int) {
+        return animeDataSource.deleteLocalFavorites(id = id)
+    }
+
+    override fun getLocalFavorites(): List<AnimePosterEntity> {
+        return animeDataSource.getLocalFavorites()
+    }
+
+    override fun checkIsFavorite(id: Int): Boolean {
+        return animeDataSource.checkIsFavorite(id = id)
+    }
+
 }

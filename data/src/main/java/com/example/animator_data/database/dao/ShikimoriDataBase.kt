@@ -11,7 +11,7 @@ import com.example.animator_domain.DATABASE_SHIKIMORI
 import javax.inject.Singleton
 
 
-@Database(entities = [LocalAnimePosterEntity::class], version = 1, exportSchema = false)
+@Database(entities = [LocalAnimePosterEntity::class], version = 3, exportSchema = false)
 @TypeConverters(AnimePosterConverters::class)
 @Singleton
 abstract class ShikimoriDataBase : RoomDatabase() {
@@ -24,11 +24,12 @@ abstract class ShikimoriDataBase : RoomDatabase() {
 
         fun getDatabase(context: Context): ShikimoriDataBase {
             return INSTANCE ?: synchronized(this) {
+
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     ShikimoriDataBase::class.java,
                     DATABASE_SHIKIMORI
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 instance
             }

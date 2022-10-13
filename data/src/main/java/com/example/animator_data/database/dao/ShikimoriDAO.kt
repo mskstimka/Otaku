@@ -12,35 +12,21 @@ interface ShikimoriDAO {
      *
      * @param localAnimePosterEntity - object of Anime Posters
      */
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert
     suspend fun insert(localAnimePosterEntity: LocalAnimePosterEntity)
 
-    /**
-     * Updates the list of Anime Posters on ID in database
-     *
-     * @param id - genre id
-     * @param list - list of Anime Posters
-     */
-    @Query("UPDATE home_posters SET list = :list where id = :id")
-    suspend fun update(id: Int, list: List<AnimePosterEntity>)
 
+    @Query("DELETE FROM home_posters where id = :id")
+    suspend fun delete(id: Int)
     /**
      *  Getting all Anime Poster from database
      *
      *  @return list of Anime Posters
      */
-    @Query("SELECT * FROM home_posters ORDER BY id ASC")
+    @Query("SELECT * FROM home_posters")
     fun getAllPosters(): List<LocalAnimePosterEntity>
 
-    /**
-     * Getting Anime Posters on genre id
-     *
-     * @param id - genre id
-     *
-     * @return Anime Posters in object
-     */
-    @Query("SELECT * FROM home_posters WHERE id = :id")
-    fun getPosterFromIdGenre(id: Int): LocalAnimePosterEntity?
+
 }
 
 

@@ -73,6 +73,7 @@
         android:layout_width="@dimen/fragment_details_cvImage_layout_width"
         android:layout_height="@dimen/fragment_details_cvImage_layout_height"
         app:cardCornerRadius="@dimen/fragment_details_cvImage_cardRadius"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/ivImageBackground"
         app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
         app:layout_constraintTop_toTopOf="parent"
@@ -113,11 +114,27 @@
         tools:text="@string/fragment_details_tvTitleRussian_text" />
 
     <TextView
+        android:id="@+id/tvFavorite"
+        style="@style/text_style_title_details"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        tools:drawableStart="@drawable/icon_favorite_true"
+        tools:text="Сохранено"
+        android:textSize="14sp"
+        android:padding="4dp"
+        app:layout_constraintEnd_toEndOf="@+id/ivImageFranchises"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toBottomOf="@+id/ivImageFranchises" />
+
+
+    <TextView
         android:id="@+id/tvEpisodeTitle"
         style="@style/text_style_title_details"
         android:text="@string/fragment_details_tvEpisodeTitle_text"
-        app:layout_constraintBottom_toBottomOf="@id/ivImageBackground"
-        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart" />
+        app:layout_constraintBottom_toBottomOf="@+id/ivImageBackground"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toBottomOf="@+id/ivImageBackground" />
 
     <TextView
         android:id="@+id/tvEpisode"
@@ -133,7 +150,7 @@
         style="@style/text_style_title_details"
         android:text="@string/fragment_details_tvStatusTitle_text"
         app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
-        app:layout_constraintTop_toBottomOf="@+id/ivImageBackground" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEpisodeTitle" />
 
     <TextView
         android:id="@+id/tvStatus"
@@ -163,8 +180,8 @@
     <TextView
         android:id="@+id/tvGenreTitle"
         style="@style/text_style_title_items"
-        android:text="@string/fragment_details_tvGenreTitle_text"
         android:layout_marginStart="0dp"
+        android:text="@string/fragment_details_tvGenreTitle_text"
         app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
@@ -173,12 +190,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvGenre"
         style="@style/recycler_style"
-        tools:listitem="@layout/item_details_genres"
-        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvGenreTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvGenreTitle"
+        tools:itemCount="5"
+        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_details_genres" />
 
 
     <TextView
@@ -196,9 +213,9 @@
         android:id="@+id/exDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDescriptionTitle"
-        app:layout_constraintEnd_toEndOf="parent"
         expandableTextView:animDuration="300"
         expandableTextView:maxCollapsedLines="5">
 
@@ -218,7 +235,6 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/fragment_details_expand_collapse_contentDescription" />
     </com.ms.square.android.expandabletextview.ExpandableTextView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

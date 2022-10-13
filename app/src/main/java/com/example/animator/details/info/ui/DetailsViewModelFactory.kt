@@ -10,7 +10,10 @@ class DetailsViewModelFactory(
     private val getAnimeFranchisesFromIdUseCase: GetAnimeFranchisesFromIdUseCase,
     private val getAnimeRolesFromIdUseCase: GetAnimeRolesFromIdUseCase,
     private val getSeriesUseCase: GetSeriesUseCase,
-    private val getVideoUseCase: GetVideoUseCase
+    private val getVideoUseCase: GetVideoUseCase,
+    private val addFavoritesUseCase: AddFavoritesUseCase,
+    private val deleteFavoritesUseCase: DeleteFavoritesUseCase,
+    private val checkIsFavoriteUseCase: CheckIsFavoriteUseCase
 ) : ViewModelProvider.Factory {
 
 
@@ -21,7 +24,10 @@ class DetailsViewModelFactory(
             getAnimeFranchisesFromIdUseCase = getAnimeFranchisesFromIdUseCase,
             getAnimeRolesFromIdUseCase = getAnimeRolesFromIdUseCase,
             getSeriesUseCase = getSeriesUseCase,
-            getVideoUseCase = getVideoUseCase
+            getVideoUseCase = getVideoUseCase,
+            addFavoritesUseCase = addFavoritesUseCase,
+            deleteFavoritesUseCase = deleteFavoritesUseCase,
+            checkIsFavoriteUseCase = checkIsFavoriteUseCase
         ) as T
     }
 }

@@ -1,5 +1,6 @@
 package com.example.animator_data.mapper
 
+import android.text.Html
 import android.util.Log
 import com.example.animator_data.network.models.*
 import com.example.animator_domain.*
@@ -17,8 +18,6 @@ import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.animator_domain.models.details.roles.Character
 import com.example.animator_domain.models.details.roles.Person
 import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
-import com.example.animator_domain.models.poster.AnimePosterEntity
-import com.google.gson.annotations.SerializedName
 
 object AnimeDetailsResponseMapper {
 
@@ -94,6 +93,7 @@ object AnimeDetailsResponseMapper {
         studios = checkStudioList(item.studios),
         videos = checkVideoList(item.videos)
     )
+
 
     private fun checkStatusColor(status: String?): String = when (status) {
         ONGOING_STATUS -> BLUE_STATUS_COLOR

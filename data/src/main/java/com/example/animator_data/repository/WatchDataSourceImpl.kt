@@ -4,7 +4,7 @@ import android.util.Log
 import com.example.animator_data.mapper.AnimeWatcherResponseMapper
 import com.example.animator_data.network.api.AnimeApi
 import com.example.animator_domain.common.Results
-import com.example.animator_domain.models.details.Translation
+import com.example.animator_domain.models.details.Translations
 
 
 class WatchDataSourceImpl(
@@ -29,7 +29,7 @@ class WatchDataSourceImpl(
         episode: Int,
         name: String,
         kind: String
-    ): Results<List<Translation>> {
+    ): Results<List<Translations>> {
 
         return try {
             val response = animeApi.getVideo(

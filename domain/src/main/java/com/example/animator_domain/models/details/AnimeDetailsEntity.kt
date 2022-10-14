@@ -7,7 +7,7 @@ import com.example.animator_domain.models.Image
 data class AnimeDetailsEntity(
     val aired_on: String?,
     val description: Any?,
-    val description_html: String,
+    var description_html: String,
     val episodes: Int?,
     val episodes_aired: Int?,
     val genres: List<Genre>,
@@ -15,7 +15,7 @@ data class AnimeDetailsEntity(
     val image: Image,
     val kind: String?,
     val name: String?,
-    val russian: String?,
+    var russian: String?,
     val score: String?,
     val screenshots: List<Screenshot>,
     val status: String?,

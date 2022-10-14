@@ -4,7 +4,7 @@ import com.example.animator_domain.common.Results
 import com.example.animator_domain.models.PersonEntity
 import com.example.animator_domain.models.characters.CharacterDetailsEntity
 import com.example.animator_domain.models.details.AnimeDetailsEntity
-import com.example.animator_domain.models.details.Translation
+import com.example.animator_domain.models.details.Translations
 import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchisesEntity
 import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
@@ -20,7 +20,7 @@ class AnimeRepositoryImpl(
         episode: Int,
         name: String,
         kind: String
-    ): Results<List<Translation>> {
+    ): Results<List<Translations>> {
         return watchDataSourceImpl.getVideo(
             malId = malId, episode = episode, name = name, kind = kind
         )

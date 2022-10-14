@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Animator</string>
+    <string name="app_name">Otaku</string>
     <string name="an_error_has_occurred">An error has occurred: %1$s</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -70,5 +70,9 @@
     <string name="item_home_random_tvItemHomeRandomTitle_text">Случайное</string>
     <string name="item_episodes_header_root_text">Episodes</string>
     <string name="fragment_details_btWatch_text">Смотреть</string>
+    <string name="is_favorites">В избранном</string>
+    <string name="is_not_favorites">Добавить в избранное</string>
+    <string name="isSaved">Сохраненные</string>
+
 
 </resources>

@@ -26,7 +26,7 @@ android {
     buildToolsVersion "30.0.3"
     compileOptions.incremental = false
     defaultConfig {
-        applicationId 'com.app.animator'
+        applicationId 'com.app.otaku'
         minSdkVersion 21
         targetSdkVersion 32
         versionCode 1
@@ -57,12 +57,17 @@ android {
 
 dependencies {
 
+    implementation 'com.google.mlkit:translate:17.0.1'
+
+    implementation 'com.google.android.gms:play-services-ads:21.3.0'
+
     // include modules
     implementation project(path: ':data')
     implementation project(path: ':domain')
 
     // merge adapter
     implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha02'
+    implementation 'com.google.mlkit:common:18.5.0'
 
 
     // fragment testing

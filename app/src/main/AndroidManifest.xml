@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.animator">
+    package="com.example.otaku">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,7 +10,7 @@
 
 
     <application
-        android:name="com.example.animator.app.App"
+        android:name=".app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -29,8 +29,13 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
 
+        <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
+
         <service
-            android:name="com.example.animator.app.firebase.FirebaseMessagingServiceImpl"
+            android:name=".app.firebase.FirebaseMessagingServiceImpl"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -38,11 +43,11 @@
         </service>
 
         <service
-            android:name="com.example.animator.details.info.services.StatusForegroundService"
+            android:name=".details.info.services.StatusForegroundService"
             android:exported="false" />
 
         <activity
-            android:name="com.example.animator.app.activities.SplashActivity"
+            android:name=".app.activities.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -52,7 +57,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.animator.app.activities.MainActivity"
+            android:name=".app.activities.MainActivity"
             android:exported="true">
 
         </activity>

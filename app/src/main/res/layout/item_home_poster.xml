@@ -4,94 +4,88 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/item_home_poster_root_layout_height">
+    android:background="@color/activity_background_color"
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/ivItemHomePosterImage"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/item_home_poster_ivItemHomePosterImage_layout_width"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/item_home_poster_ivImagePoster_contentDescription"
-        android:paddingBottom="@dimen/item_home_poster_ivItemHomePosterImage_paddingBottom"
-        android:src="@drawable/ukraine_poster"
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/text_style_main_title"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:text="Рекламка от Google"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvItemHomePosterTextOne"
-        style="@style/text_style_main_title"
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="0dp"
-        android:fontFamily="@font/anime_ace_v3"
-        android:text="@string/item_home_poster_tvItemHomePosterTextOne_text"
-        android:textColor="@color/blue_status"
-        android:textSize="@dimen/item_home_poster_tvItemHomePosterTextOne_textSize"
-        app:layout_constraintEnd_toStartOf="@id/tvItemHomePosterTextTwo"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="@+id/ivItemHomePosterImage"
-        app:layout_constraintTop_toBottomOf="@+id/ivItemHomePosterImage" />
-
-    <TextView
-        android:id="@+id/tvItemHomePosterTextTwo"
-        style="@style/text_style_main_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="0dp"
-        android:fontFamily="@font/anime_ace_v3"
-        android:text="@string/item_home_poster_tvItemHomePosterTextTwo_text"
-        android:textColor="@color/yellow"
-        android:textSize="@dimen/item_home_poster_tvItemHomePosterTextTwo_textSize"
-        app:layout_constraintEnd_toEndOf="@+id/ivItemHomePosterImage"
-        app:layout_constraintStart_toEndOf="@id/tvItemHomePosterTextOne"
-        app:layout_constraintTop_toBottomOf="@+id/ivItemHomePosterImage" />
-
-
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/gItemHomePosterUkraineGif"
-        android:layout_width="@dimen/item_home_poster_gItemHomePosterUkraineGif_layout_width"
-        android:layout_height="@dimen/item_home_poster_gItemHomePosterUkraineGif_layout_height"
-        android:src="@drawable/ukraine_gif"
-        app:layout_constraintEnd_toEndOf="@+id/tvItemHomePosterTextTwo"
-        app:layout_constraintStart_toStartOf="@+id/tvItemHomePosterTextOne"
-        app:layout_constraintTop_toBottomOf="@+id/tvItemHomePosterTextTwo" />
-    <View
-        android:id="@+id/line1"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/yellow"
-        android:alpha="0"
-        android:visibility="gone"
-        android:layout_marginStart="20dp"
-        app:layout_constraintEnd_toStartOf="@id/line2"
-        android:background="?android:windowBackground"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gItemHomePosterUkraineGif"/>
-
-    <View
-        android:id="@+id/line2"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_alignParentTop="true"
-        android:alpha="0"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/blue_status"
-        android:background="?android:windowBackground"
-        app:layout_constraintStart_toEndOf="@id/line1"
-        android:layout_marginEnd="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="10dp"
+        app:adSize="BANNER"
+        android:alpha="0.6"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gItemHomePosterUkraineGif"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/ukraineLines"
+    <ImageView
+        android:id="@+id/ivItemHomePosterImage"
+        android:layout_width="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/textView"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        android:contentDescription="@string/item_home_poster_ivImagePoster_contentDescription"
+        android:paddingBottom="@dimen/item_home_poster_ivItemHomePosterImage_paddingBottom"
+        android:src="@drawable/logo_poster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vLine" />
+
+    <View
+        android:id="@+id/vLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_search_vFragmentSearchLine_layout_height"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="4dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@color/title_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adView" />
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/text_style_main_title"
         android:layout_width="0dp"
-        android:alpha="1"
-        android:layout_height="0dp"
-        app:constraint_referenced_ids="line1, line2"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:gravity="center"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        android:text="Твоє аніме тепер \n українською!"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/btToSettings"
+        app:layout_constraintEnd_toStartOf="@+id/ivItemHomePosterImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vLine" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btToSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="В Настройки!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

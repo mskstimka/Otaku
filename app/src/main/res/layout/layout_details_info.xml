@@ -116,23 +116,25 @@
     <TextView
         android:id="@+id/tvFavorite"
         style="@style/text_style_title_details"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:drawablePadding="4dp"
         android:gravity="center_vertical"
-        tools:drawableStart="@drawable/icon_favorite_true"
-        tools:text="Сохранено"
-        android:textSize="14sp"
         android:padding="4dp"
-        app:layout_constraintEnd_toEndOf="@+id/ivImageFranchises"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvEpisodeTitle"
+        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
         app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
-        app:layout_constraintTop_toBottomOf="@+id/ivImageFranchises" />
+        app:layout_constraintTop_toBottomOf="@+id/ivImageFranchises"
+        tools:drawableStart="@drawable/icon_favorite_true"
+        tools:text="Сохранено" />
 
 
     <TextView
         android:id="@+id/tvEpisodeTitle"
         style="@style/text_style_title_details"
         android:text="@string/fragment_details_tvEpisodeTitle_text"
-        app:layout_constraintBottom_toBottomOf="@+id/ivImageBackground"
         app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
         app:layout_constraintTop_toBottomOf="@+id/ivImageBackground" />
 

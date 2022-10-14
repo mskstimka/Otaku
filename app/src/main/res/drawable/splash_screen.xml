@@ -3,7 +3,7 @@
 
     <item android:drawable="@color/activity_background_color"/>
     <item>
-        <bitmap android:src="@drawable/load"
+        <bitmap android:src="@drawable/logo_no_background"
             android:gravity="center"/>
 
     </item>

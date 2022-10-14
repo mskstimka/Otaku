@@ -228,6 +228,7 @@ class AnimeDataSourceImpl(
                 }
             }
         }
+
         if (isLocal) {
             shikimoriDAO.delete(id)
         }

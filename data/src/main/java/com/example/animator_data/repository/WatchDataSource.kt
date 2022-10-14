@@ -1,7 +1,7 @@
 package com.example.animator_data.repository
 
 import com.example.animator_domain.common.Results
-import com.example.animator_domain.models.details.Translation
+import com.example.animator_domain.models.details.Translations
 
 
 interface WatchDataSource {
@@ -12,7 +12,7 @@ interface WatchDataSource {
         episode: Int,
         name: String,
         kind: String
-    ): Results<List<Translation>>
+    ): Results<List<Translations>>
 }
 
 

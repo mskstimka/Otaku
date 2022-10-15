@@ -1,9 +1,11 @@
 package com.example.animator_data.network.models
 
+import androidx.annotation.Keep
 import com.example.animator_domain.models.Image
 import com.google.gson.annotations.SerializedName
 import com.google.type.DateTime
 
+@Keep
 data class PersonResponse(
     @SerializedName("id") val id: Long,
     @SerializedName("name") val name: String,

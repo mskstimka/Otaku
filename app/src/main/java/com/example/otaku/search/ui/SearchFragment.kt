@@ -21,7 +21,7 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    private val adapter by lazy { PostersAdapter() }
+    private val adapter by lazy { PostersAdapter { hideIcon(it) } }
 
     @Inject
     lateinit var vmFactory: SearchViewModelFactory
@@ -69,38 +69,42 @@ class SearchFragment : Fragment() {
         rvFragmentSearchList.layoutManager = LinearLayoutManager(context)
     }
 
-    private fun bindView() = with(binding) {
-        svFragmentSearchSearch.setOnClickListener {
-            binding.svFragmentSearchSearch.onActionViewExpanded()
-        }
+    private fun hideIcon(visibility: Int) {
+        binding.group.visibility = visibility
+    }
 
-        svFragmentSearchSearch.setOnCloseListener {
-            binding.svFragmentSearchSearch.onActionViewExpanded()
-            false
+    private fun bindView() = with(binding) {
+
+
+        svFragmentSearchSearch.setOnClickListener {
+            svFragmentSearchSearch.onActionViewExpanded()
         }
 
         svFragmentSearchSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(p0: String?): Boolean {
-                if (p0 == "") {
-                    binding.group.visibility = View.VISIBLE
-
-                    sViewModel.onTextChanged(p0.toString())
-                } else {
-                    binding.group.visibility = View.GONE
-                    sViewModel.onTextChanged(p0.toString())
-                }
+                sViewModel.onTextChanged(p0.toString())
                 return false
             }
 
             override fun onQueryTextSubmit(p0: String?): Boolean {
+                svFragmentSearchSearch.onActionViewCollapsed()
                 return false
             }
         })
     }
 
+    override fun onStop() {
+        super.onStop()
+        sViewModel.clearFlow()
+        adapter.submitList(emptyList())
+
+    }
+
     private fun subscribeToFlow() = with(sViewModel) {
         subscribeToFlow(lifecycleOwner = viewLifecycleOwner, flow = actionSearch) {
-            if (binding.svFragmentSearchSearch.query != "") {
+            if (binding.svFragmentSearchSearch.query == "") {
+                adapter.submitList(emptyList())
+            } else {
                 adapter.submitList(it)
             }
         }

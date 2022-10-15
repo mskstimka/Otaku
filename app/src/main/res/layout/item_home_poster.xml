@@ -7,58 +7,19 @@
     android:background="@color/activity_background_color"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textView2"
-        style="@style/text_style_main_title"
-        android:layout_width="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content"
-        android:text="Рекламка от Google"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginVertical="10dp"
-        app:adSize="BANNER"
-        android:alpha="0.6"
-        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-
     <ImageView
         android:id="@+id/ivItemHomePosterImage"
         android:layout_width="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/textView"
         android:layout_height="200dp"
         android:adjustViewBounds="true"
-        app:layout_constraintHorizontal_chainStyle="packed"
         android:contentDescription="@string/item_home_poster_ivImagePoster_contentDescription"
         android:paddingBottom="@dimen/item_home_poster_ivItemHomePosterImage_paddingBottom"
         android:src="@drawable/logo_poster"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/vLine" />
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@id/textView"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/vLine"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/fragment_search_vFragmentSearchLine_layout_height"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="4dp"
-        android:layout_marginHorizontal="20dp"
-        android:background="@color/title_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adView" />
 
     <TextView
         android:id="@+id/textView"
@@ -67,13 +28,13 @@
         android:layout_height="wrap_content"
         android:layout_margin="0dp"
         android:gravity="center"
-        app:layout_constraintHorizontal_chainStyle="packed"
         android:text="Твоє аніме тепер \n українською!"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@id/btToSettings"
         app:layout_constraintEnd_toStartOf="@+id/ivItemHomePosterImage"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/vLine" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btToSettings"

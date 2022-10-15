@@ -1,6 +1,8 @@
 package com.example.otaku.details.episodes.adapters
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -11,6 +13,12 @@ import com.example.otaku.databinding.ItemEpisodesHeaderBinding
 import com.example.otaku.details.episodes.models.ContainerEpisodeHeader
 import com.example.otaku.details.episodes.models.ContainerEpisodes
 import com.example.otaku.details.episodes.models.DisplayableItem
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 
 class EpisodesAdapter(
     private val actionSearch: (Int) -> Unit,
@@ -78,12 +86,14 @@ class EpisodesAdapter(
         }
     }
 
+
     inner class HeaderViewHolder(
         private val binding:
         ItemEpisodesHeaderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ContainerEpisodeHeader) = with(binding) {
+
 
             ivBackPressed.setOnClickListener {
                 onBackPressed()

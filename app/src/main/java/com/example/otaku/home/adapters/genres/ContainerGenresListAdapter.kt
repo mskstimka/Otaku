@@ -33,7 +33,6 @@ class ContainerGenresListAdapter :
     override fun onBindViewHolder(holder: ContainerGenresListViewHolder, position: Int) =
         holder.bind(currentList[position])
 
-
     override fun getItemCount(): Int = currentList.size
 
     inner class ContainerGenresListViewHolder(

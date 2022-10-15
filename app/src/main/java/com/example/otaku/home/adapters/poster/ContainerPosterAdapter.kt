@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otaku.databinding.ItemHomePosterBinding
 import com.example.otaku.home.ui.HomeFragmentDirections
-import com.google.android.gms.ads.AdRequest
 
 class ContainerPosterAdapter :
     ListAdapter<ContainerPoster, ContainerPosterAdapter.ContainerPosterViewHolder>(
@@ -37,9 +36,6 @@ class ContainerPosterAdapter :
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(model: ContainerPoster) = with(binding) {
-            val adRequest = AdRequest.Builder().build()
-            adView.loadAd(adRequest)
-
             btToSettings.setOnClickListener {
                 itemView.findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToSettingsFragment()

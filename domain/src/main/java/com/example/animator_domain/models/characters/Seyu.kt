@@ -1,8 +1,11 @@
 package com.example.animator_domain.models.characters
 
+import androidx.annotation.Keep
 import com.example.animator_domain.models.Image
 
-class Seyu(
+
+@Keep
+data class Seyu(
     val id: Long,
     val name: String,
     val nameRu: String?,

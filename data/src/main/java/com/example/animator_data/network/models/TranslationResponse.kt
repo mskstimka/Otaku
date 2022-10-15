@@ -1,7 +1,9 @@
 package com.example.animator_data.network.models
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class TranslationResponse(
     @SerializedName("id") val id: Long,
     @SerializedName("kind") val _kind: String?,

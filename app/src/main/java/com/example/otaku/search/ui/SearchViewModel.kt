@@ -31,6 +31,9 @@ class SearchViewModel(
         initFlow()
     }
 
+    fun clearFlow() = viewModelScope.launch(Dispatchers.IO) {
+        _actionSearch.emit(emptyList())
+    }
 
     @OptIn(FlowPreview::class)
     private fun initFlow() {

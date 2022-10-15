@@ -9,7 +9,6 @@ import com.example.otaku.R
 import com.example.otaku.databinding.ActivityMainBinding
 import com.google.android.gms.ads.MobileAds
 
-
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
@@ -19,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         MobileAds.initialize(this) {}
 
         initNavigation()

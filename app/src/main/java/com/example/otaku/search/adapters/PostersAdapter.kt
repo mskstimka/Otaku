@@ -2,7 +2,9 @@ package com.example.otaku.search.adapters
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.opengl.Visibility
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -15,7 +17,7 @@ import com.example.otaku.databinding.ItemSearchPostersBinding
 import com.example.otaku.search.ui.SearchFragmentDirections
 import com.example.otaku.utils.setImageByURL
 
-class PostersAdapter :
+class PostersAdapter(private val hideIcon: (visibility: Int) -> Unit) :
     ListAdapter<AnimePosterEntity, PostersAdapter.TitleViewHolder>(PosterDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TitleViewHolder {
@@ -28,8 +30,20 @@ class PostersAdapter :
         holder.bind(currentList[position])
 
 
-    override fun getItemCount(): Int = currentList.size
+    override fun getItemCount(): Int {
+       return currentList.size
+    }
 
+    override fun submitList(list: List<AnimePosterEntity>?) {
+        super.submitList(list)
+        if (list != null) {
+            if (list.isEmpty()){
+                hideIcon(View.VISIBLE)
+            } else {
+                hideIcon(View.GONE)
+            }
+        }
+    }
     inner class TitleViewHolder(
         private val binding: ItemSearchPostersBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -59,6 +73,8 @@ class PostersAdapter :
             }
         }
     }
+
+
 
     object PosterDiffCallback : DiffUtil.ItemCallback<AnimePosterEntity>() {
         override fun areItemsTheSame(

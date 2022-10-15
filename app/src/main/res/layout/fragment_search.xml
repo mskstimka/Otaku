@@ -9,73 +9,42 @@
     tools:context=".search.ui.SearchFragment">
 
     <androidx.constraintlayout.widget.Group
-        android:layout_width="0dp"
         android:id="@+id/group"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        app:constraint_referenced_ids="gifFragmentSearchLogo,tvFragmentSearchTitle,tvFragmentSearchTitleDescription" />
+        app:constraint_referenced_ids="gifFragmentSearchLogo" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvFragmentSearchCard"
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/svFragmentSearchSearch"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fragment_search_cvFragmentSearchCard_layout_margin"
-        app:cardBackgroundColor="?android:windowBackground"
-        app:cardCornerRadius="@dimen/fragment_search_cvFragmentSearchCard_cardCornerRadius"
+        android:layout_height="55dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_search"
+        android:gravity="center"
+        android:inputType="text"
+        android:paddingStart="10dp"
+        android:submitBackground="@drawable/bg_search"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/svFragmentSearchSearch"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:queryBackground="@font/google_sans_medium"
-            app:queryHint="@string/fragment_search_svFragmentSearchSearch_queryHint" />
-
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryBackground="@drawable/bg_search"
+        app:queryHint="@string/fragment_search_svFragmentSearchSearch_queryHint"
+        app:showAsAction="always" />
 
 
-    <TextView
-        android:id="@+id/tvFragmentSearchTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/anime_ace_v3"
-        android:text="@string/fragment_search_tvFragmentSearchTitle_text"
-        android:textSize="@dimen/fragment_search_tvFragmentSearchTitle_textSize"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/gifFragmentSearchLogo"
-        app:layout_constraintStart_toStartOf="@+id/gifFragmentSearchLogo"
-        app:layout_constraintTop_toBottomOf="@+id/gifFragmentSearchLogo" />
-
-    <TextView
-        android:id="@+id/tvFragmentSearchTitleDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/anime_ace_v3"
-        android:text="@string/fragment_search_tvFragmentSearchTitleDescription_text"
-        android:textSize="@dimen/fragment_search_tvFragmentSearchTitleDescription_textSize"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/tvFragmentSearchTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvFragmentSearchTitle"
-        tools:ignore="SmallSp" />
-
-
-    <pl.droidsonroids.gif.GifImageView
+    <ImageView
         android:id="@+id/gifFragmentSearchLogo"
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:scaleType="center"
-        android:src="@drawable/load"
+        android:adjustViewBounds="true"
+        android:alpha="0.8"
+        android:src="@drawable/search_drawable"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/svFragmentSearchSearch" />
 
     <View
         android:id="@+id/vFragmentSearchLine"
@@ -87,12 +56,14 @@
         android:background="?android:windowBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvFragmentSearchCard" />
+        app:layout_constraintTop_toBottomOf="@+id/svFragmentSearchSearch" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFragmentSearchList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vFragmentSearchLine" />
+        app:layout_constraintTop_toBottomOf="@+id/vFragmentSearchLine"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="147dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

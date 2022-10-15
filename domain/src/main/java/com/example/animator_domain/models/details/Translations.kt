@@ -1,5 +1,8 @@
 package com.example.animator_domain.models.details
 
+import androidx.annotation.Keep
+
+@Keep
 data class Translations(
     val id: Long,
     private val _kind: String?,

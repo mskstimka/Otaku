@@ -1,7 +1,8 @@
 package com.example.animator_domain.models
 
+import androidx.annotation.Keep
 
-
+@Keep
 data class PersonEntity(
  val id: Long,
  val name: String,

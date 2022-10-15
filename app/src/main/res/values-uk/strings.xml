@@ -38,7 +38,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="item_home_poster_ivImagePoster_contentDescription">Image Poster</string>
-    <string name="item_home_poster_tvTitlePoster_text">An1mator</string>
+    <string name="item_home_poster_tvTitlePoster_text">Otaku</string>
     <string name="item_home_poster_tvTextOne_text">you</string>
     <string name="item_home_poster_tvTextTwo">for</string>
     <string name="item_home_genres_item_ivImageHomeGenre_contentDescription">Image Home Genre</string>
@@ -64,7 +64,7 @@
     <string name="episode_text">Episodes: %1$s</string>
 
     <string name="notification_channel_id">Notification Push</string>
-    <string name="default_notification_title">Animator</string>
+    <string name="default_notification_title">Otaku</string>
     <string name="item_home_poster_tvItemHomePosterTextOne_text">An1m</string>
     <string name="item_home_poster_tvItemHomePosterTextTwo_text">ator</string>
     <string name="item_home_random_ivItemHomeRandomRefresh_contentDescription">Refresh Icon</string>

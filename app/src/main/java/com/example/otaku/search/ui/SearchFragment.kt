@@ -4,15 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.animator_domain.usecases.GetAnimePostersFromSearchUseCase
 import com.example.otaku.app.App
-import androidx.appcompat.widget.SearchView
 import com.example.otaku.databinding.FragmentSearchBinding
 import com.example.otaku.search.adapters.PostersAdapter
-import com.example.otaku.utils.*
+import com.example.otaku.utils.BannerUtils
+import com.example.otaku.utils.subscribeToFlow
 import javax.inject.Inject
 
 
@@ -52,6 +53,8 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
@@ -87,22 +90,14 @@ class SearchFragment : Fragment() {
             }
 
             override fun onQueryTextSubmit(p0: String?): Boolean {
-                svFragmentSearchSearch.onActionViewCollapsed()
                 return false
             }
         })
     }
 
-    override fun onStop() {
-        super.onStop()
-        sViewModel.clearFlow()
-        adapter.submitList(emptyList())
-
-    }
-
     private fun subscribeToFlow() = with(sViewModel) {
         subscribeToFlow(lifecycleOwner = viewLifecycleOwner, flow = actionSearch) {
-            if (binding.svFragmentSearchSearch.query == "") {
+            if (binding.svFragmentSearchSearch.query.toString() == "") {
                 adapter.submitList(emptyList())
             } else {
                 adapter.submitList(it)
@@ -118,4 +113,5 @@ class SearchFragment : Fragment() {
     }
 
 }
+
 

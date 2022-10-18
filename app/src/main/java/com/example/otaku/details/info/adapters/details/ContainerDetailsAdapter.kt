@@ -165,7 +165,6 @@ class ContainerDetailsAdapter(
             oldItem: AnimeDetailsEntity,
             newItem: AnimeDetailsEntity
         ): Boolean {
-            Log.d((oldItem.id == newItem.id).toString(), "INFO")
             return oldItem.id == newItem.id
         }
 

@@ -35,7 +35,7 @@ class App : Application(), HasServiceInjector{
             .appModule(AppModule(context = applicationContext))
             .build()
         appComponent.inject(app = this)
-        initWorkManager()
+//        initWorkManager()
 
     }
 

@@ -74,5 +74,11 @@
     <string name="is_not_favorites">Добавить в избранное</string>
     <string name="isSaved">Сохраненные</string>
 
+    <string name="romantic_title">"Романтика"</string>
+    <string name="shounen_title">"Сёнен"</string>
+    <string name="drama_title">"Драма"</string>
+    <string name="demon_title">"Демоны"</string>
+    <string name="shoujo_title">"Сёдзе"</string>
+    <string name="harem_title">"Гарем"</string>
 
 </resources>

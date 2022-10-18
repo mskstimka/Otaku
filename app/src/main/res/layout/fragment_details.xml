@@ -33,7 +33,7 @@
         android:layout_marginBottom="@dimen/fragment_details_btWatch_layout_marginBottom"
         android:backgroundTint="?colorSecondary"
         android:visibility="invisible"
-        android:fontFamily="@font/google_sans_medium"
+        android:fontFamily="@font/open_sans_medium"
         android:insetRight="0dp"
         android:shadowColor="@color/black"
         android:text="@string/fragment_details_btWatch_text"

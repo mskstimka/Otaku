@@ -51,7 +51,6 @@ class ContainerFavoritesAdapter :
             oldItem: ContainerFavorites,
             newItem: ContainerFavorites
         ): Boolean {
-            Log.d(oldItem.id.equals(newItem.id, true).toString(),"CHECK ---------------")
             return oldItem.id.equals(newItem.id, true)
         }
 

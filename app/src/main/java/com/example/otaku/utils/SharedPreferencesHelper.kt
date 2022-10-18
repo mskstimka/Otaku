@@ -3,6 +3,7 @@ package com.example.otaku.utils
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import com.example.animator_domain.IS_SHOW_NOTIFICATION
+import com.example.animator_domain.IS_UK_LANGUAGE
 import com.example.animator_domain.SHARED_PREF_SETTINGS
 
 class SharedPreferencesHelper(context: Context) {
@@ -20,5 +21,13 @@ class SharedPreferencesHelper(context: Context) {
 
     fun getIsShowNotification(): Boolean {
         return sharedPreference.getBoolean(IS_SHOW_NOTIFICATION, true)
+    }
+
+    fun setIsUkraineLanguage(switch: Boolean){
+        sharedPreference.edit().putBoolean(IS_UK_LANGUAGE, switch).apply()
+    }
+
+    fun getIsUkraineLanguage(): Boolean {
+        return sharedPreference.getBoolean(IS_UK_LANGUAGE, false)
     }
 }

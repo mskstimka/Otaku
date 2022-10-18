@@ -22,7 +22,7 @@
     <TextView
         android:id="@+id/tvTitleHomeGenre"
         style="@style/item_title_text_style"
-        android:fontFamily="@font/google_sans_medium"
+        android:fontFamily="@font/open_sans_medium"
         android:maxLines="2"
         android:textSize="@dimen/item_home_genres_item_tvTitleHomeGenre_textSize"
         app:layout_constraintEnd_toEndOf="@+id/ivImageHomeGenre"

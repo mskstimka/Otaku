@@ -20,7 +20,6 @@ import com.example.otaku.home.adapters.poster.ContainerPosterAdapter
 import com.example.otaku.home.adapters.random.ContainerRandomAdapter
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.subscribeToFlow
-import com.example.animator_domain.ARRAY_PREV_POSTERS
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -74,7 +73,7 @@ class HomeFragment : Fragment() {
                 lifecycleScope.launch {
                     hViewModel.list.clear()
                     hViewModel.responses.clear()
-                    hViewModel.refresh(ARRAY_PREV_POSTERS)
+                    hViewModel.refresh(hViewModel.arrayPrefPosters)
                     delay(1000)
                     isRefreshing = false
                 }

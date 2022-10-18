@@ -117,12 +117,13 @@ class EpisodesFragment : Fragment() {
         }
     }
 
+    // ca-app-pub-9350077428310070/5938417575
     private fun loadAds() {
         var adRequest = AdRequest.Builder().build()
 
         InterstitialAd.load(
             requireContext(),
-            "ca-app-pub-9350077428310070/5938417575",
+            "ca-app-pub-3940256099942544/8691691433",
             adRequest,
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {
@@ -139,19 +140,35 @@ class EpisodesFragment : Fragment() {
 
 
         mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+            override fun onAdClicked() {
+                // Called when a click is recorded for an ad.
+                Log.d("TAG", "Ad was clicked.")
+            }
+
             override fun onAdDismissedFullScreenContent() {
                 // Called when ad is dismissed.
                 Log.d("TAG", "Ad dismissed fullscreen content.")
                 mInterstitialAd = null
-                requireActivity().onBackPressed()
             }
 
             override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                // Called when ad fails to show.
+                Log.e("TAG", "Ad failed to show fullscreen content.")
                 mInterstitialAd = null
             }
 
+            override fun onAdImpression() {
+                // Called when an impression is recorded for an ad.
+                Log.d("TAG", "Ad recorded an impression.")
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                // Called when ad is shown.
+                Log.d("TAG", "Ad showed fullscreen content.")
+            }
         }
     }
+
 
     private fun showAds() {
         if (isAdLoaded) {

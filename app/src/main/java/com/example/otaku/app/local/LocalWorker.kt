@@ -16,8 +16,6 @@ class LocalWorker(
 
     override suspend fun doWork(): Result {
 
-        getPrevPosters(ARRAY_PREV_POSTERS)
-
         return Result.success()
     }
 

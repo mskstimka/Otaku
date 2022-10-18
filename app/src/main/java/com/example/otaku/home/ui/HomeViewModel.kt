@@ -9,6 +9,7 @@ import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreen
 import com.example.animator_domain.usecases.*
 import com.example.animator_domain.models.home.PrevPoster
 import com.example.animator_domain.models.poster.AnimePosterEntity
+import com.example.otaku.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -19,6 +20,15 @@ class HomeViewModel(
     private val getAnimeScreenshotsFromIdUseCase: GetAnimeScreenshotsFromIdUseCase,
     private val getFavoritesUseCase: GetFavoritesUseCase
 ) : ViewModel() {
+
+     val arrayPrefPosters = listOf(
+        PrevPoster(genreId = ROMANTIC_ID, genreName = R.string.romantic_title),
+        PrevPoster(genreId = SHOUNEN_ID, genreName = R.string.shounen_title),
+        PrevPoster(genreId = DRAMA_ID, genreName = R.string.drama_title),
+        PrevPoster(genreId = DEMONS_ID, genreName = R.string.demon_title),
+        PrevPoster(genreId = SHOUJO_ID, genreName = R.string.shoujo_title),
+        PrevPoster(genreId = HAREM_ID, genreName = R.string.harem_title)
+    )
 
     val responses = mutableListOf<Boolean>()
 
@@ -41,7 +51,7 @@ class HomeViewModel(
 
 
     val list = mutableListOf<ContainerGenresList>().also {
-        refresh(ARRAY_PREV_POSTERS)
+        refresh(arrayPrefPosters)
     }
 
     fun refresh(list: List<PrevPoster>) {
@@ -116,7 +126,7 @@ class HomeViewModel(
         }
     }
 
-    private fun getAnimePrevPosterActionFromGenre(genresId: Int, genreName: String) {
+    private fun getAnimePrevPosterActionFromGenre(genresId: Int, genreName: Int) {
         viewModelScope.launch(Dispatchers.IO) {
 
             when (val response = getAnimePrevPosterFromGenreUseCase.execute(genresId)) {
@@ -134,7 +144,6 @@ class HomeViewModel(
 
     companion object {
         const val CONTAINER_RANDOM_ID = 1
-        const val CONTAINER_GENRES_ID = 2
     }
 }
 

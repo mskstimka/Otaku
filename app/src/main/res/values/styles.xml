@@ -17,9 +17,8 @@
 
     <style name="text_style_bold">
         <item name="android:maxLines">2</item>
-        <item name="android:fontFamily">@font/google_sans_medium</item>
+        <item name="android:fontFamily">@font/open_sans_medium</item>
         <item name="android:textSize">15sp</item>
-
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">start</item>
         <item name="android:textStyle">bold</item>
@@ -27,7 +26,7 @@
 
     <style name="text_style_light">
         <item name="android:maxLines">2</item>
-        <item name="android:fontFamily">@font/google_sans_light</item>
+        <item name="android:fontFamily">@font/open_sans_light</item>
         <item name="android:gravity">start</item>
         <item name="android:ellipsize">end</item>
         <item name="android:textStyle">bold</item>
@@ -35,7 +34,7 @@
 
     <style name="text_style_title_details">
         <item name="android:maxLines">2</item>
-        <item name="android:fontFamily">@font/google_sans_medium</item>
+        <item name="android:fontFamily">@font/open_sans_medium</item>
         <item name="android:gravity">start</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:ellipsize">end</item>
@@ -46,7 +45,7 @@
 
     <style name="text_style_title_items">
         <item name="android:maxLines">2</item>
-        <item name="android:fontFamily">@font/google_sans_medium</item>
+        <item name="android:fontFamily">@font/open_sans_medium</item>
         <item name="android:gravity">start</item>
         <item name="android:layout_marginTop">24dp</item>
         <item name="android:layout_marginStart">20dp</item>
@@ -57,7 +56,7 @@
 
     <style name="text_style_values">
         <item name="android:maxLines">1</item>
-        <item name="android:fontFamily">@font/google_sans_light</item>
+        <item name="android:fontFamily">@font/open_sans_light</item>
         <item name="android:gravity">start</item>
         <item name="android:textStyle">bold</item>
         <item name="android:ellipsize">end</item>
@@ -69,7 +68,7 @@
 
     <style name="text_style_main_title">
         <item name="android:maxLines">3</item>
-        <item name="android:fontFamily">@font/google_sans_medium</item>
+        <item name="android:fontFamily">@font/open_sans_medium</item>
         <item name="android:textSize">18sp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">0dp</item>
@@ -82,7 +81,7 @@
 
     <style name="text_style_russian_title">
         <item name="android:maxLines">3</item>
-        <item name="android:fontFamily">@font/google_sans_light</item>
+        <item name="android:fontFamily">@font/open_sans_light</item>
         <item name="android:textSize">14sp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">0dp</item>
@@ -105,6 +104,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">5dp</item>
+        <item name="android:fontFamily">@font/open_sans_light</item>
         <item name="android:maxLines">50</item>
         <item name="android:paddingHorizontal" tools:targetApi="o">20dp</item>
     </style>
@@ -116,7 +116,7 @@
     </style>
 
     <style name="item_title_text_style">
-        <item name="android:fontFamily">@font/google_sans_medium</item>
+        <item name="android:fontFamily">@font/open_sans_medium</item>
         <item name="android:textSize">12sp</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:ellipsize">end</item>
@@ -128,7 +128,7 @@
     </style>
 
     <style name="item_description_text_style">
-        <item name="android:fontFamily">@font/google_sans_light</item>
+        <item name="android:fontFamily">@font/open_sans_light</item>
         <item name="android:textSize">10sp</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:textStyle">bold</item>
@@ -157,5 +157,9 @@
     <style name="AnimatorMaterial3" parent="@style/Theme.Material3.DayNight.NoActionBar">
         <item name="android:colorPrimaryDark">@color/activity_background_color</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/isLightTheme</item>
+    </style>
+
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:fontFamily">@font/open_sans_light</item>
     </style>
 </resources>

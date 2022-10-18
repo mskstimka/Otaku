@@ -21,7 +21,7 @@ class SearchViewModel(
     val actionSearch: SharedFlow<List<AnimePosterEntity>> = _actionSearch
 
     private val _querySharedFlow = MutableSharedFlow<String>()
-    val querySharedFlow: SharedFlow<String> = _querySharedFlow
+    private val querySharedFlow: SharedFlow<String> = _querySharedFlow
 
     fun onTextChanged(value: String) = viewModelScope.launch {
         _querySharedFlow.emit(value)
@@ -29,10 +29,6 @@ class SearchViewModel(
 
     init {
         initFlow()
-    }
-
-    fun clearFlow() = viewModelScope.launch(Dispatchers.IO) {
-        _actionSearch.emit(emptyList())
     }
 
     @OptIn(FlowPreview::class)

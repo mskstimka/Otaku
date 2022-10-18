@@ -1,6 +1,9 @@
 package com.example.otaku.utils
 
+import android.graphics.Typeface
 import android.widget.ImageView
+import android.widget.SearchView
+import android.widget.TextView
 import androidx.lifecycle.*
 import com.example.otaku.R
 import com.squareup.picasso.Picasso
@@ -16,6 +19,8 @@ fun ImageView.setImageStudioByURL(url: String) {
     Picasso.get().load(url)
         .error(R.drawable.icon_studio_default).into(this)
 }
+
+
 
 fun <T> ViewModel.subscribeToFlow(
     flow: SharedFlow<T>,

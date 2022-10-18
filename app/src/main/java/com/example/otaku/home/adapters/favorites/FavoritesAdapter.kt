@@ -1,6 +1,7 @@
 package com.example.otaku.home.adapters.favorites
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
@@ -48,11 +49,8 @@ class FavoritesAdapter :
                 model.russian
             }
 
-            tvEpisodesHomeGenre.text = if (model.episodes.toString() != "0") {
-                root.context.getString(R.string.episode_text, model.episodes)
-            } else {
-                root.context.getString(R.string.episode_text, model.episodesAired)
-            }
+            tvKind.text = model.status
+            tvKind.setTextColor(Color.parseColor(model.statusColor))
 
             itemView.setOnClickListener {
                 itemView.findNavController().navigate(

@@ -1,6 +1,5 @@
 package com.example.otaku.home.adapters.genres
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -13,7 +12,6 @@ class ContainerGenresListAdapter :
     ListAdapter<ContainerGenresList, ContainerGenresListAdapter.ContainerGenresListViewHolder>(
         ContainerGenresListDiffCallback
     ) {
-
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -41,7 +39,7 @@ class ContainerGenresListAdapter :
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(model: ContainerGenresList) = with(binding) {
-            tvGenreTitle.text = model.title
+            tvGenreTitle.text = root.context.getString(model.title)
             adapter.submitList(model.list)
         }
     }
@@ -52,7 +50,6 @@ class ContainerGenresListAdapter :
             oldItem: ContainerGenresList,
             newItem: ContainerGenresList
         ): Boolean {
-            Log.d(oldItem.id.equals(newItem.id, true).toString(),"CHECK ---------------")
             return oldItem.id.equals(newItem.id, true)
         }
 

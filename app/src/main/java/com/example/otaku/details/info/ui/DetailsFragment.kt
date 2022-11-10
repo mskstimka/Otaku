@@ -243,6 +243,7 @@ class DetailsFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         ) { message ->
             BannerUtils.showToast(
+                binding.root,
                 message,
                 requireContext()
             )

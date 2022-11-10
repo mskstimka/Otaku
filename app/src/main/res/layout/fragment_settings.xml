@@ -68,22 +68,40 @@
             style="@style/text_style_title_items"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:text="Ukraine Language (Beta)"
             app:layout_constraintEnd_toStartOf="@+id/glFragmentSearchLineEnd"
             app:layout_constraintStart_toStartOf="@+id/glFragmentSearchLineStart"
             app:layout_constraintTop_toBottomOf="@id/sFragmentSettingsNotificationPush"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-        <ImageView
-            android:id="@+id/ivBackPressed"
-            android:layout_width="wrap_content"
-            android:layout_margin="20dp"
+        <TextView
+            style="@style/text_style_title_items"
+            android:id="@+id/tvLanguageSettings"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/fragment_details_ivBackPressed_contentDescription"
-            android:src="@drawable/icon_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="0dp"
+            android:textSize="12dp"
+            android:gravity=""
+            android:text="Setting (click)"
+            app:layout_constraintEnd_toStartOf="@+id/glFragmentSearchLineEnd"
+            app:layout_constraintStart_toStartOf="@+id/sFragmentSettingsUkraineLocale"
+            app:layout_constraintTop_toBottomOf="@+id/sFragmentSettingsUkraineLocale" />
 
+
+        <Switch
+            android:id="@+id/sFragmentSettingsSearchCensored"
+            style="@style/text_style_title_items"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Censored Search"
+            app:layout_constraintEnd_toStartOf="@+id/glFragmentSearchLineEnd"
+
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/glFragmentSearchLineStart"
+            app:layout_constraintTop_toBottomOf="@+id/tvLanguageSettings"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

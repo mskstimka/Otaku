@@ -2,7 +2,6 @@ package com.example.otaku.search.adapters
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.animator_domain.SHIKIMORI_URL
 import com.example.animator_domain.models.poster.AnimePosterEntity
 import com.example.otaku.R
+import com.example.otaku.app.AnimeFragmentDirections
 import com.example.otaku.databinding.ItemSearchPostersBinding
-import com.example.otaku.search.ui.SearchFragmentDirections
 import com.example.otaku.utils.setImageByURL
 
 class PostersAdapter(private val hideIcon: (visibility: Int) -> Unit) :
@@ -66,7 +65,7 @@ class PostersAdapter(private val hideIcon: (visibility: Int) -> Unit) :
 
             itemView.setOnClickListener {
                 itemView.findNavController().navigate(
-                    SearchFragmentDirections.actionSearchFragmentToDetailsFragment(
+                    AnimeFragmentDirections.actionAnimeFragmentToDetailsFragment(
                         id = model.id
                     )
                 )

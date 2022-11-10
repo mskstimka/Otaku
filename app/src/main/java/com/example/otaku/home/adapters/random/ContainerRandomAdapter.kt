@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.otaku.R
 import com.example.otaku.databinding.ItemHomeRandomBinding
 import com.example.otaku.details.info.adapters.screenshots.ScreenshotsAdapter
-import com.example.otaku.home.ui.HomeFragmentDirections
 import com.example.otaku.utils.setImageByURL
 import com.example.animator_domain.SHIKIMORI_URL
 import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
+import com.example.otaku.app.AnimeFragmentDirections
 
 class ContainerRandomAdapter(private val action: () -> Unit) :
     ListAdapter<ContainerRandom, ContainerRandomAdapter.ContainerRandomViewHolder>(
@@ -66,7 +66,7 @@ class ContainerRandomAdapter(private val action: () -> Unit) :
 
             viewContainer.setOnClickListener {
                 itemView.findNavController().navigate(
-                    HomeFragmentDirections.actionHomeFragmentToDetailsFragment(model.item.id)
+                    AnimeFragmentDirections.actionAnimeFragmentToDetailsFragment(model.item.id)
                 )
             }
 

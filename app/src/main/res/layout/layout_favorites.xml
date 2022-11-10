@@ -14,15 +14,13 @@
         android:layout_marginTop="@dimen/item_home_genres_list_tvGenreTitle_layout_marginTop"
         android:gravity="center_vertical|center"
         android:text="@string/isSaved"
-
-
         android:textStyle="normal"
-        android:drawableEnd="@drawable/icon_dots"
         android:textSize="20sp"
         app:drawableStartCompat="@drawable/icon_dots"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:drawableEndCompat="@drawable/icon_dots" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvGenreList"

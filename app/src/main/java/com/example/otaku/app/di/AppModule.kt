@@ -24,7 +24,8 @@ class AppModule(private val context: Context) {
         getVideoUseCase: GetVideoUseCase,
         addFavoritesUseCase: AddFavoritesUseCase,
         deleteFavoritesUseCase: DeleteFavoritesUseCase,
-        checkIsFavoriteUseCase: CheckIsFavoriteUseCase
+        checkIsFavoriteUseCase: CheckIsFavoriteUseCase,
+        sharedPreferencesHelper: SharedPreferencesHelper
     ): DetailsViewModelFactory {
         return DetailsViewModelFactory(
             getAnimeDetailsFromIdUseCase = getAnimeDetailsFromIdUseCase,
@@ -35,7 +36,8 @@ class AppModule(private val context: Context) {
             getVideoUseCase = getVideoUseCase,
             addFavoritesUseCase = addFavoritesUseCase,
             deleteFavoritesUseCase = deleteFavoritesUseCase,
-            checkIsFavoriteUseCase = checkIsFavoriteUseCase
+            checkIsFavoriteUseCase = checkIsFavoriteUseCase,
+            sharedPreferencesHelper = sharedPreferencesHelper
         )
     }
 

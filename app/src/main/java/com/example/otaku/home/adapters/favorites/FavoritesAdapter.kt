@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otaku.R
 import com.example.otaku.databinding.ItemFavoritesPostersBinding
-import com.example.otaku.home.ui.HomeFragmentDirections
 import com.example.otaku.utils.setImageByURL
 import com.example.animator_domain.SHIKIMORI_URL
 import com.example.animator_domain.models.poster.AnimePosterEntity
+import com.example.otaku.app.AnimeFragmentDirections
 
 
 class FavoritesAdapter :
@@ -54,7 +54,7 @@ class FavoritesAdapter :
 
             itemView.setOnClickListener {
                 itemView.findNavController().navigate(
-                    HomeFragmentDirections.actionHomeFragmentToDetailsFragment(model.id)
+                    AnimeFragmentDirections.actionAnimeFragmentToDetailsFragment(model.id)
                 )
             }
         }

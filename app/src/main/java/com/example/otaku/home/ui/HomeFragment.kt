@@ -51,8 +51,12 @@ class HomeFragment : Fragment() {
     init {
         posterAdapter.submitList(listOf(ContainerPoster {
             BannerUtils.showToast(
+                binding.root,
                 getString(R.string.ukraine_message),
-                requireContext()
+                requireContext(),
+                requireActivity().findViewById(
+                    R.id.navBottom
+                )
             )
         }))
     }
@@ -67,6 +71,7 @@ class HomeFragment : Fragment() {
         (requireActivity().applicationContext as App).appComponent.inject(this)
 
         hViewModel = ViewModelProvider(this, vmFactory)[HomeViewModel::class.java]
+
 
         with(binding.swipeToRefresh) {
             setOnRefreshListener {
@@ -105,8 +110,12 @@ class HomeFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         ) { message ->
             BannerUtils.showToast(
+                binding.root,
                 message,
-                requireContext()
+                requireContext(),
+                requireActivity().findViewById(
+                    R.id.navBottom
+                )
             )
         }
 

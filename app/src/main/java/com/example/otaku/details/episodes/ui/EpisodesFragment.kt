@@ -24,6 +24,7 @@ import com.example.otaku.details.info.ui.DetailsViewModelFactory
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.subscribeToFlow
 import com.example.animator_domain.NOT_FOUND_TEXT
+import com.example.otaku.R
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
@@ -42,24 +43,16 @@ class EpisodesFragment : Fragment() {
     @Inject
     lateinit var vmFactory: DetailsViewModelFactory
 
-    private var mInterstitialAd: InterstitialAd? = null
-    private var isAdLoaded = false
 
     private val episodesAdapter by lazy {
         EpisodesAdapter(
             actionSearch = { actionSearch(it) },
-            onBackPressed = { showAds() }
+            onBackPressed = { requireActivity().onBackPressed() }
         )
     }
 
     private lateinit var dViewModel: DetailsViewModel
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        loadAds()
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -112,71 +105,12 @@ class EpisodesFragment : Fragment() {
                     EpisodesFragmentDirections.actionEpisodesFragmentToWebPlayerFragment(list.first().url)
                 )
             } else {
-                BannerUtils.showToast(NOT_FOUND_TEXT, requireContext())
+                BannerUtils.showToast(
+                    binding.root, NOT_FOUND_TEXT, requireContext(), requireActivity().findViewById(
+                        R.id.navBottom
+                    )
+                )
             }
-        }
-    }
-
-    // ca-app-pub-9350077428310070/5938417575
-    private fun loadAds() {
-        var adRequest = AdRequest.Builder().build()
-
-        InterstitialAd.load(
-            requireContext(),
-            "ca-app-pub-3940256099942544/8691691433",
-            adRequest,
-            object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    Log.d("TAG", adError.toString())
-                    mInterstitialAd = null
-                }
-
-                override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                    Log.d("TAG", "Ad was loaded.")
-                    mInterstitialAd = interstitialAd
-                    isAdLoaded = true
-                }
-            })
-
-
-        mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
-            override fun onAdClicked() {
-                // Called when a click is recorded for an ad.
-                Log.d("TAG", "Ad was clicked.")
-            }
-
-            override fun onAdDismissedFullScreenContent() {
-                // Called when ad is dismissed.
-                Log.d("TAG", "Ad dismissed fullscreen content.")
-                mInterstitialAd = null
-            }
-
-            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
-                // Called when ad fails to show.
-                Log.e("TAG", "Ad failed to show fullscreen content.")
-                mInterstitialAd = null
-            }
-
-            override fun onAdImpression() {
-                // Called when an impression is recorded for an ad.
-                Log.d("TAG", "Ad recorded an impression.")
-            }
-
-            override fun onAdShowedFullScreenContent() {
-                // Called when ad is shown.
-                Log.d("TAG", "Ad showed fullscreen content.")
-            }
-        }
-    }
-
-
-    private fun showAds() {
-        if (isAdLoaded) {
-            if (mInterstitialAd != null) {
-                mInterstitialAd?.show(requireActivity())
-            }
-        } else {
-            requireActivity().onBackPressed()
         }
     }
 
@@ -187,6 +121,7 @@ class EpisodesFragment : Fragment() {
 
         list.add(ContainerEpisodeHeader {
             BannerUtils.showToast(
+                binding.root,
                 "Episodes: $count",
                 requireContext()
             )

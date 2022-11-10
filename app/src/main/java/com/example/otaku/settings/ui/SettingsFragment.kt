@@ -1,5 +1,6 @@
 package com.example.otaku.settings.ui
 
+import android.app.AlertDialog
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -35,13 +36,19 @@ class SettingsFragment : Fragment() {
 
         bindView()
 
-
-
         return binding.root
     }
 
     private fun bindView() = with(binding) {
 
+
+        val settingsLanguage = LanguageSettingFragmentDialog()
+
+        tvLanguageSettings.setOnClickListener {
+            if (sFragmentSettingsUkraineLocale.isChecked) {
+                settingsLanguage.show(requireActivity().supportFragmentManager, "Settings Language")
+            }
+        }
         sFragmentSettingsNotificationPush.isChecked =
             sharedPreferencesHelper.getIsShowNotification()
 
@@ -49,9 +56,6 @@ class SettingsFragment : Fragment() {
         sFragmentSettingsUkraineLocale.isChecked =
             sharedPreferencesHelper.getIsUkraineLanguage()
 
-        ivBackPressed.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
 
         sFragmentSettingsNotificationPush.setOnCheckedChangeListener { _, b ->
             sharedPreferencesHelper.setIsShowNotification(
@@ -91,7 +95,9 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setLocale(switch: Boolean) {
-        val locale3 = if (switch) {
+        val titleCheck = sharedPreferencesHelper.getIsUkraineTitle()
+
+        val locale3 = if (switch || titleCheck) {
             Locale("uk")
         } else {
             Locale("en")

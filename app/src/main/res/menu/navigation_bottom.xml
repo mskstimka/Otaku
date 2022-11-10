@@ -2,13 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/homeFragment"
-        android:icon="@drawable/icon_home_gray"
-        android:title="@string/navigation_bottom_homeFragment_title" />
+        android:id="@+id/animeFragment"
+        android:icon="@drawable/icon_anime_gray"
+        android:title="@string/navigation_bottom_animeFragment_title" />
+
     <item
-        android:id="@+id/searchFragment"
-        android:icon="@drawable/icon_search_gray"
-        android:title="@string/navigation_bottom_searchFragment_title" />
+        android:id="@+id/mangaFragment"
+        android:icon="@drawable/icon_manga_gray"
+        android:title="@string/navigation_bottom_mangaFragment_title" />
 
     <item
         android:id="@+id/settingsFragment"

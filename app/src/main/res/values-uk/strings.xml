@@ -83,4 +83,8 @@
     <string name="harem_title">"Гарем"</string>
 
 
+    <string name="tabView_home_title">Головна</string>
+    <string name="tabView_search_title">Пошук</string>
+
+
 </resources>

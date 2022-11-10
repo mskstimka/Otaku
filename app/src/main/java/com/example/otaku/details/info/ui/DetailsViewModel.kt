@@ -12,6 +12,7 @@ import com.example.animator_domain.models.details.Translations
 import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.animator_domain.models.poster.AnimePosterEntity
 import com.example.animator_domain.usecases.*
+import com.example.otaku.utils.SharedPreferencesHelper
 import com.google.mlkit.common.model.DownloadConditions
 import com.google.mlkit.nl.translate.TranslateLanguage
 import com.google.mlkit.nl.translate.Translation
@@ -20,6 +21,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import java.util.*
+import javax.inject.Inject
 
 
 class DetailsViewModel(
@@ -31,9 +33,9 @@ class DetailsViewModel(
     private val getVideoUseCase: GetVideoUseCase,
     private val deleteFavoritesUseCase: DeleteFavoritesUseCase,
     private val addFavoritesUseCase: AddFavoritesUseCase,
-    private val checkIsFavoriteUseCase: CheckIsFavoriteUseCase
+    private val checkIsFavoriteUseCase: CheckIsFavoriteUseCase,
+    private val sharedPreferencesHelper: SharedPreferencesHelper
 ) : ViewModel() {
-
 
     private val _actionError = MutableSharedFlow<String>(replay = 1)
     val actionError: SharedFlow<String> get() = _actionError
@@ -60,21 +62,21 @@ class DetailsViewModel(
     private val _actionVideo = MutableSharedFlow<List<Translations>>(replay = 0)
     val actionVideo: SharedFlow<List<Translations>> get() = _actionVideo
 
-
     private val _actionEpisodes = MutableSharedFlow<Int>(replay = 1)
     val actionEpisodes: SharedFlow<Int> get() = _actionEpisodes
 
+    private val isUkraine = sharedPreferencesHelper.getIsUkraineLanguage()
+    private val isTitleTranslate = sharedPreferencesHelper.getIsUkraineTitle()
+    private val isNameTranslate = sharedPreferencesHelper.getIsUkraineName()
+    private val isDescriptionTranslate = sharedPreferencesHelper.getIsUkraineDescription()
+
     private suspend fun putResponses(value: Boolean) {
         responses.add(value)
+        val responseCount =
+            if (!isUkraine) 4 else if (isDescriptionTranslate && isNameTranslate) 6 else if (!isDescriptionTranslate && !isNameTranslate) 4 else 5
 
-        if (Locale.getDefault().language != "uk") {
-            if (responses.count() >= 4) {
-                _actionAdapter.emit(ProgressBar.INVISIBLE)
-            }
-        } else {
-            if (responses.count() >= 6) {
-                _actionAdapter.emit(ProgressBar.INVISIBLE)
-            }
+        if (responses.count() >= responseCount) {
+            _actionAdapter.emit(ProgressBar.INVISIBLE)
         }
     }
 
@@ -96,7 +98,7 @@ class DetailsViewModel(
             when (val response = getAnimeDetailsFromIdUseCase.execute(id = id)) {
                 is Results.Success -> {
                     _pageAnimeDetailsAction.emit(response.data)
-                    if (Locale.getDefault().language == "uk") {
+                    if (isUkraine) {
                         translateToUkraine(response.data)
                     }
                     getSeries(response.data.id.toLong(), response.data.name.toString())
@@ -142,25 +144,30 @@ class DetailsViewModel(
                 .build()
             val translator = Translation.getClient(options)
 
+
             translator.downloadModelIfNeeded(conditions).addOnSuccessListener {
-                translator.translate(item.description_html.parseAsHtml().toString())
-                    .addOnSuccessListener {
+                if (isDescriptionTranslate) {
+                    translator.translate(item.description_html.parseAsHtml().toString())
+                        .addOnSuccessListener {
 
-                        viewModelScope.launch {
-                            items.description_html = it
-                            putResponses(true)
-                            _pageAnimeDetailsAction.emit(items)
+                            viewModelScope.launch {
+                                items.description_html = it
+                                putResponses(true)
+                                _pageAnimeDetailsAction.emit(items)
+                            }
                         }
-                    }
-                translator.translate(item.russian!!)
-                    .addOnSuccessListener {
+                }
+                if (isNameTranslate) {
+                    translator.translate(item.russian!!)
+                        .addOnSuccessListener {
 
-                        viewModelScope.launch {
-                            putResponses(true)
-                            items.russian = it
-                            _pageAnimeDetailsAction.emit(items)
+                            viewModelScope.launch {
+                                putResponses(true)
+                                items.russian = it
+                                _pageAnimeDetailsAction.emit(items)
+                            }
                         }
-                    }
+                }
             }
         }
 

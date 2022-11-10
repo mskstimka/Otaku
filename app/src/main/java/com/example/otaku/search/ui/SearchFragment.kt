@@ -9,11 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.animator_domain.usecases.GetAnimePostersFromSearchUseCase
+import com.example.otaku.R
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentSearchBinding
 import com.example.otaku.search.adapters.PostersAdapter
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.subscribeToFlow
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import javax.inject.Inject
 
 
@@ -52,7 +54,6 @@ class SearchFragment : Fragment() {
 
         return binding.root
     }
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -106,8 +107,12 @@ class SearchFragment : Fragment() {
 
         subscribeToFlow(lifecycleOwner = viewLifecycleOwner, flow = actionError) { message ->
             BannerUtils.showToast(
+                binding.root,
                 message,
-                requireContext()
+                requireContext(),
+                requireActivity().findViewById(
+                    R.id.navBottom
+                )
             )
         }
     }

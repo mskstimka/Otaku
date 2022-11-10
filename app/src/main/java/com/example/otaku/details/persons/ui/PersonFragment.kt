@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
+import com.example.otaku.R
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentPersonBinding
 import com.example.otaku.details.info.adapters.characters.ContainerCharacters
@@ -99,6 +100,7 @@ class PersonFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         ) { message ->
             BannerUtils.showToast(
+                binding.root,
                 message,
                 requireContext()
             )

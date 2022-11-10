@@ -7,8 +7,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.otaku.app.AnimeFragmentDirections
 import com.example.otaku.databinding.ItemHomePosterBinding
-import com.example.otaku.home.ui.HomeFragmentDirections
 
 class ContainerPosterAdapter :
     ListAdapter<ContainerPoster, ContainerPosterAdapter.ContainerPosterViewHolder>(
@@ -38,7 +38,7 @@ class ContainerPosterAdapter :
         fun bind(model: ContainerPoster) = with(binding) {
             btToSettings.setOnClickListener {
                 itemView.findNavController().navigate(
-                    HomeFragmentDirections.actionHomeFragmentToSettingsFragment()
+                    AnimeFragmentDirections.actionAnimeFragmentToSettingsFragment()
                 )
             }
 

@@ -10,6 +10,7 @@ import com.example.otaku.search.ui.SearchFragment
 import com.example.otaku.settings.ui.SettingsFragment
 import com.example.animator_data.di.DataModule
 import com.example.otaku.app.activities.MainActivity
+import com.example.otaku.settings.ui.LanguageSettingFragmentDialog
 import dagger.Component
 
 
@@ -22,6 +23,7 @@ interface AppComponent {
     fun inject(episodesFragment: EpisodesFragment)
     fun inject(charactersFragment: CharactersFragment)
     fun inject(personFragment: PersonFragment)
+    fun inject(languageSettingFragmentDialog: LanguageSettingFragmentDialog)
     fun inject(mainActivity: MainActivity)
     fun inject(app: App)
 }

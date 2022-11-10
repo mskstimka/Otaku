@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.animator_domain.SHIKIMORI_URL
 import com.example.animator_domain.models.poster.AnimePosterEntity
 import com.example.otaku.R
+import com.example.otaku.app.AnimeFragmentDirections
 import com.example.otaku.databinding.ItemHomeGenresItemBinding
-import com.example.otaku.home.ui.HomeFragmentDirections
 import com.example.otaku.utils.setImageByURL
 
 class ItemHomeGenresAdapter :
@@ -55,7 +55,7 @@ class ItemHomeGenresAdapter :
 
             itemView.setOnClickListener {
                 itemView.findNavController().navigate(
-                    HomeFragmentDirections.actionHomeFragmentToDetailsFragment(model.id)
+                    AnimeFragmentDirections.actionAnimeFragmentToDetailsFragment(model.id)
                 )
             }
         }

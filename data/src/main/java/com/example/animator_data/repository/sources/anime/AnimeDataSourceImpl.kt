@@ -1,12 +1,8 @@
-package com.example.animator_data.repository
+package com.example.animator_data.repository.sources.anime
 
-import android.util.Log
-import com.example.animator_data.database.models.LocalAnimePosterEntity
 import com.example.animator_data.database.dao.ShikimoriDAO
-import com.example.animator_data.mapper.AnimeDetailsResponseMapper
-import com.example.animator_data.mapper.AnimePosterResponseMapper
+import com.example.animator_data.mapper.*
 import com.example.animator_data.network.api.AnimeApi
-import com.example.animator_data.network.models.AnimePosterEntityResponse
 import com.example.animator_domain.common.Results
 import com.example.animator_domain.models.PersonEntity
 import com.example.animator_domain.models.characters.CharacterDetailsEntity
@@ -26,8 +22,7 @@ class AnimeDataSourceImpl(
         return try {
             val response = animeApi.getSearchPosters(search = searchName)
             if (response.isSuccessful) {
-                val item =
-                    AnimePosterResponseMapper.toListAnimePosterEntity(response.body()!!)
+                val item = response.body()!!.toListAnimePosterEntity()
                 Results.Success(data = item)
             } else {
                 Results.Error(exception = Exception(response.message()))
@@ -41,8 +36,7 @@ class AnimeDataSourceImpl(
         return try {
             val response = animeApi.getDetails(id = id)
             if (response.isSuccessful) {
-                val item =
-                    AnimeDetailsResponseMapper.toAnimeDetailsEntity(item = response.body()!!)
+                val item = response.body()!!.toAnimeDetailsEntity()
                 Results.Success(data = item)
             } else {
                 if (response.code() == 429) {
@@ -60,8 +54,7 @@ class AnimeDataSourceImpl(
         return try {
             val response = animeApi.getScreenshots(id = id)
             if (response.isSuccessful) {
-                val list =
-                    AnimeDetailsResponseMapper.toAnimeScreenshotsEntity(list = response.body()!!)
+                val list = response.body()!!.toAnimeDetailsScreenshotsEntity()
                 Results.Success(data = list)
             } else {
                 if (response.code() == 429) {
@@ -79,8 +72,7 @@ class AnimeDataSourceImpl(
         return try {
             val response = animeApi.getFranchises(id = id)
             if (response.isSuccessful) {
-                val list =
-                    AnimeDetailsResponseMapper.toListAnimeFranchisesEntity(item = response.body()!!)
+                val list = response.body()!!.toListAnimeDetailsFranchisesEntity()
                 Results.Success(data = list)
             } else {
                 if (response.code() == 429) {
@@ -98,7 +90,7 @@ class AnimeDataSourceImpl(
         return try {
             val response = animeApi.getRoles(id = id)
             if (response.isSuccessful) {
-                val list = AnimeDetailsResponseMapper.toListAnimeRolesEntity(response.body()!!)
+                val list = response.body()!!.toListAnimeRolesEntity()
                 Results.Success(data = list)
             } else {
                 if (response.code() == 429) {
@@ -119,8 +111,7 @@ class AnimeDataSourceImpl(
 
             when (response.isSuccessful) {
                 true -> {
-                    val list =
-                        AnimePosterResponseMapper.toListAnimePosterEntity(list = response.body()!!)
+                    val list = response.body()!!.toListAnimePosterEntity()
                     Results.Success(data = list)
                 }
                 false -> {
@@ -148,8 +139,7 @@ class AnimeDataSourceImpl(
 
             when (response.isSuccessful) {
                 true -> {
-                    val list =
-                        AnimePosterResponseMapper.toListAnimePosterEntity(list = response.body()!!)
+                    val list = response.body()!!.toListAnimePosterEntity()
 
                     Results.Success(data = list)
                 }
@@ -174,8 +164,7 @@ class AnimeDataSourceImpl(
 
             when (response.isSuccessful) {
                 true -> {
-                    val item: CharacterDetailsEntity =
-                        AnimeDetailsResponseMapper.toCharacterDetailsEntity(response.body()!!)
+                    val item: CharacterDetailsEntity = response.body()!!.toCharacterDetailsEntity()
                     Results.Success(data = item)
                 }
                 false -> {
@@ -197,7 +186,7 @@ class AnimeDataSourceImpl(
 
             when (response.isSuccessful) {
                 true -> {
-                    val item = AnimeDetailsResponseMapper.toPersonEntity(response.body()!!)
+                    val item = response.body()!!.toPersonEntity()
                     Results.Success(data = item)
                 }
                 false -> {
@@ -215,7 +204,7 @@ class AnimeDataSourceImpl(
 
     override suspend fun addLocalFavorites(item: AnimePosterEntity) {
 
-        shikimoriDAO.insert(AnimePosterResponseMapper.toLocalListAnimePosterEntity(item))
+        shikimoriDAO.insert(item.toLocalListAnimePosterEntity())
 
     }
 
@@ -235,7 +224,7 @@ class AnimeDataSourceImpl(
     }
 
     override fun getLocalFavorites(): List<AnimePosterEntity> {
-        return AnimePosterResponseMapper.localToListAnimePosterEntity(shikimoriDAO.getAllPosters())
+        return shikimoriDAO.getAllPosters().localToListAnimePosterEntity()
     }
 
     override fun checkIsFavorite(id: Int): Boolean =

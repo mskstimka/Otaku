@@ -5,6 +5,10 @@ import com.example.animator_data.database.dao.ShikimoriDAO
 import com.example.animator_data.database.dao.ShikimoriDataBase
 import com.example.animator_data.network.api.AnimeApi
 import com.example.animator_data.repository.*
+import com.example.animator_data.repository.sources.anime.AnimeDataSource
+import com.example.animator_data.repository.sources.anime.AnimeDataSourceImpl
+import com.example.animator_data.repository.sources.watch.WatchDataSource
+import com.example.animator_data.repository.sources.watch.WatchDataSourceImpl
 import com.example.animator_domain.SHIKIMORI_URL
 import com.example.animator_domain.SHIMORI_URL
 import com.example.animator_domain.repository.AnimeRepository

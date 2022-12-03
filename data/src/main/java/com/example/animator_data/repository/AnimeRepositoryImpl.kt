@@ -1,5 +1,7 @@
 package com.example.animator_data.repository
 
+import com.example.animator_data.repository.sources.anime.AnimeDataSource
+import com.example.animator_data.repository.sources.watch.WatchDataSource
 import com.example.animator_domain.common.Results
 import com.example.animator_domain.models.PersonEntity
 import com.example.animator_domain.models.characters.CharacterDetailsEntity

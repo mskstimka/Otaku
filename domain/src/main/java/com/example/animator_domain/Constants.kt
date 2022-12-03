@@ -1,5 +1,13 @@
 package com.example.animator_domain
 
+import com.example.animator_domain.models.Image
+import com.example.animator_domain.models.details.Genre
+import com.example.animator_domain.models.details.Studio
+import com.example.animator_domain.models.details.Video
+import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchisesEntity
+import com.example.animator_domain.models.details.roles.Character
+import com.example.animator_domain.models.details.roles.Person
+import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.animator_domain.models.home.PrevPoster
 
 const val SHIMORI_URL = "https://shimori-us.herokuapp.com/"
@@ -48,3 +56,55 @@ const val SINGLE_LIVE_EVENT_MESSAGE =
 // my "ca-app-pub-9350077428310070/5938417575"
 const val AD_ID_ON_BACK_PRESSED = "ca-app-pub-3940256099942544/1033173712"
 
+val DEFAULT_CHARACTER =
+    Character(
+        id = 404,
+        image = Image(
+            original = NOT_FOUND_TEXT,
+            preview = NOT_FOUND_TEXT,
+            x48 = NOT_FOUND_TEXT,
+            x96 = NOT_FOUND_TEXT
+        ),
+        name = NOT_FOUND_TEXT, russian = NOT_FOUND_TEXT, url = NOT_FOUND_TEXT
+    )
+
+
+val DEFAULT_PERSON =
+    Person(
+        id = 404,
+        image = Image(
+            original = NOT_FOUND_TEXT,
+            preview = NOT_FOUND_TEXT,
+            x48 = NOT_FOUND_TEXT,
+            x96 = NOT_FOUND_TEXT
+        ),
+        name = NOT_FOUND_TEXT, russian = NOT_FOUND_TEXT, url = NOT_FOUND_TEXT
+    )
+
+
+val DEFAULT_VIDEO = Video(
+    hosting = NOT_FOUND_TEXT, id = 404, image_url = "http", kind = NOT_FOUND_TEXT,
+    name = NOT_FOUND_TEXT, player_url = NOT_FOUND_TEXT, url = NOT_FOUND_TEXT
+)
+val DEFAULT_STUDIO = Studio(
+    filtered_name = NOT_FOUND_TEXT,
+    id = 404,
+    image = NOT_FOUND_TEXT,
+    name = NOT_FOUND_TEXT,
+    real = false
+)
+val DEFAULT_GENRE = Genre(
+    id = 404,
+    kind = NOT_FOUND_TEXT,
+    name = NOT_FOUND_TEXT,
+    russian = NOT_FOUND_TEXT
+)
+val DEFAULT_SCREENSHOT = AnimeDetailsScreenshotsEntity(
+    original = NOT_FOUND_TEXT,
+    preview = NOT_FOUND_TEXT
+)
+val DEFAULT_FRANCHISE =
+    AnimeDetailsFranchisesEntity(
+        date = 404, id = 0, image_url = "x96", kind = NOT_FOUND_TEXT, name = NOT_FOUND_TEXT,
+        url = NOT_FOUND_TEXT, year = 404
+    )

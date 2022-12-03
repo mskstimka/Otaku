@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         setLocale(sharedPreferencesHelper.getIsUkraineLanguage())
 
+
         loadAds()
 
         initNavigation()

@@ -105,10 +105,11 @@ class SettingsFragment : Fragment() {
         Locale.setDefault(locale3)
         val config3 = Configuration()
         config3.locale = locale3
-        requireActivity().resources.updateConfiguration(
+        requireActivity().baseContext.resources.updateConfiguration(
             config3,
-            requireActivity().resources.displayMetrics
+            requireActivity().baseContext.resources.displayMetrics
         )
+
 
     }
 }

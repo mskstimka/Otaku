@@ -1,4 +1,4 @@
-package com.example.animator_data.repository
+package com.example.animator_data.repository.sources.watch
 
 import com.example.animator_domain.common.Results
 import com.example.animator_domain.models.details.Translations

@@ -1,7 +1,7 @@
-package com.example.animator_data.repository
+package com.example.animator_data.repository.sources.watch
 
 import android.util.Log
-import com.example.animator_data.mapper.AnimeWatcherResponseMapper
+import com.example.animator_data.mapper.toTranslations
 import com.example.animator_data.network.api.AnimeApi
 import com.example.animator_domain.common.Results
 import com.example.animator_domain.models.details.Translations
@@ -41,7 +41,7 @@ class WatchDataSourceImpl(
             )
             if (response.isSuccessful) {
 
-                val item = response.body()!!.map { AnimeWatcherResponseMapper.convertResponse(it) }
+                val item = response.body()!!.map { it.toTranslations() }
                 Results.Success(data = item)
             } else {
                 Results.Error(exception = Exception(response.message()))

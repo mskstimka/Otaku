@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/tvTitle"
         style="@style/text_style_title_details"
-        android:text="Работы"
+        android:text="@string/layout_person_role_tvTitle_text"
         android:textSize="20dp"
         android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"

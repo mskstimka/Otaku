@@ -28,13 +28,13 @@
         app:layout_constraintGuide_begin="@dimen/fragment_details_line_layout_constraintGuide" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvTitle"
         style="@style/text_style_main_title"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="0dp"
         android:gravity="center"
-        android:text="Выбор перевода"
+        android:text="@string/dialog_setting_language_tvTitle_text"
         android:textSize="20dp"
         android:textStyle="normal"
         app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
@@ -50,10 +50,10 @@
         android:textStyle="bold"
         android:layout_marginTop="20dp"
         android:gravity="center_vertical"
-        android:text="Заголовки"
+        android:text="@string/dialog_setting_language_sIsTitle_text"
         app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
         app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <Button
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
         android:fontFamily="@font/open_sans_medium"
-        android:text="Готово"
+        android:text="@string/dialog_setting_language_btComplete_text"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:gravity="center_vertical"
-        android:text="Название"
+        android:text="@string/dialog_setting_language_sIsName_text"
         app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
         app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
         app:layout_constraintTop_toBottomOf="@+id/sIsTitle"
@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:gravity="center_vertical"
-        android:text="Описание"
+        android:text="@string/dialog_setting_language_sIsDescription_text"
         app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
         app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
         app:layout_constraintTop_toBottomOf="@+id/sIsName"

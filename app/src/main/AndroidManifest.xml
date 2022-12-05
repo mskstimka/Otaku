@@ -45,7 +45,7 @@
         </service>
 
         <service
-            android:name=".details.info.services.StatusForegroundService"
+            android:name="com.example.otaku.anime.details.info.services.StatusForegroundService"
             android:exported="false" />
 
         <activity

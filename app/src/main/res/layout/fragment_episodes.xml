@@ -7,6 +7,6 @@
     android:layout_margin="0dp"
     android:paddingHorizontal="@dimen/fragment_episodes_root_paddingHorizontal"
     android:paddingBottom="@dimen/fragment_episodes_root_paddingBottom"
-    tools:context=".details.episodes.ui.EpisodesFragment"
+    tools:context=".anime.details.episodes.ui.EpisodesFragment"
     tools:itemCount="12"
     tools:listitem="@layout/item_episodes" />

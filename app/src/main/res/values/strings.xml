@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Otaku</string>
-    <string name="an_error_has_occurred">An error has occurred: %1$s</string>
+    <string name="an_error_has_occurred">Произошла ошибка: %1$s</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="not_found">not found</string>
+    <string name="not_found">не найдено</string>
     <!-- Fragment Details strings -->
     <string name="fragment_details_tvKind_text">KIND</string>
     <string name="fragment_details_ivImageBackground_contentDescription">Image Background</string>
@@ -34,14 +34,9 @@
     <string name="item_details_screenshots_ivImageScreenshotsItem_contentDescription">Image Screenshot</string>
     <string name="item_details_studios_ivImageStudioItem_contentDescription">Studio Image</string>
     <string name="item_details_videos_ivImageVideoItem_contentDescription">Image Video</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="item_home_poster_ivImagePoster_contentDescription">Image Poster</string>
     <string name="item_home_poster_tvTitlePoster_text">Otaku</string>
-    <string name="item_home_poster_tvTextOne_text">you</string>
-    <string name="item_home_poster_tvTextTwo">for</string>
     <string name="item_home_genres_item_ivImageHomeGenre_contentDescription">Image Home Genre</string>
-    <string name="ukraine_message">Glory to Ukraine!</string>
 
     <string name="default_notification_channel_id" translatable="false">default_channel</string>
     <string name="default_notification_channel_name" translatable="true">News</string>
@@ -51,24 +46,20 @@
 
     <string name="status_content_text">%1$s / %2$s</string>
     <string name="fragment_details_ivBackPressed_contentDescription">Back Pressed Icon</string>
-    <string name="fragment_search_svFragmentSearchSearch_queryHint">Search...</string>
-    <string name="fragment_search_tvFragmentSearchTitle_text">Otaku</string>
-    <string name="fragment_search_tvFragmentSearchTitleDescription_text">supported shikimori.one</string>
-    <string name="fragment_settings_tvFragmentSettingsTitle_text">Settings</string>
-    <string name="fragment_settings_sFragmentSettingsNotificationPush_text">Push Notification</string>
-    <string name="navigation_bottom_homeFragment_title">Home</string>
-    <string name="navigation_bottom_searchFragment_title">Search</string>
-    <string name="navigation_bottom_settingsFragment_title">Settings</string>
+    <string name="fragment_search_svFragmentSearchSearch_queryHint">Поиск…</string>
+    <string name="fragment_settings_tvFragmentSettingsTitle_text">Настройки</string>
+    <string name="fragment_settings_sFragmentSettingsNotificationPush_text">Push-уведомления</string>
+    <string name="navigation_bottom_homeFragment_title">Домашняя</string>
+    <string name="navigation_bottom_searchFragment_title">Поиск</string>
+    <string name="navigation_bottom_settingsFragment_title">Настройки</string>
 
-    <string name="episode_text">Episodes: %1$s</string>
+    <string name="episode_text">Эпизодов: %1$s</string>
 
     <string name="notification_channel_id">Notification Push</string>
     <string name="default_notification_title">Otaku</string>
-    <string name="item_home_poster_tvItemHomePosterTextOne_text">An1m</string>
-    <string name="item_home_poster_tvItemHomePosterTextTwo_text">ator</string>
     <string name="item_home_random_ivItemHomeRandomRefresh_contentDescription">Refresh Icon</string>
     <string name="item_home_random_tvItemHomeRandomTitle_text">Случайное</string>
-    <string name="item_episodes_header_root_text">Episodes</string>
+    <string name="item_episodes_header_root_text">Эпизоды</string>
     <string name="fragment_details_btWatch_text">Смотреть</string>
     <string name="is_favorites">В избранном</string>
     <string name="is_not_favorites">Добавить в избранное</string>
@@ -80,9 +71,20 @@
     <string name="demon_title">"Демоны"</string>
     <string name="shoujo_title">"Сёдзе"</string>
     <string name="harem_title">"Гарем"</string>
-    <string name="navigation_bottom_mangaFragment_title">Manga</string>
-    <string name="navigation_bottom_animeFragment_title">Anime</string>
-    <string name="tabView_home_title">Главная</string>
-    <string name="tabView_search_title">Поиск</string>
+    <string name="navigation_bottom_mangaFragment_title">Манга</string>
+    <string name="navigation_bottom_animeFragment_title">Аниме</string>
+    <string name="tabView_home_title">Home</string>
+    <string name="tabView_search_title">Search</string>
+    <string name="fragment_settings_sFragmentSettingsUkraineLocale_text">Украинский язык (Beta)</string>
+    <string name="fragment_settings_tvLanguageSettings_text">Настроить (клик)</string>
+    <string name="fragment_settings_sFragmentSettingsSearchCensored_text">Поиск без цензуры</string>
+    <string name="fragment_episodes_item_text">"Эпизод: %1$s"</string>
+    <string name="fragment_manga_tvTitle_text">В разработке</string>
+    <string name="dialog_setting_language_sIsTitle_text">Заголовки</string>
+    <string name="dialog_setting_language_btComplete_text">Готово</string>
+    <string name="dialog_setting_language_sIsName_text">Название</string>
+    <string name="dialog_setting_language_sIsDescription_text">Описание</string>
+    <string name="dialog_setting_language_tvTitle_text">Выбор перевода</string>
+    <string name="layout_person_role_tvTitle_text">Работы</string>
 
 </resources>

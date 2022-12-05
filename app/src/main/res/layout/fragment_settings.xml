@@ -69,7 +69,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Ukraine Language (Beta)"
+            android:text="@string/fragment_settings_sFragmentSettingsUkraineLocale_text"
             app:layout_constraintEnd_toStartOf="@+id/glFragmentSearchLineEnd"
             app:layout_constraintStart_toStartOf="@+id/glFragmentSearchLineStart"
             app:layout_constraintTop_toBottomOf="@id/sFragmentSettingsNotificationPush"
@@ -84,7 +84,7 @@
             android:layout_marginStart="0dp"
             android:textSize="12dp"
             android:gravity=""
-            android:text="Setting (click)"
+            android:text="@string/fragment_settings_tvLanguageSettings_text"
             app:layout_constraintEnd_toStartOf="@+id/glFragmentSearchLineEnd"
             app:layout_constraintStart_toStartOf="@+id/sFragmentSettingsUkraineLocale"
             app:layout_constraintTop_toBottomOf="@+id/sFragmentSettingsUkraineLocale" />
@@ -96,7 +96,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Censored Search"
+            android:text="@string/fragment_settings_sFragmentSettingsSearchCensored_text"
             app:layout_constraintEnd_toStartOf="@+id/glFragmentSearchLineEnd"
 
             app:layout_constraintHorizontal_bias="1.0"

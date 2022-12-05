@@ -4,7 +4,7 @@ import android.app.Application
 import android.app.Service
 import androidx.work.*
 import com.example.otaku.app.di.AppComponent
-import com.example.otaku.app.di.AppModule
+import com.example.otaku.app.di.modules.AppModule
 import com.example.otaku.app.di.DaggerAppComponent
 import com.example.otaku.app.local.LocalWorker
 import com.example.otaku.app.local.LocalWorkerFactory

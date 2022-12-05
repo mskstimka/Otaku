@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.otaku.home.ui.HomeFragment"
+        android:name="com.example.otaku.anime.home.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home"/>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.otaku.search.ui.SearchFragment"
+        android:name="com.example.otaku.anime.search.ui.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search"/>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.otaku.details.info.ui.DetailsFragment"
+        android:name="com.example.otaku.anime.details.info.ui.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details">
         <argument
@@ -56,7 +56,7 @@
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/webPlayerFragment"
-        android:name="com.example.otaku.details.webPlayer.ui.WebPlayerFragment"
+        android:name="com.example.otaku.anime.details.webPlayer.ui.WebPlayerFragment"
         android:label="WebPlayerFragment">
         <argument
             android:name="url"
@@ -67,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/episodesFragment"
-        android:name="com.example.otaku.details.episodes.ui.EpisodesFragment"
+        android:name="com.example.otaku.anime.details.episodes.ui.EpisodesFragment"
         android:label="fragment_episodes"
         tools:layout="@layout/fragment_episodes">
         <action
@@ -88,7 +88,7 @@
     </fragment>
     <fragment
         android:id="@+id/charactersFragment"
-        android:name="com.example.otaku.details.characters.ui.CharactersFragment"
+        android:name="com.example.otaku.anime.details.characters.ui.CharactersFragment"
         android:label="fragment_characters"
         tools:layout="@layout/fragment_characters" >
         <argument
@@ -111,7 +111,7 @@
     </fragment>
     <fragment
         android:id="@+id/personFragment"
-        android:name="com.example.otaku.details.persons.ui.PersonFragment"
+        android:name="com.example.otaku.anime.details.persons.ui.PersonFragment"
         android:label="fragment_person"
         tools:layout="@layout/fragment_person" >
         <argument
@@ -139,7 +139,7 @@
         tools:layout="@layout/fragment_manga" />
     <fragment
         android:id="@+id/animeFragment"
-        android:name="com.example.otaku.app.AnimeFragment"
+        android:name="com.example.otaku.anime.AnimeFragment"
         android:label="AnimeFragment" >
         <action
             android:id="@+id/action_animeFragment_to_detailsFragment"

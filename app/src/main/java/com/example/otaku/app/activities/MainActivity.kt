@@ -1,5 +1,6 @@
 package com.example.otaku.app.activities
 
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
@@ -40,7 +41,6 @@ class MainActivity : AppCompatActivity() {
         MobileAds.initialize(this) {}
 
         setLocale(sharedPreferencesHelper.getIsUkraineLanguage())
-
 
         loadAds()
 
@@ -143,6 +143,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(newBase)
+
+    }
 
     private fun showAds(actionError: () -> Unit) {
         if (isAdLoaded) {

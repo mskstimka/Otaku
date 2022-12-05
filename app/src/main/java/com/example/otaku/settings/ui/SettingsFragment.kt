@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentSettingsBinding
 import com.example.otaku.utils.SharedPreferencesHelper
+import com.example.otaku.utils.applyNewLocale
 import com.google.mlkit.common.model.DownloadConditions
 import com.google.mlkit.nl.translate.TranslateLanguage
 import com.google.mlkit.nl.translate.Translation
@@ -70,14 +71,15 @@ class SettingsFragment : Fragment() {
             sharedPreferencesHelper.setIsUkraineLanguage(
                 when (b) {
                     true -> true.also {
-                        setLocale(true)
+                        requireContext().applyNewLocale(Locale("uk"))
                         downloadLanguage()
                     }
-                    else -> false.also { setLocale(false) }
+                    else -> false.also {  requireContext().applyNewLocale(Locale("en")) }
                 }
             )
         }
     }
+
 
 
     private fun downloadLanguage() {

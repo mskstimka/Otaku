@@ -13,6 +13,7 @@ import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.animator_domain.models.poster.AnimePosterEntity
 import com.example.animator_domain.usecases.*
 import com.example.otaku.utils.SharedPreferencesHelper
+import com.example.otaku.utils.TranslateUtils
 import com.google.mlkit.common.model.DownloadConditions
 import com.google.mlkit.nl.translate.TranslateLanguage
 import com.google.mlkit.nl.translate.Translation
@@ -32,7 +33,7 @@ class DetailsViewModel(
     private val deleteFavoritesUseCase: DeleteFavoritesUseCase,
     private val addFavoritesUseCase: AddFavoritesUseCase,
     private val checkIsFavoriteUseCase: CheckIsFavoriteUseCase,
-    private val sharedPreferencesHelper: SharedPreferencesHelper
+    sharedPreferencesHelper: SharedPreferencesHelper
 ) : ViewModel() {
 
     private val _actionError = MutableSharedFlow<String>(replay = 1)
@@ -41,12 +42,10 @@ class DetailsViewModel(
     private val _pageAnimeDetailsAction = MutableSharedFlow<AnimeDetailsEntity>(replay = 1)
     val pageAnimeDetailsAction: SharedFlow<AnimeDetailsEntity> get() = _pageAnimeDetailsAction
 
-    private val _pageAnimeScreenshotsAction =
-        MutableSharedFlow<ContainerScreenshots>(replay = 1)
+    private val _pageAnimeScreenshotsAction = MutableSharedFlow<ContainerScreenshots>(replay = 1)
     val pageAnimeScreenshotsAction: SharedFlow<ContainerScreenshots> get() = _pageAnimeScreenshotsAction
 
-    private val _pageAnimeFranchisesAction =
-        MutableSharedFlow<ContainerFranchises>(replay = 1)
+    private val _pageAnimeFranchisesAction = MutableSharedFlow<ContainerFranchises>(replay = 1)
     val pageAnimeFranchisesAction: SharedFlow<ContainerFranchises> get() = _pageAnimeFranchisesAction
 
     private val _pageAnimeRolesAction = MutableSharedFlow<AnimeDetailsRolesEntity>(replay = 1)
@@ -110,64 +109,31 @@ class DetailsViewModel(
         }
     }
 
-    private fun translateToUkraine(item: AnimeDetailsEntity) =
+    private fun translateToUkraine(item: AnimeDetailsEntity) {
         viewModelScope.launch(Dispatchers.IO) {
-            var items = AnimeDetailsEntity(
-                aired_on = item.aired_on,
-                description = item.description,
-                description_html = item.description_html,
-                episodes = item.episodes,
-                episodes_aired = item.episodes_aired,
-                genres = item.genres,
-                id = item.id,
-                image = item.image,
-                kind = item.kind,
-                name = item.name,
-                russian = item.russian,
-                score = item.score,
-                screenshots = item.screenshots,
-                status = item.status,
-                statusColor = item.statusColor,
-                studios = item.studios,
-                videos = item.videos
-            )
 
-            var conditions = DownloadConditions.Builder()
-                .requireWifi()
-                .build()
+            val localItem: AnimeDetailsEntity = item.copy()
 
-            val options = TranslatorOptions.Builder()
-                .setSourceLanguage(TranslateLanguage.RUSSIAN)
-                .setTargetLanguage(TranslateLanguage.UKRAINIAN)
-                .build()
-            val translator = Translation.getClient(options)
-
-
-            translator.downloadModelIfNeeded(conditions).addOnSuccessListener {
-                if (isDescriptionTranslate) {
-                    translator.translate(item.description_html.parseAsHtml().toString())
-                        .addOnSuccessListener {
-
-                            viewModelScope.launch {
-                                items.description_html = it
-                                putResponses(true)
-                                _pageAnimeDetailsAction.emit(items)
-                            }
-                        }
-                }
-                if (isNameTranslate) {
-                    translator.translate(item.russian!!)
-                        .addOnSuccessListener {
-
-                            viewModelScope.launch {
-                                putResponses(true)
-                                items.russian = it
-                                _pageAnimeDetailsAction.emit(items)
-                            }
-                        }
-                }
-            }
+            TranslateUtils.translateToUkraine(
+                item = item,
+                isDescriptionTranslate = isDescriptionTranslate,
+                isNameTranslate = isNameTranslate,
+                actionDescription = {
+                    viewModelScope.launch {
+                        localItem.description_html = it
+                        putResponses(true)
+                        _pageAnimeDetailsAction.emit(localItem)
+                    }
+                },
+                actionName = {
+                    viewModelScope.launch {
+                        putResponses(true)
+                        localItem.russian = it
+                        _pageAnimeDetailsAction.emit(localItem)
+                    }
+                })
         }
+    }
 
     private fun getSeries(malId: Long, name: String) {
         viewModelScope.launch(Dispatchers.IO) {

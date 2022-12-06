@@ -11,12 +11,32 @@ import io.reactivex.Single
 
 interface AnimeApi {
 
+
+    /**
+     * Getting count of Episodes of Anime
+     *
+     * @param malId - id of anime
+     * @param name - name of anime
+     *
+     * @return Response of Integer
+     * */
     @GET("/api/anime/episodes")
     suspend fun getEpisodes(
         @Query("id") malId: Long,
         @Query("name") name: String
     ): Response<Int>
 
+    /**
+     * Getting Video Episode of Anime
+     *
+     * @param malId - id of anime
+     * @param name - name of anime
+     * @param episode - episode count
+     * @param hostingId - id of hosting
+     * @param translationType - kind anime
+     *
+     * @return Response list of TranslationResponse
+     * */
     @GET("/api/anime/query")
     suspend fun getVideo(
     @Query("id") malId: Long,
@@ -33,7 +53,7 @@ interface AnimeApi {
      * @param limit - limit of the posters
      * @param censored - not 18+ rating
      *
-     * @return Observable list of Anime Posters
+     * @return Response list of Anime Posters
      * */
     @GET("api/animes")
     suspend fun getSearchPosters(
@@ -138,6 +158,14 @@ interface AnimeApi {
         @Path(value = "id") id: Int
     ): Response<CharacterDetailsResponse>
 
+
+    /**
+     * Getting details of Person
+     *
+     * @param id - id of person
+     *
+     * @return Response item of Person info
+     */
     @GET("api/people/{id}")
     suspend fun getPersons(
         @Path(value = "id") id: Int

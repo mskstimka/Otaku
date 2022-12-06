@@ -12,6 +12,16 @@ import com.example.animator_domain.models.poster.AnimePosterEntity
 
 interface AnimeRepository {
 
+    /**
+     * Getting Video Episode of Anime
+     *
+     * @param malId - id of anime
+     * @param name - name of anime
+     * @param episode - episode count
+     * @param kind - kind anime
+     *
+     * @return Results list of TranslationResponse
+     * */
     suspend fun getVideo(
         malId: Long,
         episode: Int,
@@ -19,14 +29,24 @@ interface AnimeRepository {
         kind: String
     ): Results<List<Translations>>
 
+
+    /**
+     * Getting count of Episodes of Anime
+     *
+     * @param malId - id of anime
+     * @param name - name of anime
+     *
+     * @return Results of Integer
+     * */
     suspend fun getSeries(malId: Long, name: String): Results<Int>
+
 
     /**
      * Getting Anime Posters from Search
      *
      * @param searchName - the search text
      *
-     * @return Observable list of Anime Posters
+     * @return Results list of Anime Posters
      */
     suspend fun getSearchPosters(searchName: String): Results<List<AnimePosterEntity>>
 
@@ -116,9 +136,34 @@ interface AnimeRepository {
         id: Int
     ): Results<PersonEntity>
 
+
+    /**
+     * Adding anime to Local Store
+     *
+     * @param item - entity of Anime Poster
+     */
     suspend fun addLocalFavorites(item: AnimePosterEntity)
+
+    /**
+     * Deleting anime in Local Store
+     *
+     * @param id - id of Anime
+     */
     suspend fun deleteLocalFavorites(id: Int)
+
+    /**
+     * Getting list of anime in to Local Store
+     *
+     * @return list of AnimePosterEntity
+     */
     fun getLocalFavorites(): List<AnimePosterEntity>
+
+    /**
+     * Checking anime to Local Store
+     *
+     * @param id - id of anime
+     */
     fun checkIsFavorite(id: Int): Boolean
+
 
 }

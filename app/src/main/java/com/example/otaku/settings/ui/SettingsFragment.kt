@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentSettingsBinding
 import com.example.otaku.utils.SharedPreferencesHelper
+import com.example.otaku.utils.TranslateUtils
 import com.example.otaku.utils.applyNewLocale
 import com.google.mlkit.common.model.DownloadConditions
 import com.google.mlkit.nl.translate.TranslateLanguage
@@ -71,30 +72,15 @@ class SettingsFragment : Fragment() {
             sharedPreferencesHelper.setIsUkraineLanguage(
                 when (b) {
                     true -> true.also {
-                        requireContext().applyNewLocale(Locale("uk"))
-                        downloadLanguage()
+                        setLocale(it)
+                        TranslateUtils.downloadLanguage()
                     }
-                    else -> false.also {  requireContext().applyNewLocale(Locale("en")) }
+                    else -> false.also { setLocale(it) }
                 }
             )
         }
     }
 
-
-
-    private fun downloadLanguage() {
-        var conditions = DownloadConditions.Builder()
-            .requireWifi()
-            .build()
-
-        val options = TranslatorOptions.Builder()
-            .setSourceLanguage(TranslateLanguage.RUSSIAN)
-            .setTargetLanguage(TranslateLanguage.UKRAINIAN)
-            .build()
-        val translator = Translation.getClient(options)
-
-        translator.downloadModelIfNeeded(conditions)
-    }
 
     private fun setLocale(switch: Boolean) {
         val titleCheck = sharedPreferencesHelper.getIsUkraineTitle()

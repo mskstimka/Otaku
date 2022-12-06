@@ -17,7 +17,7 @@ interface AnimeDataSource {
      *
      * @param searchName - the search text
      *
-     * @return Observable list of Anime Posters
+     * @return Results list of Anime Posters
      */
     suspend fun getSearchPosters(searchName: String): Results<List<AnimePosterEntity>>
 
@@ -108,9 +108,32 @@ interface AnimeDataSource {
         id: Int
     ): Results<PersonEntity>
 
+    /**
+    * Adding anime to Local Store
+     *
+     * @param item - entity of Anime Poster
+     */
     suspend fun addLocalFavorites(item: AnimePosterEntity)
+
+    /**
+     * Deleting anime in Local Store
+     *
+     * @param id - id of Anime
+     */
     suspend fun deleteLocalFavorites(id: Int)
+
+    /**
+     * Getting list of anime in to Local Store
+     *
+     * @return list of AnimePosterEntity
+     */
     fun getLocalFavorites(): List<AnimePosterEntity>
+
+    /**
+     * Checking anime to Local Store
+     *
+     * @param id - id of anime
+     */
     fun checkIsFavorite(id: Int): Boolean
 
 }

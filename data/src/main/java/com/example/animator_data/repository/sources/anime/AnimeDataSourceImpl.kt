@@ -227,8 +227,7 @@ class AnimeDataSourceImpl(
         return shikimoriDAO.getAllPosters().localToListAnimePosterEntity()
     }
 
-    override fun checkIsFavorite(id: Int): Boolean =
-        getLocalFavorites().find { it.id == id } != null
-
-
+    override fun checkIsFavorite(id: Int): Boolean {
+        return getLocalFavorites().find { it.id == id } != null
+    }
 }

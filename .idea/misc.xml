@@ -64,13 +64,38 @@
         <entry key="..\:/EPAM/Android/animator/app/src/main/res/layout/layout_studios_info.xml" value="0.3625" />
         <entry key="..\:/EPAM/Android/animator/app/src/main/res/layout/web_fragment.xml" value="0.3614583333333333" />
         <entry key="..\:/EPAM/Android/animator/app/src/main/res/menu/navigation_bottom.xml" value="0.3625" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/drawable/icon_favorite_true.xml" value="0.3415" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/drawable/icon_home_gray.xml" value="0.3415" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/drawable/icon_manga_gray.xml" value="0.3415" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/drawable/icon_notification.xml" value="0.3415" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/drawable/icon_play.xml" value="0.3415" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/drawable/icon_setting_gray.xml" value="0.3415" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/drawable/icon_star.xml" value="0.3415" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/drawable/shadow_effect.xml" value="0.3415" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/drawable/splash_screen.xml" value="0.3415" />
         <entry key="..\:/Projects/Otaku/app/src/main/res/layout/dialog_setting_language.xml" value="0.3625" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/layout/fragment_details.xml" value="0.3625" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/layout/fragment_episodes.xml" value="0.3625" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/layout/fragment_home.xml" value="0.3625" />
         <entry key="..\:/Projects/Otaku/app/src/main/res/layout/fragment_manga.xml" value="0.3625" />
         <entry key="..\:/Projects/Otaku/app/src/main/res/layout/fragment_person.xml" value="0.3625" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/layout/fragment_search.xml" value="0.3625" />
         <entry key="..\:/Projects/Otaku/app/src/main/res/layout/fragment_settings.xml" value="0.3625" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/layout/item_details_characters.xml" value="0.3625" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/layout/item_details_screenshots.xml" value="0.3625" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/layout/item_home_genres_item.xml" value="0.3625" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/layout/item_home_genres_list.xml" value="0.3625" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/layout/item_home_poster.xml" value="0.3625" />
         <entry key="..\:/Projects/Otaku/app/src/main/res/layout/item_person_roles.xml" value="0.3625" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/layout/layout_characters_info.xml" value="0.3625" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/layout/layout_details_authors_info.xml" value="0.3625" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/layout/layout_details_info.xml" value="0.3625" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/layout/layout_details_screenshots_info.xml" value="0.3625" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/layout/layout_details_studios_info.xml" value="0.3625" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/layout/layout_details_videos_info.xml" value="0.3625" />
         <entry key="..\:/Projects/Otaku/app/src/main/res/layout/layout_person_info.xml" value="0.3625" />
         <entry key="..\:/Projects/Otaku/app/src/main/res/layout/layout_person_role.xml" value="0.3625" />
+        <entry key="..\:/Projects/Otaku/app/src/main/res/layout/spinner_text.xml" value="0.184375" />
         <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/drawable/icon_notification.xml" value="0.1" />
         <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/drawable/icon_setting_gray.xml" value="0.2935" />
         <entry key="..\:/Users/domot/Desktop/EPAM/Android/animator/app/src/main/res/drawable/image_effect.xml" value="0.3665" />

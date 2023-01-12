@@ -44,8 +44,8 @@
             style="@style/text_style_russian_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fragment_settings_tvFragmentSettingsTitle_text"
             android:layout_marginStart="0dp"
+            android:text="@string/fragment_settings_tvFragmentSettingsTitle_text"
             android:textColor="@color/title_color"
             android:textSize="@dimen/fragment_settings_tvFragmentSettingsTitle_textSize"
             app:layout_constraintEnd_toEndOf="parent"
@@ -76,15 +76,15 @@
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <TextView
-            style="@style/text_style_title_items"
             android:id="@+id/tvLanguageSettings"
+            style="@style/text_style_title_items"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:layout_marginStart="0dp"
-            android:textSize="12dp"
+            android:layout_marginTop="4dp"
             android:gravity=""
             android:text="@string/fragment_settings_tvLanguageSettings_text"
+            android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/glFragmentSearchLineEnd"
             app:layout_constraintStart_toStartOf="@+id/sFragmentSettingsUkraineLocale"
             app:layout_constraintTop_toBottomOf="@+id/sFragmentSettingsUkraineLocale" />
@@ -98,10 +98,35 @@
             android:layout_marginTop="20dp"
             android:text="@string/fragment_settings_sFragmentSettingsSearchCensored_text"
             app:layout_constraintEnd_toStartOf="@+id/glFragmentSearchLineEnd"
-
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/glFragmentSearchLineStart"
             app:layout_constraintTop_toBottomOf="@+id/tvLanguageSettings"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+
+        <Spinner
+            android:id="@+id/sThemeList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tvTheme"
+            android:gravity="end"
+            android:textSize="20sp"
+            android:theme="@style/SpinnerTheme"
+            app:layout_constraintEnd_toStartOf="@+id/glFragmentSearchLineEnd"
+            app:layout_constraintTop_toTopOf="@+id/tvTheme" />
+
+        <TextView
+            android:id="@+id/tvTheme"
+            style="@style/text_style_title_items"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity=""
+            android:text="Тема"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/sThemeList"
+            app:layout_constraintStart_toStartOf="@+id/glFragmentSearchLineStart"
+            app:layout_constraintTop_toBottomOf="@+id/sFragmentSettingsSearchCensored" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

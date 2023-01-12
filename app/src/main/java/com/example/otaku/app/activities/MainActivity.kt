@@ -2,9 +2,11 @@ package com.example.otaku.app.activities
 
 import android.content.Context
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -13,7 +15,7 @@ import com.example.animator_domain.AD_ID_ON_BACK_PRESSED
 import com.example.otaku.R
 import com.example.otaku.app.App
 import com.example.otaku.databinding.ActivityMainBinding
-import com.example.otaku.utils.SharedPreferencesHelper
+import com.example.animator_data.utils.SharedPreferencesHelper
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
@@ -31,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

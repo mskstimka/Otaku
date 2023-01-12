@@ -1,7 +1,9 @@
 package com.example.animator_data.repository
 
+import android.content.SharedPreferences
 import com.example.animator_data.repository.sources.anime.AnimeDataSource
 import com.example.animator_data.repository.sources.watch.WatchDataSource
+import com.example.animator_data.utils.SharedPreferencesHelper
 import com.example.animator_domain.common.Results
 import com.example.animator_domain.models.PersonEntity
 import com.example.animator_domain.models.characters.CharacterDetailsEntity
@@ -15,7 +17,8 @@ import com.example.animator_domain.repository.AnimeRepository
 
 class AnimeRepositoryImpl(
     private val animeDataSource: AnimeDataSource,
-    private val watchDataSourceImpl: WatchDataSource
+    private val watchDataSourceImpl: WatchDataSource,
+    private val sharedPreferencesHelper: SharedPreferencesHelper
 ) : AnimeRepository {
     override suspend fun getVideo(
         malId: Long,
@@ -33,7 +36,10 @@ class AnimeRepositoryImpl(
     }
 
     override suspend fun getSearchPosters(searchName: String): Results<List<AnimePosterEntity>> {
-        return animeDataSource.getSearchPosters(searchName = searchName)
+        return animeDataSource.getSearchPosters(
+            searchName = searchName,
+            isCensored = sharedPreferencesHelper.getIsCensoredSearch()
+        )
     }
 
     override suspend fun getDetails(id: Int): Results<AnimeDetailsEntity> {
@@ -53,7 +59,10 @@ class AnimeRepositoryImpl(
     }
 
     override suspend fun getGenrePosters(genreId: Int): Results<List<AnimePosterEntity>> {
-        return animeDataSource.getGenrePosters(genreId = genreId)
+        return animeDataSource.getGenrePosters(
+            genreId = genreId,
+            isCensored = sharedPreferencesHelper.getIsCensoredSearch()
+        )
     }
 
     override suspend fun getRandomPoster(
@@ -61,7 +70,11 @@ class AnimeRepositoryImpl(
         censored: Boolean,
         order: String
     ): Results<List<AnimePosterEntity>> {
-        return animeDataSource.getRandomPoster(limit = limit, censored = censored, order = order)
+        return animeDataSource.getRandomPoster(
+            limit = limit,
+            censored = sharedPreferencesHelper.getIsCensoredSearch(),
+            order = order
+        )
     }
 
     override suspend fun getCharacters(id: Int): Results<CharacterDetailsEntity> {

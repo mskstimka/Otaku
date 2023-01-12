@@ -39,7 +39,10 @@ class EpisodesFragment : Fragment() {
 
     private val episodesAdapter by lazy {
         EpisodesAdapter(
-            actionSearch = { actionSearch(it) },
+            actionSearch = {
+                actionSearch(it)
+                dViewModel.setLastEpisode(it)
+            },
             onBackPressed = { requireActivity().onBackPressed() }
         )
     }
@@ -84,6 +87,9 @@ class EpisodesFragment : Fragment() {
 
     private fun subscribesToFlow() = with(dViewModel) {
 
+        subscribeToFlow(flow = lastWatchEpisode, lifecycleOwner = viewLifecycleOwner) { episode ->
+            binding.root.scrollToPosition(episode)
+        }
         subscribeToFlow(
             flow = actionVideo,
             lifecycleOwner = viewLifecycleOwner
@@ -93,7 +99,7 @@ class EpisodesFragment : Fragment() {
                     EpisodesFragmentDirections.actionEpisodesFragmentToWebPlayerFragment(list.first().url)
                 )
             } else {
-                BannerUtils.showToast(
+                BannerUtils.showSnackBar(
                     binding.root, NOT_FOUND_TEXT, requireContext(), requireActivity().findViewById(
                         R.id.navBottom
                     )
@@ -108,7 +114,7 @@ class EpisodesFragment : Fragment() {
             mutableListOf<DisplayableItem>()
 
         list.add(ContainerEpisodeHeader {
-            BannerUtils.showToast(
+            BannerUtils.showSnackBar(
                 binding.root,
                 "Episodes: $count",
                 requireContext()

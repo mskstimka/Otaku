@@ -20,7 +20,6 @@ class ContainerCharacterInfoAdapter(private val onBackPressed: () -> Unit) :
         val binding =
             LayoutCharactersInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-
         return ParentAuthorsViewHolder(binding)
     }
 

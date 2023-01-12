@@ -19,7 +19,10 @@ interface AnimeDataSource {
      *
      * @return Results list of Anime Posters
      */
-    suspend fun getSearchPosters(searchName: String): Results<List<AnimePosterEntity>>
+    suspend fun getSearchPosters(
+        searchName: String,
+        isCensored: Boolean
+    ): Results<List<AnimePosterEntity>>
 
     /**
      * Getting Details of Anime on id
@@ -66,7 +69,7 @@ interface AnimeDataSource {
      * @return Results of list of Anime Posters or Results of error
     */
      */
-    suspend fun getGenrePosters(genreId: Int): Results<List<AnimePosterEntity>>
+    suspend fun getGenrePosters(genreId: Int, isCensored: Boolean): Results<List<AnimePosterEntity>>
 
 
     /**
@@ -109,7 +112,7 @@ interface AnimeDataSource {
     ): Results<PersonEntity>
 
     /**
-    * Adding anime to Local Store
+     * Adding anime to Local Store
      *
      * @param item - entity of Anime Poster
      */

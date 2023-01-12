@@ -3,7 +3,7 @@ package com.example.otaku.anime.details.info.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.animator_domain.usecases.*
-import com.example.otaku.utils.SharedPreferencesHelper
+import com.example.animator_data.utils.SharedPreferencesHelper
 
 class DetailsViewModelFactory(
     private val getAnimeDetailsFromIdUseCase: GetAnimeDetailsFromIdUseCase,

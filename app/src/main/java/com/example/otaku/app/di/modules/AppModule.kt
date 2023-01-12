@@ -7,7 +7,7 @@ import com.example.otaku.anime.details.info.ui.DetailsViewModelFactory
 import com.example.otaku.anime.details.persons.ui.PersonViewModelFactory
 import com.example.otaku.anime.home.ui.HomeViewModelFactory
 import com.example.otaku.anime.search.ui.SearchViewModelFactory
-import com.example.otaku.utils.SharedPreferencesHelper
+import com.example.animator_data.utils.SharedPreferencesHelper
 import dagger.Module
 import dagger.Provides
 
@@ -68,24 +68,24 @@ class AppModule(private val context: Context) {
 
     @Provides
     fun provideCharactersViewModelFactory(
-        getCharacterDetailsUseCase: GetCharacterDetailsUseCase
+        getCharacterDetailsUseCase: GetCharacterDetailsUseCase,
+        sharedPreferencesHelper: SharedPreferencesHelper
     ): CharactersViewModelFactory {
         return CharactersViewModelFactory(
-            getCharacterDetailsUseCase = getCharacterDetailsUseCase
+            getCharacterDetailsUseCase = getCharacterDetailsUseCase,
+            sharedPreferencesHelper = sharedPreferencesHelper
         )
     }
 
     @Provides
     fun providePersonViewModelFactory(
-        getPersonUseCase: GetPersonUseCase
+        getPersonUseCase: GetPersonUseCase,
+        sharedPreferencesHelper: SharedPreferencesHelper
     ): PersonViewModelFactory {
-        return PersonViewModelFactory(getPersonUseCase = getPersonUseCase)
+        return PersonViewModelFactory(
+            getPersonUseCase = getPersonUseCase,
+            sharedPreferencesHelper = sharedPreferencesHelper
+        )
     }
-
-    @Provides
-    fun provideSharedPreference(): SharedPreferencesHelper {
-        return SharedPreferencesHelper(context)
-    }
-
 
 }

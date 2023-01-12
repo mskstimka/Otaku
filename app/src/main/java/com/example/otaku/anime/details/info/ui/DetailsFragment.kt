@@ -242,7 +242,7 @@ class DetailsFragment : Fragment() {
             flow = actionError,
             lifecycleOwner = viewLifecycleOwner
         ) { message ->
-            BannerUtils.showToast(
+            BannerUtils.showSnackBar(
                 binding.root,
                 message,
                 requireContext()

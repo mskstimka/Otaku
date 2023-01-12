@@ -1,16 +1,35 @@
-package com.example.otaku.utils
+package com.example.animator_data.utils
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import com.example.animator_domain.*
 
-class SharedPreferencesHelper(context: Context) {
+class SharedPreferencesHelper(private val context: Context) {
 
     private val sharedPreference by lazy {
         context.getSharedPreferences(
             SHARED_PREF_SETTINGS,
             AppCompatActivity.MODE_PRIVATE
         )
+    }
+
+    fun setIsCensoredSearch(switch: Boolean) {
+        return sharedPreference.edit().putBoolean(IS_CENSORED_SEARCH, switch).apply()
+    }
+
+    fun getIsCensoredSearch(): Boolean {
+        return sharedPreference.getBoolean(IS_CENSORED_SEARCH, true)
+    }
+
+    fun setDayNightTheme(themeId: Int) {
+        when (themeId) {
+            IS_DAY_THEME, IS_NIGHT_THEME, IS_AUTO_THEME -> sharedPreference.edit()
+                .putInt(IS_DAY_NIGHT_THEME, themeId).apply()
+        }
+    }
+
+    fun getDayNightTheme(): Int {
+        return sharedPreference.getInt(IS_DAY_NIGHT_THEME, IS_AUTO_THEME)
     }
 
     fun setIsShowNotification(switch: Boolean) {

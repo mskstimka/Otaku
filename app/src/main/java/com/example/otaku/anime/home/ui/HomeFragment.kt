@@ -50,7 +50,7 @@ class HomeFragment : Fragment() {
 
     init {
         posterAdapter.submitList(listOf(ContainerPoster {
-            BannerUtils.showToast(
+            BannerUtils.showSnackBar(
                 binding.root,
                 "...",
                 requireContext(),
@@ -109,7 +109,7 @@ class HomeFragment : Fragment() {
             flow = actionError,
             lifecycleOwner = viewLifecycleOwner
         ) { message ->
-            BannerUtils.showToast(
+            BannerUtils.showSnackBar(
                 binding.root,
                 message,
                 requireContext(),

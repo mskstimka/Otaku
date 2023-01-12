@@ -1,8 +1,10 @@
 package com.example.otaku.anime.details.episodes.adapters
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.ui.graphics.Color
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -75,6 +77,9 @@ class EpisodesAdapter(
                 actionSearch(item.episode)
             }
 
+            if (item.isLast) {
+                root.setBackgroundColor(R.color.black)
+            }
             root.text = root.context.getString(
                 R.string.fragment_episodes_item_text,
                 item.episode.toString()

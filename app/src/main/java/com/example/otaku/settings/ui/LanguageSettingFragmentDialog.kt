@@ -1,8 +1,5 @@
 package com.example.otaku.settings.ui
 
-import android.app.AlertDialog
-import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +8,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.otaku.R
 import com.example.otaku.app.App
 import com.example.otaku.databinding.DialogSettingLanguageBinding
-import com.example.otaku.utils.SharedPreferencesHelper
+import com.example.animator_data.utils.SharedPreferencesHelper
 import javax.inject.Inject
 
 
@@ -58,6 +55,8 @@ class LanguageSettingFragmentDialog : DialogFragment() {
 
         sIsTitle.isChecked =
             sharedPreferencesHelper.getIsUkraineTitle()
+
+        sIsTitle.isClickable = false
 
         sIsName.setOnCheckedChangeListener { _, b ->
             sharedPreferencesHelper.setIsUkraineName(

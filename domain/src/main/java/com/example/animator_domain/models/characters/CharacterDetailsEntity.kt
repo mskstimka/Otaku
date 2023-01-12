@@ -10,13 +10,13 @@ import com.example.animator_domain.models.poster.AnimePosterEntity
 data class CharacterDetailsEntity(
     val id: Long,
     val name: String,
-    val nameRu: String?,
+    var nameRu: String?,
     val image: Image,
     val url: String,
     val nameAlt: String?,
     val nameJp: String?,
     val description: String?,
-    val description_html: String,
+    var description_html: String,
     val seyu: List<Person>,
     val animes: List<AnimeDetailsFranchisesEntity>
 )

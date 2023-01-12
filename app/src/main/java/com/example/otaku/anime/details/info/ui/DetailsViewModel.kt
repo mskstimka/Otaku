@@ -2,7 +2,6 @@ package com.example.otaku.anime.details.info.ui
 
 import android.util.Log
 import android.widget.ProgressBar
-import androidx.core.text.parseAsHtml
 import androidx.lifecycle.*
 import com.example.otaku.anime.details.info.adapters.franchises.ContainerFranchises
 import com.example.otaku.anime.details.info.adapters.screenshots.ContainerScreenshots
@@ -12,12 +11,8 @@ import com.example.animator_domain.models.details.Translations
 import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.animator_domain.models.poster.AnimePosterEntity
 import com.example.animator_domain.usecases.*
-import com.example.otaku.utils.SharedPreferencesHelper
+import com.example.animator_data.utils.SharedPreferencesHelper
 import com.example.otaku.utils.TranslateUtils
-import com.google.mlkit.common.model.DownloadConditions
-import com.google.mlkit.nl.translate.TranslateLanguage
-import com.google.mlkit.nl.translate.Translation
-import com.google.mlkit.nl.translate.TranslatorOptions
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -33,11 +28,14 @@ class DetailsViewModel(
     private val deleteFavoritesUseCase: DeleteFavoritesUseCase,
     private val addFavoritesUseCase: AddFavoritesUseCase,
     private val checkIsFavoriteUseCase: CheckIsFavoriteUseCase,
-    sharedPreferencesHelper: SharedPreferencesHelper
+    private val sharedPreferencesHelper: SharedPreferencesHelper
 ) : ViewModel() {
 
     private val _actionError = MutableSharedFlow<String>(replay = 1)
     val actionError: SharedFlow<String> get() = _actionError
+
+    private val _lastWatchEpisode = MutableSharedFlow<Int>(replay = 1)
+    val lastWatchEpisode: SharedFlow<Int> get() = _lastWatchEpisode
 
     private val _pageAnimeDetailsAction = MutableSharedFlow<AnimeDetailsEntity>(replay = 1)
     val pageAnimeDetailsAction: SharedFlow<AnimeDetailsEntity> get() = _pageAnimeDetailsAction
@@ -86,6 +84,12 @@ class DetailsViewModel(
     fun checkIsFavorite(id: Int): Boolean {
         return runBlocking(Dispatchers.IO) {
             return@runBlocking checkIsFavoriteUseCase.execute(id = id)
+        }
+    }
+
+    fun setLastEpisode(episode: Int) {
+        viewModelScope.launch {
+            _lastWatchEpisode.emit(episode)
         }
     }
 

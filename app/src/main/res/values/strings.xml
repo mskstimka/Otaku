@@ -87,4 +87,15 @@
     <string name="dialog_setting_language_tvTitle_text">Выбор перевода</string>
     <string name="layout_person_role_tvTitle_text">Работы</string>
 
+    <string name="day_mode">Светлая</string>
+    <string name="night_mode">Темная</string>
+    <string name="auto_mode">Системная</string>
+    <string-array name="themes">
+        <item>@string/day_mode</item>
+        <item>@string/night_mode</item>
+        <item>@string/auto_mode</item>
+    </string-array>
+
+    <string name="theme_message">Для завершения изменений перезагрузите приложение!</string>
+
 </resources>

@@ -10,7 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 
 object BannerUtils {
 
-    fun showToast(
+    fun showSnackBar(
         view: View,
         message: String,
         context: Context,

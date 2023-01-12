@@ -1,21 +1,19 @@
 package com.example.otaku.settings.ui
 
-import android.app.AlertDialog
 import android.content.res.Configuration
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
+import com.example.otaku.R
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentSettingsBinding
-import com.example.otaku.utils.SharedPreferencesHelper
+import com.example.otaku.utils.BannerUtils
+import com.example.animator_data.utils.SharedPreferencesHelper
 import com.example.otaku.utils.TranslateUtils
-import com.example.otaku.utils.applyNewLocale
-import com.google.mlkit.common.model.DownloadConditions
-import com.google.mlkit.nl.translate.TranslateLanguage
-import com.google.mlkit.nl.translate.Translation
-import com.google.mlkit.nl.translate.TranslatorOptions
 import java.util.*
 import javax.inject.Inject
 
@@ -41,9 +39,41 @@ class SettingsFragment : Fragment() {
         return binding.root
     }
 
+
     private fun bindView() = with(binding) {
 
+        sThemeList.apply {
+            adapter = ArrayAdapter(
+                requireContext(),
+                R.layout.spinner_text, resources.getStringArray(R.array.themes)
+            )
 
+            setSelection(sharedPreferencesHelper.getDayNightTheme(), false)
+
+            onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?, position: Int, id: Long
+                ) {
+                    sharedPreferencesHelper.setDayNightTheme(position)
+
+                    BannerUtils.showSnackBar(
+                        binding.root,
+                        getString(R.string.theme_message),
+                        requireContext(),
+                        requireActivity().findViewById(R.id.navBottom)
+                    )
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
+            }
+
+
+        }
         val settingsLanguage = LanguageSettingFragmentDialog()
 
         tvLanguageSettings.setOnClickListener {
@@ -51,14 +81,24 @@ class SettingsFragment : Fragment() {
                 settingsLanguage.show(requireActivity().supportFragmentManager, "Settings Language")
             }
         }
+
+        sFragmentSettingsSearchCensored.isChecked =
+            !sharedPreferencesHelper.getIsCensoredSearch()
+
         sFragmentSettingsNotificationPush.isChecked =
             sharedPreferencesHelper.getIsShowNotification()
-
 
         sFragmentSettingsUkraineLocale.isChecked =
             sharedPreferencesHelper.getIsUkraineLanguage()
 
-
+        sFragmentSettingsSearchCensored.setOnCheckedChangeListener { _, b ->
+            sharedPreferencesHelper.setIsCensoredSearch(
+                when (b) {
+                    true -> false
+                    false -> true
+                }
+            )
+        }
         sFragmentSettingsNotificationPush.setOnCheckedChangeListener { _, b ->
             sharedPreferencesHelper.setIsShowNotification(
                 when (b) {

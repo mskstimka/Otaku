@@ -105,7 +105,7 @@ class SearchFragment : Fragment() {
         }
 
         subscribeToFlow(lifecycleOwner = viewLifecycleOwner, flow = actionError) { message ->
-            BannerUtils.showToast(
+            BannerUtils.showSnackBar(
                 binding.root,
                 message,
                 requireContext(),

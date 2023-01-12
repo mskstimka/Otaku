@@ -9,6 +9,7 @@ import com.example.animator_data.repository.sources.anime.AnimeDataSource
 import com.example.animator_data.repository.sources.anime.AnimeDataSourceImpl
 import com.example.animator_data.repository.sources.watch.WatchDataSource
 import com.example.animator_data.repository.sources.watch.WatchDataSourceImpl
+import com.example.animator_data.utils.SharedPreferencesHelper
 import com.example.animator_domain.SHIKIMORI_URL
 import com.example.animator_domain.SHIMORI_URL
 import com.example.animator_domain.repository.AnimeRepository
@@ -77,6 +78,10 @@ class DataModule(private val context: Context) {
         return WatchDataSourceImpl(retrofit.create(AnimeApi::class.java))
     }
 
+    @Provides
+    fun provideSharedPreference(): SharedPreferencesHelper {
+        return SharedPreferencesHelper(context)
+    }
 
     @Provides
     fun provideShikimoriDataBase(): ShikimoriDAO {
@@ -86,11 +91,13 @@ class DataModule(private val context: Context) {
     @Provides
     fun provideAnimeRepository(
         animeDataSource: AnimeDataSource,
-        watchDataSourceImpl: WatchDataSource
+        watchDataSourceImpl: WatchDataSource,
+        sharedPreferencesHelper: SharedPreferencesHelper
     ): AnimeRepository {
         return AnimeRepositoryImpl(
             animeDataSource = animeDataSource,
-            watchDataSourceImpl = watchDataSourceImpl
+            watchDataSourceImpl = watchDataSourceImpl,
+            sharedPreferencesHelper = sharedPreferencesHelper
         )
     }
 }

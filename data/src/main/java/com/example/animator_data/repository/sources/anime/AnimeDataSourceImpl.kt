@@ -18,9 +18,12 @@ class AnimeDataSourceImpl(
 ) : AnimeDataSource {
 
 
-    override suspend fun getSearchPosters(searchName: String): Results<List<AnimePosterEntity>> {
+    override suspend fun getSearchPosters(
+        searchName: String,
+        isCensored: Boolean
+    ): Results<List<AnimePosterEntity>> {
         return try {
-            val response = animeApi.getSearchPosters(search = searchName)
+            val response = animeApi.getSearchPosters(search = searchName, censored = isCensored)
             if (response.isSuccessful) {
                 val item = response.body()!!.toListAnimePosterEntity()
                 Results.Success(data = item)
@@ -104,10 +107,13 @@ class AnimeDataSourceImpl(
         }
     }
 
-    override suspend fun getGenrePosters(genreId: Int): Results<List<AnimePosterEntity>> {
+    override suspend fun getGenrePosters(
+        genreId: Int,
+        isCensored: Boolean
+    ): Results<List<AnimePosterEntity>> {
 
         return try {
-            val response = animeApi.getGenrePosters(genreId = genreId)
+            val response = animeApi.getGenrePosters(genreId = genreId, censored = isCensored)
 
             when (response.isSuccessful) {
                 true -> {
@@ -116,7 +122,7 @@ class AnimeDataSourceImpl(
                 }
                 false -> {
                     if (response.code() == 429) {
-                        getGenrePosters(genreId)
+                        getGenrePosters(genreId, isCensored = isCensored)
                     } else {
                         Results.Error(exception = Exception(response.message()))
                     }
@@ -135,7 +141,7 @@ class AnimeDataSourceImpl(
     ): Results<List<AnimePosterEntity>> {
 
         return try {
-            val response = animeApi.getRandom()
+            val response = animeApi.getRandom(censored = censored)
 
             when (response.isSuccessful) {
                 true -> {
@@ -145,7 +151,7 @@ class AnimeDataSourceImpl(
                 }
                 false -> {
                     if (response.code() == 429) {
-                        getRandomPoster(1, true, "random")
+                        getRandomPoster(1, censored, "random")
                     } else
                         Results.Error(exception = Exception(response.message()))
                 }

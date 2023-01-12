@@ -93,7 +93,13 @@ class CharactersFragment : Fragment() {
             personAdapter.submitList(listOf(ContainerPerson(item.seyu, title = "Сейю")))
             franchisesAdapter.submitList(listOf(ContainerFranchises(list = item.animes)))
 
-            binding.pbLoading.visibility = View.GONE
+        }
+
+        subscribeToFlow(
+            flow = actionAdapter,
+            lifecycleOwner = viewLifecycleOwner
+        ) { visibility ->
+            binding.pbLoading.visibility = visibility
             initAdapters()
         }
 
@@ -101,7 +107,7 @@ class CharactersFragment : Fragment() {
             flow = actionError,
             lifecycleOwner = viewLifecycleOwner
         ) { message ->
-            BannerUtils.showToast(
+            BannerUtils.showSnackBar(
                 binding.root,
                 message,
                 requireContext()

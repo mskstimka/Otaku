@@ -82,8 +82,7 @@ class PersonFragment : Fragment() {
             flow = actionInfo,
             lifecycleOwner = viewLifecycleOwner
         ) { item ->
-            binding.pbLoading.visibility = View.GONE
-            initAdapters()
+
             infoAdapter.submitList(listOf(ContainerPersonInfo(item = item)))
 
             if (item.works.isNotEmpty()) {
@@ -95,10 +94,18 @@ class PersonFragment : Fragment() {
         }
 
         subscribeToFlow(
+            flow = actionAdapter,
+            lifecycleOwner = viewLifecycleOwner
+        ) { visibility ->
+            binding.pbLoading.visibility = visibility
+            initAdapters()
+        }
+
+        subscribeToFlow(
             flow = actionError,
             lifecycleOwner = viewLifecycleOwner
         ) { message ->
-            BannerUtils.showToast(
+            BannerUtils.showSnackBar(
                 binding.root,
                 message,
                 requireContext()

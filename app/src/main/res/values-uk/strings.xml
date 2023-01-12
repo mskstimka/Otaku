@@ -92,4 +92,10 @@
     <string name="dialog_setting_language_tvTitle_text">Вибір перекладу</string>
     <string name="layout_person_role_tvTitle_text">Роботи</string>
 
+    <string name="day_mode">Світла</string>
+    <string name="night_mode">Темна</string>
+    <string name="auto_mode">Системна</string>
+
+    <string name="theme_message">Для завершення змін перезагрузіть додаток!</string>
+
 </resources>

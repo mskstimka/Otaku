@@ -126,7 +126,6 @@
             app:layout_constraintEnd_toStartOf="@+id/sThemeList"
             app:layout_constraintStart_toStartOf="@+id/glFragmentSearchLineStart"
             app:layout_constraintTop_toBottomOf="@+id/sFragmentSettingsSearchCensored" />
-
-
+        
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

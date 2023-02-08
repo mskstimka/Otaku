@@ -98,4 +98,7 @@
 
     <string name="theme_message">Для завершення змін перезагрузіть додаток!</string>
 
+    <string name="message_ukraine_language">Увага! Ця функція під Бета-тестуванням! Переклад у деяких місцях може бути неправильним!</string>
+
+
 </resources>

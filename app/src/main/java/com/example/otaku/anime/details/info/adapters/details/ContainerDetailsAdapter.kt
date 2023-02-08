@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
@@ -19,6 +20,7 @@ import com.example.animator_domain.NOT_FOUND_TEXT
 import com.example.animator_domain.SHIKIMORI_URL
 import com.example.animator_domain.models.details.AnimeDetailsEntity
 import com.example.animator_domain.models.poster.AnimePosterEntity
+import com.example.otaku.utils.BannerUtils
 
 class ContainerDetailsAdapter(
     private val onBackPressed: () -> Unit,
@@ -37,12 +39,14 @@ class ContainerDetailsAdapter(
         val binding =
             LayoutDetailsInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        binding.rvGenre.adapter = genresAdapter
-        binding.rvGenre.layoutManager =
-            LinearLayoutManager(parent.context, RecyclerView.HORIZONTAL, false)
+        with(binding) {
+            rvGenre.adapter = genresAdapter
+            rvGenre.layoutManager =
+                LinearLayoutManager(parent.context, RecyclerView.HORIZONTAL, false)
 
-        binding.ivBackPressed.setOnClickListener {
-            onBackPressed()
+            ivBackPressed.setOnClickListener {
+                onBackPressed()
+            }
         }
 
         return ParentDetailsViewHolder(binding)
@@ -119,6 +123,11 @@ class ContainerDetailsAdapter(
                     )
                 }
             }
+
+            tvTitle.setOnLongClickListener(View.OnLongClickListener {
+                BannerUtils.showSnackBar(root, "Copied", root.context)
+                return@OnLongClickListener false
+            })
 
             genresAdapter.submitList(item.genres)
         }

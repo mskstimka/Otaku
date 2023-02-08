@@ -13,6 +13,9 @@ import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentSettingsBinding
 import com.example.otaku.utils.BannerUtils
 import com.example.animator_data.utils.SharedPreferencesHelper
+import com.example.animator_domain.IS_AUTO_THEME
+import com.example.animator_domain.IS_DAY_THEME
+import com.example.animator_domain.IS_NIGHT_THEME
 import com.example.otaku.utils.TranslateUtils
 import java.util.*
 import javax.inject.Inject
@@ -56,8 +59,13 @@ class SettingsFragment : Fragment() {
                     parent: AdapterView<*>?,
                     view: View?, position: Int, id: Long
                 ) {
+//                    when (position) {
+//                        IS_DAY_THEME -> requireActivity().setTheme(R.style.AnimatorMaterial3_Day)
+//                        IS_NIGHT_THEME -> requireActivity().setTheme(R.style.AnimatorMaterial3_Night)
+//                        IS_AUTO_THEME -> requireActivity().setTheme(R.style.AnimatorMaterial3)
+//                    }
                     sharedPreferencesHelper.setDayNightTheme(position)
-
+//
                     BannerUtils.showSnackBar(
                         binding.root,
                         getString(R.string.theme_message),

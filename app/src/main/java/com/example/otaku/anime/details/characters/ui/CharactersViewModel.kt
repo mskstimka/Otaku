@@ -25,7 +25,7 @@ class CharactersViewModel(
     private val _actionInfo = MutableSharedFlow<CharacterDetailsEntity>(replay = 1)
     val actionInfo: SharedFlow<CharacterDetailsEntity> get() = _actionInfo
 
-    private val _actionAdapter = MutableSharedFlow<Int>()
+    private val _actionAdapter = MutableSharedFlow<Int>(replay = 1)
     val actionAdapter: SharedFlow<Int> get() = _actionAdapter
 
     private val responses = mutableListOf<Boolean>()

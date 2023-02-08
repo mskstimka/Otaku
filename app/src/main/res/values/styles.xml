@@ -160,6 +160,18 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/isLightTheme</item>
     </style>
 
+    <style name="AnimatorMaterial3_Night" parent="@style/Theme.Material3.Dark.NoActionBar">
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="android:colorPrimaryDark">@color/activity_background_color_night</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/isLightTheme</item>
+    </style>
+
+    <style name="AnimatorMaterial3_Day" parent="@style/Theme.Material3.Light.NoActionBar">
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="android:colorPrimaryDark">@color/activity_background_color_light</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/isLightTheme</item>
+    </style>
+
     <style name="AppSearchView" parent="Widget.AppCompat.SearchView">
         <item name="android:fontFamily">@font/open_sans_light</item>
     </style>

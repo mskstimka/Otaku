@@ -61,6 +61,8 @@ dependencies {
 
     implementation 'com.google.mlkit:translate:17.0.1'
 
+    // gif view
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.25'
 
     implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha02'
 

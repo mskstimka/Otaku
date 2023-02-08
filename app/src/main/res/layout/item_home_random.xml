@@ -46,12 +46,12 @@
         android:layout_width="@dimen/item_home_random_ivItemHomeRandomRefresh_layout_width"
         android:layout_height="@dimen/item_home_random_ivItemHomeRandomRefresh_layout_height"
         android:layout_marginTop="@dimen/item_home_random_ivItemHomeRandomRefresh_layout_marginTop"
-        android:layout_marginEnd="@dimen/item_home_random_ivItemHomeRandomRefresh_layout_marginEnd"
         android:contentDescription="@string/item_home_random_ivItemHomeRandomRefresh_contentDescription"
         android:src="@drawable/icon_refresh"
         app:layout_constraintBottom_toTopOf="@+id/rvItemHomeRandomScreenshots"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/tvItemHomeRandomTitle"
@@ -61,16 +61,16 @@
         android:layout_margin="0dp"
         android:drawablePadding="@dimen/item_home_random_tvItemHomeRandomTitle"
         android:gravity="center"
+        android:paddingStart="@dimen/item_home_random_ivItemHomeRandomRefresh_layout_width"
         android:text="@string/item_home_random_tvItemHomeRandomTitle_text"
         android:textSize="@dimen/item_home_random_tvItemHomeRandomTitle_textSize"
         android:textStyle="normal"
-        app:drawableLeftCompat="@drawable/icon_dots"
         app:layout_constraintBottom_toBottomOf="@+id/ivItemHomeRandomRefresh"
         app:layout_constraintEnd_toStartOf="@+id/ivItemHomeRandomRefresh"
-        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="@+id/ivItemHomeRandomRefresh" />
-
+        app:layout_constraintTop_toTopOf="@+id/ivItemHomeRandomRefresh"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvItemHomeRandomName"

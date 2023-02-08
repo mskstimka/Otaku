@@ -67,7 +67,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
         app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
-        app:layout_constraintTop_toBottomOf="@+id/sIsDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMessage" />
 
     <Switch
         android:id="@+id/sIsName"
@@ -82,6 +82,19 @@
         app:layout_constraintTop_toBottomOf="@+id/sIsTitle"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
+    <TextView
+        android:id="@+id/tvMessage"
+        style="@style/text_style_light"
+        android:layout_width="0dp"
+        android:layout_marginTop="16sp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="4"
+        android:textColor="@color/ukraine_message_color"
+        android:text="@string/message_ukraine_language"
+        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toBottomOf="@+id/sIsDescription" />
     <Switch
         android:id="@+id/sIsDescription"
         style="@style/text_style_light"

@@ -29,23 +29,8 @@ class MangaFragment : Fragment() {
     ): View {
         _binding = FragmentMangaBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
-        initWebView()
+//        initWebView()
         return binding.root
     }
 
-    private fun initWebView() = binding.root.apply {
-        webChromeClient = WebChromeClient()
-
-        settings.apply {
-            setAppCacheEnabled(true)
-            cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
-            javaScriptEnabled = true
-            domStorageEnabled = true
-            allowUniversalAccessFromFileURLs = true
-            javaScriptCanOpenWindowsAutomatically = false
-        }
-
-
-        loadUrl("https://mangalib.me/")
-    }
 }

@@ -16,6 +16,9 @@
     <color name="title_color">#000000</color>
     <color name="activity_background_color">#DCC1EA</color>
     <color name="not_shadow_color">#00FFFFFF</color>
+    <color name="activity_background_color_light">#DCC1EA</color>
+    <color name="activity_background_color_night">#2E2333</color>
+
 
     <color name="language_settings_dialog">#F4EBF2</color>
 
@@ -28,4 +31,5 @@
     <color name="skeleton_color">#999999</color>
     <color name="yellow">#FFC107</color>
 
+    <color name="ukraine_message_color">#F87171</color>
 </resources>

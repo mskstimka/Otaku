@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.example.animator_domain.AD_ID_ON_BACK_PRESSED
+import com.example.domain.AD_ID_ON_BACK_PRESSED
 import com.example.otaku.R
 import com.example.otaku.app.App
 import com.example.otaku.databinding.ActivityMainBinding

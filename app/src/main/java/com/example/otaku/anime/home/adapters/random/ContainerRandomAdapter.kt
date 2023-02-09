@@ -13,8 +13,8 @@ import com.example.otaku.R
 import com.example.otaku.databinding.ItemHomeRandomBinding
 import com.example.otaku.anime.details.info.adapters.screenshots.ScreenshotsAdapter
 import com.example.otaku.utils.setImageByURL
-import com.example.animator_domain.SHIKIMORI_URL
-import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
+import com.example.domain.SHIKIMORI_URL
+import com.example.domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.otaku.anime.AnimeFragmentDirections
 
 class ContainerRandomAdapter(private val action: () -> Unit) :

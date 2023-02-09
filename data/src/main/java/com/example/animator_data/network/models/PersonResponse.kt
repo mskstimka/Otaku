@@ -1,7 +1,7 @@
 package com.example.animator_data.network.models
 
 import androidx.annotation.Keep
-import com.example.animator_domain.models.Image
+import com.example.domain.models.Image
 import com.google.gson.annotations.SerializedName
 import com.google.type.DateTime
 

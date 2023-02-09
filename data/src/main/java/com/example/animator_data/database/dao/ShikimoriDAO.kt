@@ -2,7 +2,6 @@ package com.example.animator_data.database.dao
 
 import androidx.room.*
 import com.example.animator_data.database.models.LocalAnimePosterEntity
-import com.example.animator_domain.models.poster.AnimePosterEntity
 
 @Dao
 interface ShikimoriDAO {

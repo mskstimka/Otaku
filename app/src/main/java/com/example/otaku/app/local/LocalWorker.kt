@@ -3,9 +3,8 @@ package com.example.otaku.app.local
 import android.content.Context
 import androidx.work.*
 import androidx.work.CoroutineWorker
-import com.example.animator_domain.*
-import com.example.animator_domain.models.home.PrevPoster
-import com.example.animator_domain.usecases.GetAnimePrevPosterFromGenreUseCase
+import com.example.domain.models.home.PrevPoster
+import com.example.domain.usecases.GetAnimePrevPosterFromGenreUseCase
 
 
 class LocalWorker(

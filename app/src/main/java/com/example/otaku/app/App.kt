@@ -10,8 +10,8 @@ import com.example.otaku.app.di.DaggerAppComponent
 import com.example.otaku.app.local.LocalWorker
 import com.example.otaku.app.local.LocalWorkerFactory
 import com.example.animator_data.di.DataModule
-import com.example.animator_domain.IS_DAY_THEME
-import com.example.animator_domain.IS_NIGHT_THEME
+import com.example.domain.IS_DAY_THEME
+import com.example.domain.IS_NIGHT_THEME
 import com.example.animator_data.utils.SharedPreferencesHelper
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector

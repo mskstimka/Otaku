@@ -2,7 +2,7 @@ package com.example.otaku.anime.home.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.animator_domain.usecases.*
+import com.example.domain.usecases.*
 
 
 class HomeViewModelFactory(

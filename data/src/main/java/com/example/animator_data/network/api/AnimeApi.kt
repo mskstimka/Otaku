@@ -1,13 +1,10 @@
 package com.example.animator_data.network.api
 
 import com.example.animator_data.network.models.*
-import com.example.animator_domain.common.Results
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import io.reactivex.Observable
-import io.reactivex.Single
 
 interface AnimeApi {
 

@@ -2,9 +2,7 @@ package com.example.animator_data.database.models
 
 import androidx.annotation.Keep
 import androidx.room.*
-import com.example.animator_domain.models.Image
-import com.example.animator_domain.models.poster.AnimePosterEntity
-import com.google.gson.annotations.SerializedName
+import com.example.domain.models.Image
 
 @Keep
 @Entity(tableName = "home_posters")

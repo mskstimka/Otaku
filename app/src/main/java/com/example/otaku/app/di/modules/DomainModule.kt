@@ -1,7 +1,7 @@
 package com.example.otaku.app.di.modules
 
-import com.example.animator_domain.repository.AnimeRepository
-import com.example.animator_domain.usecases.*
+import com.example.domain.repository.AnimeRepository
+import com.example.domain.usecases.*
 import dagger.Module
 import dagger.Provides
 

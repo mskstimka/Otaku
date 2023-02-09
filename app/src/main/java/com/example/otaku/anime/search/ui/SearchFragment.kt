@@ -8,7 +8,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.animator_domain.usecases.GetAnimePostersFromSearchUseCase
+import com.example.domain.usecases.GetAnimePostersFromSearchUseCase
 import com.example.otaku.R
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentSearchBinding

@@ -1,6 +1,6 @@
 
 
-rootProject.name = "animator"
+rootProject.name = "otaku"
 include ':app'
 include ':data'
 include ':domain'

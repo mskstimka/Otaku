@@ -2,7 +2,7 @@ package com.example.animator_data.utils
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
-import com.example.animator_domain.*
+import com.example.domain.*
 
 class SharedPreferencesHelper(private val context: Context) {
 

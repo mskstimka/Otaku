@@ -1,7 +1,7 @@
 package com.example.otaku.anime.details.info.adapters.studios
 
 import androidx.annotation.Keep
-import com.example.animator_domain.models.details.Studio
+import com.example.domain.models.details.Studio
 
 @Keep
 data class ContainerStudios(

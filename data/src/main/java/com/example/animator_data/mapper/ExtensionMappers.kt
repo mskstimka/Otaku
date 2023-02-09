@@ -2,19 +2,19 @@ package com.example.animator_data.mapper
 
 import com.example.animator_data.database.models.LocalAnimePosterEntity
 import com.example.animator_data.network.models.*
-import com.example.animator_domain.*
-import com.example.animator_domain.models.PersonEntity
-import com.example.animator_domain.models.SeyuWorks
-import com.example.animator_domain.models.WorkEntity
-import com.example.animator_domain.models.characters.CharacterDetailsEntity
-import com.example.animator_domain.models.details.AnimeDetailsEntity
-import com.example.animator_domain.models.details.Translations
-import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchisesEntity
-import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
-import com.example.animator_domain.models.details.roles.Character
-import com.example.animator_domain.models.details.roles.Person
-import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
-import com.example.animator_domain.models.poster.AnimePosterEntity
+import com.example.domain.*
+import com.example.domain.models.PersonEntity
+import com.example.domain.models.SeyuWorks
+import com.example.domain.models.WorkEntity
+import com.example.domain.models.characters.CharacterDetailsEntity
+import com.example.domain.models.details.AnimeDetailsEntity
+import com.example.domain.models.details.Translations
+import com.example.domain.models.details.franchise.AnimeDetailsFranchisesEntity
+import com.example.domain.models.details.roles.AnimeDetailsRolesEntity
+import com.example.domain.models.details.roles.Character
+import com.example.domain.models.details.roles.Person
+import com.example.domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
+import com.example.domain.models.poster.AnimePosterEntity
 
 
 fun AnimeDetailsEntityResponse.toAnimeDetailsEntity(): AnimeDetailsEntity = AnimeDetailsEntity(

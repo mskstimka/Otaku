@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.otaku.R
 import com.example.otaku.databinding.ItemPersonRolesBinding
 import com.example.otaku.utils.setImageByURL
-import com.example.animator_domain.NOT_FOUND_TEXT
-import com.example.animator_domain.SHIKIMORI_URL
-import com.example.animator_domain.models.WorkEntity
+import com.example.domain.NOT_FOUND_TEXT
+import com.example.domain.SHIKIMORI_URL
+import com.example.domain.models.WorkEntity
 
 class WorksAdapter(private val actionToDetails: (id: Int) -> Unit) :
     ListAdapter<WorkEntity, WorksAdapter.WorksViewHolder>(

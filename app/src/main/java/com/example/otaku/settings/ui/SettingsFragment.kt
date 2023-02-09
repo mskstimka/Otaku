@@ -13,9 +13,6 @@ import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentSettingsBinding
 import com.example.otaku.utils.BannerUtils
 import com.example.animator_data.utils.SharedPreferencesHelper
-import com.example.animator_domain.IS_AUTO_THEME
-import com.example.animator_domain.IS_DAY_THEME
-import com.example.animator_domain.IS_NIGHT_THEME
 import com.example.otaku.utils.TranslateUtils
 import java.util.*
 import javax.inject.Inject

@@ -5,7 +5,7 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.example.animator_domain.SINGLE_LIVE_EVENT_MESSAGE
+import com.example.domain.SINGLE_LIVE_EVENT_MESSAGE
 import java.util.concurrent.atomic.AtomicBoolean
 
 class SingleLiveEvent<T> : MutableLiveData<T>() {

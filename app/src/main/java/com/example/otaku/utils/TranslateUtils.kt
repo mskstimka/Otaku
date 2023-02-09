@@ -1,17 +1,13 @@
 package com.example.otaku.utils
 
 import androidx.core.text.parseAsHtml
-import androidx.lifecycle.viewModelScope
-import com.example.animator_domain.models.PersonEntity
-import com.example.animator_domain.models.characters.CharacterDetailsEntity
-import com.example.animator_domain.models.details.AnimeDetailsEntity
-import com.example.animator_domain.models.details.roles.Character
+import com.example.domain.models.PersonEntity
+import com.example.domain.models.characters.CharacterDetailsEntity
+import com.example.domain.models.details.AnimeDetailsEntity
 import com.google.mlkit.common.model.DownloadConditions
 import com.google.mlkit.nl.translate.TranslateLanguage
 import com.google.mlkit.nl.translate.Translation
 import com.google.mlkit.nl.translate.TranslatorOptions
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 object TranslateUtils {
 

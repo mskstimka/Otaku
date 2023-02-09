@@ -11,7 +11,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.example.animator_domain.NOT_FOUND_TEXT
+import com.example.domain.NOT_FOUND_TEXT
 import com.example.otaku.R
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentEpisodesBinding

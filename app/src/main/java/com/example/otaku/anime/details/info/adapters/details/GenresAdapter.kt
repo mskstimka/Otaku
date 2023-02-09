@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.animator_domain.models.details.Genre
+import com.example.domain.models.details.Genre
 import com.example.otaku.databinding.ItemDetailsGenresBinding
 import java.util.*
 

@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otaku.databinding.ItemFavoritesPostersBinding
 import com.example.otaku.utils.setImageByURL
-import com.example.animator_domain.SHIKIMORI_URL
-import com.example.animator_domain.models.poster.AnimePosterEntity
+import com.example.domain.SHIKIMORI_URL
+import com.example.domain.models.poster.AnimePosterEntity
 import com.example.otaku.anime.AnimeFragmentDirections
 
 

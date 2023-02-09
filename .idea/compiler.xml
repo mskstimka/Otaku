@@ -5,6 +5,8 @@
       <module name="animator.app" target="11" />
       <module name="animator.data" target="11" />
       <module name="data" target="11" />
+      <module name="otaku.app" target="11" />
+      <module name="otaku.data" target="11" />
       <module name="rxJava.app" target="11" />
       <module name="rxJava.data" target="11" />
     </bytecodeTargetLevel>

@@ -2,7 +2,7 @@ package com.example.otaku.app.di.modules
 
 import android.content.Context
 import com.example.otaku.anime.details.characters.ui.CharactersViewModelFactory
-import com.example.animator_domain.usecases.*
+import com.example.domain.usecases.*
 import com.example.otaku.anime.details.info.ui.DetailsViewModelFactory
 import com.example.otaku.anime.details.persons.ui.PersonViewModelFactory
 import com.example.otaku.anime.home.ui.HomeViewModelFactory

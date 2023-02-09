@@ -2,7 +2,7 @@ package com.example.otaku.anime.search.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.animator_domain.usecases.GetAnimePostersFromSearchUseCase
+import com.example.domain.usecases.GetAnimePostersFromSearchUseCase
 
 class SearchViewModelFactory(
     private val getAnimePostersFromSearchUseCase: GetAnimePostersFromSearchUseCase

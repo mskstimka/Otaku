@@ -1,9 +1,9 @@
 package com.example.animator_data.mapper
 
-import com.example.animator_domain.*
-import com.example.animator_domain.models.details.Genre
-import com.example.animator_domain.models.details.Studio
-import com.example.animator_domain.models.details.Video
+import com.example.domain.*
+import com.example.domain.models.details.Genre
+import com.example.domain.models.details.Studio
+import com.example.domain.models.details.Video
 
 object MapperUtils {
 

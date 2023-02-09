@@ -1,13 +1,13 @@
 package com.example.animator_data.repository.sources.anime
 
-import com.example.animator_domain.common.Results
-import com.example.animator_domain.models.PersonEntity
-import com.example.animator_domain.models.characters.CharacterDetailsEntity
-import com.example.animator_domain.models.details.AnimeDetailsEntity
-import com.example.animator_domain.models.details.franchise.AnimeDetailsFranchisesEntity
-import com.example.animator_domain.models.details.roles.AnimeDetailsRolesEntity
-import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
-import com.example.animator_domain.models.poster.AnimePosterEntity
+import com.example.domain.common.Results
+import com.example.domain.models.PersonEntity
+import com.example.domain.models.characters.CharacterDetailsEntity
+import com.example.domain.models.details.AnimeDetailsEntity
+import com.example.domain.models.details.franchise.AnimeDetailsFranchisesEntity
+import com.example.domain.models.details.roles.AnimeDetailsRolesEntity
+import com.example.domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
+import com.example.domain.models.poster.AnimePosterEntity
 
 
 interface AnimeDataSource {

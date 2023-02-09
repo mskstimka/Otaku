@@ -3,7 +3,7 @@ package com.example.otaku.anime.details.characters.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.animator_data.utils.SharedPreferencesHelper
-import com.example.animator_domain.usecases.*
+import com.example.domain.usecases.*
 
 class CharactersViewModelFactory(
     private val getCharacterDetailsUseCase: GetCharacterDetailsUseCase,

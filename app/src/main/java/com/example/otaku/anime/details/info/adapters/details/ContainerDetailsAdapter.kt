@@ -16,10 +16,10 @@ import com.example.otaku.R
 import com.example.otaku.databinding.LayoutDetailsInfoBinding
 import com.example.otaku.anime.details.info.ui.DetailsFragment
 import com.example.otaku.utils.setImageByURL
-import com.example.animator_domain.NOT_FOUND_TEXT
-import com.example.animator_domain.SHIKIMORI_URL
-import com.example.animator_domain.models.details.AnimeDetailsEntity
-import com.example.animator_domain.models.poster.AnimePosterEntity
+import com.example.domain.NOT_FOUND_TEXT
+import com.example.domain.SHIKIMORI_URL
+import com.example.domain.models.details.AnimeDetailsEntity
+import com.example.domain.models.poster.AnimePosterEntity
 import com.example.otaku.utils.BannerUtils
 
 class ContainerDetailsAdapter(

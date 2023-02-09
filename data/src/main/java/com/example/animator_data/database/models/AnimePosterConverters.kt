@@ -1,8 +1,7 @@
 package com.example.animator_data.database.models
 
 import androidx.room.TypeConverter
-import com.example.animator_domain.models.Image
-import com.example.animator_domain.models.poster.AnimePosterEntity
+import com.example.domain.models.Image
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

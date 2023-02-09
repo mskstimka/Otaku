@@ -4,10 +4,9 @@ import android.widget.ProgressBar
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.animator_data.utils.SharedPreferencesHelper
-import com.example.animator_domain.common.Results
-import com.example.animator_domain.models.PersonEntity
-import com.example.animator_domain.models.characters.CharacterDetailsEntity
-import com.example.animator_domain.usecases.GetPersonUseCase
+import com.example.domain.common.Results
+import com.example.domain.models.PersonEntity
+import com.example.domain.usecases.GetPersonUseCase
 import com.example.otaku.utils.TranslateUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow

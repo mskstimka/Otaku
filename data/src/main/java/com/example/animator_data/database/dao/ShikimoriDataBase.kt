@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.animator_data.database.models.AnimePosterConverters
 import com.example.animator_data.database.models.LocalAnimePosterEntity
-import com.example.animator_domain.DATABASE_SHIKIMORI
+import com.example.domain.DATABASE_SHIKIMORI
 import javax.inject.Singleton
 
 

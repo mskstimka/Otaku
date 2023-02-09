@@ -31,8 +31,8 @@ import com.example.otaku.anime.details.info.adapters.videos.ContainerVideosAdapt
 import com.example.otaku.anime.details.info.services.StatusForegroundService
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.subscribeToFlow
-import com.example.animator_domain.*
-import com.example.animator_domain.models.details.AnimeDetailsEntity
+import com.example.domain.*
+import com.example.domain.models.details.AnimeDetailsEntity
 import javax.inject.Inject
 
 

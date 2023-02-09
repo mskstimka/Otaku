@@ -10,9 +10,9 @@ import com.example.animator_data.repository.sources.anime.AnimeDataSourceImpl
 import com.example.animator_data.repository.sources.watch.WatchDataSource
 import com.example.animator_data.repository.sources.watch.WatchDataSourceImpl
 import com.example.animator_data.utils.SharedPreferencesHelper
-import com.example.animator_domain.SHIKIMORI_URL
-import com.example.animator_domain.SHIMORI_URL
-import com.example.animator_domain.repository.AnimeRepository
+import com.example.domain.SHIKIMORI_URL
+import com.example.domain.SHIMORI_URL
+import com.example.domain.repository.AnimeRepository
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides

@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.animator_domain.SHIKIMORI_URL
-import com.example.animator_domain.models.details.roles.Person
+import com.example.domain.SHIKIMORI_URL
+import com.example.domain.models.details.roles.Person
 import com.example.otaku.databinding.ItemDetailsAutorsBinding
 import com.example.otaku.utils.setImageByURL
-import com.example.animator_domain.NOT_FOUND_TEXT
+import com.example.domain.NOT_FOUND_TEXT
 
 
 class PersonAdapter(private val actionToPerson: (id: Int) -> Unit) :

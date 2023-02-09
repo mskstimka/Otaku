@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.animator_domain.SHIKIMORI_URL
-import com.example.animator_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
+import com.example.domain.SHIKIMORI_URL
+import com.example.domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.otaku.databinding.ItemDetailsScreenshotsBinding
 import com.example.otaku.utils.setImageByURL
 

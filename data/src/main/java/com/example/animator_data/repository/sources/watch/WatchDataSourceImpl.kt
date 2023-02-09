@@ -3,8 +3,8 @@ package com.example.animator_data.repository.sources.watch
 import android.util.Log
 import com.example.animator_data.mapper.toTranslations
 import com.example.animator_data.network.api.AnimeApi
-import com.example.animator_domain.common.Results
-import com.example.animator_domain.models.details.Translations
+import com.example.domain.common.Results
+import com.example.domain.models.details.Translations
 
 
 class WatchDataSourceImpl(

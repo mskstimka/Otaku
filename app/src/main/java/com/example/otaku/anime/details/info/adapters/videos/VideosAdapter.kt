@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otaku.databinding.ItemDetailsVideosBinding
 import com.example.otaku.utils.setImageByURL
-import com.example.animator_domain.models.details.Video
+import com.example.domain.models.details.Video
 
 
 class VideosAdapter(private val openActivity: (intent: Intent) -> Unit) :

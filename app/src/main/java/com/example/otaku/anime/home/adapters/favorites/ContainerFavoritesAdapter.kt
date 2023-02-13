@@ -31,7 +31,6 @@ class ContainerFavoritesAdapter :
     override fun onBindViewHolder(holder: ContainerFavoritesViewHolder, position: Int) =
         holder.bind(currentList[position])
 
-
     override fun getItemCount(): Int = currentList.size
 
     inner class ContainerFavoritesViewHolder(
@@ -43,7 +42,6 @@ class ContainerFavoritesAdapter :
             adapter.submitList(model.list)
         }
     }
-
 
     object ContainerFavoritesDiffCallback : DiffUtil.ItemCallback<ContainerFavorites>() {
         override fun areItemsTheSame(

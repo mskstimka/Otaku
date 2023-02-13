@@ -48,6 +48,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_detailsFragment_to_screenshotsFragment"
+            app:destination="@id/screenshotsFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -149,6 +152,18 @@
             app:destination="@id/settingsFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_animeFragment_to_screenshotsFragment"
+            app:destination="@id/screenshotsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/screenshotsFragment"
+        android:name="com.example.otaku.anime.details.screenshots.ScreenshotsFragment"
+        android:label="fragment_screenshots"
+        tools:layout="@layout/fragment_screenshots" >
+        <argument
+            android:name="photo"
+            app:argType="string" />
     </fragment>
 
 </navigation>

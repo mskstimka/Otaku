@@ -98,5 +98,7 @@
 
     <string name="theme_message">Для завершения изменений перезагрузите приложение!</string>
     <string name="message_ukraine_language">Внимание! Эта функция под Бета-тестированием! Перевод в некоторых местах может быть не корректным! </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -1,5 +1,7 @@
 package com.example.otaku.utils
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Build
@@ -23,7 +25,11 @@ fun ImageView.setImageStudioByURL(url: String) {
         .error(R.drawable.icon_studio_default).into(this)
 }
 
-
+fun Context.copyToClipboard(text: CharSequence){
+    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val clip = ClipData.newPlainText("label",text)
+    clipboard.setPrimaryClip(clip)
+}
 
 fun <T> ViewModel.subscribeToFlow(
     flow: SharedFlow<T>,

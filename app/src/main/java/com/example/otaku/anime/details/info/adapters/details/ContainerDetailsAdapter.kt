@@ -1,26 +1,30 @@
 package com.example.otaku.anime.details.info.adapters.details
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.otaku.R
-import com.example.otaku.databinding.LayoutDetailsInfoBinding
-import com.example.otaku.anime.details.info.ui.DetailsFragment
-import com.example.otaku.utils.setImageByURL
 import com.example.domain.NOT_FOUND_TEXT
 import com.example.domain.SHIKIMORI_URL
 import com.example.domain.models.details.AnimeDetailsEntity
 import com.example.domain.models.poster.AnimePosterEntity
+import com.example.otaku.R
+import com.example.otaku.anime.details.info.ui.DetailsFragment
+import com.example.otaku.databinding.LayoutDetailsInfoBinding
 import com.example.otaku.utils.BannerUtils
+import com.example.otaku.utils.copyToClipboard
+import com.example.otaku.utils.setImageByURL
 
 class ContainerDetailsAdapter(
     private val onBackPressed: () -> Unit,
@@ -125,7 +129,8 @@ class ContainerDetailsAdapter(
             }
 
             tvTitle.setOnLongClickListener(View.OnLongClickListener {
-                BannerUtils.showSnackBar(root, "Copied", root.context)
+                root.context.copyToClipboard(tvTitle.text)
+
                 return@OnLongClickListener false
             })
 

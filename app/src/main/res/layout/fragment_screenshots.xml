@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".anime.details.screenshots.ScreenshotsFragment">
 
+    <uk.co.senab.photoview.PhotoView
+        android:id="@+id/pvPhoto"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/ivBackPressed"
         android:layout_width="wrap_content"
@@ -13,15 +22,6 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/fragment_details_ivBackPressed_contentDescription"
         android:src="@drawable/icon_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <uk.co.senab.photoview.PhotoView
-        android:id="@+id/pvPhoto"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

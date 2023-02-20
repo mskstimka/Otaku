@@ -9,6 +9,7 @@ import com.example.otaku.anime.home.ui.HomeFragment
 import com.example.otaku.anime.search.ui.SearchFragment
 import com.example.otaku.settings.ui.SettingsFragment
 import com.example.animator_data.di.DataModule
+import com.example.otaku.agreement.UserAgreementFragmentDialog
 import com.example.otaku.app.activities.MainActivity
 import com.example.otaku.app.di.modules.AppModule
 import com.example.otaku.app.di.modules.DomainModule
@@ -28,6 +29,7 @@ interface AppComponent {
     fun inject(charactersFragment: CharactersFragment)
     fun inject(personFragment: PersonFragment)
     fun inject(languageSettingFragmentDialog: LanguageSettingFragmentDialog)
+    fun inject(userAgreementFragmentDialog: UserAgreementFragmentDialog)
     fun inject(mainActivity: MainActivity)
     fun inject(app: App)
 }

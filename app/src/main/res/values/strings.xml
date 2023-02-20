@@ -99,6 +99,8 @@
     <string name="theme_message">Для завершения изменений перезагрузите приложение!</string>
     <string name="message_ukraine_language">Внимание! Эта функция под Бета-тестированием! Перевод в некоторых местах может быть не корректным! </string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="user_agreement_title">Пользовательское соглашение</string>
+    <string name="user_agreement">Важно!\nВсе авторские права и товарные знаки принадлежат их авторам. Весь контент, представленный в приложении взят из ОТКРЫТЫХ источников в Интернете. Если Вы уверены, что какое-либо содержимое, отображаемое в приложении нарушает Ваши авторские права, немедленно сообщите об этом разработчику приложения.</string>
 
 </resources>

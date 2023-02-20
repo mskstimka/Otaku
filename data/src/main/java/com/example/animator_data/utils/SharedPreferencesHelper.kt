@@ -13,6 +13,14 @@ class SharedPreferencesHelper(private val context: Context) {
         )
     }
 
+    fun setIsShowUserAgreement(switch: Boolean) {
+        return sharedPreference.edit().putBoolean(IS_SHOW_USER_AGREEMENT, switch).apply()
+    }
+
+    fun getIsShowUserAgreement(): Boolean {
+        return sharedPreference.getBoolean(IS_SHOW_USER_AGREEMENT, true)
+    }
+
     fun setIsCensoredSearch(switch: Boolean) {
         return sharedPreference.edit().putBoolean(IS_CENSORED_SEARCH, switch).apply()
     }

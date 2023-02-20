@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -16,6 +17,8 @@ import com.example.otaku.R
 import com.example.otaku.app.App
 import com.example.otaku.databinding.ActivityMainBinding
 import com.example.animator_data.utils.SharedPreferencesHelper
+import com.example.otaku.agreement.UserAgreementFragmentDialog
+import com.example.otaku.settings.ui.LanguageSettingFragmentDialog
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
@@ -48,6 +51,21 @@ class MainActivity : AppCompatActivity() {
         loadAds()
 
         initNavigation()
+
+        showUserAgreement()
+    }
+
+    private fun showUserAgreement() = with(binding) {
+        val isShow = sharedPreferencesHelper.getIsShowUserAgreement()
+
+        if (isShow) {
+            val userAgreementDialog = UserAgreementFragmentDialog()
+
+            userAgreementDialog.apply {
+                isCancelable = false
+                show(supportFragmentManager, "User Agreement")
+            }
+        }
     }
 
 

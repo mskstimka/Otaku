@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
         android:fontFamily="@font/open_sans_medium"
-        android:text="Принимаю"
+        android:text="@string/user_agreement_submit"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"

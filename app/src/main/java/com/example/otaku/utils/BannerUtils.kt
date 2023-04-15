@@ -24,12 +24,6 @@ object BannerUtils {
         }
         snackBar.show()
 
-//        Toast.makeText(
-//            context,
-//            message,
-//            Toast.LENGTH_SHORT
-//        ).show()
-
     }
 
 }

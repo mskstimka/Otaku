@@ -10,7 +10,7 @@ import com.example.domain.models.details.roles.Person
 import com.example.domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 
 const val SHIMORI_URL = "https://shimori-us.herokuapp.com/"
-const val SHIKIMORI_URL = "https://shikimori.one/"
+const val SHIKIMORI_URL = "https://shikimori.me/"
 const val ONGOING_STATUS = "ongoing"
 const val ANONS_STATUS = "anons"
 const val NOT_FOUND_TEXT = "not found"

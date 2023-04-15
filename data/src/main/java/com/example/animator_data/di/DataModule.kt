@@ -29,13 +29,9 @@ class DataModule(private val context: Context) {
     @Provides
     fun provideRetrofitProvider(): Retrofit {
 
-        val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
-            setLevel(HttpLoggingInterceptor.Level.BASIC)
-        }
 
-        val client = OkHttpClient.Builder()
-            .addInterceptor(httpLoggingInterceptor)
-            .build()
+        val client = OkHttpClient.Builder().build()
+
         val gson = GsonBuilder()
             .setLenient()
             .create()
@@ -58,13 +54,9 @@ class DataModule(private val context: Context) {
 
     @Provides
     fun provideWatchDataSource(): WatchDataSource {
-        val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
-            setLevel(HttpLoggingInterceptor.Level.BASIC)
-        }
 
-        val client = OkHttpClient.Builder()
-            .addInterceptor(httpLoggingInterceptor)
-            .build()
+        val client = OkHttpClient.Builder().build()
+
         val gson = GsonBuilder()
             .setLenient()
             .create()

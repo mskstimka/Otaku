@@ -1,34 +1,32 @@
 package com.example.otaku.app.activities
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.example.animator_data.utils.SharedPreferencesHelper
 import com.example.domain.AD_ID_ON_BACK_PRESSED
 import com.example.otaku.R
+import com.example.otaku.agreement.UserAgreementFragmentDialog
 import com.example.otaku.app.App
 import com.example.otaku.databinding.ActivityMainBinding
-import com.example.animator_data.utils.SharedPreferencesHelper
-import com.example.otaku.agreement.UserAgreementFragmentDialog
-import com.example.otaku.settings.ui.LanguageSettingFragmentDialog
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.util.*
 import javax.inject.Inject
 
+
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
-
 
     private var mInterstitialAd: InterstitialAd? = null
     private var isAdLoaded = false
@@ -36,7 +34,6 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -44,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         (applicationContext as App).appComponent.inject(this)
 
-        MobileAds.initialize(this) {}
+        MobileAds.initialize(this)
 
         setLocale(sharedPreferencesHelper.getIsUkraineLanguage())
 
@@ -110,6 +107,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // ca-app-pub-9350077428310070/5938417575
+    @SuppressLint("VisibleForTests")
     private fun loadAds() {
         val adRequest = AdRequest.Builder().build()
 
@@ -129,6 +127,8 @@ class MainActivity : AppCompatActivity() {
                     isAdLoaded = true
                 }
             })
+
+
 
 
         mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
@@ -164,10 +164,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(newBase)
-
-    }
 
     private fun showAds(actionError: () -> Unit) {
         if (isAdLoaded) {

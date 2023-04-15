@@ -99,6 +99,7 @@
     <TextView
         android:id="@+id/tvTitle"
         style="@style/text_style_main_title"
+        android:textIsSelectable="true"
         app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
         app:layout_constraintStart_toEndOf="@+id/ivImageFranchises"
         app:layout_constraintTop_toTopOf="@+id/ivImageFranchises"

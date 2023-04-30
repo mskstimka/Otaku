@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/activity_background_color"
     android:scaleType="centerCrop"
-    tools:context=".app.activities.MainActivity">
+    tools:context=".app.activities.main.MainActivity">
 
     <fragment
         android:id="@+id/nav_host_fragment"

@@ -7,7 +7,7 @@ interface UserRepository {
 
     suspend fun getCurrentUser(
         userAgent: String,
-        authHeader: String
+        accessToken: String
     ): Results<UserBrief>
 
 }

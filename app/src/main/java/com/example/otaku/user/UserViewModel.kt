@@ -7,6 +7,7 @@ import com.example.domain.USER_AGENT
 import com.example.domain.common.Results
 import com.example.domain.models.user.UserBrief
 import com.example.domain.repository.UserRepository
+import com.example.domain.usecases.user.GetCurrentUserBriefUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class UserViewModel @Inject constructor(
-    private val repository: UserRepository,
+    private val getCurrentUserBriefUseCase: GetCurrentUserBriefUseCase,
     private val sharedPreferencesHelper: SharedPreferencesHelper
 ) : ViewModel() {
 
@@ -32,9 +33,9 @@ class UserViewModel @Inject constructor(
             val localToken = sharedPreferencesHelper.getLocalToken()
             if (localToken != null) {
                 val user =
-                    repository.getCurrentUser(
+                    getCurrentUserBriefUseCase.execute(
                         userAgent = USER_AGENT,
-                        authHeader = localToken.authToken
+                        accessToken = localToken.authToken
                     )
 
                 when (user) {

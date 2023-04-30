@@ -2,9 +2,6 @@ package com.example.otaku.utils
 
 import android.content.Context
 import android.view.View
-import android.widget.Toast
-import com.example.otaku.R
-import com.example.otaku.app.activities.MainActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 

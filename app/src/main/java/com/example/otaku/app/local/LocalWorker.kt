@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.work.*
 import androidx.work.CoroutineWorker
 import com.example.domain.models.home.PrevPoster
-import com.example.domain.usecases.GetAnimePrevPosterFromGenreUseCase
+import com.example.domain.usecases.anime.GetAnimePrevPosterFromGenreUseCase
 
 
 class LocalWorker(

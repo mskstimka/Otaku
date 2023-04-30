@@ -168,7 +168,8 @@
     <fragment
         android:id="@+id/userFragment"
         android:name="com.example.otaku.user.UserFragment"
-        android:label="UserFragment" >
+        android:label="UserFragment"
+        tools:layout="@layout/fragment_user">
         <argument
             android:name="token"
             app:argType="string" />

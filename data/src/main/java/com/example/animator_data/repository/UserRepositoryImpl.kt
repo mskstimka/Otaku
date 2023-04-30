@@ -8,10 +8,10 @@ import com.example.domain.repository.UserRepository
 
 class UserRepositoryImpl(private val userApi: UserApi) : UserRepository {
 
-    override suspend fun getCurrentUser(userAgent: String, authHeader: String): Results<UserBrief> {
+    override suspend fun getCurrentUser(userAgent: String, accessToken: String): Results<UserBrief> {
 
         return try {
-            val response = userApi.getCurrentUserBrief(userAgent, "Bearer $authHeader")
+            val response = userApi.getCurrentUserBrief(userAgent, "Bearer $accessToken")
             return if (response.isSuccessful) {
 
                 when (val userResponse = response.body()) {

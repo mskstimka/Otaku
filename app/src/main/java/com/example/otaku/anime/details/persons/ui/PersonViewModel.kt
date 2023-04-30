@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.animator_data.utils.SharedPreferencesHelper
 import com.example.domain.common.Results
 import com.example.domain.models.PersonEntity
-import com.example.domain.usecases.GetPersonUseCase
+import com.example.domain.usecases.anime.GetPersonUseCase
 import com.example.otaku.utils.TranslateUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow

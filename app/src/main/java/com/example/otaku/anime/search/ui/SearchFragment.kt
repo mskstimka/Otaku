@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.domain.usecases.GetAnimePostersFromSearchUseCase
+import com.example.domain.usecases.anime.GetAnimePostersFromSearchUseCase
 import com.example.otaku.R
 import com.example.otaku.anime.search.adapters.PostersAdapter
 import com.example.otaku.app.App

@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.domain.models.user.UserBrief
 import com.example.otaku.app.App
-import com.example.otaku.auth.AuthActivity
+import com.example.otaku.app.activities.auth.AuthActivity
 import com.example.otaku.databinding.FragmentUserBinding
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.setImageByURL

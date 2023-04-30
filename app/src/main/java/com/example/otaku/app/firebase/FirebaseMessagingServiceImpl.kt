@@ -12,7 +12,7 @@ import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.example.otaku.R
-import com.example.otaku.app.activities.MainActivity
+import com.example.otaku.app.activities.main.MainActivity
 import com.example.animator_data.utils.SharedPreferencesHelper
 import dagger.android.AndroidInjection
 import javax.inject.Inject

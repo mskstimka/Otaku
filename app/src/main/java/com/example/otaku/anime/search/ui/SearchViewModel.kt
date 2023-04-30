@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.common.Results
 import com.example.domain.models.poster.AnimePosterEntity
-import com.example.domain.usecases.GetAnimePostersFromSearchUseCase
+import com.example.domain.usecases.anime.GetAnimePostersFromSearchUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*

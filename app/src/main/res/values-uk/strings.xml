@@ -103,6 +103,7 @@
     <string name="user_agreement_submit">Приймаю</string>
     <string name="user_agreement_title">Угода користувача</string>
     <string name="user_agreement">Важливо!\nВсі авторські права та товарні знаки належать їх авторам. Весь контент, представлений у додатку, взятий з ВІДКРИТИХ джерел в Інтернеті. Якщо Ви впевнені, що будь-який вміст, що відображається в додатку, порушує Ваші авторські права, негайно повідомте про це розробнику програми.</string>
+    <string name="navigation_bottom_userFragment_title">Аккаунт</string>
 
 
 </resources>

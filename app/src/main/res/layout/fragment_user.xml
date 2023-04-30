@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/activity_background_color">
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -12,7 +13,6 @@
         app:shapeAppearanceOverlay="@style/favoritesImageView"
         android:scaleType="centerCrop"
         android:layout_marginTop="20dp"
-        android:src="@drawable/icon_default"
         app:layout_constraintBottom_toTopOf="@id/nicknameTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,8 +24,8 @@
         style="@style/text_style_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nickname"
         android:textSize="24sp"
+        tools:text="Nickname"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/avatarImageView"
         app:layout_constraintStart_toStartOf="@id/avatarImageView"
@@ -36,44 +36,12 @@
         style="@style/text_style_light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Full Name"
+        tools:text="Full Name"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@id/nicknameTextView"
         app:layout_constraintStart_toStartOf="@id/nicknameTextView"
         app:layout_constraintTop_toBottomOf="@id/nicknameTextView" />
 
-    <TextView
-        android:id="@+id/sexTextView"
-        style="@style/text_style_light"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sex"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@id/nameTextView"
-        app:layout_constraintStart_toStartOf="@id/nameTextView"
-        app:layout_constraintTop_toBottomOf="@id/nameTextView" />
 
-    <TextView
-        android:id="@+id/websiteTextView"
-        style="@style/text_style_light"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="Website"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@id/sexTextView"
-        app:layout_constraintStart_toStartOf="@id/sexTextView"
-        app:layout_constraintTop_toBottomOf="@id/sexTextView" />
-
-    <TextView
-        android:id="@+id/localeTextView"
-        style="@style/text_style_light"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Locale"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@id/websiteTextView"
-        app:layout_constraintStart_toStartOf="@id/websiteTextView"
-        app:layout_constraintTop_toBottomOf="@id/websiteTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

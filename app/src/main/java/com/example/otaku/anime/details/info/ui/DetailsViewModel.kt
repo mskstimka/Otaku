@@ -10,8 +10,8 @@ import com.example.domain.models.details.AnimeDetailsEntity
 import com.example.domain.models.details.Translations
 import com.example.domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.domain.models.poster.AnimePosterEntity
-import com.example.domain.usecases.*
 import com.example.animator_data.utils.SharedPreferencesHelper
+import com.example.domain.usecases.anime.*
 import com.example.otaku.utils.TranslateUtils
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow

@@ -1,8 +1,9 @@
-package com.example.domain.usecases
+package com.example.domain.usecases.anime
 
 import com.example.domain.repository.AnimeRepository
+import javax.inject.Inject
 
-class GetVideoUseCase(private val repository: AnimeRepository) {
+class GetVideoUseCase @Inject constructor(private val repository: AnimeRepository) {
 
     suspend fun execute(
         malId: Long,

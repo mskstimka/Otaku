@@ -1,11 +1,10 @@
-package com.example.otaku.auth
+package com.example.otaku.app.activities.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.animator_data.utils.SharedPreferencesHelper
 import com.example.domain.common.Results
-import com.example.domain.models.user.UserBrief
-import com.example.domain.repository.AuthRepository
+import com.example.domain.usecases.auth.GetAccessTokenUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -14,7 +13,7 @@ import javax.inject.Inject
 
 class AuthViewModel @Inject constructor(
     private val sharedPreferencesHelper: SharedPreferencesHelper,
-    private val repository: AuthRepository
+    private val getAccessTokenUseCase: GetAccessTokenUseCase
 ) : ViewModel() {
 
     private val _actionError = MutableSharedFlow<String>(replay = 1)
@@ -25,9 +24,8 @@ class AuthViewModel @Inject constructor(
 
     fun signIn(authCode: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val token = repository.signIn(authCode = authCode)
 
-            when (token) {
+            when (val token = getAccessTokenUseCase.execute(authCode = authCode)) {
                 is Results.Success -> {
                     sharedPreferencesHelper.setLocalToken(token = token.data)
                     _actionAuth.tryEmit(true)

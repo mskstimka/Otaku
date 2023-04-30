@@ -6,9 +6,12 @@ import com.example.otaku.anime.home.adapters.random.ContainerRandom
 import com.example.domain.*
 import com.example.domain.common.Results
 import com.example.domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
-import com.example.domain.usecases.*
 import com.example.domain.models.home.PrevPoster
 import com.example.domain.models.poster.AnimePosterEntity
+import com.example.domain.usecases.anime.GetAnimePrevPosterFromGenreUseCase
+import com.example.domain.usecases.anime.GetAnimeRandomPosterUseCase
+import com.example.domain.usecases.anime.GetAnimeScreenshotsFromIdUseCase
+import com.example.domain.usecases.anime.GetFavoritesUseCase
 import com.example.otaku.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*

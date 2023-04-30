@@ -16,9 +16,10 @@ import com.example.otaku.utils.TranslateUtils
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
+import javax.inject.Inject
 
 
-class DetailsViewModel(
+class DetailsViewModel @Inject constructor(
     private val getAnimeDetailsFromIdUseCase: GetAnimeDetailsFromIdUseCase,
     private val getAnimeScreenshotsFromIdUseCase: GetAnimeScreenshotsFromIdUseCase,
     private val getAnimeFranchisesFromIdUseCase: GetAnimeFranchisesFromIdUseCase,

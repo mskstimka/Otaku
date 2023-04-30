@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,14 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.example.domain.NOT_FOUND_TEXT
 import com.example.otaku.R
-import com.example.otaku.app.App
-import com.example.otaku.databinding.FragmentEpisodesBinding
 import com.example.otaku.anime.details.episodes.adapters.EpisodesAdapter
 import com.example.otaku.anime.details.episodes.models.ContainerEpisodeHeader
 import com.example.otaku.anime.details.episodes.models.ContainerEpisodes
 import com.example.otaku.anime.details.episodes.models.DisplayableItem
 import com.example.otaku.anime.details.info.ui.DetailsViewModel
-import com.example.otaku.anime.details.info.ui.DetailsViewModelFactory
+import com.example.otaku.app.App
+import com.example.otaku.databinding.FragmentEpisodesBinding
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.subscribeToFlow
 import javax.inject.Inject
@@ -33,9 +31,6 @@ class EpisodesFragment : Fragment() {
 
     private val args: EpisodesFragmentArgs by navArgs()
 
-    @Inject
-    lateinit var vmFactory: DetailsViewModelFactory
-
 
     private val episodesAdapter by lazy {
         EpisodesAdapter(
@@ -47,7 +42,8 @@ class EpisodesFragment : Fragment() {
         )
     }
 
-    private lateinit var dViewModel: DetailsViewModel
+    @Inject
+    lateinit var dViewModel: DetailsViewModel
 
 
     override fun onCreateView(
@@ -57,7 +53,6 @@ class EpisodesFragment : Fragment() {
         _binding = FragmentEpisodesBinding.inflate(layoutInflater)
 
         (requireActivity().applicationContext as App).appComponent.inject(this)
-        dViewModel = ViewModelProvider(this, vmFactory)[DetailsViewModel::class.java]
 
         subscribesToFlow()
 

@@ -25,9 +25,9 @@ fun ImageView.setImageStudioByURL(url: String) {
         .error(R.drawable.icon_studio_default).into(this)
 }
 
-fun Context.copyToClipboard(text: CharSequence){
+fun Context.copyToClipboard(text: CharSequence) {
     val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-    val clip = ClipData.newPlainText("label",text)
+    val clip = ClipData.newPlainText("label", text)
     clipboard.setPrimaryClip(clip)
 }
 
@@ -42,6 +42,19 @@ fun <T> ViewModel.subscribeToFlow(
                 active(it)
             }
 
+        }
+    }
+}
+
+fun <T> Flow<T>.subscribeToFlow(
+    lifecycleOwner: LifecycleOwner,
+    active: (item: T) -> Unit
+) {
+    lifecycleOwner.lifecycleScope.launch {
+        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            this@subscribeToFlow.collect {
+                active(it)
+            }
         }
     }
 }

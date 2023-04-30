@@ -15,6 +15,12 @@ const val ONGOING_STATUS = "ongoing"
 const val ANONS_STATUS = "anons"
 const val NOT_FOUND_TEXT = "not found"
 
+// token values
+const val USER_AGENT = "Otaku"
+const val CLIENT_ID = "f5zjBHcb3RpDSxABhUPb65L3vWNQc8cI4CF_k3LXR3o"
+const val CLIENT_SECRET_ID = "c7q7hBkKvEgUVJQmxtPnPyUqUXIXWrwTW543dH4aKNc"
+const val REDIRECT_URI = "urn:ietf:wg:oauth:2.0:oob"
+
 // Genre type id
 const val ROMANTIC_ID = 22
 const val SHOUNEN_ID = 27
@@ -36,6 +42,7 @@ const val IS_NAME_UKRAINE = "IS_NAME_UKRAINE"
 const val IS_DAY_NIGHT_THEME = "IS_DAY_NIGHT_THEME"
 const val IS_CENSORED_SEARCH = "IS_CENSORED_SEARCH"
 const val IS_SHOW_USER_AGREEMENT = "IS_SHOW_USER_AGREEMENT"
+const val LOCAL_TOKEN_KEY = "LOCAL_TOKEN_KEY"
 
 const val DATABASE_SHIKIMORI = "shikimori_database"
 

@@ -2,9 +2,12 @@ package com.example.animator_data.mapper
 
 import com.example.animator_data.database.models.LocalAnimePosterEntity
 import com.example.animator_data.network.models.*
+import com.example.animator_data.network.models.user.UserBriefResponse
+import com.example.animator_data.network.models.user.UserImageResponse
 import com.example.domain.*
 import com.example.domain.models.PersonEntity
 import com.example.domain.models.SeyuWorks
+import com.example.domain.models.Token
 import com.example.domain.models.WorkEntity
 import com.example.domain.models.characters.CharacterDetailsEntity
 import com.example.domain.models.details.AnimeDetailsEntity
@@ -15,6 +18,8 @@ import com.example.domain.models.details.roles.Character
 import com.example.domain.models.details.roles.Person
 import com.example.domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.domain.models.poster.AnimePosterEntity
+import com.example.domain.models.user.UserBrief
+import com.example.domain.models.user.UserImage
 
 
 fun AnimeDetailsEntityResponse.toAnimeDetailsEntity(): AnimeDetailsEntity = AnimeDetailsEntity(
@@ -58,7 +63,6 @@ fun List<AnimeDetailsScreenshotsEntityResponse>.toAnimeDetailsScreenshotsEntity(
 
     return screenshots
 }
-
 
 fun AnimeDetailsFranchisesEntityResponse.toListAnimeDetailsFranchisesEntity(): List<AnimeDetailsFranchisesEntity> {
     var list: MutableList<AnimeDetailsFranchisesEntity> = mutableListOf()
@@ -253,4 +257,23 @@ fun TranslationResponse.toTranslations(): Translations {
 }
 
 
+fun TokenResponse.toToken() = Token(authToken = this.accessToken, refreshToken = this.refreshToken)
+
+fun UserImageResponse.toUserImage() = UserImage(
+    x160 = this.x160,
+    x148 = this.x148,
+    x80 = this.x80,
+    x64 = this.x64,
+    x48 = this.x48,
+    x32 = this.x32,
+    x16 = this.x16
+)
+
+fun UserBriefResponse.toUserBrief() = UserBrief(
+    id = this.id,
+    nickname = this.nickname,
+    avatar = this.avatar,
+    image = this.image.toUserImage(),
+    name = this.name
+)
 

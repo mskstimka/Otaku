@@ -30,7 +30,8 @@ class CharactersFragment : Fragment() {
 
     private val args: CharactersFragmentArgs by navArgs()
 
-    private lateinit var cViewModel: CharactersViewModel
+    @Inject
+    lateinit var cViewModel: CharactersViewModel
 
 
     private val infoAdapter by lazy {
@@ -57,13 +58,10 @@ class CharactersFragment : Fragment() {
 
     private val rootAdapter by lazy { MergeAdapter(infoAdapter, personAdapter, franchisesAdapter) }
 
-    @Inject
-    lateinit var vmFactory: CharactersViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireActivity().applicationContext as App).appComponent.inject(this)
-        cViewModel = ViewModelProvider(this, vmFactory)[CharactersViewModel::class.java]
 
         cViewModel.getCharacters(args.id)
     }

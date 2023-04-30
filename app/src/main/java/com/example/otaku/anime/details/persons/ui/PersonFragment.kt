@@ -31,9 +31,7 @@ class PersonFragment : Fragment() {
     private val args: PersonFragmentArgs by navArgs()
 
     @Inject
-    lateinit var vmFactory: PersonViewModelFactory
-
-    private lateinit var pViewModel: PersonViewModel
+    lateinit var pViewModel: PersonViewModel
 
     private val infoAdapter by lazy { ContainerPersonInfoAdapter { requireActivity().onBackPressed() } }
     private val worksAdapter by lazy {
@@ -57,7 +55,6 @@ class PersonFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         (requireActivity().applicationContext as App).appComponent.inject(this)
-        pViewModel = ViewModelProvider(this, vmFactory)[PersonViewModel::class.java]
 
         pViewModel.getPerson(args.id)
     }

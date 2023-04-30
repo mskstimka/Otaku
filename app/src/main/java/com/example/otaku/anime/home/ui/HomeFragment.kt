@@ -31,9 +31,8 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     @Inject
-    lateinit var vmFactory: HomeViewModelFactory
+    lateinit var hViewModel: HomeViewModel
 
-    private lateinit var hViewModel: HomeViewModel
     private val favoriteAdapter by lazy { ContainerFavoritesAdapter() }
     private val posterAdapter by lazy { ContainerPosterAdapter() }
     private val randomAdapter by lazy { ContainerRandomAdapter { refresh() } }
@@ -69,8 +68,6 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(layoutInflater)
 
         (requireActivity().applicationContext as App).appComponent.inject(this)
-
-        hViewModel = ViewModelProvider(this, vmFactory)[HomeViewModel::class.java]
 
 
         with(binding.swipeToRefresh) {

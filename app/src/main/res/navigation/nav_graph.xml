@@ -165,5 +165,13 @@
             android:name="photo"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.example.otaku.user.UserFragment"
+        android:label="UserFragment" >
+        <argument
+            android:name="token"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

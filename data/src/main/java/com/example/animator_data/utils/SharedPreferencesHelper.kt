@@ -3,6 +3,9 @@ package com.example.animator_data.utils
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import com.example.domain.*
+import com.example.domain.models.Token
+import com.google.gson.Gson
+import java.util.Locale
 
 class SharedPreferencesHelper(private val context: Context) {
 
@@ -13,8 +16,18 @@ class SharedPreferencesHelper(private val context: Context) {
         )
     }
 
+    fun setLocalToken(token: Token) {
+        val jsonToken = Gson().toJson(token)
+        sharedPreference.edit().putString(LOCAL_TOKEN_KEY, jsonToken).apply()
+    }
+
+    fun getLocalToken(): Token? {
+        val jsonToken = sharedPreference.getString(LOCAL_TOKEN_KEY, null)
+        return Gson().fromJson(jsonToken, Token::class.java)
+    }
+
     fun setIsShowUserAgreement(switch: Boolean) {
-        return sharedPreference.edit().putBoolean(IS_SHOW_USER_AGREEMENT, switch).apply()
+        sharedPreference.edit().putBoolean(IS_SHOW_USER_AGREEMENT, switch).apply()
     }
 
     fun getIsShowUserAgreement(): Boolean {
@@ -22,7 +35,7 @@ class SharedPreferencesHelper(private val context: Context) {
     }
 
     fun setIsCensoredSearch(switch: Boolean) {
-        return sharedPreference.edit().putBoolean(IS_CENSORED_SEARCH, switch).apply()
+        sharedPreference.edit().putBoolean(IS_CENSORED_SEARCH, switch).apply()
     }
 
     fun getIsCensoredSearch(): Boolean {

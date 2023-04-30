@@ -16,8 +16,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AnimatorMaterial3">
+        android:theme="@style/AnimatorMaterial3"
+        android:usesCleartextTraffic="true">
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@mipmap/ic_launcher" />
@@ -34,7 +34,7 @@
         <!-- ca-app-pub-9350077428310070~4183446806 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-9350077428310070~4183446806"/>
+            android:value="ca-app-pub-9350077428310070~4183446806" />
 
         <service
             android:name=".app.firebase.FirebaseMessagingServiceImpl"
@@ -59,11 +59,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".auth.AuthActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="true">
+        </activity>
+
+        <activity
             android:name=".app.activities.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="true">
 
         </activity>
+
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"

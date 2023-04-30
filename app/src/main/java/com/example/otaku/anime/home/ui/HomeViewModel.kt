@@ -13,15 +13,16 @@ import com.example.otaku.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel(
+class HomeViewModel @Inject constructor(
     private val getAnimePrevPosterFromGenreUseCase: GetAnimePrevPosterFromGenreUseCase,
     private val getAnimeRandomPosterUseCase: GetAnimeRandomPosterUseCase,
     private val getAnimeScreenshotsFromIdUseCase: GetAnimeScreenshotsFromIdUseCase,
     private val getFavoritesUseCase: GetFavoritesUseCase
 ) : ViewModel() {
 
-     val arrayPrefPosters = listOf(
+    val arrayPrefPosters = listOf(
         PrevPoster(genreId = ROMANTIC_ID, genreName = R.string.romantic_title),
         PrevPoster(genreId = SHOUNEN_ID, genreName = R.string.shounen_title),
         PrevPoster(genreId = DRAMA_ID, genreName = R.string.drama_title),

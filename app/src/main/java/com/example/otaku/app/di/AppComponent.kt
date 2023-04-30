@@ -11,15 +11,14 @@ import com.example.otaku.settings.ui.SettingsFragment
 import com.example.animator_data.di.DataModule
 import com.example.otaku.agreement.UserAgreementFragmentDialog
 import com.example.otaku.app.activities.MainActivity
-import com.example.otaku.app.di.modules.AppModule
-import com.example.otaku.app.di.modules.DomainModule
-import com.example.otaku.app.di.modules.ServiceBuilderModule
-import com.example.otaku.app.di.modules.WorkerModule
+import com.example.otaku.app.di.modules.*
+import com.example.otaku.auth.AuthActivity
 import com.example.otaku.settings.ui.LanguageSettingFragmentDialog
+import com.example.otaku.user.UserFragment
 import dagger.Component
 
 
-@Component(modules = [AppModule::class, DomainModule::class, DataModule::class, WorkerModule::class, ServiceBuilderModule::class])
+@Component(modules = [AppModule::class, DomainModule::class, DataModule::class, WorkerModule::class, ServiceBuilderModule::class, ViewModelModule::class])
 interface AppComponent {
     fun inject(detailsFragment: DetailsFragment)
     fun inject(searchFragment: SearchFragment)
@@ -31,5 +30,7 @@ interface AppComponent {
     fun inject(languageSettingFragmentDialog: LanguageSettingFragmentDialog)
     fun inject(userAgreementFragmentDialog: UserAgreementFragmentDialog)
     fun inject(mainActivity: MainActivity)
+    fun inject(userFragment: UserFragment)
+    fun inject(authActivity: AuthActivity)
     fun inject(app: App)
 }

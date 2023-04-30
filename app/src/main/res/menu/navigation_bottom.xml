@@ -16,4 +16,11 @@
         android:icon="@drawable/icon_setting_gray"
         android:title="@string/navigation_bottom_settingsFragment_title" />
 
+
+    <item
+        android:id="@+id/userFragment"
+        android:icon="@drawable/icon_account"
+        android:title="Профиль" />
+
+
 </menu>

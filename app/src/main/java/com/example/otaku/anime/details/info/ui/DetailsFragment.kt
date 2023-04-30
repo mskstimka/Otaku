@@ -41,11 +41,9 @@ class DetailsFragment : Fragment() {
     private val args: DetailsFragmentArgs by navArgs()
 
     @Inject
-    lateinit var vmFactory: DetailsViewModelFactory
+    lateinit var dViewModel: DetailsViewModel
 
     private var isWatch = false
-
-    private lateinit var dViewModel: DetailsViewModel
 
     private val containerDetailsAdapter by lazy {
         ContainerDetailsAdapter(
@@ -102,7 +100,6 @@ class DetailsFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         (requireActivity().applicationContext as App).appComponent.inject(this)
-        dViewModel = ViewModelProvider(this, vmFactory)[DetailsViewModel::class.java]
 
         getAnimeDetails(args.id)
     }

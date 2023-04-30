@@ -12,10 +12,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PersonViewModel(
+class PersonViewModel @Inject constructor(
     private val getPersonUseCase: GetPersonUseCase,
-    private val sharedPreferencesHelper: SharedPreferencesHelper
+    sharedPreferencesHelper: SharedPreferencesHelper
 ) : ViewModel() {
 
     private val _actionError = MutableSharedFlow<String>(replay = 1)

@@ -39,7 +39,6 @@ class App : Application(), HasServiceInjector {
         appComponent = DaggerAppComponent
             .builder()
             .dataModule(DataModule(context = applicationContext))
-            .appModule(AppModule(context = applicationContext))
             .build()
         appComponent.inject(app = this)
 //        initWorkManager()

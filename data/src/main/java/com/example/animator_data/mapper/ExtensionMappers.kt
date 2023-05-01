@@ -2,13 +2,10 @@ package com.example.animator_data.mapper
 
 import com.example.animator_data.database.models.LocalAnimePosterEntity
 import com.example.animator_data.network.models.*
-import com.example.animator_data.network.models.user.UserBriefResponse
-import com.example.animator_data.network.models.user.UserImageResponse
+import com.example.animator_data.network.models.user.*
+import com.example.animator_data.network.models.user.RateResponse
 import com.example.domain.*
-import com.example.domain.models.PersonEntity
-import com.example.domain.models.SeyuWorks
-import com.example.domain.models.Token
-import com.example.domain.models.WorkEntity
+import com.example.domain.models.*
 import com.example.domain.models.characters.CharacterDetailsEntity
 import com.example.domain.models.details.AnimeDetailsEntity
 import com.example.domain.models.details.Translations
@@ -18,8 +15,7 @@ import com.example.domain.models.details.roles.Character
 import com.example.domain.models.details.roles.Person
 import com.example.domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.domain.models.poster.AnimePosterEntity
-import com.example.domain.models.user.UserBrief
-import com.example.domain.models.user.UserImage
+import com.example.domain.models.user.*
 
 
 fun AnimeDetailsEntityResponse.toAnimeDetailsEntity(): AnimeDetailsEntity = AnimeDetailsEntity(
@@ -182,7 +178,7 @@ fun List<AnimePosterEntityResponse>.toListAnimePosterEntity(): List<AnimePosterE
     return this.map {
         AnimePosterEntity(
             id = it.id,
-            image = it.image,
+            image = it.image.toImage(),
             name = it.name,
             score = it.score,
             episodes = it.episodes,
@@ -229,7 +225,7 @@ fun List<LocalAnimePosterEntity>.localToListAnimePosterEntity(): List<AnimePoste
 fun AnimePosterEntityResponse.toAnimePosterEntity(): AnimePosterEntity {
     return AnimePosterEntity(
         id = this.id,
-        image = this.image,
+        image = this.image.toImage(),
         name = this.name,
         score = this.score,
         episodes = this.episodes,
@@ -277,3 +273,88 @@ fun UserBriefResponse.toUserBrief() = UserBrief(
     name = this.name
 )
 
+fun FavoriteListResponse.toFavoriteList(): FavoriteList {
+    with(this) {}
+    val all = mutableListOf<Favorite>()
+    val animes = animes.map { it.toFavorite(FavoriteType.ANIME) }
+    val mangas = mangas.map { it.toFavorite(FavoriteType.MANGA) }
+    val characters = characters.map { it.toFavorite(FavoriteType.CHARACTERS) }
+    val people = people.map { it.toFavorite(FavoriteType.PEOPLE) }
+    val mangakas = mangakas.map { it.toFavorite(FavoriteType.MANGAKAS) }
+    val seyu = seyu.map { it.toFavorite(FavoriteType.SEYU) }
+    val producers = producers.map { it.toFavorite(FavoriteType.PRODUCERS) }
+
+    all.apply {
+        addAll(animes)
+        addAll(mangas)
+        addAll(characters)
+        addAll(people)
+        addAll(mangakas)
+        addAll(seyu)
+        addAll(producers)
+    }
+
+    return FavoriteList(animes, mangas, characters, people, mangakas, seyu, producers, all)
+}
+
+fun FavoriteResponse.toFavorite(type: FavoriteType): Favorite = Favorite(
+    this.id,
+    this.name,
+    this.nameRu,
+    this.image.appendHostIfNeed().replace("x64", "original"),
+    this.url?.appendHostIfNeed(),
+    type
+)
+
+fun UserDetailsResponse.toUserDetails(): UserDetails = UserDetails(
+    this.id,
+    this.stats.toUserStats()
+)
+
+fun UserStatsResponse.toUserStats(): UserStats {
+    with(this) {}
+    val animes = status.anime.map { it.toStatus() }
+    val mangas = status.manga.map { it.toStatus() }
+
+    return UserStats(
+        animes,
+        mangas,
+        scores.toStats(),
+        types.toStats(),
+        ratings.toStats(),
+        hasAnime,
+        hasManga
+    )
+}
+
+fun StatResponse.toStats(): UserStat = UserStat(
+    this.anime.map { it.toStatistic() },
+    this.manga?.map { it.toStatistic() }
+)
+
+
+fun StatisticResponse.toStatistic(): Statistic = Statistic(this.name, this.value)
+
+fun StatusResponse.toStatus(): Status = Status(this.id, this.name, this.size, this.type)
+
+fun ImageResponse.toImage() =
+    Image(
+        original = this.original ?: "",
+        preview = this.preview ?: "",
+        x48 = this.x48 ?: "",
+        x96 = this.x96 ?: ""
+    )
+
+fun RateResponse.toRate() = Rate(
+    id = this.id,
+    score = this.score,
+    status = this.status,
+    episodes = this.episodes,
+    anime = this.anime?.toAnimePosterEntity()
+)
+
+fun List<RateResponse>.toListRates() = this.map { it.toRate() }
+
+fun String.appendHostIfNeed(host: String = SHIKIMORI_URL): String {
+    return if (this.contains("http")) this else host + this
+}

@@ -6,7 +6,6 @@ import javax.inject.Inject
 
 class AddFavoritesUseCase @Inject constructor(private val repository: AnimeRepository) {
 
-    suspend fun execute(item: AnimePosterEntity) {
-        repository.addLocalFavorites(item = item)
-    }
+    suspend fun execute(item: AnimePosterEntity) = repository.addLocalFavorites(item = item)
+
 }

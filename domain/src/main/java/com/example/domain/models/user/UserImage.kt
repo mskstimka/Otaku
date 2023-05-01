@@ -1,5 +1,8 @@
 package com.example.domain.models.user
 
+import androidx.annotation.Keep
+
+@Keep
 data class UserImage(
         val x160: String?,
         val x148: String?,

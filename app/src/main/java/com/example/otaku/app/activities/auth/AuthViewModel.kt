@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AuthViewModel @Inject constructor(
-    private val sharedPreferencesHelper: SharedPreferencesHelper,
     private val getAccessTokenUseCase: GetAccessTokenUseCase
 ) : ViewModel() {
 
@@ -27,7 +26,6 @@ class AuthViewModel @Inject constructor(
 
             when (val token = getAccessTokenUseCase.execute(authCode = authCode)) {
                 is Results.Success -> {
-                    sharedPreferencesHelper.setLocalToken(token = token.data)
                     _actionAuth.tryEmit(true)
                 }
                 is Results.Error -> {

@@ -14,7 +14,8 @@ import com.example.otaku.app.activities.main.MainActivity
 import com.example.otaku.app.di.modules.*
 import com.example.otaku.app.activities.auth.AuthActivity
 import com.example.otaku.settings.ui.LanguageSettingFragmentDialog
-import com.example.otaku.user.UserFragment
+import com.example.otaku.user.rates.anime.AnimeRatesFragment
+import com.example.otaku.user.ui.UserFragment
 import dagger.Component
 
 
@@ -32,5 +33,6 @@ interface AppComponent {
     fun inject(mainActivity: MainActivity)
     fun inject(userFragment: UserFragment)
     fun inject(authActivity: AuthActivity)
+    fun inject(animeRatesFragment: AnimeRatesFragment)
     fun inject(app: App)
 }

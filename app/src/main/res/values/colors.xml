@@ -32,4 +32,8 @@
     <color name="yellow">#FFC107</color>
 
     <color name="ukraine_message_color">#F87171</color>
+
+    <color name="others_status_color">#F87171</color>
+    <color name="completed_status_color">#F87171</color>
+
 </resources>

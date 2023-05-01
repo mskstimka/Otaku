@@ -1,19 +1,24 @@
-package com.example.otaku.user
+package com.example.otaku.user.ui
 
 import android.content.Intent
+import android.content.LocusId
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.domain.models.user.UserBrief
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.MergeAdapter
 import com.example.otaku.app.App
 import com.example.otaku.app.activities.auth.AuthActivity
 import com.example.otaku.databinding.FragmentUserBinding
+import com.example.otaku.user.adapters.info.UserInfoAdapter
+import com.example.otaku.user.adapters.stats.UserStatsAdapter
+import com.example.otaku.user.adapters.stats.models.UserStatsContainer
 import com.example.otaku.utils.BannerUtils
-import com.example.otaku.utils.setImageByURL
 import com.example.otaku.utils.subscribeToFlow
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 
 class UserFragment : Fragment() {
@@ -24,6 +29,11 @@ class UserFragment : Fragment() {
     @Inject
     lateinit var uViewModel: UserViewModel
 
+    private val userInfoAdapter by lazy { UserInfoAdapter() }
+    var id by Delegates.notNull<Long>()
+    private val userStatsAdapter by lazy { UserStatsAdapter(id) }
+
+    private val rootAdapter by lazy { MergeAdapter(userInfoAdapter, userStatsAdapter) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +59,6 @@ class UserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         subscribeToFlows()
-
-        uViewModel.getCurrentUser()
     }
 
     private fun subscribeToFlows() = with(uViewModel) {
@@ -60,13 +68,24 @@ class UserFragment : Fragment() {
         }
 
         actionUserBrief.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { user ->
-            bindView(user = user)
+            id = user.id
+            initAdapters()
+            userInfoAdapter.submitList(listOf(user))
         }
+
+        actionUserStats.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { stats ->
+            userStatsAdapter.submitList(mutableListOf(UserStatsContainer(stats)))
+        }
+
+        actionUserFavorites.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { stats ->
+
+        }
+
+
     }
 
-    private fun bindView(user: UserBrief) = with(binding) {
-        nameTextView.text = user.name
-        nicknameTextView.text = user.nickname
-        avatarImageView.setImageByURL(user.image.x160 ?: "null")
+    private fun initAdapters() = with(binding.rvRoot) {
+        layoutManager = LinearLayoutManager(context)
+        adapter = rootAdapter
     }
 }

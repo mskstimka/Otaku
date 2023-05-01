@@ -3,18 +3,23 @@ package com.example.animator_data.repository
 import android.util.Log
 import com.example.animator_data.mapper.toToken
 import com.example.animator_data.network.api.AuthApi
+import com.example.animator_data.utils.SharedPreferencesHelper
 import com.example.domain.common.Results
 import com.example.domain.models.Token
 import com.example.domain.repository.AuthRepository
 import kotlinx.coroutines.awaitAll
 
-class AuthRepositoryImpl(private val authApi: AuthApi) : AuthRepository {
+class AuthRepositoryImpl(
+    private val authApi: AuthApi,
+    private val sharedPreferencesHelper: SharedPreferencesHelper
+) : AuthRepository {
 
     override suspend fun signIn(authCode: String): Results<Token> {
         return try {
             val response = authApi.getAccessToken(grantType = AUTH_CODE, code = authCode)
             if (response.isSuccessful) {
                 val item = response.body()!!.toToken()
+                sharedPreferencesHelper.setLocalToken(item)
                 Results.Success(data = item)
             } else {
                 Results.Error(exception = Exception(response.message()))
@@ -27,13 +32,21 @@ class AuthRepositoryImpl(private val authApi: AuthApi) : AuthRepository {
 
     override suspend fun refreshToken(refreshToken: String): Results<Token> {
         return try {
-            val response = authApi.getAccessToken(grantType = REFRESH_TOKEN, code = refreshToken)
+            val response = authApi.getAccessToken(
+                grantType = REFRESH_TOKEN,
+                refreshToken = refreshToken,
+                code = refreshToken
+            )
             if (response.isSuccessful) {
                 val item = response.body()!!.toToken()
-
+                sharedPreferencesHelper.setLocalToken(item)
                 Results.Success(data = item)
             } else {
-                Results.Error(exception = Exception(response.message()))
+                if (response.code() == 429) {
+                    refreshToken(refreshToken)
+                } else {
+                    Results.Error(exception = Exception(response.message()))
+                }
             }
         } catch (e: Exception) {
             Results.Error(exception = e)

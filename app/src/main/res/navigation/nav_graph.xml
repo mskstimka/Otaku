@@ -167,12 +167,27 @@
     </fragment>
     <fragment
         android:id="@+id/userFragment"
-        android:name="com.example.otaku.user.UserFragment"
+        android:name="com.example.otaku.user.ui.UserFragment"
         android:label="UserFragment"
         tools:layout="@layout/fragment_user">
+        <action
+            android:id="@+id/action_userFragment_to_animeRatesFragment"
+            app:destination="@id/animeRatesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/animeRatesFragment"
+        android:name="com.example.otaku.user.rates.anime.AnimeRatesFragment"
+        android:label="fragment_anime_rates"
+        tools:layout="@layout/fragment_anime_rates" >
+        <action
+            android:id="@+id/action_animeRatesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
         <argument
-            android:name="token"
+            android:name="rateStatus"
             app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="long" />
     </fragment>
 
 </navigation>

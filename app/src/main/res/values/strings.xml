@@ -107,4 +107,12 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="navigation_bottom_userFragment_title">Аккаунт</string>
 
+    <string name="status_completed_text">Просмотрено (%1$s)</string>
+    <string name="status_planned_text">Запланировано (%1$s)</string>
+    <string name="status_watching_text">Смотрю (%1$s)</string>
+    <string name="status_on_hold_text">Отложено (%1$s)</string>
+    <string name="status_dropped_text">Брошено (%1$s)</string>
+    <string name="status_rewatching_text">Пересматриваю (%1$s)</string>
+
+
 </resources>

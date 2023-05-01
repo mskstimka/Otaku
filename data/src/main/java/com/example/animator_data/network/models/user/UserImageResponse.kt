@@ -1,7 +1,9 @@
 package com.example.animator_data.network.models.user
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class UserImageResponse(
     @SerializedName("x160") var x160: String? = null,
     @SerializedName("x148") var x148: String? = null,

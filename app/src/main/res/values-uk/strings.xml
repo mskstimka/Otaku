@@ -105,5 +105,11 @@
     <string name="user_agreement">Важливо!\nВсі авторські права та товарні знаки належать їх авторам. Весь контент, представлений у додатку, взятий з ВІДКРИТИХ джерел в Інтернеті. Якщо Ви впевнені, що будь-який вміст, що відображається в додатку, порушує Ваші авторські права, негайно повідомте про це розробнику програми.</string>
     <string name="navigation_bottom_userFragment_title">Аккаунт</string>
 
+    <string name="status_completed_text">Переглянуто (%1$s)</string>
+    <string name="status_planned_text">Заплановано (%1$s)</string>
+    <string name="status_watching_text">Дивлюсь (%1$s)</string>
+    <string name="status_on_hold_text">Відкладено (%1$s)</string>
+    <string name="status_dropped_text">Кинуто (%1$s)</string>
+    <string name="status_rewatching_text">Передивляюсь (%1$s)</string>
 
 </resources>

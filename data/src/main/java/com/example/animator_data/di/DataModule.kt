@@ -85,13 +85,27 @@ class DataModule(private val context: Context) {
     }
 
     @Provides
-    fun provideAuthRepository(retrofit: Retrofit): AuthRepository {
-        return AuthRepositoryImpl(retrofit.create(AuthApi::class.java))
+    fun provideAuthRepository(
+        retrofit: Retrofit,
+        sharedPreferencesHelper: SharedPreferencesHelper
+    ): AuthRepository {
+        return AuthRepositoryImpl(
+            authApi = retrofit.create(AuthApi::class.java),
+            sharedPreferencesHelper = sharedPreferencesHelper
+        )
     }
 
     @Provides
-    fun provideUserRepository(retrofit: Retrofit): UserRepository {
-        return UserRepositoryImpl(retrofit.create(UserApi::class.java))
+    fun provideUserRepository(
+        retrofit: Retrofit,
+        authRepository: AuthRepository,
+        sharedPreferencesHelper: SharedPreferencesHelper
+    ): UserRepository {
+        return UserRepositoryImpl(
+            userApi = retrofit.create(UserApi::class.java),
+            authRepository = authRepository,
+            sharedPreferencesHelper = sharedPreferencesHelper
+        )
     }
 
     @Provides

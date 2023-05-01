@@ -190,4 +190,8 @@
     <style name="SpinnerTheme">
         <item name="android:fontFamily">@font/open_sans_medium</item>
     </style>
+
+    <style name="CustomProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
+
+    </style>
 </resources>

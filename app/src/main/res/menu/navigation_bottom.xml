@@ -18,7 +18,7 @@
 
 
     <item
-        android:id="@+id/userFragment"
+        android:id="@+id/authFragment"
         android:icon="@drawable/icon_account"
         android:title="@string/navigation_bottom_userFragment_title" />
 

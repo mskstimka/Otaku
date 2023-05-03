@@ -173,6 +173,18 @@
         <action
             android:id="@+id/action_userFragment_to_animeRatesFragment"
             app:destination="@id/animeRatesFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_charactersFragment"
+            app:destination="@id/charactersFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_personFragment"
+            app:destination="@id/personFragment" />
+        <argument
+            android:name="id"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/animeRatesFragment"
@@ -188,6 +200,17 @@
         <argument
             android:name="id"
             app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.example.otaku.anime.auth.AuthFragment"
+        android:label="fragment_auth"
+        tools:layout="@layout/fragment_auth" >
+        <action
+            android:id="@+id/action_authFragment_to_userFragment"
+            app:destination="@id/userFragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>

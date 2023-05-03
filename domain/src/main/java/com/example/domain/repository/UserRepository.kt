@@ -5,6 +5,8 @@ import com.example.domain.models.user.FavoriteList
 import com.example.domain.models.user.Rate
 import com.example.domain.models.user.UserBrief
 import com.example.domain.models.user.UserDetails
+import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface UserRepository {
 
@@ -13,8 +15,8 @@ interface UserRepository {
         accessToken: String
     ): Results<UserBrief>
 
+    suspend fun getUserBriefInfo(id: Long): Results<UserBrief>
     suspend fun getUserFavourites(id: Long): Results<FavoriteList>
-
     suspend fun getUserStats(id: Long): Results<UserDetails>
     suspend fun getUserAnimeRates(
         id: Long,

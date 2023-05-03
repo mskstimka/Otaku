@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    tools:background="@color/activity_background_color"
+    tools:context=".anime.auth.AuthFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glDetailsLineStart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/fragment_details_line_layout_constraintGuide" />
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glDetailsLineEnd"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/fragment_details_line_layout_constraintGuide" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glDetailsLineTop"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="70dp" />
+
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupUserData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:constraint_referenced_ids="ivUserAvatar,tvTitle,tvCurrentUserInfo,btAuth" />
+
+
+    <TextView
+        android:id="@+id/tvFragmentAuthTitle"
+        style="@style/text_style_russian_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:text="@string/fragment_auth_tvFragmentAuthTitle_text"
+        android:textColor="@color/title_color"
+        android:textSize="@dimen/fragment_settings_tvFragmentSettingsTitle_textSize"
+        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toTopOf="@+id/glDetailsLineTop" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivUserAvatar"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="150dp"
+        android:scaleType="centerCrop"
+        app:cardCornerRadius="100dp"
+        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvFragmentAuthTitle"
+        app:shapeAppearanceOverlay="@style/avatar_roundedImageView"
+        android:src="@drawable/icon_default" />
+
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/text_style_main_title"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/ivUserAvatar"
+        app:layout_constraintStart_toStartOf="@+id/ivUserAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/ivUserAvatar"
+        tools:text="@string/fragment_details_tvTitle_text" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btAuth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/open_sans_medium"
+        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvCurrentUserInfo"
+        tools:text="Авторизироваться!" />
+
+    <TextView
+        android:id="@+id/tvCurrentUserInfo"
+        style="@style/text_style_title_items"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        tools:text="Вы не авторизовались!" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

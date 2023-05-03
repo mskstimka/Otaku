@@ -10,9 +10,10 @@ import com.example.otaku.anime.search.ui.SearchFragment
 import com.example.otaku.settings.ui.SettingsFragment
 import com.example.animator_data.di.DataModule
 import com.example.otaku.agreement.UserAgreementFragmentDialog
+import com.example.otaku.anime.auth.AuthFragment
 import com.example.otaku.app.activities.main.MainActivity
 import com.example.otaku.app.di.modules.*
-import com.example.otaku.app.activities.auth.AuthActivity
+import com.example.otaku.anime.auth.AuthActivity
 import com.example.otaku.settings.ui.LanguageSettingFragmentDialog
 import com.example.otaku.user.rates.anime.AnimeRatesFragment
 import com.example.otaku.user.ui.UserFragment
@@ -34,5 +35,6 @@ interface AppComponent {
     fun inject(userFragment: UserFragment)
     fun inject(authActivity: AuthActivity)
     fun inject(animeRatesFragment: AnimeRatesFragment)
+    fun inject(authFragment: AuthFragment)
     fun inject(app: App)
 }

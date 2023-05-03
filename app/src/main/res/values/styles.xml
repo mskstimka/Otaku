@@ -143,6 +143,15 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">12dp</item>
     </style>
+    <style name="avatar_roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">75dp</item>
+    </style>
+
+    <style name="avatar_large_roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">150dp</item>
+    </style>
 
     <style name="favoritesImageView" parent="">
         <item name="cornerFamily">rounded</item>

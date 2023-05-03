@@ -9,7 +9,7 @@ import com.example.domain.models.user.UserBrief
 import com.example.otaku.databinding.LayoutUserInfoBinding
 import com.example.otaku.utils.setImageByURL
 
-class UserInfoAdapter :
+class UserInfoAdapter(private val onBackPressed: () -> Unit) :
     ListAdapter<UserBrief, UserInfoAdapter.UserInfoViewHolder>(
         UserInfoDiffCallback
     ) {
@@ -41,7 +41,9 @@ class UserInfoAdapter :
             ivImageBackground.setImageByURL(model.image.x160 ?: "null")
             ivUserAvatar.setImageByURL(model.image.x160 ?: "null")
             tvTitle.text = model.nickname
-
+            ivBackPressed.setOnClickListener {
+                onBackPressed()
+            }
         }
     }
 

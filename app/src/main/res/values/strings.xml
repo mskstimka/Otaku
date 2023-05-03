@@ -113,6 +113,13 @@
     <string name="status_on_hold_text">Отложено (%1$s)</string>
     <string name="status_dropped_text">Брошено (%1$s)</string>
     <string name="status_rewatching_text">Пересматриваю (%1$s)</string>
+    <string name="layout_user_stats_tvTitle_text">Список Аниме</string>
+    <string name="layout_user_favorites">Избранные</string>
+    <string name="fragment_auth_tvCurrentUserInfo_success_text">Вы успешно вошли!</string>
+    <string name="fragment_auth_btAuth_success_text">Посмотреть детали</string>
+    <string name="fragment_auth_btAuth_error_text">Войти</string>
+    <string name="fragment_auth_tvCurrentUserInfo_error_text">Вы не авторизировались!</string>
+    <string name="fragment_auth_tvFragmentAuthTitle_text">Профиль</string>
 
 
 </resources>

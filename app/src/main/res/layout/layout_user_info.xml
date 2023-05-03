@@ -30,7 +30,6 @@
         app:layout_constraintGuide_begin="@dimen/fragment_details_line_layout_constraintGuide" />
 
 
-
     <ImageView
         android:id="@+id/ivImageBackground"
         android:layout_width="match_parent"
@@ -58,14 +57,22 @@
         android:layout_height="150dp"
         android:layout_marginTop="30dp"
         android:scaleType="centerCrop"
-        app:cardCornerRadius="50dp"
+        app:cardCornerRadius="100dp"
         app:layout_constraintBottom_toBottomOf="@+id/ivImageBackground"
         app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
         app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/roundedImageView"
+        app:shapeAppearanceOverlay="@style/avatar_roundedImageView"
         tools:src="@drawable/icon_default" />
 
+    <ImageView
+        android:id="@+id/ivBackPressed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/fragment_details_ivBackPressed_contentDescription"
+        android:src="@drawable/icon_back"
+        app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+        app:layout_constraintTop_toTopOf="@+id/glDetailsLineTop" />
 
     <TextView
         android:id="@+id/tvTitle"

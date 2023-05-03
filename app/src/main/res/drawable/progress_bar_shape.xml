@@ -6,7 +6,7 @@
         <shape android:shape="rectangle">
             <corners android:radius="8dp"/>
             <size android:height="26dp"/>
-            <solid android:color="#8B9FC3"/>
+            <solid android:color="@color/others_status_color"/>
         </shape>
     </item>
     <item
@@ -18,7 +18,7 @@
                     android:radius="8dp"
                     />
                 <size android:height="26dp"/>
-                <solid android:color="#617DAE"/>
+                <solid android:color="@color/completed_status_color"/>
             </shape>
         </scale>
     </item>

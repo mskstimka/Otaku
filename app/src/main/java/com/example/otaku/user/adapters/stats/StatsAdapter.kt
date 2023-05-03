@@ -1,8 +1,9 @@
 package com.example.otaku.user.adapters.stats
 
-import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -11,7 +12,6 @@ import com.example.domain.models.user.RateStatus
 import com.example.otaku.R
 import com.example.otaku.databinding.ItemUserStatsBinding
 import com.example.otaku.user.adapters.stats.models.Stats
-import com.example.otaku.user.rates.anime.AnimeRatesFragmentDirections
 import com.example.otaku.user.ui.UserFragmentDirections
 
 class StatsAdapter(private val userId: Long) :
@@ -31,6 +31,7 @@ class StatsAdapter(private val userId: Long) :
         return StatsViewHolder(binding)
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: StatsViewHolder, position: Int) =
         holder.bind(currentList[position])
 
@@ -42,6 +43,7 @@ class StatsAdapter(private val userId: Long) :
         ItemUserStatsBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        @RequiresApi(Build.VERSION_CODES.M)
         fun bind(stats: Stats) = with(binding) {
 
             itemView.setOnClickListener {
@@ -53,6 +55,7 @@ class StatsAdapter(private val userId: Long) :
                 )
             }
             with(root.context) {
+                root.setCardBackgroundColor(getColor(stats.color))
 
                 tvStatus.text = when (stats.type) {
                     RateStatus.PLANNED -> {
@@ -74,8 +77,9 @@ class StatsAdapter(private val userId: Long) :
                     RateStatus.REWATCHING -> {
                         getString(R.string.status_rewatching_text, stats.count.toString())
                     }
-
                 }
+
+
             }
 
         }

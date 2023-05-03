@@ -59,7 +59,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".app.activities.auth.AuthActivity"
+            android:name=".anime.auth.AuthActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="true">
         </activity>

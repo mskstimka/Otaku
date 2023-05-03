@@ -1,4 +1,4 @@
-package com.example.otaku.app.activities.auth
+package com.example.otaku.anime.auth
 
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
@@ -46,16 +46,7 @@ class AuthActivity : AppCompatActivity() {
     }
 
 
-
     private fun subscribeToFlows() = with(aViewModel) {
-
-        actionError.subscribeToFlow(lifecycleOwner = this@AuthActivity) { message ->
-            com.example.otaku.utils.BannerUtils.showSnackBar(
-                binding.root,
-                message = message,
-                this@AuthActivity
-            )
-        }
 
         actionAuth.subscribeToFlow(lifecycleOwner = this@AuthActivity) {
             onBackPressed()
@@ -111,8 +102,7 @@ class AuthActivity : AppCompatActivity() {
                     if (matcher.group().isNullOrEmpty()) ""
                     else url!!.substring(
                         url.lastIndexOf("/")
-                    )
-                        .replaceFirst("/", "")
+                    ).replaceFirst("/", "")
 
                 aViewModel.signIn(authCode = authCode)
 

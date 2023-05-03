@@ -18,6 +18,8 @@ interface UserApi {
         @Header("Authorization") authHeader: String
     ): Response<UserBriefResponse>
 
+    @GET("/api/users/{id}/info")
+    suspend fun getUserBriefInfo(@Path("id") id: Long): Response<UserBriefResponse>
     @GET("/api/users/{id}/favourites")
     suspend fun getUserFavourites(@Path("id") id: Long): Response<FavoriteListResponse>
 

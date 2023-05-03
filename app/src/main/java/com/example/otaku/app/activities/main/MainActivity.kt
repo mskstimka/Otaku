@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             visibility = when (destination.id) {
-                R.id.detailsFragment, R.id.episodesFragment, R.id.webPlayerFragment, R.id.charactersFragment, R.id.personFragment, R.id.screenshotsFragment, R.id.animeRatesFragment -> View.GONE
+                R.id.detailsFragment, R.id.episodesFragment, R.id.webPlayerFragment, R.id.charactersFragment, R.id.personFragment, R.id.screenshotsFragment, R.id.animeRatesFragment, R.id.userFragment -> View.GONE
                 else -> View.VISIBLE
             }
             if (destination.id == R.id.webPlayerFragment) {
@@ -105,7 +105,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     // ca-app-pub-9350077428310070/5938417575
-    @SuppressLint("VisibleForTests")
     private fun loadAds() {
         val adRequest = AdRequest.Builder().build()
 

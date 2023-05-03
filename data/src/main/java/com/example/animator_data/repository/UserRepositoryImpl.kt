@@ -62,6 +62,32 @@ class UserRepositoryImpl(
 
     }
 
+    override suspend fun getUserBriefInfo(id: Long): Results<UserBrief> {
+        return try {
+            val response = userApi.getUserBriefInfo(id = id)
+            return if (response.isSuccessful) {
+                val userBriefResponse = response.body()
+
+                when (userBriefResponse) {
+                    null -> {
+                        Results.Error(Exception("Token Error Response"))
+                    }
+                    else -> {
+                        Results.Success(userBriefResponse.toUserBrief())
+                    }
+                }
+            } else {
+                if (response.code() == 429) {
+                    getUserBriefInfo(id = id)
+                } else {
+                    Results.Error(exception = Exception(response.message()))
+                }
+            }
+        } catch (e: Exception) {
+            Results.Error(Exception(e.message))
+        }
+    }
+
     override suspend fun getUserFavourites(id: Long): Results<FavoriteList> {
         return try {
             val response = userApi.getUserFavourites(id = id)
@@ -76,7 +102,11 @@ class UserRepositoryImpl(
                     }
                 }
             } else {
-                return Results.Error(exception = Exception(response.message()))
+                if (response.code() == 429) {
+                    getUserFavourites(id = id)
+                } else {
+                    Results.Error(exception = Exception(response.message()))
+                }
             }
         } catch (e: Exception) {
             Results.Error(Exception(e.message))
@@ -97,7 +127,12 @@ class UserRepositoryImpl(
                     }
                 }
             } else {
-                return Results.Error(exception = Exception(response.message()))
+                if (response.code() == 429) {
+                    getUserStats(id = id)
+                } else {
+                    Results.Error(exception = Exception(response.message()))
+                }
+                Results.Error(exception = Exception(response.message()))
             }
         } catch (e: Exception) {
             Results.Error(Exception(e.message))
@@ -128,7 +163,17 @@ class UserRepositoryImpl(
                     }
                 }
             } else {
-                return Results.Error(exception = Exception(response.message()))
+                if (response.code() == 429) {
+                    getUserAnimeRates(
+                        id = id,
+                        page = page,
+                        limit = limit,
+                        status = status
+                    )
+                } else {
+                    Results.Error(exception = Exception(response.message()))
+                }
+
             }
         } catch (e: Exception) {
             Results.Error(Exception(e.message))

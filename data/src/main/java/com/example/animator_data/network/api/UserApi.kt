@@ -20,9 +20,15 @@ interface UserApi {
 
     @GET("/api/users/{id}/info")
     suspend fun getUserBriefInfo(@Path("id") id: Long): Response<UserBriefResponse>
+
     @GET("/api/users/{id}/favourites")
     suspend fun getUserFavourites(@Path("id") id: Long): Response<FavoriteListResponse>
 
+    @GET("/api/users/{id}/friends")
+    suspend fun getUserFriends(@Path("id") id: Long): Response<List<UserBriefResponse>>
+
+//    @GET("/api/users/{id}/history")
+//    suspend fun getUserHistory(@Path("id") id: Long, @Query("page") page: Int, @Query("limit") limit: Int): Single<List<UserHistoryResponse>>
     @GET("/api/users/{id}")
     suspend fun getUserStats(@Path("id") id: Long): Response<UserDetailsResponse>
 

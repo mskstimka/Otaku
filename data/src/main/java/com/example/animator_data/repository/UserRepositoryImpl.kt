@@ -139,6 +139,32 @@ class UserRepositoryImpl(
         }
     }
 
+    override suspend fun getUserFriends(id: Long): Results<List<UserBrief>> {
+        return try {
+            val response = userApi.getUserFriends(id = id)
+            return if (response.isSuccessful) {
+                val userBriefResponse = response.body()
+
+                when (userBriefResponse) {
+                    null -> {
+                        Results.Error(Exception("Token Error Response"))
+                    }
+                    else -> {
+                        Results.Success(userBriefResponse.toUserBriefList())
+                    }
+                }
+            } else {
+                if (response.code() == 429) {
+                    getUserFriends(id = id)
+                } else {
+                    Results.Error(exception = Exception(response.message()))
+                }
+            }
+        } catch (e: Exception) {
+            Results.Error(Exception(e.message))
+        }
+    }
+
     override suspend fun getUserAnimeRates(
         id: Long,
         page: Int,

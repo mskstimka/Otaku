@@ -81,7 +81,9 @@ class UserFragment : Fragment() {
         }
 
         actionUserFavorites.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { favoritesList ->
-            userFavoritesAdapter.submitList(favoritesList)
+            if (favoritesList.isNotEmpty()) {
+                userFavoritesAdapter.submitList(favoritesList)
+            }
         }
     }
 

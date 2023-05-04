@@ -2,6 +2,7 @@ package com.example.otaku.anime.auth
 
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
+import android.app.Activity
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.example.otaku.databinding.ActivityAuthBinding
 import com.example.otaku.utils.subscribeToFlow
 import java.util.regex.Pattern
 import javax.inject.Inject
+import javax.inject.Singleton
 
 class AuthActivity : AppCompatActivity() {
 
@@ -26,11 +28,9 @@ class AuthActivity : AppCompatActivity() {
 
     private val shikimoriClient by lazy { ShikimoriAuthClient() }
 
+    @Singleton
     @Inject
     lateinit var aViewModel: AuthViewModel
-
-    @Inject
-    lateinit var authRepository: AuthRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +49,10 @@ class AuthActivity : AppCompatActivity() {
     private fun subscribeToFlows() = with(aViewModel) {
 
         actionAuth.subscribeToFlow(lifecycleOwner = this@AuthActivity) {
-            onBackPressed()
+            if (it is AuthAction.ACTIVITY_ON_BACK_PRESSED) {
+                setResult(Activity.RESULT_OK)
+                finish()
+            }
         }
     }
 

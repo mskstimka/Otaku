@@ -1,11 +1,15 @@
 package com.example.otaku.anime.auth
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.marginTop
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
@@ -17,10 +21,14 @@ import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.setImageByURL
 import com.example.otaku.utils.subscribeToFlow
 import javax.inject.Inject
+import javax.inject.Singleton
 
 
 class AuthFragment : Fragment() {
 
+    private lateinit var someActivityResultLauncher: ActivityResultLauncher<Intent>
+
+    @Singleton
     @Inject
     lateinit var aViewModel: AuthViewModel
 
@@ -31,6 +39,13 @@ class AuthFragment : Fragment() {
         super.onCreate(savedInstanceState)
         (requireActivity().applicationContext as App).appComponent.inject(this)
 
+        someActivityResultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                aViewModel.checkResult()
+            }
+        }
     }
 
     override fun onCreateView(
@@ -49,6 +64,12 @@ class AuthFragment : Fragment() {
         subscribeToFlows()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        initView()
+    }
+
     private fun initView() = with(binding) {
 
         btAuth.setOnClickListener {
@@ -64,7 +85,12 @@ class AuthFragment : Fragment() {
                 } else if (localToken != null) {
                     aViewModel.getCurrentUser(localToken.authToken)
                 } else {
-                    startActivity(Intent(requireContext(), AuthActivity::class.java))
+                    someActivityResultLauncher.launch(
+                        Intent(
+                            requireContext(),
+                            AuthActivity::class.java
+                        )
+                    )
                 }
             }
         }
@@ -99,11 +125,25 @@ class AuthFragment : Fragment() {
                 message = message,
                 requireContext()
             )
-            initErrorView()
         }
 
         actionUserBrief.subscribeToFlow(lifecycleOwner = requireActivity()) { user ->
             initSuccessView(user)
+        }
+
+        actionAuth.subscribeToFlow(lifecycleOwner = requireActivity()) { action ->
+            when (action) {
+                AuthAction.IS_UNAUTHORIZED -> {
+                    initErrorView()
+                }
+                is AuthAction.IS_AUTHORIZED -> {
+                    aViewModel.getCurrentUser(accessToken = action.token.authToken)
+                }
+                is AuthAction.ACTIVITY_ON_BACK_PRESSED -> {
+                    Log.d("ON BACK PRESSED CALLBACK", "------------------")
+                    aViewModel.getCurrentUser(accessToken = action.token.authToken)
+                }
+            }
         }
     }
 

@@ -22,15 +22,15 @@ android {
         }
     }
 
-    compileSdkVersion 32
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
     compileOptions.incremental = false
     defaultConfig {
         applicationId 'com.app.otaku'
-        minSdkVersion 21
-        targetSdkVersion 32
-        versionCode 2
-        versionName "1.1"
+        minSdkVersion 24
+        targetSdkVersion 33
+        versionCode 3
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -76,7 +76,7 @@ dependencies {
 
     // merge adapter
     implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha02'
-    implementation 'com.google.mlkit:common:18.5.0'
+    implementation 'com.google.mlkit:common:18.7.0'
 
     // DateTime
     implementation 'net.danlew:android.joda:2.9.9.3'
@@ -155,7 +155,6 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
     apply plugin: "androidx.navigation.safeargs.kotlin"
-
 
     // coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'

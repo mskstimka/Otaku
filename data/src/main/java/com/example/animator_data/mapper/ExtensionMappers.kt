@@ -273,6 +273,8 @@ fun UserBriefResponse.toUserBrief() = UserBrief(
     name = this.name
 )
 
+fun List<UserBriefResponse>.toUserBriefList() = this.map { it.toUserBrief() }
+
 fun FavoriteListResponse.toFavoriteList(): FavoriteList {
     with(this) {}
     val all = mutableListOf<Favorite>()

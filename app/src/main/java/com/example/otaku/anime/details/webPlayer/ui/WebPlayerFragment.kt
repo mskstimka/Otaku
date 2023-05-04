@@ -53,7 +53,7 @@ class WebPlayerFragment : Fragment() {
         webChromeClient = WebChromeClient()
 
         settings.apply {
-            setAppCacheEnabled(true)
+            settings.cacheMode = WebSettings.LOAD_NO_CACHE
             cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
             javaScriptCanOpenWindowsAutomatically = true
             javaScriptEnabled = true

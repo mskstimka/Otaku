@@ -10,7 +10,9 @@ import com.example.domain.usecases.auth.GetAccessTokenUseCase
 import com.example.domain.usecases.user.GetCurrentUserBriefUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,25 +21,34 @@ class AuthViewModel @Inject constructor(
     private val getCurrentUserBriefUseCase: GetCurrentUserBriefUseCase,
     private val sharedPreferencesHelper: SharedPreferencesHelper
 ) : ViewModel() {
+    val localToken = sharedPreferencesHelper.getLocalToken()
+
+    val isAuth =
+        if (localToken == null) AuthAction.IS_UNAUTHORIZED else AuthAction.IS_AUTHORIZED(token = localToken)
 
     private val _actionError = MutableSharedFlow<String>(replay = 1)
     val actionError: SharedFlow<String> get() = _actionError
 
-    private val _actionAuth = MutableSharedFlow<Boolean>(replay = 1)
-    val actionAuth: SharedFlow<Boolean> get() = _actionAuth
+    private val _actionAuth = MutableStateFlow(isAuth)
+    val actionAuth: StateFlow<AuthAction> get() = _actionAuth
 
     private val _actionUserBrief = MutableSharedFlow<UserBrief>(replay = 1)
     val actionUserBrief: SharedFlow<UserBrief> get() = _actionUserBrief
 
     var isAuthorized = false
     var currentId: Long? = null
-    val localToken = sharedPreferencesHelper.getLocalToken()
 
-    init {
-        if (localToken != null){
-            getCurrentUser(localToken.authToken)
+    fun checkResult() {
+        viewModelScope.launch {
+            val token = sharedPreferencesHelper.getLocalToken()
+            if (token != null) {
+                _actionAuth.tryEmit(AuthAction.IS_AUTHORIZED(token))
+            } else {
+                _actionAuth.tryEmit(AuthAction.IS_UNAUTHORIZED)
+            }
         }
     }
+
     fun getCurrentUser(accessToken: String) {
         viewModelScope.launch(Dispatchers.IO) {
 
@@ -66,7 +77,7 @@ class AuthViewModel @Inject constructor(
             when (val token = getAccessTokenUseCase.execute(authCode = authCode)) {
                 is Results.Success -> {
                     getCurrentUser(token.data.authToken)
-                    _actionAuth.tryEmit(true)
+                    _actionAuth.tryEmit(AuthAction.ACTIVITY_ON_BACK_PRESSED(token = token.data))
                 }
                 is Results.Error -> {
                     _actionError.tryEmit(token.exception.message.toString())

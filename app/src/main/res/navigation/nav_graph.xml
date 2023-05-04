@@ -185,6 +185,9 @@
         <argument
             android:name="id"
             app:argType="long" />
+        <action
+            android:id="@+id/action_userFragment_self"
+            app:destination="@id/userFragment" />
     </fragment>
     <fragment
         android:id="@+id/animeRatesFragment"

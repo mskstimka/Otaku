@@ -1,17 +1,15 @@
 package com.example.otaku.user.ui
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.animator_data.utils.SharedPreferencesHelper
-import com.example.domain.USER_AGENT
 import com.example.domain.common.Results
 import com.example.domain.models.user.FavoriteList
 import com.example.domain.models.user.UserBrief
-import com.example.domain.usecases.user.GetCurrentUserBriefUseCase
-import com.example.domain.usecases.user.GetUserBriefUseCase
-import com.example.domain.usecases.user.GetUserFavoritesUseCase
-import com.example.domain.usecases.user.GetUserStatsUseCase
+import com.example.domain.usecases.user.*
+import com.example.otaku.user.adapters.friends.UserFriendsContainer
 import com.example.otaku.user.adapters.stats.models.UserStatsContainer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -23,6 +21,7 @@ class UserViewModel @Inject constructor(
     private val getUserFavoritesUseCase: GetUserFavoritesUseCase,
     private val getUserBriefUseCase: GetUserBriefUseCase,
     private val getUserStatsUseCase: GetUserStatsUseCase,
+    private val getUserFriendsUseCase: GetUserFriendsUseCase,
     private val sharedPreferencesHelper: SharedPreferencesHelper,
 ) : ViewModel() {
 
@@ -31,6 +30,9 @@ class UserViewModel @Inject constructor(
 
     private val _actionUserBrief = MutableSharedFlow<List<UserBrief>>(replay = 1)
     val actionUserBrief: SharedFlow<List<UserBrief>> get() = _actionUserBrief
+
+    private val _actionUserFriends = MutableSharedFlow<MutableList<UserFriendsContainer>>(replay = 1)
+    val actionUserFriends: SharedFlow<MutableList<UserFriendsContainer>> get() = _actionUserFriends
 
     private val _actionUserFavorites = MutableSharedFlow<MutableList<FavoriteList>>(replay = 1)
     val actionUserFavorites: SharedFlow<MutableList<FavoriteList>> get() = _actionUserFavorites
@@ -41,19 +43,20 @@ class UserViewModel @Inject constructor(
     private val _progressBarAction = MutableSharedFlow<Int>(replay = 1)
     val progressBarAction: SharedFlow<Int> get() = _progressBarAction
 
-    val combinedFlow = combine(
+    private val resultsFlow = combine(
         _actionUserBrief,
         _actionUserFavorites,
-        _actionUserStats
-    ) { userBriefList, userFavoritesList, userStatsList ->
-
-        Triple(userBriefList, userFavoritesList, userStatsList)
+        _actionUserStats,
+        _actionUserFriends
+    ) { userBriefList, userFavoritesList, userStatsList, userFriendsList ->
+        Quadruple(userBriefList, userFavoritesList, userStatsList, userFriendsList)
     }
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            combinedFlow.collect {
-                if (it.first.isNotEmpty() && it.second.isNotEmpty() && it.third.isNotEmpty()) {
+            resultsFlow.collect {
+                Log.d("RESULTS FLOW", "---------------")
+                if (it.first.isNotEmpty() && it.second.isNotEmpty() && it.third.isNotEmpty() && it.fourth.isNotEmpty()) {
                     _progressBarAction.tryEmit(View.GONE)
                 }
             }
@@ -65,6 +68,7 @@ class UserViewModel @Inject constructor(
         getUserBrief(id = id)
         getUserStats(id = id)
         getUserFavorites(id = id)
+        getUserFriends(id = id)
     }
 
     private fun getUserFavorites(id: Long) {
@@ -105,6 +109,22 @@ class UserViewModel @Inject constructor(
                 }
                 is Results.Error -> {
                     _actionError.tryEmit(userBrief.exception.message.toString())
+                }
+            }
+        }
+    }
+
+    private fun getUserFriends(id: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val listUserBrief = getUserFriendsUseCase.execute(id = id)
+            when (listUserBrief) {
+                is Results.Success -> {
+                    _actionUserFriends.tryEmit(
+                        mutableListOf(UserFriendsContainer(list = listUserBrief.data))
+                    )
+                }
+                is Results.Error -> {
+                    _actionError.tryEmit(listUserBrief.exception.message.toString())
                 }
             }
         }

@@ -152,6 +152,10 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">150dp</item>
     </style>
+    <style name="avatar_mini_roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50dp</item>
+    </style>
 
     <style name="favoritesImageView" parent="">
         <item name="cornerFamily">rounded</item>

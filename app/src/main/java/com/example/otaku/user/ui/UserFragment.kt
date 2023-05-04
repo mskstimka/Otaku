@@ -1,6 +1,7 @@
 package com.example.otaku.user.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.MergeAdapter
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentUserBinding
 import com.example.otaku.user.adapters.favorites.UserFavoritesAdapter
+import com.example.otaku.user.adapters.friends.UserFriendsAdapter
 import com.example.otaku.user.adapters.info.UserInfoAdapter
 import com.example.otaku.user.adapters.stats.UserStatsAdapter
 import com.example.otaku.utils.BannerUtils
@@ -31,12 +33,13 @@ class UserFragment : Fragment() {
     private val userInfoAdapter by lazy { UserInfoAdapter() { requireActivity().onBackPressed() } }
     private val userStatsAdapter by lazy { UserStatsAdapter(args.id) }
     private val userFavoritesAdapter by lazy { UserFavoritesAdapter() }
-
+    private val userFriendsAdapter by lazy { UserFriendsAdapter() }
 
     private val rootAdapter by lazy {
         MergeAdapter(
             userInfoAdapter,
             userStatsAdapter,
+            userFriendsAdapter,
             userFavoritesAdapter
         )
     }
@@ -79,14 +82,21 @@ class UserFragment : Fragment() {
         }
 
         actionUserFavorites.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { favoritesList ->
-            if (favoritesList.isNotEmpty()) {
+            Log.d("Favorite LIST: ", favoritesList.toString())
+            if (favoritesList.first().all.isNotEmpty()) {
                 userFavoritesAdapter.submitList(favoritesList)
             }
         }
 
+        actionUserFriends.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { friendList ->
+            if (friendList.first().list.isNotEmpty()) {
+                userFriendsAdapter.submitList(friendList)
+            }
+        }
+
         progressBarAction.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { pbVisible ->
-                binding.pbLoading.visibility = pbVisible
-                initAdapters()
+            binding.pbLoading.visibility = pbVisible
+            initAdapters()
         }
     }
 

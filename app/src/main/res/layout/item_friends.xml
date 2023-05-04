@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="110dp"
+    android:layout_height="wrap_content">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivAvatar"
+        style="@style/item_card_style"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="@string/item_home_genres_item_ivImageHomeGenre_contentDescription"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/avatar_mini_roundedImageView"
+        tools:src="@drawable/icon_default" />
+
+    <TextView
+        android:id="@+id/tvNickName"
+        style="@style/item_title_text_style"
+        android:maxLines="2"
+        android:textSize="@dimen/item_home_genres_item_tvTitleHomeGenre_textSize"
+        app:layout_constraintEnd_toEndOf="@+id/ivAvatar"
+        app:layout_constraintStart_toStartOf="@+id/ivAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/ivAvatar"
+        tools:text="Name" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

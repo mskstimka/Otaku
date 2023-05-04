@@ -1,5 +1,6 @@
 package com.example.otaku.user.ui
 
+import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.animator_data.utils.SharedPreferencesHelper
@@ -13,8 +14,7 @@ import com.example.domain.usecases.user.GetUserFavoritesUseCase
 import com.example.domain.usecases.user.GetUserStatsUseCase
 import com.example.otaku.user.adapters.stats.models.UserStatsContainer
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -38,7 +38,28 @@ class UserViewModel @Inject constructor(
     private val _actionUserStats = MutableSharedFlow<MutableList<UserStatsContainer>>(replay = 1)
     val actionUserStats: SharedFlow<MutableList<UserStatsContainer>> get() = _actionUserStats
 
-    var isSavedLocalToken = sharedPreferencesHelper.getLocalToken() != null
+    private val _progressBarAction = MutableSharedFlow<Int>(replay = 1)
+    val progressBarAction: SharedFlow<Int> get() = _progressBarAction
+
+    val combinedFlow = combine(
+        _actionUserBrief,
+        _actionUserFavorites,
+        _actionUserStats
+    ) { userBriefList, userFavoritesList, userStatsList ->
+
+        Triple(userBriefList, userFavoritesList, userStatsList)
+    }
+
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            combinedFlow.collect {
+                if (it.first.isNotEmpty() && it.second.isNotEmpty() && it.third.isNotEmpty()) {
+                    _progressBarAction.tryEmit(View.GONE)
+                }
+            }
+        }
+    }
+
 
     fun getUserInfo(id: Long) {
         getUserBrief(id = id)

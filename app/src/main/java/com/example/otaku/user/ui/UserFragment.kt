@@ -71,9 +71,7 @@ class UserFragment : Fragment() {
         }
 
         actionUserBrief.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { user ->
-            initAdapters()
             userInfoAdapter.submitList(user)
-
         }
 
         actionUserStats.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { stats ->
@@ -84,6 +82,11 @@ class UserFragment : Fragment() {
             if (favoritesList.isNotEmpty()) {
                 userFavoritesAdapter.submitList(favoritesList)
             }
+        }
+
+        progressBarAction.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { pbVisible ->
+                binding.pbLoading.visibility = pbVisible
+                initAdapters()
         }
     }
 

@@ -13,6 +13,7 @@ import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentUserBinding
 import com.example.otaku.user.adapters.favorites.UserFavoritesAdapter
 import com.example.otaku.user.adapters.friends.UserFriendsAdapter
+import com.example.otaku.user.adapters.history.UserHistoryAdapter
 import com.example.otaku.user.adapters.info.UserInfoAdapter
 import com.example.otaku.user.adapters.stats.UserStatsAdapter
 import com.example.otaku.utils.BannerUtils
@@ -34,11 +35,13 @@ class UserFragment : Fragment() {
     private val userStatsAdapter by lazy { UserStatsAdapter(args.id) }
     private val userFavoritesAdapter by lazy { UserFavoritesAdapter() }
     private val userFriendsAdapter by lazy { UserFriendsAdapter() }
+    private val userHistoryAdapter by lazy { UserHistoryAdapter() }
 
     private val rootAdapter by lazy {
         MergeAdapter(
             userInfoAdapter,
             userStatsAdapter,
+            userHistoryAdapter,
             userFriendsAdapter,
             userFavoritesAdapter
         )
@@ -82,7 +85,6 @@ class UserFragment : Fragment() {
         }
 
         actionUserFavorites.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { favoritesList ->
-            Log.d("Favorite LIST: ", favoritesList.toString())
             if (favoritesList.first().all.isNotEmpty()) {
                 userFavoritesAdapter.submitList(favoritesList)
             }
@@ -97,6 +99,11 @@ class UserFragment : Fragment() {
         progressBarAction.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { pbVisible ->
             binding.pbLoading.visibility = pbVisible
             initAdapters()
+        }
+        actionUserHistory.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { historyList ->
+            if (historyList.isNotEmpty()) {
+                userHistoryAdapter.submitList(historyList)
+            }
         }
     }
 

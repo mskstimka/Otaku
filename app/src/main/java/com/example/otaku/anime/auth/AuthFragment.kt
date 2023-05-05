@@ -3,16 +3,13 @@ package com.example.otaku.anime.auth
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.view.marginTop
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import com.example.domain.models.user.UserBrief
 import com.example.otaku.R
 import com.example.otaku.app.App
@@ -108,11 +105,18 @@ class AuthFragment : Fragment() {
         }
     }
 
-    private fun initErrorView() = with(binding) {
+    private fun initNoAuthView() = with(binding) {
         if (context != null) {
 
             btAuth.text = getString(R.string.fragment_auth_btAuth_error_text)
             tvCurrentUserInfo.text = getString(R.string.fragment_auth_tvCurrentUserInfo_error_text)
+            groupUserData.visibility = View.VISIBLE
+        }
+    }
+
+    private fun initErrorView() = with(binding){
+        if (context != null) {
+            tvCurrentUserInfo.text = "Произошла ошибка"
             groupUserData.visibility = View.VISIBLE
         }
     }
@@ -134,14 +138,17 @@ class AuthFragment : Fragment() {
         actionAuth.subscribeToFlow(lifecycleOwner = requireActivity()) { action ->
             when (action) {
                 AuthAction.IS_UNAUTHORIZED -> {
-                    initErrorView()
+                    initNoAuthView()
                 }
                 is AuthAction.IS_AUTHORIZED -> {
                     aViewModel.getCurrentUser(accessToken = action.token.authToken)
                 }
                 is AuthAction.ACTIVITY_ON_BACK_PRESSED -> {
-                    Log.d("ON BACK PRESSED CALLBACK", "------------------")
                     aViewModel.getCurrentUser(accessToken = action.token.authToken)
+                }
+                is AuthAction.ERROR -> {
+                    initErrorView()
+                    aViewModel.clearErrors()
                 }
             }
         }

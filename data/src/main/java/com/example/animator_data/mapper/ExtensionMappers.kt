@@ -16,6 +16,9 @@ import com.example.domain.models.details.roles.Person
 import com.example.domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.domain.models.poster.AnimePosterEntity
 import com.example.domain.models.user.*
+import com.example.domain.models.user.history.LinkedContent
+import com.example.domain.models.user.history.UserHistory
+import org.joda.time.DateTime
 
 
 fun AnimeDetailsEntityResponse.toAnimeDetailsEntity(): AnimeDetailsEntity = AnimeDetailsEntity(
@@ -356,6 +359,19 @@ fun RateResponse.toRate() = Rate(
 )
 
 fun List<RateResponse>.toListRates() = this.map { it.toRate() }
+
+fun UserHistoryResponse.toUserHistory() =
+    UserHistory(
+        id = this.id,
+        dateCreated = DateTime.parse(this.dateCreated),
+        description = this.description,
+        target = this.target?.toLinkedContent()
+    )
+
+fun LinkedContentResponse.toLinkedContent() =
+    LinkedContent(this.id, this.name, this.russian, this.image?.toImage())
+
+fun List<UserHistoryResponse>.toListUserHistory() = this.map { it.toUserHistory() }
 
 fun String.appendHostIfNeed(host: String = SHIKIMORI_URL): String {
     return if (this.contains("http")) this else host + this

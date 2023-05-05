@@ -1,9 +1,6 @@
 package com.example.animator_data.network.api
 
-import com.example.animator_data.network.models.user.FavoriteListResponse
-import com.example.animator_data.network.models.user.RateResponse
-import com.example.animator_data.network.models.user.UserBriefResponse
-import com.example.animator_data.network.models.user.UserDetailsResponse
+import com.example.animator_data.network.models.user.*
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -27,8 +24,8 @@ interface UserApi {
     @GET("/api/users/{id}/friends")
     suspend fun getUserFriends(@Path("id") id: Long): Response<List<UserBriefResponse>>
 
-//    @GET("/api/users/{id}/history")
-//    suspend fun getUserHistory(@Path("id") id: Long, @Query("page") page: Int, @Query("limit") limit: Int): Single<List<UserHistoryResponse>>
+    @GET("/api/users/{id}/history")
+    suspend fun getUserHistory(@Path("id") id: Long, @Query("page") page: Int, @Query("limit") limit: Int): Response<List<UserHistoryResponse>>
     @GET("/api/users/{id}")
     suspend fun getUserStats(@Path("id") id: Long): Response<UserDetailsResponse>
 

@@ -8,8 +8,10 @@ import com.example.animator_data.utils.SharedPreferencesHelper
 import com.example.domain.common.Results
 import com.example.domain.models.user.FavoriteList
 import com.example.domain.models.user.UserBrief
+import com.example.domain.models.user.history.UserHistory
 import com.example.domain.usecases.user.*
 import com.example.otaku.user.adapters.friends.UserFriendsContainer
+import com.example.otaku.user.adapters.history.UserHistoryContainer
 import com.example.otaku.user.adapters.stats.models.UserStatsContainer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -22,6 +24,7 @@ class UserViewModel @Inject constructor(
     private val getUserBriefUseCase: GetUserBriefUseCase,
     private val getUserStatsUseCase: GetUserStatsUseCase,
     private val getUserFriendsUseCase: GetUserFriendsUseCase,
+    private val getUserHistoryUseCase: GetUserHistoryUseCase,
     private val sharedPreferencesHelper: SharedPreferencesHelper,
 ) : ViewModel() {
 
@@ -31,7 +34,8 @@ class UserViewModel @Inject constructor(
     private val _actionUserBrief = MutableSharedFlow<List<UserBrief>>(replay = 1)
     val actionUserBrief: SharedFlow<List<UserBrief>> get() = _actionUserBrief
 
-    private val _actionUserFriends = MutableSharedFlow<MutableList<UserFriendsContainer>>(replay = 1)
+    private val _actionUserFriends =
+        MutableSharedFlow<MutableList<UserFriendsContainer>>(replay = 1)
     val actionUserFriends: SharedFlow<MutableList<UserFriendsContainer>> get() = _actionUserFriends
 
     private val _actionUserFavorites = MutableSharedFlow<MutableList<FavoriteList>>(replay = 1)
@@ -40,6 +44,10 @@ class UserViewModel @Inject constructor(
     private val _actionUserStats = MutableSharedFlow<MutableList<UserStatsContainer>>(replay = 1)
     val actionUserStats: SharedFlow<MutableList<UserStatsContainer>> get() = _actionUserStats
 
+    private val _actionUserHistory =
+        MutableSharedFlow<MutableList<UserHistoryContainer>>(replay = 1)
+    val actionUserHistory: SharedFlow<MutableList<UserHistoryContainer>> get() = _actionUserHistory
+
     private val _progressBarAction = MutableSharedFlow<Int>(replay = 1)
     val progressBarAction: SharedFlow<Int> get() = _progressBarAction
 
@@ -47,28 +55,52 @@ class UserViewModel @Inject constructor(
         _actionUserBrief,
         _actionUserFavorites,
         _actionUserStats,
-        _actionUserFriends
-    ) { userBriefList, userFavoritesList, userStatsList, userFriendsList ->
-        Quadruple(userBriefList, userFavoritesList, userStatsList, userFriendsList)
+        _actionUserFriends,
+        _actionUserHistory
+    ) { userBriefList, userFavoritesList, userStatsList, userFriendsList, userHistoryList ->
+        UserTypesData(
+            brief = userBriefList,
+            favorites = userFavoritesList,
+            stats = userStatsList,
+            friends = userFriendsList,
+            history = userHistoryList
+        )
     }
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             resultsFlow.collect {
-                Log.d("RESULTS FLOW", "---------------")
-                if (it.first.isNotEmpty() && it.second.isNotEmpty() && it.third.isNotEmpty() && it.fourth.isNotEmpty()) {
+                if (it.brief.isNotEmpty() && it.favorites.isNotEmpty() && it.stats.isNotEmpty() && it.friends.isNotEmpty() && it.history.isNotEmpty()) {
                     _progressBarAction.tryEmit(View.GONE)
                 }
             }
         }
     }
 
-
     fun getUserInfo(id: Long) {
         getUserBrief(id = id)
         getUserStats(id = id)
         getUserFavorites(id = id)
         getUserFriends(id = id)
+        getUserHistory(id, page = 1, limit = 10)
+    }
+
+    fun getUserHistory(
+        id: Long,
+        page: Int,
+        limit: Int
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val userHistory = getUserHistoryUseCase.execute(id = id, page = page, limit = limit)
+            when (userHistory) {
+                is Results.Success -> {
+                    _actionUserHistory.tryEmit(mutableListOf(UserHistoryContainer(list = userHistory.data)))
+                }
+                is Results.Error -> {
+                    _actionError.tryEmit(userHistory.exception.message.toString())
+                }
+            }
+        }
     }
 
     private fun getUserFavorites(id: Long) {

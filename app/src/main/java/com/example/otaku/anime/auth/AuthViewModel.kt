@@ -9,6 +9,7 @@ import com.example.domain.models.user.UserBrief
 import com.example.domain.usecases.auth.GetAccessTokenUseCase
 import com.example.domain.usecases.user.GetCurrentUserBriefUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -65,9 +66,17 @@ class AuthViewModel @Inject constructor(
                 }
                 is Results.Error -> {
                     _actionError.tryEmit(user.exception.message.toString())
+                    _actionAuth.tryEmit(AuthAction.ERROR)
                 }
             }
 
+        }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    fun clearErrors() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _actionError.resetReplayCache()
         }
     }
 

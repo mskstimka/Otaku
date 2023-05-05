@@ -1,10 +1,7 @@
 package com.example.animator_data.repository
 
 import com.example.animator_data.mapper.*
-import com.example.animator_data.network.api.AuthApi
 import com.example.animator_data.network.api.UserApi
-import com.example.animator_data.network.models.user.RateResponse
-import com.example.animator_data.network.models.user.UserDetailsResponse
 import com.example.animator_data.utils.SharedPreferencesHelper
 import com.example.domain.USER_AGENT
 import com.example.domain.common.Results
@@ -12,9 +9,10 @@ import com.example.domain.models.user.FavoriteList
 import com.example.domain.models.user.Rate
 import com.example.domain.models.user.UserBrief
 import com.example.domain.models.user.UserDetails
+import com.example.domain.models.user.history.UserHistory
 import com.example.domain.repository.AuthRepository
 import com.example.domain.repository.UserRepository
-import retrofit2.http.Query
+import kotlinx.coroutines.delay
 
 class UserRepositoryImpl(
     private val userApi: UserApi,
@@ -78,6 +76,7 @@ class UserRepositoryImpl(
                 }
             } else {
                 if (response.code() == 429) {
+                    delay(500)
                     getUserBriefInfo(id = id)
                 } else {
                     Results.Error(exception = Exception(response.message()))
@@ -200,6 +199,43 @@ class UserRepositoryImpl(
                     Results.Error(exception = Exception(response.message()))
                 }
 
+            }
+        } catch (e: Exception) {
+            Results.Error(Exception(e.message))
+        }
+    }
+
+    override suspend fun getUserHistory(
+        id: Long,
+        page: Int,
+        limit: Int
+    ): Results<List<UserHistory>> {
+        return try {
+            val response = userApi.getUserHistory(
+                id = id,
+                page = page,
+                limit = limit
+            )
+
+            return if (response.isSuccessful) {
+                when (val userHistoryResponse = response.body()) {
+                    null -> {
+                        Results.Error(Exception("Token Error Response"))
+                    }
+                    else -> {
+                        Results.Success(userHistoryResponse.toListUserHistory())
+                    }
+                }
+            } else {
+                if (response.code() == 429) {
+                    getUserHistory(
+                        id = id,
+                        page = page,
+                        limit = limit,
+                    )
+                } else {
+                    Results.Error(exception = Exception(response.message()))
+                }
             }
         } catch (e: Exception) {
             Results.Error(Exception(e.message))

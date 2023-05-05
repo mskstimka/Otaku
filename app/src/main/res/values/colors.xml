@@ -36,4 +36,6 @@
     <color name="others_status_color">#8B9FC3</color>
     <color name="completed_status_color">#617DAE</color>
 
+    <color name="history_background_color">#8B9FC3</color>
+
 </resources>

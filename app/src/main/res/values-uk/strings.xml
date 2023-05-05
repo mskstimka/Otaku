@@ -121,5 +121,6 @@
     <string name="fragment_auth_tvCurrentUserInfo_error_text">Ви не авторизувались!</string>
     <string name="fragment_auth_tvFragmentAuthTitle_text">Профіль</string>
     <string name="layout_user_friends_tvTitle_text">Друзі</string>
+    <string name="layout_user_history_tvTitle_text">Історія</string>
 
 </resources>

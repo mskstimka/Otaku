@@ -157,6 +157,11 @@
         <item name="cornerSize">50dp</item>
     </style>
 
+    <style name="avatar_history_roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
     <style name="favoritesImageView" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">40dp</item>

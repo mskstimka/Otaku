@@ -16,7 +16,7 @@ import com.example.otaku.anime.details.episodes.adapters.EpisodesAdapter
 import com.example.otaku.anime.details.episodes.models.ContainerEpisodeHeader
 import com.example.otaku.anime.details.episodes.models.ContainerEpisodes
 import com.example.otaku.anime.details.episodes.models.DisplayableItem
-import com.example.otaku.anime.details.info.ui.DetailsViewModel
+import com.example.otaku.anime.details.info.ui.viewmodel.DetailsViewModel
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentEpisodesBinding
 import com.example.otaku.utils.BannerUtils

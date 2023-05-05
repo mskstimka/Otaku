@@ -7,5 +7,5 @@ import com.example.domain.models.details.roles.Person
 data class ContainerPerson(
     val list: List<Person>,
     val id: String = "authors_id",
-    val title: String,
+    val title: String = "",
 )

@@ -7,32 +7,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startForegroundService
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.example.otaku.R
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentDetailsBinding
-import com.example.otaku.anime.details.info.adapters.persons.ContainerPerson
 import com.example.otaku.anime.details.info.adapters.persons.ContainerPersonAdapter
-import com.example.otaku.anime.details.info.adapters.characters.ContainerCharacters
 import com.example.otaku.anime.details.info.adapters.characters.ContainerCharactersAdapter
 import com.example.otaku.anime.details.info.adapters.details.ContainerDetailsAdapter
 import com.example.otaku.anime.details.info.adapters.franchises.ContainerFranchisesAdapter
 import com.example.otaku.anime.details.info.adapters.screenshots.ContainerScreenshotsAdapter
-import com.example.otaku.anime.details.info.adapters.studios.ContainerStudios
 import com.example.otaku.anime.details.info.adapters.studios.ContainerStudiosAdapter
-import com.example.otaku.anime.details.info.adapters.videos.ContainerVideos
 import com.example.otaku.anime.details.info.adapters.videos.ContainerVideosAdapter
 import com.example.otaku.anime.details.info.services.StatusForegroundService
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.subscribeToFlow
 import com.example.domain.*
-import com.example.domain.models.details.AnimeDetailsEntity
+import com.example.otaku.anime.details.info.ui.viewmodel.DetailsViewModel
 import javax.inject.Inject
 
 
@@ -92,7 +86,6 @@ class DetailsFragment : Fragment() {
     )
     private val rootAdapter = MergeAdapter(listAdapters)
 
-    private var currentItem: AnimeDetailsEntity? = null
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
 
@@ -166,77 +159,47 @@ class DetailsFragment : Fragment() {
 
     private fun subscribesToFlow() = with(dViewModel) {
 
-        subscribeToFlow(
-            flow = pageAnimeDetailsAction,
+        actionDetails.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
-        ) { item ->
-            containerDetailsAdapter.submitList(listOf(item))
-            containerVideosAdapter.submitList(
-                listOf(
-                    ContainerVideos(
-                        list = item.videos
-                    )
-                )
-            )
-            containerStudiosAdapter.submitList(
-                listOf(
-                    ContainerStudios(
-                        list = item.studios
-                    )
-                )
-            )
+        ) { detailsModel ->
 
-            currentItem = item
+            with(detailsModel) {
+                containerDetailsAdapter.submitList(details)
+                containerVideosAdapter.submitList(videos)
+                containerStudiosAdapter.submitList(studios)
 
-            val statusIntent =
-                Intent(requireActivity(), StatusForegroundService::class.java)
 
-            statusIntent
-                .putExtra(STATUS_FOREGROUND_ENGLISH_NAME_KEY, item.name)
-                .putExtra(STATUS_FOREGROUND_RUSSIAN_NAME_KEY, item.russian)
-                .putExtra(STATUS_FOREGROUND_KIND_KEY, item.kind)
-            startForegroundService(requireContext(), statusIntent)
+                val statusIntent =
+                    Intent(requireActivity(), StatusForegroundService::class.java)
 
+                statusIntent
+                    .putExtra(STATUS_FOREGROUND_ENGLISH_NAME_KEY, details.first().name)
+                    .putExtra(STATUS_FOREGROUND_RUSSIAN_NAME_KEY, details.first().russian)
+                    .putExtra(STATUS_FOREGROUND_KIND_KEY, details.first().kind)
+                startForegroundService(requireContext(), statusIntent)
+            }
         }
 
-        subscribeToFlow(
-            flow = pageAnimeScreenshotsAction,
+        actionScreenshots.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
-        ) { item ->
-            containerScreenshotsAdapter.submitList(listOf(item))
+        ) { screenshots ->
+            containerScreenshotsAdapter.submitList(screenshots)
         }
 
-
-        subscribeToFlow(
-            flow = pageAnimeFranchisesAction,
+        actionFranchises.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
-        ) { item ->
-            containerFranchisesAdapter.submitList(listOf(item))
+        ) { franchises ->
+            containerFranchisesAdapter.submitList(franchises)
         }
 
-        subscribeToFlow(
-            flow = pageAnimeRolesAction,
+        pageAnimeRolesAction.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
-        ) { item ->
-            containerCharactersAdapter.submitList(
-                listOf(
-                    ContainerCharacters(
-                        list = item.character
-                    )
-                )
-            )
-            containerPersonAdapter.submitList(
-                listOf(
-                    ContainerPerson(
-                        list = item.person,
-                        title = getString(R.string.fragment_details_tvTitleAutors_text)
-                    )
-                )
-            )
+        ) { roles ->
+            containerCharactersAdapter.submitList(roles.characters)
+            containerPersonAdapter.submitList(roles.persons)
         }
 
-        subscribeToFlow(
-            flow = actionError,
+        actionError.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
         ) { message ->
             BannerUtils.showSnackBar(
@@ -247,21 +210,20 @@ class DetailsFragment : Fragment() {
         }
 
 
-        subscribeToFlow(
-            flow = actionEpisodes,
+        actionEpisodes.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
-        ) { episodes ->
-            if (episodes != 0) {
+        ) { episodeModel ->
+            if (episodeModel.episodes != 0) {
                 binding.btWatch.apply {
                     visibility = View.VISIBLE
                     isWatch = true
                     setOnClickListener {
                         findNavController().navigate(
                             DetailsFragmentDirections.actionDetailsFragmentToEpisodesFragment(
-                                episodes = episodes,
-                                kind = currentItem?.kind!!,
-                                name = currentItem?.name!!,
-                                malId = currentItem?.id!!.toLong()
+                                episodes = episodeModel.episodes,
+                                kind = episodeModel.kind,
+                                name = episodeModel.name,
+                                malId = episodeModel.id
                             )
                         )
                     }
@@ -272,9 +234,7 @@ class DetailsFragment : Fragment() {
         }
 
 
-
-        subscribeToFlow(
-            flow = actionAdapter,
+        actionProgressBar.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
         ) { visibility ->
             with(binding) {

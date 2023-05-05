@@ -3,6 +3,9 @@ package com.example.animator_data.repository.sources.anime
 import com.example.animator_data.database.dao.ShikimoriDAO
 import com.example.animator_data.mapper.*
 import com.example.animator_data.network.api.AnimeApi
+import com.example.animator_data.utils.SharedPreferencesHelper
+import com.example.animator_data.utils.TranslateUtils
+import com.example.domain.ERROR_WAIT_TIME
 import com.example.domain.common.Results
 import com.example.domain.models.PersonEntity
 import com.example.domain.models.characters.CharacterDetailsEntity
@@ -11,10 +14,15 @@ import com.example.domain.models.details.franchise.AnimeDetailsFranchisesEntity
 import com.example.domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.domain.models.poster.AnimePosterEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class AnimeDataSourceImpl(
     private val animeApi: AnimeApi,
-    private val shikimoriDAO: ShikimoriDAO
+    private val shikimoriDAO: ShikimoriDAO,
+    private val sharedPreferencesHelper: SharedPreferencesHelper
 ) : AnimeDataSource {
 
 
@@ -40,9 +48,21 @@ class AnimeDataSourceImpl(
             val response = animeApi.getDetails(id = id)
             if (response.isSuccessful) {
                 val item = response.body()!!.toAnimeDetailsEntity()
-                Results.Success(data = item)
+
+                if (sharedPreferencesHelper.getIsUkraineLanguage()) {
+                    Results.Success(
+                        data = TranslateUtils.translateAnimeDetailsToUkraine(
+                            item,
+                            isDescriptionTranslate = sharedPreferencesHelper.getIsUkraineDescription(),
+                            isNameTranslate = sharedPreferencesHelper.getIsUkraineName()
+                        )
+                    )
+                } else {
+                    Results.Success(data = item)
+                }
             } else {
                 if (response.code() == 429) {
+                    delay(ERROR_WAIT_TIME)
                     getDetails(id)
                 } else {
                     Results.Error(exception = Exception(response.message()))
@@ -61,6 +81,7 @@ class AnimeDataSourceImpl(
                 Results.Success(data = list)
             } else {
                 if (response.code() == 429) {
+                    delay(ERROR_WAIT_TIME)
                     getScreenshots(id)
                 } else {
                     Results.Error(exception = Exception(response.message()))
@@ -79,6 +100,7 @@ class AnimeDataSourceImpl(
                 Results.Success(data = list)
             } else {
                 if (response.code() == 429) {
+                    delay(ERROR_WAIT_TIME)
                     getFranchises(id)
                 } else {
                     Results.Error(exception = Exception(response.message()))
@@ -97,6 +119,7 @@ class AnimeDataSourceImpl(
                 Results.Success(data = list)
             } else {
                 if (response.code() == 429) {
+                    delay(ERROR_WAIT_TIME)
                     getRoles(id)
                 } else {
                     Results.Error(exception = Exception(response.message()))
@@ -122,6 +145,7 @@ class AnimeDataSourceImpl(
                 }
                 false -> {
                     if (response.code() == 429) {
+                        delay(ERROR_WAIT_TIME)
                         getGenrePosters(genreId, isCensored = isCensored)
                     } else {
                         Results.Error(exception = Exception(response.message()))
@@ -151,6 +175,7 @@ class AnimeDataSourceImpl(
                 }
                 false -> {
                     if (response.code() == 429) {
+                        delay(ERROR_WAIT_TIME)
                         getRandomPoster(1, censored, "random")
                     } else
                         Results.Error(exception = Exception(response.message()))
@@ -170,11 +195,22 @@ class AnimeDataSourceImpl(
 
             when (response.isSuccessful) {
                 true -> {
-                    val item: CharacterDetailsEntity = response.body()!!.toCharacterDetailsEntity()
-                    Results.Success(data = item)
+                    val item = response.body()!!.toCharacterDetailsEntity()
+                    if (sharedPreferencesHelper.getIsUkraineLanguage()) {
+                        Results.Success(
+                            data = TranslateUtils.translateCharacterToUkraine(
+                                item,
+                                isDescriptionTranslate = sharedPreferencesHelper.getIsUkraineDescription(),
+                                isNameTranslate = sharedPreferencesHelper.getIsUkraineName()
+                            )
+                        )
+                    } else {
+                        Results.Success(data = item)
+                    }
                 }
                 false -> {
                     if (response.code() == 429) {
+                        delay(ERROR_WAIT_TIME)
                         getCharacters(id = id)
                     } else {
                         Results.Error(exception = Exception(response.message()))
@@ -193,10 +229,21 @@ class AnimeDataSourceImpl(
             when (response.isSuccessful) {
                 true -> {
                     val item = response.body()!!.toPersonEntity()
-                    Results.Success(data = item)
+                    if (sharedPreferencesHelper.getIsUkraineLanguage()) {
+                        Results.Success(
+                            data = TranslateUtils.translatePersonToUkraine(
+                                item,
+                                isDescriptionTranslate = sharedPreferencesHelper.getIsUkraineDescription(),
+                                isNameTranslate = sharedPreferencesHelper.getIsUkraineName()
+                            )
+                        )
+                    } else {
+                        Results.Success(data = item)
+                    }
                 }
                 false -> {
                     if (response.code() == 429) {
+                        delay(ERROR_WAIT_TIME)
                         getPersons(id = id)
                     } else {
                         Results.Error(exception = Exception(response.message()))

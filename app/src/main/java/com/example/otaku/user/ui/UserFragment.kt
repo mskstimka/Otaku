@@ -1,7 +1,6 @@
 package com.example.otaku.user.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,7 @@ import com.example.otaku.user.adapters.friends.UserFriendsAdapter
 import com.example.otaku.user.adapters.history.UserHistoryAdapter
 import com.example.otaku.user.adapters.info.UserInfoAdapter
 import com.example.otaku.user.adapters.stats.UserStatsAdapter
+import com.example.otaku.user.ui.viewmodel.UserViewModel
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.subscribeToFlow
 import javax.inject.Inject

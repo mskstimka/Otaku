@@ -1,6 +1,5 @@
-package com.example.otaku.user.ui
+package com.example.otaku.user.ui.viewmodel
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,13 +7,15 @@ import com.example.animator_data.utils.SharedPreferencesHelper
 import com.example.domain.common.Results
 import com.example.domain.models.user.FavoriteList
 import com.example.domain.models.user.UserBrief
-import com.example.domain.models.user.history.UserHistory
 import com.example.domain.usecases.user.*
 import com.example.otaku.user.adapters.friends.UserFriendsContainer
 import com.example.otaku.user.adapters.history.UserHistoryContainer
 import com.example.otaku.user.adapters.stats.models.UserStatsContainer
+import com.example.otaku.user.ui.viewmodel.models.UserTypesData
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -70,9 +71,7 @@ class UserViewModel @Inject constructor(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             resultsFlow.collect {
-                if (it.brief.isNotEmpty() && it.favorites.isNotEmpty() && it.stats.isNotEmpty() && it.friends.isNotEmpty() && it.history.isNotEmpty()) {
                     _progressBarAction.tryEmit(View.GONE)
-                }
             }
         }
     }

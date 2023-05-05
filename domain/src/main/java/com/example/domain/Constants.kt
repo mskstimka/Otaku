@@ -15,6 +15,7 @@ const val ONGOING_STATUS = "ongoing"
 const val ANONS_STATUS = "anons"
 const val NOT_FOUND_TEXT = "not found"
 
+const val ERROR_WAIT_TIME = 1000L
 // token values
 const val USER_AGENT = "Otaku"
 const val CLIENT_ID = "f5zjBHcb3RpDSxABhUPb65L3vWNQc8cI4CF_k3LXR3o"

@@ -7,7 +7,6 @@ import com.example.animator_data.utils.SharedPreferencesHelper
 import com.example.domain.common.Results
 import com.example.domain.models.PersonEntity
 import com.example.domain.usecases.anime.GetPersonUseCase
-import com.example.otaku.utils.TranslateUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -44,40 +43,12 @@ class PersonViewModel @Inject constructor(
     private val isNameTranslate = sharedPreferencesHelper.getIsUkraineName()
     private val isDescriptionTranslate = sharedPreferencesHelper.getIsUkraineDescription()
 
-    private fun translateToUkraine(item: PersonEntity) {
-        viewModelScope.launch(Dispatchers.IO) {
-
-            val localItem: PersonEntity = item.copy()
-            TranslateUtils.translatePersonToUkraine(
-                item = item,
-                isDescriptionTranslate = isDescriptionTranslate,
-                isNameTranslate = isNameTranslate,
-                actionDescription = {
-                    viewModelScope.launch {
-                        localItem.jobTitle = it
-                        putResponses(true)
-                        _actionInfo.emit(localItem)
-                    }
-                },
-                actionName = {
-                    viewModelScope.launch {
-                        putResponses(true)
-                        localItem.nameRu = it
-                        _actionInfo.emit(localItem)
-                    }
-                })
-        }
-    }
-
 
     fun getPerson(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
 
             when (val response = getPersonUseCase.execute(id = id)) {
                 is Results.Success -> {
-                    if (isUkraine) {
-                        translateToUkraine(response.data)
-                    }
                     putResponses(true)
                     _actionInfo.emit(response.data)
                 }

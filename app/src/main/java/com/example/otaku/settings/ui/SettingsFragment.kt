@@ -13,7 +13,6 @@ import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentSettingsBinding
 import com.example.otaku.utils.BannerUtils
 import com.example.animator_data.utils.SharedPreferencesHelper
-import com.example.otaku.utils.TranslateUtils
 import java.util.*
 import javax.inject.Inject
 
@@ -118,7 +117,6 @@ class SettingsFragment : Fragment() {
                 when (b) {
                     true -> true.also {
                         setLocale(it)
-                        TranslateUtils.downloadLanguage()
                     }
                     else -> false.also { setLocale(it) }
                 }

@@ -88,7 +88,7 @@ class CharactersFragment : Fragment() {
         ) { item ->
 
             infoAdapter.submitList(listOf(ContainerCharacterInfo(item = item)))
-            personAdapter.submitList(listOf(ContainerPerson(item.seyu, title = "Сейю")))
+            personAdapter.submitList(listOf(ContainerPerson(item.seyu, title = "Сейю")).toMutableList())
             franchisesAdapter.submitList(listOf(ContainerFranchises(list = item.animes)))
 
         }

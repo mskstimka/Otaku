@@ -1,13 +1,13 @@
 package com.example.animator_data.repository
 
-import android.util.Log
 import com.example.animator_data.mapper.toToken
 import com.example.animator_data.network.api.AuthApi
 import com.example.animator_data.utils.SharedPreferencesHelper
+import com.example.domain.ERROR_WAIT_TIME
 import com.example.domain.common.Results
 import com.example.domain.models.Token
 import com.example.domain.repository.AuthRepository
-import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.delay
 
 class AuthRepositoryImpl(
     private val authApi: AuthApi,
@@ -43,6 +43,7 @@ class AuthRepositoryImpl(
                 Results.Success(data = item)
             } else {
                 if (response.code() == 429) {
+                    delay(ERROR_WAIT_TIME)
                     refreshToken(refreshToken)
                 } else {
                     Results.Error(exception = Exception(response.message()))

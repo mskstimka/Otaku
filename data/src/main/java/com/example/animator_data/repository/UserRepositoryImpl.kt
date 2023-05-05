@@ -3,6 +3,7 @@ package com.example.animator_data.repository
 import com.example.animator_data.mapper.*
 import com.example.animator_data.network.api.UserApi
 import com.example.animator_data.utils.SharedPreferencesHelper
+import com.example.domain.ERROR_WAIT_TIME
 import com.example.domain.USER_AGENT
 import com.example.domain.common.Results
 import com.example.domain.models.user.FavoriteList
@@ -41,6 +42,7 @@ class UserRepositoryImpl(
                 val refreshToken = sharedPreferencesHelper.getLocalToken()?.refreshToken
 
                 return if (response.code() == 429) {
+                    delay(ERROR_WAIT_TIME)
                     getCurrentUser(userAgent, "Bearer $accessToken")
                 } else if (response.code() == 401 && refreshToken != null) {
                     when (val newToken = authRepository.refreshToken(refreshToken)) {
@@ -76,7 +78,7 @@ class UserRepositoryImpl(
                 }
             } else {
                 if (response.code() == 429) {
-                    delay(500)
+                    delay(ERROR_WAIT_TIME)
                     getUserBriefInfo(id = id)
                 } else {
                     Results.Error(exception = Exception(response.message()))
@@ -102,6 +104,7 @@ class UserRepositoryImpl(
                 }
             } else {
                 if (response.code() == 429) {
+                    delay(ERROR_WAIT_TIME)
                     getUserFavourites(id = id)
                 } else {
                     Results.Error(exception = Exception(response.message()))
@@ -127,6 +130,7 @@ class UserRepositoryImpl(
                 }
             } else {
                 if (response.code() == 429) {
+                    delay(ERROR_WAIT_TIME)
                     getUserStats(id = id)
                 } else {
                     Results.Error(exception = Exception(response.message()))
@@ -154,6 +158,7 @@ class UserRepositoryImpl(
                 }
             } else {
                 if (response.code() == 429) {
+                    delay(ERROR_WAIT_TIME)
                     getUserFriends(id = id)
                 } else {
                     Results.Error(exception = Exception(response.message()))
@@ -189,6 +194,7 @@ class UserRepositoryImpl(
                 }
             } else {
                 if (response.code() == 429) {
+                    delay(ERROR_WAIT_TIME)
                     getUserAnimeRates(
                         id = id,
                         page = page,
@@ -228,6 +234,7 @@ class UserRepositoryImpl(
                 }
             } else {
                 if (response.code() == 429) {
+                    delay(ERROR_WAIT_TIME)
                     getUserHistory(
                         id = id,
                         page = page,

@@ -59,10 +59,15 @@ class DataModule(private val context: Context) {
 
 
     @Provides
-    fun provideAnimeDataSource(retrofit: Retrofit, shikimoriDAO: ShikimoriDAO): AnimeDataSource {
+    fun provideAnimeDataSource(
+        retrofit: Retrofit,
+        shikimoriDAO: ShikimoriDAO,
+        sharedPreferencesHelper: SharedPreferencesHelper
+    ): AnimeDataSource {
         return AnimeDataSourceImpl(
             animeApi = retrofit.create(AnimeApi::class.java),
-            shikimoriDAO = shikimoriDAO
+            shikimoriDAO = shikimoriDAO,
+            sharedPreferencesHelper = sharedPreferencesHelper
         )
     }
 

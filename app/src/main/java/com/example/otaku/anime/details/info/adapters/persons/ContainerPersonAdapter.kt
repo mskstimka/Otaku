@@ -35,6 +35,11 @@ class ContainerPersonAdapter(private val actionToPerson: (id: Int) -> Unit) :
         holder.bind(currentList[position])
 
 
+    override fun submitList(list: MutableList<ContainerPerson>?) {
+        super.submitList(list)
+        personAdapter.submitList(list?.first()?.list ?: emptyList())
+    }
+
     override fun getItemCount(): Int = currentList.size
 
     inner class ParentAuthorsViewHolder(
@@ -44,9 +49,9 @@ class ContainerPersonAdapter(private val actionToPerson: (id: Int) -> Unit) :
 
         fun bind(item: ContainerPerson) = with(binding) {
 
-            personAdapter.submitList(item.list)
-
-            binding.tvTitleAutors.text = item.title
+            if (item.title != "") {
+                tvTitleAutors.text = item.title
+            }
         }
     }
 

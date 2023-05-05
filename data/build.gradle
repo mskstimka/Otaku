@@ -36,6 +36,10 @@ android {
 
 dependencies {
 
+    // mlKit
+    implementation 'com.google.mlkit:translate:17.0.1'
+    implementation 'com.google.mlkit:common:18.7.0'
+
     // include modules
     implementation project(path: ':domain')
     implementation 'com.google.firebase:protolite-well-known-types:18.0.0'
@@ -47,7 +51,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
 
     // coroutine
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4'
+
 
     // room
     def room_version = '2.4.3'

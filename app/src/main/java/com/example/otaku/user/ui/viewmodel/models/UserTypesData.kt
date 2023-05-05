@@ -1,4 +1,4 @@
-package com.example.otaku.user.ui
+package com.example.otaku.user.ui.viewmodel.models
 
 data class UserTypesData<T1, T2, T3, T4, T5>(
     val brief: T1,

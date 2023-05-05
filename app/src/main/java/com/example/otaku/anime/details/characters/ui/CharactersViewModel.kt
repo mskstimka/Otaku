@@ -7,7 +7,6 @@ import com.example.animator_data.utils.SharedPreferencesHelper
 import com.example.domain.common.Results
 import com.example.domain.models.characters.CharacterDetailsEntity
 import com.example.domain.usecases.anime.GetCharacterDetailsUseCase
-import com.example.otaku.utils.TranslateUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -44,39 +43,13 @@ class CharactersViewModel @Inject constructor(
     private val isNameTranslate = sharedPreferencesHelper.getIsUkraineName()
     private val isDescriptionTranslate = sharedPreferencesHelper.getIsUkraineDescription()
 
-    private fun translateToUkraine(item: CharacterDetailsEntity) {
-        viewModelScope.launch(Dispatchers.IO) {
 
-            val localItem: CharacterDetailsEntity = item.copy()
-            TranslateUtils.translateCharacterToUkraine(
-                item = item,
-                isDescriptionTranslate = isDescriptionTranslate,
-                isNameTranslate = isNameTranslate,
-                actionDescription = {
-                    viewModelScope.launch {
-                        localItem.description_html = it
-                        putResponses(true)
-                        _actionInfo.emit(localItem)
-                    }
-                },
-                actionName = {
-                    viewModelScope.launch {
-                        putResponses(true)
-                        localItem.nameRu = it
-                        _actionInfo.emit(localItem)
-                    }
-                })
-        }
-    }
 
     fun getCharacters(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
 
             when (val response = getCharacterDetailsUseCase.execute(id = id)) {
                 is Results.Success -> {
-                    if (isUkraine) {
-                        translateToUkraine(response.data)
-                    }
                     _actionInfo.emit(response.data)
                     putResponses(true)
                 }

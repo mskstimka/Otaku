@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.otaku.anime.home.ui.HomeFragment"
+        android:name="com.example.otaku.home.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home"/>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.otaku.anime.search.ui.SearchFragment"
+        android:name="com.example.otaku.search.ui.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search"/>
     <fragment
@@ -91,7 +91,7 @@
     </fragment>
     <fragment
         android:id="@+id/charactersFragment"
-        android:name="com.example.otaku.anime.details.characters.ui.CharactersFragment"
+        android:name="com.example.otaku.characters.ui.CharactersFragment"
         android:label="fragment_characters"
         tools:layout="@layout/fragment_characters" >
         <argument
@@ -114,7 +114,7 @@
     </fragment>
     <fragment
         android:id="@+id/personFragment"
-        android:name="com.example.otaku.anime.details.persons.ui.PersonFragment"
+        android:name="com.example.otaku.persons.ui.PersonFragment"
         android:label="fragment_person"
         tools:layout="@layout/fragment_person" >
         <argument

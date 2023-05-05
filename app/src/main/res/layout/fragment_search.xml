@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@color/activity_background_color"
-    tools:context=".anime.search.ui.SearchFragment">
+    tools:context=".search.ui.SearchFragment">
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group"

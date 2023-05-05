@@ -1,12 +1,12 @@
 package com.example.otaku.app.di
 
 import com.example.otaku.app.App
-import com.example.otaku.anime.details.characters.ui.CharactersFragment
+import com.example.otaku.characters.ui.CharactersFragment
 import com.example.otaku.anime.details.episodes.ui.EpisodesFragment
 import com.example.otaku.anime.details.info.ui.DetailsFragment
-import com.example.otaku.anime.details.persons.ui.PersonFragment
-import com.example.otaku.anime.home.ui.HomeFragment
-import com.example.otaku.anime.search.ui.SearchFragment
+import com.example.otaku.persons.ui.PersonFragment
+import com.example.otaku.home.ui.HomeFragment
+import com.example.otaku.search.ui.SearchFragment
 import com.example.otaku.settings.ui.SettingsFragment
 import com.example.animator_data.di.DataModule
 import com.example.otaku.agreement.UserAgreementFragmentDialog

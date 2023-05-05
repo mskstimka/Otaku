@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.otaku.anime.details.persons.ui.PersonFragmentArgs
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentAnimeRatesBinding
 import com.example.otaku.utils.BannerUtils

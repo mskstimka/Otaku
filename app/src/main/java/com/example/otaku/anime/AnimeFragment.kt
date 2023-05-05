@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.otaku.R
 import com.example.otaku.databinding.FragmentAnimeBinding
-import com.example.otaku.anime.home.ui.HomeFragment
-import com.example.otaku.anime.search.ui.SearchFragment
+import com.example.otaku.home.ui.HomeFragment
+import com.example.otaku.search.ui.SearchFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 

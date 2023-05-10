@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.SHIKIMORI_URL
-import com.example.domain.models.details.roles.Character
+import com.example.otaku_domain.SHIKIMORI_URL
+import com.example.otaku_domain.models.details.roles.Character
 import com.example.otaku.databinding.ItemDetailsCharactersBinding
 import com.example.otaku.utils.setImageByURL
-import com.example.domain.NOT_FOUND_TEXT
+import com.example.otaku_domain.NOT_FOUND_TEXT
 
 class CharactersAdapter(private val actionToCharacters: (id: Int) -> Unit) :
     ListAdapter<Character, CharactersAdapter.CharactersViewHolder>(

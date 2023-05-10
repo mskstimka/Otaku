@@ -3,13 +3,13 @@ package com.example.otaku.utils
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.graphics.Typeface
 import android.os.Build
 import android.widget.ImageView
-import android.widget.SearchView
-import android.widget.TextView
 import androidx.lifecycle.*
 import com.example.otaku.R
+import com.example.otaku_domain.NOT_FOUND_TEXT
+import com.example.otaku_domain.models.details.AnimeDetailsEntity
+import com.example.otaku_domain.models.poster.AnimePosterEntity
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -79,3 +79,16 @@ fun Context.applyNewLocale(locale: Locale): Context {
     }
     return this
 }
+
+fun AnimeDetailsEntity.toAnimePoster() = AnimePosterEntity(
+    id = this.id,
+    image = this.image,
+    name = this.name ?: NOT_FOUND_TEXT,
+    score = this.score ?: "0.0",
+    episodes = this.episodes ?: 0,
+    episodesAired = this.episodes_aired ?: 0,
+    url = NOT_FOUND_TEXT,
+    status = this.status ?: NOT_FOUND_TEXT,
+    statusColor = "",
+    russian = this.russian ?: ""
+)

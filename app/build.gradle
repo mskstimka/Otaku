@@ -63,6 +63,7 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-ads:22.0.0'
 
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 
     // gif view
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.25'

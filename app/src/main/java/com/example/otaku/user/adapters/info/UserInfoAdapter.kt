@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.models.user.UserBrief
+import com.example.otaku_domain.models.user.UserBrief
 import com.example.otaku.databinding.LayoutUserInfoBinding
 import com.example.otaku.utils.setImageByURL
 

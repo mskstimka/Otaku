@@ -4,10 +4,6 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.common.Results
-import com.example.domain.models.details.Translations
-import com.example.domain.models.poster.AnimePosterEntity
-import com.example.domain.usecases.anime.*
 import com.example.otaku.anime.details.info.adapters.characters.ContainerCharacters
 import com.example.otaku.anime.details.info.adapters.franchises.ContainerFranchises
 import com.example.otaku.anime.details.info.adapters.persons.ContainerPerson
@@ -18,13 +14,27 @@ import com.example.otaku.anime.details.info.ui.viewmodel.models.ActionDetailsDat
 import com.example.otaku.anime.details.info.ui.viewmodel.models.ActionEpisodesData
 import com.example.otaku.anime.details.info.ui.viewmodel.models.DetailsTypesData
 import com.example.otaku.anime.details.info.ui.viewmodel.models.RolesTypesData
+import com.example.otaku_data.mapper.toUserRateResponse
+import com.example.otaku_data.utils.SharedPreferencesHelper
+import com.example.otaku_domain.NO_AUTH_USER_ID
+import com.example.otaku_domain.USER_AGENT
+import com.example.otaku_domain.common.Results
+import com.example.otaku_domain.models.details.AnimeDetailsEntity
+import com.example.otaku_domain.models.details.Translations
+import com.example.otaku_domain.models.poster.AnimePosterEntity
+import com.example.otaku_domain.models.user.status.UserRate
+import com.example.otaku_domain.usecases.anime.*
+import com.example.otaku_domain.usecases.user.CreateUserRateUseCase
+import com.example.otaku_domain.usecases.user.UpdateUserRateUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 
 class DetailsViewModel @Inject constructor(
@@ -37,6 +47,9 @@ class DetailsViewModel @Inject constructor(
     private val deleteFavoritesUseCase: DeleteFavoritesUseCase,
     private val addFavoritesUseCase: AddFavoritesUseCase,
     private val checkIsFavoriteUseCase: CheckIsFavoriteUseCase,
+    private val updateUserRateUseCase: UpdateUserRateUseCase,
+    private val createUserRateUseCase: CreateUserRateUseCase,
+    private val sharedPreferencesHelper: SharedPreferencesHelper
 ) : ViewModel() {
 
     private val _actionError = MutableSharedFlow<String>(replay = 1)
@@ -66,6 +79,11 @@ class DetailsViewModel @Inject constructor(
     private val _actionEpisodes = MutableSharedFlow<ActionEpisodesData>(replay = 1)
     val actionEpisodes: SharedFlow<ActionEpisodesData> get() = _actionEpisodes
 
+    private val _actionUserRate = MutableSharedFlow<MutableList<AnimeDetailsEntity>>(replay = 1)
+    val actionUserRate: SharedFlow<MutableList<AnimeDetailsEntity>> get() = _actionUserRate
+
+    private var currentId by Delegates.notNull<Long>()
+
     private val resultsFlow = combine(
         _actionDetails,
         _actionScreenshots,
@@ -83,7 +101,7 @@ class DetailsViewModel @Inject constructor(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             resultsFlow.collect {
-                    _actionProgressBar.tryEmit(View.GONE)
+                _actionProgressBar.tryEmit(View.GONE)
             }
         }
     }
@@ -106,15 +124,84 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
+    fun updateOrCreateUserRate(userRate: UserRate) {
+        if (userRate.id != null) {
+            updateUserRate(userRate)
+        } else {
+            createUserRate(userRate)
+        }
+    }
+
+    private fun createUserRate(userRate: UserRate) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val userId = sharedPreferencesHelper.getCurrentUserId()
+            val savedToken = sharedPreferencesHelper.getLocalToken()
+
+            if (userId != NO_AUTH_USER_ID && savedToken != null) {
+                when (val response = createUserRateUseCase.execute(
+                    userAgent = USER_AGENT,
+                    authHeader = "Bearer ${savedToken.authToken}",
+                    userRate = userRate,
+                    userId = userId
+                )) {
+                    is Results.Success -> {
+                        val details = actionDetails.last().details.first().copy()
+                        details.userRate = response.data
+                        Log.d("POST", details.toString())
+                        _actionUserRate.tryEmit(mutableListOf(details))
+                    }
+                    is Results.Error -> {
+                        _actionError.tryEmit(response.exception.message.toString())
+                    }
+                }
+            } else {
+                _actionError.tryEmit("User/Token Error")
+            }
+
+        }
+    }
+
+    private fun updateUserRate(userRate: UserRate) {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val newUserRate = userRate
+            newUserRate.userId = sharedPreferencesHelper.getCurrentUserId()
+            val rateId = userRate.id
+            val savedToken = sharedPreferencesHelper.getLocalToken()
+            Log.d("User Rate", userRate.toString())
+
+            Log.d("POST", rateId.toString())
+            if (rateId != null && savedToken != null) {
+                when (val response = updateUserRateUseCase.execute(
+                    userAgent = USER_AGENT,
+                    authHeader = "Bearer ${savedToken.authToken}",
+                    userRate = newUserRate,
+                    rateId = rateId
+                )) {
+                    is Results.Success -> {
+                        _actionError.tryEmit("User Rate Updated!")
+                    }
+                    is Results.Error -> {
+                        _actionError.tryEmit(response.exception.message.toString())
+                    }
+                }
+            } else {
+                _actionError
+            }
+        }
+    }
+
     fun getAnimeDetailsFromId(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
 
             when (val response = getAnimeDetailsFromIdUseCase.execute(id = id)) {
                 is Results.Success -> {
 
+                    currentId = response.data.id.toLong()
+                    Log.d("USER RATE: ", response.data.userRate.toString())
                     _actionDetails.tryEmit(
                         ActionDetailsData(
-                            details = listOf(response.data),
+                            details = mutableListOf(response.data),
                             videos = listOf(ContainerVideos(response.data.videos)),
                             studios = listOf(ContainerStudios(response.data.studios))
                         )
@@ -127,7 +214,7 @@ class DetailsViewModel @Inject constructor(
                     )
                 }
                 is Results.Error -> {
-                    _actionError.emit(response.exception.message.toString())
+                    _actionError.tryEmit(response.exception.message.toString())
                 }
             }
         }

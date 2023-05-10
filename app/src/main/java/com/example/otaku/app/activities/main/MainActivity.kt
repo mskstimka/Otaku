@@ -1,6 +1,6 @@
 package com.example.otaku.app.activities.main
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
@@ -9,12 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.example.animator_data.utils.SharedPreferencesHelper
-import com.example.domain.AD_ID_ON_BACK_PRESSED
+import com.example.otaku_data.utils.SharedPreferencesHelper
+import com.example.otaku_domain.AD_ID_ON_BACK_PRESSED
 import com.example.otaku.R
 import com.example.otaku.agreement.UserAgreementFragmentDialog
 import com.example.otaku.app.App
 import com.example.otaku.databinding.ActivityMainBinding
+import com.example.otaku.utils.ContextUtils
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
@@ -41,14 +42,13 @@ class MainActivity : AppCompatActivity() {
 
         MobileAds.initialize(this)
 
-        setLocale(sharedPreferencesHelper.getIsUkraineLanguage())
-
         loadAds()
 
         initNavigation()
 
         showUserAgreement()
     }
+
 
     private fun showUserAgreement() = with(binding) {
         val isShow = sharedPreferencesHelper.getIsShowUserAgreement()
@@ -63,20 +63,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun attachBaseContext(newBase: Context) {
+        val isUkraineLanguage = SharedPreferencesHelper(newBase).getIsUkraineLanguage()
 
-    private fun setLocale(switch: Boolean) {
-        val titleCheck = sharedPreferencesHelper.getIsUkraineTitle()
-
-        val locale3 = if (switch && titleCheck) {
+        val locale = if (isUkraineLanguage) {
             Locale("uk")
         } else {
             Locale("en")
         }
-        Locale.setDefault(locale3)
-        val config3 = Configuration()
-        config3.locale = locale3
-        baseContext.resources.updateConfiguration(config3, baseContext.resources.displayMetrics)
-
+        val localeUpdatedContext = ContextUtils.updateLocale(newBase, locale)
+        super.attachBaseContext(localeUpdatedContext)
     }
 
 

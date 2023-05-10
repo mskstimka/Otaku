@@ -3,11 +3,11 @@ package com.example.otaku.user.ui.viewmodel
 import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.animator_data.utils.SharedPreferencesHelper
-import com.example.domain.common.Results
-import com.example.domain.models.user.FavoriteList
-import com.example.domain.models.user.UserBrief
-import com.example.domain.usecases.user.*
+import com.example.otaku_data.utils.SharedPreferencesHelper
+import com.example.otaku_domain.common.Results
+import com.example.otaku_domain.models.user.FavoriteList
+import com.example.otaku_domain.models.user.UserBrief
+import com.example.otaku_domain.usecases.user.*
 import com.example.otaku.user.adapters.friends.UserFriendsContainer
 import com.example.otaku.user.adapters.history.UserHistoryContainer
 import com.example.otaku.user.adapters.stats.models.UserStatsContainer

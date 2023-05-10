@@ -8,7 +8,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.otaku.R
 import com.example.otaku.app.App
 import com.example.otaku.databinding.DialogSettingLanguageBinding
-import com.example.animator_data.utils.SharedPreferencesHelper
+import com.example.otaku_data.utils.SharedPreferencesHelper
 import javax.inject.Inject
 
 
@@ -54,21 +54,12 @@ class LanguageSettingFragmentDialog : DialogFragment() {
             sharedPreferencesHelper.getIsUkraineDescription()
 
         sIsTitle.isChecked =
-            sharedPreferencesHelper.getIsUkraineTitle()
+            sharedPreferencesHelper.getIsUkraineLanguage()
 
         sIsTitle.isClickable = false
 
         sIsName.setOnCheckedChangeListener { _, b ->
             sharedPreferencesHelper.setIsUkraineName(
-                when (b) {
-                    true -> true
-                    else -> false
-                }
-            )
-        }
-
-        sIsTitle.setOnCheckedChangeListener { _, b ->
-            sharedPreferencesHelper.setIsUkraineTitle(
                 when (b) {
                     true -> true
                     else -> false

@@ -13,7 +13,7 @@
     <string name="fragment_details_tvTitle_text">TITLE</string>
     <string name="fragment_details_tvTitleRussian_text">Заголовок</string>
     <string name="fragment_details_ivImage_contentDescription">Зображення Постера</string>
-    <string name="fragment_details_tvEpisodeTitle_text">Серій:</string>
+    <string name="fragment_details_tvEpisodeTitle_text">Епізоди:</string>
     <string name="fragment_details_tvEpisode_text">xx</string>
     <string name="fragment_details_tvStatusTitle_text">Статус:</string>
     <string name="fragment_details_tvStatus_text">status</string>
@@ -122,5 +122,15 @@
     <string name="fragment_auth_tvFragmentAuthTitle_text">Профіль</string>
     <string name="layout_user_friends_tvTitle_text">Друзі</string>
     <string name="layout_user_history_tvTitle_text">Історія</string>
+
+    <string name="spinner_no_selection_text">Добавити в список</string>
+    <string name="spinner_completed_text">Переглянуто</string>
+    <string name="spinner_dropped_text">Кинуто</string>
+    <string name="spinner_watching_text">Дивлюсь</string>
+    <string name="spinner_planned_text">Заплановано</string>
+    <string name="spinner_hold_on_text">Відкладено</string>
+
+    <string name="title_settings_episode">"\nВведіть кількість епізодів"</string>
+    <string name="positive_button_settings_episode">Оновити</string>
 
 </resources>

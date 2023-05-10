@@ -1,5 +1,6 @@
 package com.example.otaku.app.di
 
+import android.app.Application
 import com.example.otaku.app.App
 import com.example.otaku.characters.ui.CharactersFragment
 import com.example.otaku.anime.details.episodes.ui.EpisodesFragment
@@ -8,15 +9,16 @@ import com.example.otaku.persons.ui.PersonFragment
 import com.example.otaku.home.ui.HomeFragment
 import com.example.otaku.search.ui.SearchFragment
 import com.example.otaku.settings.ui.SettingsFragment
-import com.example.animator_data.di.DataModule
+import com.example.otaku_data.di.DataModule
 import com.example.otaku.agreement.UserAgreementFragmentDialog
-import com.example.otaku.anime.auth.AuthFragment
+import com.example.otaku.auth.AuthFragment
 import com.example.otaku.app.activities.main.MainActivity
 import com.example.otaku.app.di.modules.*
-import com.example.otaku.anime.auth.AuthActivity
+import com.example.otaku.auth.AuthActivity
 import com.example.otaku.settings.ui.LanguageSettingFragmentDialog
 import com.example.otaku.user.rates.anime.AnimeRatesFragment
 import com.example.otaku.user.ui.UserFragment
+import dagger.BindsInstance
 import dagger.Component
 
 
@@ -37,4 +39,13 @@ interface AppComponent {
     fun inject(animeRatesFragment: AnimeRatesFragment)
     fun inject(authFragment: AuthFragment)
     fun inject(app: App)
+
+    @Component.Builder
+    interface ComponentBuilder {
+
+        fun build() : AppComponent
+
+        @BindsInstance
+        fun application(application: Application) : ComponentBuilder
+    }
 }

@@ -11,8 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.otaku.R
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentSettingsBinding
-import com.example.otaku.utils.BannerUtils
-import com.example.animator_data.utils.SharedPreferencesHelper
+import com.example.otaku_data.utils.SharedPreferencesHelper
 import java.util.*
 import javax.inject.Inject
 
@@ -46,6 +45,8 @@ class SettingsFragment : Fragment() {
                 requireContext(),
                 R.layout.spinner_text, resources.getStringArray(R.array.themes)
             )
+            dropDownVerticalOffset = 20
+            dropDownHorizontalOffset = 16
 
             setSelection(sharedPreferencesHelper.getDayNightTheme(), false)
 
@@ -55,28 +56,14 @@ class SettingsFragment : Fragment() {
                     parent: AdapterView<*>?,
                     view: View?, position: Int, id: Long
                 ) {
-//                    when (position) {
-//                        IS_DAY_THEME -> requireActivity().setTheme(R.style.AnimatorMaterial3_Day)
-//                        IS_NIGHT_THEME -> requireActivity().setTheme(R.style.AnimatorMaterial3_Night)
-//                        IS_AUTO_THEME -> requireActivity().setTheme(R.style.AnimatorMaterial3)
-//                    }
                     sharedPreferencesHelper.setDayNightTheme(position)
-//
-                    BannerUtils.showSnackBar(
-                        binding.root,
-                        getString(R.string.theme_message),
-                        requireContext(),
-                        requireActivity().findViewById(R.id.navBottom)
-                    )
-
+                    (requireContext().applicationContext as App).setDayNightMode()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
                     // write code to perform some action
                 }
             }
-
-
         }
         val settingsLanguage = LanguageSettingFragmentDialog()
 
@@ -112,27 +99,21 @@ class SettingsFragment : Fragment() {
             )
         }
 
-        sFragmentSettingsUkraineLocale.setOnCheckedChangeListener { _, b ->
-            sharedPreferencesHelper.setIsUkraineLanguage(
-                when (b) {
-                    true -> true.also {
-                        setLocale(it)
-                    }
-                    else -> false.also { setLocale(it) }
-                }
-            )
+        sFragmentSettingsUkraineLocale.setOnCheckedChangeListener { _, switch ->
+            sharedPreferencesHelper.setIsUkraineLanguage(switch)
+            requireActivity().recreate()
         }
     }
 
 
     private fun setLocale(switch: Boolean) {
-        val titleCheck = sharedPreferencesHelper.getIsUkraineTitle()
 
-        val locale3 = if (switch || titleCheck) {
+        val locale3 = if (switch) {
             Locale("uk")
         } else {
             Locale("en")
         }
+
         Locale.setDefault(locale3)
         val config3 = Configuration()
         config3.locale = locale3
@@ -140,7 +121,7 @@ class SettingsFragment : Fragment() {
             config3,
             requireActivity().baseContext.resources.displayMetrics
         )
-
+        requireActivity().recreate()
 
     }
 }

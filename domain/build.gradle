@@ -9,11 +9,6 @@ java {
 }
 
 dependencies {
-    // retrofit
-    def retrofit_version = "2.9.0"
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
 
     // DateTime
     implementation 'net.danlew:android.joda:2.9.9.3'

@@ -1,6 +1,6 @@
 package com.example.otaku.home.adapters.favorites
 
-import com.example.domain.models.poster.AnimePosterEntity
+import com.example.otaku_domain.models.poster.AnimePosterEntity
 
 data class ContainerFavorites(
     val id: String = "container_favorites",

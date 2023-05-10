@@ -206,7 +206,7 @@
     </fragment>
     <fragment
         android:id="@+id/authFragment"
-        android:name="com.example.otaku.anime.auth.AuthFragment"
+        android:name="com.example.otaku.auth.AuthFragment"
         android:label="fragment_auth"
         tools:layout="@layout/fragment_auth" >
         <action

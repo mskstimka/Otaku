@@ -3,12 +3,14 @@ package com.example.otaku.user.adapters.history
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.SHIKIMORI_URL
-import com.example.domain.models.user.history.UserHistory
+import com.example.otaku_domain.SHIKIMORI_URL
+import com.example.otaku_domain.models.user.history.UserHistory
 import com.example.otaku.databinding.ItemHistoryBinding
+import com.example.otaku.user.ui.UserFragmentDirections
 import com.example.otaku.utils.setImageByURL
 
 class HistoryAdapter :
@@ -45,6 +47,15 @@ class HistoryAdapter :
             tvName.text = model.target?.name
             tvDescription.text =
                 HtmlCompat.fromHtml(model.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
+
+            itemView.setOnClickListener {
+                val target = model.target
+                if (target?.episodes != null) {
+                    root.findNavController().navigate(
+                        UserFragmentDirections.actionUserFragmentToDetailsFragment(target.id)
+                    )
+                }
+            }
         }
     }
 

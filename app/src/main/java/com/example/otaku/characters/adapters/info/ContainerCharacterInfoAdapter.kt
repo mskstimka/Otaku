@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otaku.databinding.LayoutCharactersInfoBinding
 import com.example.otaku.utils.setImageByURL
-import com.example.domain.NOT_FOUND_TEXT
-import com.example.domain.SHIKIMORI_URL
+import com.example.otaku_domain.NOT_FOUND_TEXT
+import com.example.otaku_domain.SHIKIMORI_URL
 
 class ContainerCharacterInfoAdapter(private val onBackPressed: () -> Unit) :
     ListAdapter<ContainerCharacterInfo, ContainerCharacterInfoAdapter.ParentAuthorsViewHolder>(

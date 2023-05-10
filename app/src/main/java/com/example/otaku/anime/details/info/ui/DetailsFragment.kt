@@ -1,10 +1,18 @@
 package com.example.otaku.anime.details.info.ui
 
+import android.R
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.InputType
+import android.text.SpannableStringBuilder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.startForegroundService
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -13,20 +21,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.example.otaku.app.App
-import com.example.otaku.databinding.FragmentDetailsBinding
-import com.example.otaku.anime.details.info.adapters.persons.ContainerPersonAdapter
 import com.example.otaku.anime.details.info.adapters.characters.ContainerCharactersAdapter
 import com.example.otaku.anime.details.info.adapters.details.ContainerDetailsAdapter
 import com.example.otaku.anime.details.info.adapters.franchises.ContainerFranchisesAdapter
+import com.example.otaku.anime.details.info.adapters.persons.ContainerPersonAdapter
 import com.example.otaku.anime.details.info.adapters.screenshots.ContainerScreenshotsAdapter
 import com.example.otaku.anime.details.info.adapters.studios.ContainerStudiosAdapter
 import com.example.otaku.anime.details.info.adapters.videos.ContainerVideosAdapter
 import com.example.otaku.anime.details.info.services.StatusForegroundService
+import com.example.otaku.anime.details.info.ui.viewmodel.DetailsViewModel
+import com.example.otaku.app.App
+import com.example.otaku.databinding.FragmentDetailsBinding
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.subscribeToFlow
-import com.example.domain.*
-import com.example.otaku.anime.details.info.ui.viewmodel.DetailsViewModel
+import com.example.otaku_data.mapper.toUserRateResponse
+import com.example.otaku_domain.STATUS_FOREGROUND_ENGLISH_NAME_KEY
+import com.example.otaku_domain.STATUS_FOREGROUND_KIND_KEY
+import com.example.otaku_domain.STATUS_FOREGROUND_RUSSIAN_NAME_KEY
 import javax.inject.Inject
 
 
@@ -37,6 +48,7 @@ class DetailsFragment : Fragment() {
     @Inject
     lateinit var dViewModel: DetailsViewModel
 
+
     private var isWatch = false
 
     private val containerDetailsAdapter by lazy {
@@ -44,8 +56,11 @@ class DetailsFragment : Fragment() {
             onBackPressed = { activity?.onBackPressed() },
             addFavorites = { dViewModel.addFavoritesId(it) },
             deleteFavorites = { dViewModel.deleteFavoritesId(it) },
-            checkIsFavorite = { dViewModel.checkIsFavorite(it) })
+            checkIsFavorite = { dViewModel.checkIsFavorite(it) },
+            updateOrCreateUserRate = { userRate -> dViewModel.updateOrCreateUserRate(userRate) }
+        )
     }
+
     private val containerVideosAdapter by lazy {
         ContainerVideosAdapter { intent ->
             startActivity(
@@ -231,6 +246,20 @@ class DetailsFragment : Fragment() {
 
             }
 
+            actionUserRate.subscribeToFlow(
+                lifecycleOwner = viewLifecycleOwner
+            ) { list ->
+                Log.d("RECIEVE", "-------------------")
+
+                containerDetailsAdapter.submitList(list)
+
+                BannerUtils.showSnackBar(
+                    binding.root,
+                    "User Rate Updated!",
+                    requireContext()
+                )
+            }
+
         }
 
 
@@ -243,6 +272,7 @@ class DetailsFragment : Fragment() {
             }
         }
     }
+
 
 
     companion object {

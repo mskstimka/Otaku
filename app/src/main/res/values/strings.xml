@@ -73,8 +73,10 @@
     <string name="harem_title">"Гарем"</string>
     <string name="navigation_bottom_mangaFragment_title">Манга</string>
     <string name="navigation_bottom_animeFragment_title">Аниме</string>
-    <string name="tabView_home_title">Home</string>
-    <string name="tabView_search_title">Search</string>
+
+    <string name="tabView_home_title">Главная</string>
+    <string name="tabView_search_title">Поиск</string>
+
     <string name="fragment_settings_sFragmentSettingsUkraineLocale_text">Украинский язык (Beta)</string>
     <string name="fragment_settings_tvLanguageSettings_text">Настроить (клик)</string>
     <string name="fragment_settings_sFragmentSettingsSearchCensored_text">Поиск без цензуры</string>
@@ -123,5 +125,23 @@
     <string name="layout_user_friends_tvTitle_text">Друзья</string>
     <string name="layout_user_history_tvTitle_text">История</string>
 
+    <string name="spinner_no_selection_text">Добавить в список</string>
+    <string name="spinner_completed_text">Просмотренно</string>
+    <string name="spinner_dropped_text">Брошено</string>
+    <string name="spinner_watching_text">Смотрю</string>
+    <string name="spinner_planned_text">Запланировано</string>
+    <string name="spinner_hold_on_text">Отложено</string>
 
+    <string name="title_settings_episode">"\nВведите количество эпизодов"</string>
+    <string name="positive_button_settings_episode">Обновить</string>
+
+    <string-array name="statuses">
+        <item>@string/spinner_no_selection_text</item>
+        <item>@string/spinner_completed_text</item>
+        <item>@string/spinner_dropped_text</item>
+        <item>@string/spinner_watching_text</item>
+        <item>@string/spinner_planned_text</item>
+        <item>@string/spinner_hold_on_text</item>
+
+    </string-array>
 </resources>

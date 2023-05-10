@@ -6,9 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.models.user.FavoriteList
+import com.example.otaku_domain.models.user.FavoriteList
 import com.example.otaku.databinding.LayoutUserFavoritesBinding
-import com.example.otaku.databinding.LayoutUserStatsBinding
 
 class UserFavoritesAdapter :
     ListAdapter<FavoriteList, UserFavoritesAdapter.UserFavoritesViewHolder>(

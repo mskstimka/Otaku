@@ -2,11 +2,9 @@ package com.example.otaku.user.rates.anime
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.domain.common.Results
-import com.example.domain.models.poster.AnimePosterEntity
-import com.example.domain.models.user.UserBrief
-import com.example.domain.usecases.user.GetUserAnimeRatesUseCase
+import com.example.otaku_domain.common.Results
+import com.example.otaku_domain.models.poster.AnimePosterEntity
+import com.example.otaku_domain.usecases.user.GetUserAnimeRatesUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow

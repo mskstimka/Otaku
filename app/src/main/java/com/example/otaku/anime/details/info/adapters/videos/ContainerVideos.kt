@@ -1,7 +1,7 @@
 package com.example.otaku.anime.details.info.adapters.videos
 
 import androidx.annotation.Keep
-import com.example.domain.models.details.Video
+import com.example.otaku_domain.models.details.Video
 
 @Keep
 data class ContainerVideos(

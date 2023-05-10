@@ -3,10 +3,9 @@ package com.example.otaku.persons.ui
 import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.animator_data.utils.SharedPreferencesHelper
-import com.example.domain.common.Results
-import com.example.domain.models.details.roles.Character
-import com.example.domain.usecases.anime.GetPersonUseCase
+import com.example.otaku_data.utils.SharedPreferencesHelper
+import com.example.otaku_domain.common.Results
+import com.example.otaku_domain.usecases.anime.GetPersonUseCase
 import com.example.otaku.anime.details.info.adapters.characters.ContainerCharacters
 import com.example.otaku.persons.adapters.info.ContainerPersonInfo
 import com.example.otaku.persons.adapters.roles.ContainerWorks

@@ -5,17 +5,18 @@ import android.app.Service
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.work.*
 import com.example.otaku.app.di.AppComponent
-import com.example.otaku.app.di.modules.AppModule
 import com.example.otaku.app.di.DaggerAppComponent
 import com.example.otaku.app.local.LocalWorker
 import com.example.otaku.app.local.LocalWorkerFactory
-import com.example.animator_data.di.DataModule
-import com.example.domain.IS_DAY_THEME
-import com.example.domain.IS_NIGHT_THEME
-import com.example.animator_data.utils.SharedPreferencesHelper
+import com.example.otaku_data.di.DataModule
+import com.example.otaku_domain.IS_DAY_THEME
+import com.example.otaku_domain.IS_NIGHT_THEME
+import com.example.otaku_data.utils.SharedPreferencesHelper
+import com.example.otaku_domain.IS_AUTO_THEME
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasServiceInjector
+import leakcanary.LeakCanary
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -36,10 +37,7 @@ class App : Application(), HasServiceInjector {
     override fun onCreate() {
         super.onCreate()
 
-        appComponent = DaggerAppComponent
-            .builder()
-            .dataModule(DataModule(context = applicationContext))
-            .build()
+        appComponent = DaggerAppComponent.builder().application(this).build()
         appComponent.inject(app = this)
 //        initWorkManager()
         setDayNightMode()
@@ -47,12 +45,14 @@ class App : Application(), HasServiceInjector {
 
     }
 
-    private fun setDayNightMode() {
+    fun setDayNightMode() {
         when (sharedPreferenceHelper.getDayNightTheme()) {
             IS_DAY_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             IS_NIGHT_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            IS_AUTO_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         }
     }
+
 
     private fun initWorkManager() {
         WorkManager.initialize(

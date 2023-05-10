@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.NOT_FOUND_TEXT
-import com.example.domain.models.details.franchise.AnimeDetailsFranchisesEntity
+import com.example.otaku_domain.NOT_FOUND_TEXT
+import com.example.otaku_domain.models.details.franchise.AnimeDetailsFranchisesEntity
 import com.example.otaku.databinding.ItemDetailsFranchisesBinding
 import com.example.otaku.utils.setImageByURL
 

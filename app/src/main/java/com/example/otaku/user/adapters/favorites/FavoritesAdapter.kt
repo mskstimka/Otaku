@@ -8,8 +8,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.models.user.Favorite
-import com.example.domain.models.user.FavoriteType
+import com.example.otaku_domain.models.user.Favorite
+import com.example.otaku_domain.models.user.FavoriteType
 import com.example.otaku.databinding.ItemDetailsFranchisesBinding
 import com.example.otaku.user.ui.UserFragmentDirections
 import com.example.otaku.utils.setImageByURL

@@ -1,16 +1,12 @@
 package com.example.otaku.user.adapters.stats
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.models.user.RateStatus
-import com.example.domain.models.user.Status
-import com.example.domain.models.user.UserDetails
-import com.example.otaku.R
+import com.example.otaku_domain.models.user.status.RateStatus
 import com.example.otaku.databinding.LayoutUserStatsBinding
 import com.example.otaku.user.adapters.stats.models.UserStatsContainer
 

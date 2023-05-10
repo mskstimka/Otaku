@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otaku.databinding.LayoutPersonInfoBinding
 import com.example.otaku.utils.setImageByURL
-import com.example.domain.SHIKIMORI_URL
+import com.example.otaku_domain.SHIKIMORI_URL
 
 class ContainerPersonInfoAdapter(private val onBackPressed: () -> Unit) :
     ListAdapter<ContainerPersonInfo, ContainerPersonInfoAdapter.ContainerPersonInfoViewHolder>(

@@ -7,17 +7,17 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/item_details_genres_root_layout_marginEnd"
-    android:alpha="0.8"
-    app:cardBackgroundColor="?android:windowBackground">
+    app:cardBackgroundColor="@color/history_background_color">
 
     <TextView
         android:id="@+id/tvTitleGenreItem"
         style="@style/text_style_light"
-        tools:text="genres"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/item_details_genres_tvTitleGenreItem_layout_marginHorizontal"
         android:layout_marginVertical="@dimen/item_details_genres_tvTitleGenreItem_layout_marginVertical"
-        android:gravity="center" />
+        android:gravity="center"
+        android:textColor="@color/white"
+        tools:text="genres" />
 
 </androidx.cardview.widget.CardView>

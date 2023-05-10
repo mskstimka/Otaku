@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:backgroundTint="@color/activity_background_color"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvWatchStatus"
+        style="@style/text_style_title_items"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Статус просмотра"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerWatchStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/text_style_bold"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvWatchStatus"
+        app:layout_constraintStart_toStartOf="@+id/tvWatchStatus"
+        app:layout_constraintTop_toBottomOf="@+id/tvWatchStatus" />
+
+    <!-- Кнопки для изменения количества эпизодов -->
+    <TextView
+        android:id="@+id/tvEpisodeCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/text_style_light"
+        android:layout_below="@id/spinnerWatchStatus"
+        android:padding="8dp"
+        android:text="Количество эпизодов"
+        app:layout_constraintStart_toStartOf="@+id/spinnerWatchStatus"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerWatchStatus" />
+
+    <LinearLayout
+        android:id="@+id/llEpisodeCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvEpisodeCount"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintStart_toStartOf="@+id/tvEpisodeCount"
+        app:layout_constraintTop_toBottomOf="@+id/tvEpisodeCount">
+
+        <Button
+            android:id="@+id/btnMinus"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            style="@style/text_style_bold"
+            android:text="-" />
+
+        <TextView
+            android:id="@+id/tvCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/text_style_bold"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="0"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnPlus"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            style="@style/text_style_bold"
+            android:text="+" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

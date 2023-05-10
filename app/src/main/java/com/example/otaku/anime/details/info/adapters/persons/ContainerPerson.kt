@@ -1,7 +1,7 @@
 package com.example.otaku.anime.details.info.adapters.persons
 
 import androidx.annotation.Keep
-import com.example.domain.models.details.roles.Person
+import com.example.otaku_domain.models.details.roles.Person
 
 @Keep
 data class ContainerPerson(

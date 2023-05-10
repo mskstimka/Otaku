@@ -20,7 +20,7 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         app:layout_constraintGuide_end="@dimen/fragment_details_line_layout_constraintGuide" />
-    
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glDetailsLineTop"
         android:layout_width="0dp"
@@ -71,8 +71,8 @@
         android:id="@+id/ivImageFranchises"
         android:layout_width="@dimen/fragment_details_cvImage_layout_width"
         android:layout_height="@dimen/fragment_details_cvImage_layout_height"
-        app:cardCornerRadius="@dimen/fragment_details_cvImage_cardRadius"
         android:scaleType="centerCrop"
+        app:cardCornerRadius="@dimen/fragment_details_cvImage_cardRadius"
         app:layout_constraintBottom_toBottomOf="@+id/ivImageBackground"
         app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
         app:layout_constraintTop_toTopOf="parent"
@@ -113,38 +113,95 @@
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         tools:text="@string/fragment_details_tvTitleRussian_text" />
 
-    <TextView
-        android:id="@+id/tvFavorite"
+    <ImageView
+        android:id="@+id/ivFavorite"
         style="@style/text_style_title_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
         android:drawablePadding="4dp"
         android:gravity="center_vertical"
         android:padding="4dp"
+        android:src="@drawable/icon_favorite_false"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvEpisodeTitle"
-        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+        app:layout_constraintEnd_toStartOf="@id/ivSettingAnime"
+        app:layout_constraintStart_toStartOf="@+id/ivImageFranchises"
+        app:layout_constraintTop_toBottomOf="@+id/ivImageFranchises" />
+
+    <ImageView
+        android:id="@+id/ivSettingAnime"
+        style="@style/text_style_title_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="4dp"
+        android:gravity="center_vertical"
+        android:padding="4dp"
+        android:src="@drawable/icon_setting_gray"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/ivImageFranchises"
+        app:layout_constraintStart_toEndOf="@id/ivFavorite"
+        app:layout_constraintTop_toBottomOf="@+id/ivImageFranchises" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvSpinnerWatchStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="@color/history_background_color"
+        app:cardCornerRadius="10dp"
         app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
-        app:layout_constraintTop_toBottomOf="@+id/ivImageFranchises"
-        tools:drawableStart="@drawable/icon_favorite_true"
-        tools:text="Збережено" />
+        app:layout_constraintTop_toBottomOf="@+id/ivFavorite">
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinnerWatchStatus"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:backgroundTint="@color/white"
+            app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/spinner_text" />
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/tvEpisodeCount"
+        style="@style/text_style_values"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="0dp"
+        android:text="0 / 12"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPlus"
+        app:layout_constraintEnd_toStartOf="@+id/btnPlus"
+        app:layout_constraintTop_toTopOf="@+id/btnPlus" />
+
+    <Button
+        android:id="@+id/btnPlus"
+        style="@style/text_style_main_title"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/activity_background_color"
+        android:gravity="center"
+        android:padding="0dp"
+        android:text="+"
+        android:textColor="@color/title_color"
+        android:textSize="25sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="@+id/cvSpinnerWatchStatus"
+        app:layout_constraintTop_toBottomOf="@+id/cvSpinnerWatchStatus" />
+
 
     <TextView
         android:id="@+id/tvEpisodeTitle"
         style="@style/text_style_title_details"
+        android:layout_marginTop="0dp"
         android:text="@string/fragment_details_tvEpisodeTitle_text"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvEpisodeCount"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPlus"
         app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
-        app:layout_constraintTop_toBottomOf="@+id/ivImageBackground" />
-
-    <TextView
-        android:id="@+id/tvEpisode"
-        style="@style/text_style_values"
-        app:layout_constraintBaseline_toBaselineOf="@id/tvEpisodeTitle"
-        app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toEndOf="@+id/tvEpisodeTitle"
-        tools:text="12" />
+        app:layout_constraintTop_toBottomOf="@+id/cvSpinnerWatchStatus" />
 
     <TextView
         android:id="@+id/tvStatusTitle"

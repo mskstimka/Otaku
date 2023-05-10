@@ -1,6 +1,6 @@
 package com.example.otaku.home.adapters.genres
 
-import com.example.domain.models.poster.AnimePosterEntity
+import com.example.otaku_domain.models.poster.AnimePosterEntity
 import java.util.*
 
 data class ContainerGenresList(

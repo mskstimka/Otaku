@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="6sp"
+    android:textColor="@color/white"
+    android:background="@color/history_background_color"
     android:fontFamily="@font/open_sans_medium"
-    android:textSize="16sp" />
+    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+    android:padding="10sp"
+    android:textSize="14sp" />

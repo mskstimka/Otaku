@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
-import com.example.domain.usecases.anime.GetAnimePrevPosterFromGenreUseCase
+import com.example.otaku_domain.usecases.anime.GetAnimePrevPosterFromGenreUseCase
 import javax.inject.Inject
 import javax.inject.Provider
 

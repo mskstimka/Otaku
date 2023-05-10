@@ -7,8 +7,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.SHIKIMORI_URL
-import com.example.domain.models.poster.AnimePosterEntity
+import com.example.otaku_domain.SHIKIMORI_URL
+import com.example.otaku_domain.models.poster.AnimePosterEntity
 import com.example.otaku.R
 import com.example.otaku.anime.AnimeFragmentDirections
 import com.example.otaku.databinding.ItemHomeGenresItemBinding

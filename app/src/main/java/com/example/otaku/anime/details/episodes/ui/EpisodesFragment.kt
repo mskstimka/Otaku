@@ -10,7 +10,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.example.domain.NOT_FOUND_TEXT
+import com.example.otaku_domain.NOT_FOUND_TEXT
 import com.example.otaku.R
 import com.example.otaku.anime.details.episodes.adapters.EpisodesAdapter
 import com.example.otaku.anime.details.episodes.models.ContainerEpisodeHeader

@@ -277,7 +277,8 @@ fun UserBriefResponse.toUserBrief() = UserBrief(
     nickname = this.nickname,
     avatar = this.avatar,
     image = this.image.toUserImage(),
-    name = this.name
+    name = this.name,
+    inFriends = this.inFriends
 )
 
 fun List<UserBriefResponse>.toUserBriefList() = this.map { it.toUserBrief() }
@@ -454,3 +455,5 @@ fun UserRateResponse.toUserRate() = UserRate(
 fun String.appendHostIfNeed(host: String = SHIKIMORI_URL): String {
     return if (this.contains("http")) this else host + this
 }
+
+fun UserNoticeResponse.toUserNotice() = UserNotice(notice = this.notice)

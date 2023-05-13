@@ -132,5 +132,8 @@
 
     <string name="title_settings_episode">"\nВведіть кількість епізодів"</string>
     <string name="positive_button_settings_episode">Оновити</string>
+    <string name="fragment_auth_btSignOut_text">Вийти</string>
+    <string name="add_to_friends_text">Добавити в друзі</string>
+    <string name="your_friend_text">Твій друг</string>
 
 </resources>

@@ -43,11 +43,19 @@ class AnimeDataSourceImpl(
 
     override suspend fun getDetails(id: Int): Results<AnimeDetailsEntity> {
         return try {
-            val response = animeApi.getDetails(
-                id = id,
-                userAgent = USER_AGENT,
-                authHeader = ("Bearer " + sharedPreferencesHelper.getLocalToken()?.authToken)
-            )
+            val token = sharedPreferencesHelper.getLocalToken()
+            val response = if (token != null) {
+                animeApi.getDetailsWithAuthorization(
+                    id = id,
+                    userAgent = USER_AGENT,
+                    authHeader = ("Bearer " + token.authToken)
+                )
+            } else {
+                animeApi.getDetails(
+                    id = id
+                )
+            }
+
             if (response.isSuccessful) {
                 val item = response.body()!!.toAnimeDetailsEntity()
 

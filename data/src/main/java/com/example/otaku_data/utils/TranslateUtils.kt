@@ -14,7 +14,6 @@ import kotlinx.coroutines.withContext
 
 object TranslateUtils {
 
-
     suspend fun translatePersonToUkraine(
         item: PersonEntity,
         isDescriptionTranslate: Boolean,

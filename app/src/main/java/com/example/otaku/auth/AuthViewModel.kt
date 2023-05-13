@@ -8,6 +8,7 @@ import com.example.otaku_domain.common.Results
 import com.example.otaku_domain.models.user.UserBrief
 import com.example.otaku_domain.usecases.auth.GetAccessTokenUseCase
 import com.example.otaku_domain.usecases.user.GetCurrentUserBriefUseCase
+import com.example.otaku_domain.usecases.user.SignOutUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -20,7 +21,8 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     private val getAccessTokenUseCase: GetAccessTokenUseCase,
     private val getCurrentUserBriefUseCase: GetCurrentUserBriefUseCase,
-    private val sharedPreferencesHelper: SharedPreferencesHelper
+    private val sharedPreferencesHelper: SharedPreferencesHelper,
+    private val signOutUseCase: SignOutUseCase
 ) : ViewModel() {
     val localToken = sharedPreferencesHelper.getLocalToken()
 
@@ -46,6 +48,20 @@ class AuthViewModel @Inject constructor(
                 _actionAuth.tryEmit(AuthAction.IS_AUTHORIZED(token))
             } else {
                 _actionAuth.tryEmit(AuthAction.IS_UNAUTHORIZED)
+            }
+        }
+    }
+
+    fun signOut() {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val result = signOutUseCase.execute()) {
+                is Results.Success -> {
+                    _actionError.tryEmit(result.data)
+                    _actionAuth.tryEmit(AuthAction.IS_UNAUTHORIZED)
+                }
+                is Results.Error -> {
+                    _actionError.tryEmit(result.exception.message.toString())
+                }
             }
         }
     }

@@ -106,10 +106,12 @@ class DataModule {
     @Provides
     fun provideUserDataSource(
         retrofit: Retrofit,
+        sharedPreferencesHelper: SharedPreferencesHelper
     ): UserDataSource {
         return UserDataSourceImpl(
             userApi = retrofit.create(UserApi::class.java),
-        )
+            sharedPreferencesHelper = sharedPreferencesHelper
+            )
     }
 
 

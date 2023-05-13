@@ -42,4 +42,12 @@ interface UserRepository {
         userId: Long,
         userRate: UserRate
     ): Results<UserRate>
+
+    suspend fun addToFriends(id: Long): Results<String>
+
+    suspend fun deleteFriend(id: Long): Results<String>
+
+    suspend fun deleteRate(id: Long): Results<String>
+
+    suspend fun signOut(): Results<String>
 }

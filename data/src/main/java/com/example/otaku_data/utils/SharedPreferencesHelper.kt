@@ -24,6 +24,10 @@ class SharedPreferencesHelper @Inject constructor(private val context: Context) 
         return sharedPreference.getLong(CURRENT_USER_ID, NO_AUTH_USER_ID)
     }
 
+    fun removeLocalToken() {
+        sharedPreference.edit().remove(LOCAL_TOKEN_KEY).apply()
+    }
+
     fun setLocalToken(token: Token) {
         val jsonToken = Gson().toJson(token)
         sharedPreference.edit().putString(LOCAL_TOKEN_KEY, jsonToken).apply()

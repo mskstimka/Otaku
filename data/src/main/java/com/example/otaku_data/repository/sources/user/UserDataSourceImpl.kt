@@ -5,7 +5,9 @@ import com.example.otaku_data.mapper.*
 import com.example.otaku_data.network.api.UserApi
 import com.example.otaku_data.network.models.user.UserBriefResponse
 import com.example.otaku_data.network.models.user.status.UserRateCreateOrUpdateRequest
+import com.example.otaku_data.utils.SharedPreferencesHelper
 import com.example.otaku_domain.ERROR_WAIT_TIME
+import com.example.otaku_domain.USER_AGENT
 import com.example.otaku_domain.common.Results
 import com.example.otaku_domain.models.user.FavoriteList
 import com.example.otaku_domain.models.user.Rate
@@ -18,6 +20,7 @@ import retrofit2.Response
 
 class UserDataSourceImpl(
     private val userApi: UserApi,
+    private val sharedPreferencesHelper: SharedPreferencesHelper
 ) : UserDataSource {
     override suspend fun getCurrentUser(
         userAgent: String,
@@ -29,7 +32,16 @@ class UserDataSourceImpl(
 
     override suspend fun getUserBriefInfo(id: Long): Results<UserBrief> {
         return try {
-            val response = userApi.getUserBriefInfo(id = id)
+            val token = sharedPreferencesHelper.getLocalToken()
+            val response = if (token == null) {
+                userApi.getUserBriefInfo(id = id)
+            } else {
+                userApi.getUserBriefInfoWithAuthorization(
+                    id = id,
+                    userAgent = USER_AGENT,
+                    authHeader = "Bearer ${token.authToken}"
+                )
+            }
             if (response.isSuccessful) {
 
                 when (val userBriefResponse = response.body()) {
@@ -37,6 +49,7 @@ class UserDataSourceImpl(
                         Results.Error(Exception("Token Error Response"))
                     }
                     else -> {
+                        Log.d("USER BRIEF", userBriefResponse.inFriends.toString())
                         Results.Success(userBriefResponse.toUserBrief())
                     }
                 }
@@ -305,5 +318,139 @@ class UserDataSourceImpl(
             Results.Error(Exception(e.message))
         }
 
+    }
+
+    override suspend fun addToFriends(
+        userAgent: String,
+        authHeader: String,
+        id: Long
+    ): Results<String> {
+        return try {
+            val response = userApi.addToFriends(
+                id = id,
+                userAgent = userAgent,
+                authHeader = authHeader
+            )
+
+            if (response.isSuccessful) {
+                when (val response =response.body()) {
+                    null -> {
+                        Results.Error(Exception("Token Error Response"))
+                    }
+                    else -> {
+                        Results.Success(response.notice.toString())
+                    }
+                }
+            } else {
+                if (response.code() == 429) {
+                    delay(ERROR_WAIT_TIME)
+                    addToFriends(id = id, userAgent = userAgent, authHeader = authHeader)
+                } else {
+                    Results.Error(exception = Exception(response.message()))
+                }
+            }
+        } catch (e: Exception) {
+            Results.Error(Exception(e.message))
+        }
+    }
+
+    override suspend fun deleteFriend(
+        userAgent: String,
+        authHeader: String,
+        id: Long
+    ): Results<String> {
+        return try {
+            val response = userApi.deleteFriend(
+                id = id,
+                userAgent = userAgent,
+                authHeader = authHeader
+            )
+
+            if (response.isSuccessful) {
+                when (val response = response.body()) {
+                    null -> {
+                        Results.Error(Exception("Token Error Response"))
+                    }
+                    else -> {
+                        Results.Success(response.notice.toString())
+                    }
+                }
+            } else {
+                if (response.code() == 429) {
+                    delay(ERROR_WAIT_TIME)
+                    deleteFriend(id = id, userAgent = userAgent, authHeader = authHeader)
+                } else {
+                    Results.Error(exception = Exception(response.message()))
+                }
+
+            }
+        } catch (e: Exception) {
+            Results.Error(Exception(e.message))
+        }
+    }
+
+    override suspend fun deleteRate(
+        userAgent: String,
+        authHeader: String,
+        id: Long
+    ): Results<String> {
+        return try {
+            val response =
+                userApi.deleteRate(id = id, userAgent = userAgent, authHeader = authHeader)
+
+            if (response.isSuccessful) {
+                when (response.body()) {
+                    null -> {
+                        Results.Error(Exception("Token Error Response"))
+                    }
+                    else -> {
+                        Results.Success("Deleted Rate")
+                    }
+                }
+            } else {
+                if (response.code() == 429) {
+                    delay(ERROR_WAIT_TIME)
+                    deleteRate(
+                        id = id,
+                        userAgent = userAgent,
+                        authHeader = authHeader
+                    )
+                } else {
+                    Results.Error(exception = Exception(response.message()))
+                }
+            }
+        } catch (e: Exception) {
+            Results.Error(Exception(e.message))
+        }
+    }
+
+    override suspend fun signOut(userAgent: String, authHeader: String): Results<String> {
+        return try {
+            val response = userApi.signOut(
+                userAgent = userAgent,
+                authHeader = authHeader
+            )
+
+            if (response.isSuccessful) {
+                when (response.body()) {
+                    null -> {
+                        Results.Error(Exception("Token Error Response"))
+                    }
+                    else -> {
+                        Results.Success("Signed Out")
+                    }
+                }
+            } else {
+                if (response.code() == 429) {
+                    delay(ERROR_WAIT_TIME)
+                    signOut(userAgent = userAgent, authHeader = authHeader)
+                } else {
+                    Results.Error(exception = Exception(response.message()))
+                }
+
+            }
+        } catch (e: Exception) {
+            Results.Error(Exception(e.message))
+        }
     }
 }

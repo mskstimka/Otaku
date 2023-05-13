@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Label">
+    <style name="BottomNavigationTheme">
         <item name="android:textColor">@color/white</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/white</item>
@@ -162,6 +162,7 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">12dp</item>
     </style>
+
     <style name="avatar_roundedImageView" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">75dp</item>
@@ -171,6 +172,7 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">150dp</item>
     </style>
+
     <style name="avatar_mini_roundedImageView" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50dp</item>
@@ -191,22 +193,10 @@
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
-    <style name="AnimatorMaterial3" parent="@style/Theme.Material3.DayNight.NoActionBar">
+    <style name="OtakuMaterialTheme" parent="@style/Theme.Material3.DayNight.NoActionBar">
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <item name="android:colorPrimaryDark">@color/activity_background_color</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/isLightTheme</item>
-    </style>
-
-    <style name="AnimatorMaterial3_Night" parent="@style/Theme.Material3.Dark.NoActionBar">
-        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
-        <item name="android:colorPrimaryDark">@color/activity_background_color_night</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/isLightTheme</item>
-    </style>
-
-    <style name="AnimatorMaterial3_Day" parent="@style/Theme.Material3.Light.NoActionBar">
-        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
-        <item name="android:colorPrimaryDark">@color/activity_background_color_light</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/isLightTheme</item>
+        <item name="android:windowLightStatusBar">@bool/isLightTheme</item>
     </style>
 
     <style name="AppSearchView" parent="Widget.AppCompat.SearchView">
@@ -228,12 +218,13 @@
         <item name="android:fontFamily">@font/open_sans_medium</item>
     </style>
 
-    <style name="CustomProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
-
-    </style>
+    <style name="CustomProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal" />
 
     <style name="SpinnerStyle">
         <item name="android:padding">16dp</item>
         <item name="android:background">@drawable/spinner_background</item>
     </style>
+
+    <style name="SignOut" parent="Widget.Material3.Button.ElevatedButton.Icon"/>
+
 </resources>

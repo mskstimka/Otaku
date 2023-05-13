@@ -4,8 +4,7 @@
     xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:background="@color/activity_background_color">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glDetailsLineStart"
@@ -157,7 +156,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/spinner_text_color"
             app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/spinner_text" />

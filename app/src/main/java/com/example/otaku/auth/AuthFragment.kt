@@ -1,6 +1,7 @@
 package com.example.otaku.auth
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -59,6 +60,7 @@ class AuthFragment : Fragment() {
 
         initView()
         subscribeToFlows()
+
     }
 
     override fun onResume() {
@@ -68,6 +70,10 @@ class AuthFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
+
+        btSignOut.setOnClickListener {
+            aViewModel.signOut()
+        }
 
         btAuth.setOnClickListener {
             with(aViewModel) {
@@ -108,13 +114,14 @@ class AuthFragment : Fragment() {
     private fun initNoAuthView() = with(binding) {
         if (context != null) {
 
+            ivUserAvatar.setImageResource(R.drawable.icon_default)
             btAuth.text = getString(R.string.fragment_auth_btAuth_error_text)
             tvCurrentUserInfo.text = getString(R.string.fragment_auth_tvCurrentUserInfo_error_text)
             groupUserData.visibility = View.VISIBLE
         }
     }
 
-    private fun initErrorView() = with(binding){
+    private fun initErrorView() = with(binding) {
         if (context != null) {
             tvCurrentUserInfo.text = "Произошла ошибка"
             groupUserData.visibility = View.VISIBLE
@@ -124,11 +131,12 @@ class AuthFragment : Fragment() {
     private fun subscribeToFlows() = with(aViewModel) {
 
         actionError.subscribeToFlow(lifecycleOwner = requireActivity()) { message ->
-            BannerUtils.showSnackBar(
-                binding.root,
-                message = message,
-                requireContext()
-            )
+            if (context != null)
+                BannerUtils.showSnackBar(
+                    binding.root,
+                    message = message,
+                    requireContext()
+                )
         }
 
         actionUserBrief.subscribeToFlow(lifecycleOwner = requireActivity()) { user ->

@@ -134,6 +134,9 @@
 
     <string name="title_settings_episode">"\nВведите количество эпизодов"</string>
     <string name="positive_button_settings_episode">Обновить</string>
+    <string name="fragment_auth_btSignOut_text">Выйти</string>
+    <string name="add_to_friends_text">Добавить в друзья</string>
+    <string name="your_friend_text">Твой друг</string>
 
     <string-array name="statuses">
         <item>@string/spinner_no_selection_text</item>

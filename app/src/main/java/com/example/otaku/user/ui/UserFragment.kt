@@ -31,7 +31,14 @@ class UserFragment : Fragment() {
     @Inject
     lateinit var uViewModel: UserViewModel
 
-    private val userInfoAdapter by lazy { UserInfoAdapter() { requireActivity().onBackPressed() } }
+    private val userInfoAdapter by lazy {
+        UserInfoAdapter(
+            onBackPressed = { requireActivity().onBackPressed() },
+            actionFriends = { actionFriends ->
+                uViewModel.actionFriends(actionFriends)
+            }
+        )
+    }
     private val userStatsAdapter by lazy { UserStatsAdapter(args.id) }
     private val userFavoritesAdapter by lazy { UserFavoritesAdapter() }
     private val userFriendsAdapter by lazy { UserFriendsAdapter() }
@@ -72,7 +79,7 @@ class UserFragment : Fragment() {
 
     private fun subscribeToFlows() = with(uViewModel) {
 
-        actionError.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { message ->
+        actionMessage.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { message ->
             BannerUtils.showSnackBar(binding.root, message = message, requireContext())
         }
 

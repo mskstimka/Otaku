@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="activity_background_color">@color/m3_sys_color_dynamic_dark_surface</color>
+    <color name="title_color">@color/m3_textfield_input_text_color</color>
+
+
+</resources>

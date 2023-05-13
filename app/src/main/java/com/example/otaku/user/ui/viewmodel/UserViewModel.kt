@@ -10,6 +10,7 @@ import com.example.otaku_domain.models.user.UserBrief
 import com.example.otaku_domain.usecases.user.*
 import com.example.otaku.user.adapters.friends.UserFriendsContainer
 import com.example.otaku.user.adapters.history.UserHistoryContainer
+import com.example.otaku.user.adapters.info.ActionFriends
 import com.example.otaku.user.adapters.stats.models.UserStatsContainer
 import com.example.otaku.user.ui.viewmodel.models.UserTypesData
 import kotlinx.coroutines.Dispatchers
@@ -26,11 +27,13 @@ class UserViewModel @Inject constructor(
     private val getUserStatsUseCase: GetUserStatsUseCase,
     private val getUserFriendsUseCase: GetUserFriendsUseCase,
     private val getUserHistoryUseCase: GetUserHistoryUseCase,
+    private val addToFriendsUseCase: AddToFriendsUseCase,
+    private val deleteFriendUseCase: DeleteFriendUseCase,
     private val sharedPreferencesHelper: SharedPreferencesHelper,
 ) : ViewModel() {
 
-    private val _actionError = MutableSharedFlow<String>(replay = 1)
-    val actionError: SharedFlow<String> get() = _actionError
+    private val _actionMessage = MutableSharedFlow<String>(replay = 1)
+    val actionMessage: SharedFlow<String> get() = _actionMessage
 
     private val _actionUserBrief = MutableSharedFlow<List<UserBrief>>(replay = 1)
     val actionUserBrief: SharedFlow<List<UserBrief>> get() = _actionUserBrief
@@ -52,6 +55,7 @@ class UserViewModel @Inject constructor(
     private val _progressBarAction = MutableSharedFlow<Int>(replay = 1)
     val progressBarAction: SharedFlow<Int> get() = _progressBarAction
 
+
     private val resultsFlow = combine(
         _actionUserBrief,
         _actionUserFavorites,
@@ -71,7 +75,7 @@ class UserViewModel @Inject constructor(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             resultsFlow.collect {
-                    _progressBarAction.tryEmit(View.GONE)
+                _progressBarAction.tryEmit(View.GONE)
             }
         }
     }
@@ -96,7 +100,7 @@ class UserViewModel @Inject constructor(
                     _actionUserHistory.tryEmit(mutableListOf(UserHistoryContainer(list = userHistory.data)))
                 }
                 is Results.Error -> {
-                    _actionError.tryEmit(userHistory.exception.message.toString())
+                    _actionMessage.tryEmit(userHistory.exception.message.toString())
                 }
             }
         }
@@ -110,11 +114,44 @@ class UserViewModel @Inject constructor(
                     _actionUserFavorites.tryEmit(mutableListOf(favorites.data))
                 }
                 is Results.Error -> {
-                    _actionError.tryEmit(favorites.exception.message.toString())
+                    _actionMessage.tryEmit(favorites.exception.message.toString())
                 }
             }
         }
 
+    }
+
+    fun actionFriends(actionFriends: ActionFriends) {
+        when (actionFriends) {
+            is ActionFriends.ADD_TO_FRIENDS -> addToFriends(actionFriends.id)
+            is ActionFriends.DELETE_FRIEND -> deleteFriends(actionFriends.id)
+        }
+    }
+
+    private fun addToFriends(id: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val result = addToFriendsUseCase.execute(id = id)) {
+                is Results.Success -> {
+                    _actionMessage.tryEmit(result.data)
+                }
+                is Results.Error -> {
+                    _actionMessage.tryEmit(result.exception.message.toString())
+                }
+            }
+        }
+    }
+
+    private fun deleteFriends(id: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val result = deleteFriendUseCase.execute(id = id)) {
+                is Results.Success -> {
+                    _actionMessage.tryEmit(result.data)
+                }
+                is Results.Error -> {
+                    _actionMessage.tryEmit(result.exception.message.toString())
+                }
+            }
+        }
     }
 
     private fun getUserStats(id: Long) {
@@ -125,7 +162,7 @@ class UserViewModel @Inject constructor(
                     _actionUserStats.tryEmit(mutableListOf(UserStatsContainer(userStats.data)))
                 }
                 is Results.Error -> {
-                    _actionError.tryEmit(userStats.exception.message.toString())
+                    _actionMessage.tryEmit(userStats.exception.message.toString())
                 }
             }
         }
@@ -136,10 +173,11 @@ class UserViewModel @Inject constructor(
             val userBrief = getUserBriefUseCase.execute(id = id)
             when (userBrief) {
                 is Results.Success -> {
+                    userBrief.data.currentUserId = sharedPreferencesHelper.getCurrentUserId()
                     _actionUserBrief.tryEmit(listOf(userBrief.data))
                 }
                 is Results.Error -> {
-                    _actionError.tryEmit(userBrief.exception.message.toString())
+                    _actionMessage.tryEmit(userBrief.exception.message.toString())
                 }
             }
         }
@@ -155,7 +193,7 @@ class UserViewModel @Inject constructor(
                     )
                 }
                 is Results.Error -> {
-                    _actionError.tryEmit(listUserBrief.exception.message.toString())
+                    _actionMessage.tryEmit(listUserBrief.exception.message.toString())
                 }
             }
         }

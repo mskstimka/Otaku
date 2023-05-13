@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import com.example.otaku.R
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentSettingsBinding
+import com.example.otaku.settings.viewmodel.SettingsViewModel
+import com.example.otaku.user.ui.viewmodel.UserViewModel
 import com.example.otaku_data.utils.SharedPreferencesHelper
 import java.util.*
 import javax.inject.Inject
@@ -24,6 +26,8 @@ class SettingsFragment : Fragment() {
     @Inject
     lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
+    @Inject
+    lateinit var sViewModel: SettingsViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,7 +47,7 @@ class SettingsFragment : Fragment() {
         sThemeList.apply {
             adapter = ArrayAdapter(
                 requireContext(),
-                R.layout.spinner_text, resources.getStringArray(R.array.themes)
+                R.layout.settings_spinner_text, resources.getStringArray(R.array.themes)
             )
             dropDownVerticalOffset = 20
             dropDownHorizontalOffset = 16
@@ -100,6 +104,9 @@ class SettingsFragment : Fragment() {
         }
 
         sFragmentSettingsUkraineLocale.setOnCheckedChangeListener { _, switch ->
+            if (switch) {
+                sViewModel.downloadTranslateLanguages()
+            }
             sharedPreferencesHelper.setIsUkraineLanguage(switch)
             requireActivity().recreate()
         }

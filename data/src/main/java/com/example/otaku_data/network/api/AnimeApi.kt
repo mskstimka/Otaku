@@ -1,9 +1,6 @@
 package com.example.otaku_data.network.api
 
 import com.example.otaku_data.network.models.*
-import com.example.otaku_data.network.models.user.status.UserRateCreateOrUpdateRequest
-import com.example.otaku_data.network.models.user.status.UserRateResponse
-import com.google.gson.annotations.SerializedName
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -68,9 +65,15 @@ interface AnimeApi {
      * @return Response of Anime Details (object)
      */
     @GET("api/animes/{id}")
-    suspend fun getDetails(
+    suspend fun getDetailsWithAuthorization(
         @Header("User-Agent") userAgent: String,
         @Header("Authorization") authHeader: String,
+        @Path(value = "id") id: Int
+    ): Response<AnimeDetailsEntityResponse>
+
+
+    @GET("api/animes/{id}")
+    suspend fun getDetails(
         @Path(value = "id") id: Int
     ): Response<AnimeDetailsEntityResponse>
 

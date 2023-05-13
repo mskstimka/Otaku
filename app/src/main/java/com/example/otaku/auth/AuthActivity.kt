@@ -7,9 +7,7 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import com.example.otaku_domain.SHIKIMORI_URL
@@ -57,6 +55,16 @@ class AuthActivity : AppCompatActivity() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun initWebView() = with(binding.webView) {
+
+        clearCache(true)
+        clearHistory()
+        settings.cacheMode = WebSettings.LOAD_NO_CACHE
+
+        CookieManager.getInstance().removeAllCookies(null)
+        clearFormData()
+        clearMatches()
+        clearSslPreferences()
+
         loadUrl(SHIKIMORI_SIGN_IN_URL)
         settings.javaScriptEnabled = true
         settings.domStorageEnabled = true
@@ -115,7 +123,7 @@ class AuthActivity : AppCompatActivity() {
 
     companion object {
         const val AUTH_URL =
-            "https://shikimori.me/oauth/authorize?client_id=f5zjBHcb3RpDSxABhUPb65L3vWNQc8cI4CF_k3LXR3o&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code&scope=user_rates+comments+topics"
+            "https://shikimori.me/oauth/authorize?client_id=f5zjBHcb3RpDSxABhUPb65L3vWNQc8cI4CF_k3LXR3o&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code&scope=user_rates+comments+topics+friends"
 
         private const val SHIKIMORI_PATTERN =
             "https?://(?:www\\.)?shikimori\\.me/oauth/authorize/(?:.*)"

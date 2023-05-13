@@ -42,8 +42,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="ivUserAvatar,tvTitle,tvCurrentUserInfo,btAuth"
+            app:constraint_referenced_ids="ivUserAvatar,tvTitle,tvCurrentUserInfo,btAuth,btSignOut"
             tools:visibility="visible" />
+
 
 
         <TextView
@@ -94,7 +95,20 @@
             app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
             app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
             app:layout_constraintTop_toBottomOf="@+id/tvCurrentUserInfo"
-            tools:text="Авторизироваться!" />
+            tools:text="Авторизироваться" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btSignOut"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/SignOut"
+            app:icon="@drawable/icon_sign_out"
+            android:fontFamily="@font/open_sans_medium"
+            app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+            app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+            app:layout_constraintTop_toBottomOf="@+id/btAuth"
+            android:text="@string/fragment_auth_btSignOut_text" />
 
         <TextView
             android:id="@+id/tvCurrentUserInfo"

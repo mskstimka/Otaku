@@ -38,4 +38,7 @@
 
     <color name="history_background_color">#8B9FC3</color>
 
+    <color name="spinner_text_color">@color/white</color>
+    <color name="history_text_color">@color/white</color>
+
 </resources>

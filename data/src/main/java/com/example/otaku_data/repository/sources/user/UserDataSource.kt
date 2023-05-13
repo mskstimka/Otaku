@@ -44,4 +44,28 @@ interface UserDataSource {
         userId: Long,
         userRate: UserRate
     ): Results<UserRate>
+
+
+    suspend fun addToFriends(
+        userAgent: String,
+        authHeader: String,
+        id: Long
+    ): Results<String>
+
+    suspend fun deleteFriend(
+        userAgent: String,
+        authHeader: String,
+        id: Long
+    ): Results<String>
+
+    suspend fun deleteRate(
+        userAgent: String,
+        authHeader: String,
+        id: Long
+    ): Results<String>
+
+    suspend fun signOut(
+        userAgent: String,
+        authHeader: String
+    ): Results<String>
 }

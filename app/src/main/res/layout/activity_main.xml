@@ -25,7 +25,7 @@
         android:id="@+id/navBottom"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_main_navBottom_layout_height"
-        android:theme="@style/Label"
+        android:theme="@style/BottomNavigationTheme"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

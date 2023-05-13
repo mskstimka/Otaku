@@ -3,8 +3,10 @@ package com.example.otaku_data.di
 import com.example.otaku_data.repository.AnimeRepositoryImpl
 import com.example.otaku_data.repository.AuthRepositoryImpl
 import com.example.otaku_data.repository.UserRepositoryImpl
+import com.example.otaku_data.repository.sources.translate.TranslateRepositoryImpl
 import com.example.otaku_domain.repository.AnimeRepository
 import com.example.otaku_domain.repository.AuthRepository
+import com.example.otaku_domain.repository.TranslateRepository
 import com.example.otaku_domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
@@ -20,5 +22,8 @@ interface BindsDataModule {
 
     @Binds
     fun bindAnimehRepository(animeRepository: AnimeRepositoryImpl): AnimeRepository
+
+    @Binds
+    fun bindTranslateResository(translateRepository: TranslateRepositoryImpl): TranslateRepository
 
 }

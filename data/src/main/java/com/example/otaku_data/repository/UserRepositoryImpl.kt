@@ -1,5 +1,6 @@
 package com.example.otaku_data.repository
 
+import android.util.Log
 import com.example.otaku_data.mapper.toUserBrief
 import com.example.otaku_data.repository.sources.auth.AuthDataSource
 import com.example.otaku_data.repository.sources.user.UserDataSource
@@ -85,7 +86,12 @@ class UserRepositoryImpl @Inject constructor(
         limit: Int,
         status: String
     ): Results<List<Rate>> {
-        return userDataSource.getUserAnimeRates(id = id, page = page, limit = limit, status = status)
+        return userDataSource.getUserAnimeRates(
+            id = id,
+            page = page,
+            limit = limit,
+            status = status
+        )
     }
 
     override suspend fun getUserHistory(
@@ -122,6 +128,43 @@ class UserRepositoryImpl @Inject constructor(
             userId = userId,
             userRate = userRate
         )
+    }
+
+    override suspend fun addToFriends(id: Long): Results<String> {
+        return userDataSource.addToFriends(
+            id = id,
+            userAgent = USER_AGENT,
+            authHeader = "Bearer ${sharedPreferencesHelper.getLocalToken()?.authToken.toString()}"
+        )
+    }
+
+    override suspend fun deleteFriend(id: Long): Results<String> {
+        return userDataSource.deleteFriend(
+            id = id,
+            userAgent = USER_AGENT,
+            authHeader = "Bearer ${sharedPreferencesHelper.getLocalToken()?.authToken.toString()}"
+        )
+    }
+
+    override suspend fun deleteRate(id: Long): Results<String> {
+        return userDataSource.deleteRate(
+            id = id,
+            userAgent = USER_AGENT,
+            authHeader = "Bearer ${sharedPreferencesHelper.getLocalToken()?.authToken.toString()}"
+        )
+    }
+
+    override suspend fun signOut(): Results<String> {
+        val result = userDataSource.signOut(
+            userAgent = USER_AGENT,
+            authHeader = "Bearer ${sharedPreferencesHelper.getLocalToken()?.authToken.toString()}"
+        )
+        if (result is Results.Success) {
+            sharedPreferencesHelper.removeLocalToken()
+        } else {
+            Log.d("ERROR AUTH", result.toString())
+        }
+        return result
     }
 
 }

@@ -10,4 +10,5 @@ class UserBriefResponse(
     @field:SerializedName("avatar") val avatar: String?,
     @field:SerializedName("image") val image: UserImageResponse,
     @field:SerializedName("name") val name: String?,
+    @field:SerializedName("in_friends") val inFriends: Boolean?
 )

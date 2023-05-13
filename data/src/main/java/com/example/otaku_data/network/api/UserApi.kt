@@ -14,8 +14,15 @@ interface UserApi {
         @Header("Authorization") authHeader: String
     ): Response<UserBriefResponse>
 
-    @GET("/api/users/{id}/info")
+    @GET("/api/users/{id}")
     suspend fun getUserBriefInfo(@Path("id") id: Long): Response<UserBriefResponse>
+
+    @GET("/api/users/{id}")
+    suspend fun getUserBriefInfoWithAuthorization(
+        @Header("User-Agent") userAgent: String,
+        @Header("Authorization") authHeader: String,
+        @Path("id") id: Long
+    ): Response<UserBriefResponse>
 
     @GET("/api/users/{id}/favourites")
     suspend fun getUserFavourites(@Path("id") id: Long): Response<FavoriteListResponse>
@@ -57,4 +64,31 @@ interface UserApi {
         @Query("user_id") userId: Long,
         @Body request: UserRateCreateOrUpdateRequest
     ): Response<UserRateResponse>
+
+    @POST("/api/friends/{id}")
+    suspend fun addToFriends(
+        @Header("User-Agent") userAgent: String,
+        @Header("Authorization") authHeader: String,
+        @Path("id") id: Long
+    ): Response<UserNoticeResponse>
+
+    @DELETE("/api/friends/{id}")
+    suspend fun deleteFriend(
+        @Header("User-Agent") userAgent: String,
+        @Header("Authorization") authHeader: String,
+        @Path("id") id: Long
+    ): Response<UserNoticeResponse>
+
+    @DELETE("/api/v2/user_rates/{id}")
+    suspend fun deleteRate(
+        @Header("User-Agent") userAgent: String,
+        @Header("Authorization") authHeader: String,
+        @Path("id") id: Long
+    ): Response<Unit>
+
+    @GET("/api/users/sign_out")
+    suspend fun signOut(
+        @Header("User-Agent") userAgent: String,
+        @Header("Authorization") authHeader: String
+    ): Response<Unit>
 }

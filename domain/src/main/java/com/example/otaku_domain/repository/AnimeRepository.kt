@@ -9,6 +9,7 @@ import com.example.otaku_domain.models.details.franchise.AnimeDetailsFranchisesE
 import com.example.otaku_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.otaku_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.otaku_domain.models.poster.AnimePosterEntity
+import com.example.otaku_domain.models.user.UserNotice
 
 interface AnimeRepository {
 
@@ -137,33 +138,15 @@ interface AnimeRepository {
     ): Results<PersonEntity>
 
 
-    /**
-     * Adding anime to Local Store
-     *
-     * @param item - entity of Anime Poster
-     */
-    suspend fun addLocalFavorites(item: AnimePosterEntity)
+    suspend fun createFavorite(
+        linkedId: Long,
+        linkedType: String
+    ): Results<String>
 
-    /**
-     * Deleting anime in Local Store
-     *
-     * @param id - id of Anime
-     */
-    suspend fun deleteLocalFavorites(id: Int)
-
-    /**
-     * Getting list of anime in to Local Store
-     *
-     * @return list of AnimePosterEntity
-     */
-    fun getLocalFavorites(): List<AnimePosterEntity>
-
-    /**
-     * Checking anime to Local Store
-     *
-     * @param id - id of anime
-     */
-    fun checkIsFavorite(id: Int): Boolean
+    suspend fun deleteFavorite(
+        linkedId: Long,
+        linkedType: String
+    ): Results<String>
 
 
 }

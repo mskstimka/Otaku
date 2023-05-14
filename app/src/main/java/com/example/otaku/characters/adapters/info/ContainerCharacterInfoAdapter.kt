@@ -6,12 +6,18 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.otaku.R
 import com.example.otaku.databinding.LayoutCharactersInfoBinding
+import com.example.otaku.utils.FavoriteAction
 import com.example.otaku.utils.setImageByURL
 import com.example.otaku_domain.NOT_FOUND_TEXT
 import com.example.otaku_domain.SHIKIMORI_URL
+import com.example.otaku_domain.models.user.Type
 
-class ContainerCharacterInfoAdapter(private val onBackPressed: () -> Unit) :
+class ContainerCharacterInfoAdapter(
+    private val onBackPressed: () -> Unit,
+    private val favoriteAction: (favoriteAction: FavoriteAction) -> Unit
+) :
     ListAdapter<ContainerCharacterInfo, ContainerCharacterInfoAdapter.ParentAuthorsViewHolder>(
         ContainerCharacterInfoDiffCallback
     ) {
@@ -53,6 +59,35 @@ class ContainerCharacterInfoAdapter(private val onBackPressed: () -> Unit) :
                 ivBackPressed.setOnClickListener {
                     onBackPressed()
                 }
+
+                if (model.item.favorued == true) {
+                    ivFavorite.setImageResource(R.drawable.icon_favorite_true)
+                } else {
+                    ivFavorite.setImageResource(R.drawable.icon_favorite_false)
+                }
+
+                ivFavorite.setOnClickListener {
+                    if (model.item.favorued == true) {
+                        favoriteAction(
+                            FavoriteAction.DELETE_FAVORITE(
+                                linkedId = model.item.id,
+                                linkedType = Type.CHARACTER
+                            )
+                        )
+                        model.item.favorued = false
+                        ivFavorite.setImageResource(R.drawable.icon_favorite_false)
+                    } else if (model.item.favorued == null || model.item.favorued == false) {
+                        favoriteAction(
+                            FavoriteAction.CREATE_FAVORITE(
+                                linkedId = model.item.id,
+                                linkedType = Type.CHARACTER
+                            )
+                        )
+                        model.item.favorued = true
+                        ivFavorite.setImageResource(R.drawable.icon_favorite_true)
+                    }
+                }
+
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.example.otaku_data.network.api
 
 import com.example.otaku_data.network.models.*
+import com.example.otaku_domain.models.user.UserNotice
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -161,6 +162,34 @@ interface AnimeApi {
         @Path(value = "id") id: Int
     ): Response<CharacterDetailsResponse>
 
+    /**
+     * Getting details of Character
+     *
+     * @param id - id of character
+     *
+     * @return Response item of Characters info
+     */
+    @GET("api/characters/{id}")
+    suspend fun getCharactersWithAuthorization(
+        @Header("User-Agent") userAgent: String,
+        @Header("Authorization") authHeader: String,
+        @Path(value = "id") id: Int
+    ): Response<CharacterDetailsResponse>
+
+
+    /**
+     * Getting details of Person
+     *
+     * @param id - id of person
+     *
+     * @return Response item of Person info
+     */
+    @GET("api/people/{id}")
+    suspend fun getPersonsWithAuthorization(
+        @Header("User-Agent") userAgent: String,
+        @Header("Authorization") authHeader: String,
+        @Path(value = "id") id: Int
+    ): Response<PersonResponse>
 
     /**
      * Getting details of Person
@@ -174,5 +203,19 @@ interface AnimeApi {
         @Path(value = "id") id: Int
     ): Response<PersonResponse>
 
+    @DELETE("/api/favorites/{linked_type}/{linked_id}")
+    suspend fun deleteFavorite(
+        @Header("User-Agent") userAgent: String,
+        @Header("Authorization") authHeader: String,
+        @Path(value = "linked_id") linkedId: Long,
+        @Path(value = "linked_type") linkedType: String
+    ): Response<UserNotice>
 
+    @POST("/api/favorites/{linked_type}/{linked_id}")
+    suspend fun createFavorite(
+        @Header("User-Agent") userAgent: String,
+        @Header("Authorization") authHeader: String,
+        @Path(value = "linked_id") linkedId: Long,
+        @Path(value = "linked_type") linkedType: String
+    ): Response<UserNotice>
 }

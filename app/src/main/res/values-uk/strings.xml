@@ -64,7 +64,7 @@
     <string name="fragment_details_btWatch_text">Дивитися</string>
     <string name="is_favorites">В обраному</string>
     <string name="is_not_favorites">Добавити в обране</string>
-    <string name="isSaved">Збережені</string>
+    <string name="isSaved">Дивлюсь</string>
 
     <string name="romantic_title">"Романтика"</string>
     <string name="shounen_title">"Сенен"</string>
@@ -129,6 +129,8 @@
     <string name="spinner_watching_text">Дивлюсь</string>
     <string name="spinner_planned_text">Заплановано</string>
     <string name="spinner_hold_on_text">Відкладено</string>
+    <string name="spinner_delete_text">Видалити із списку</string>
+
 
     <string name="title_settings_episode">"\nВведіть кількість епізодів"</string>
     <string name="positive_button_settings_episode">Оновити</string>

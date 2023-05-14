@@ -83,6 +83,7 @@ class MainActivity : AppCompatActivity() {
             Navigation.findNavController(this@MainActivity, R.id.nav_host_fragment)
         NavigationUI.setupWithNavController(binding.navBottom, navController)
 
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             visibility = when (destination.id) {
                 R.id.detailsFragment, R.id.episodesFragment, R.id.webPlayerFragment, R.id.charactersFragment, R.id.personFragment, R.id.screenshotsFragment, R.id.animeRatesFragment, R.id.userFragment -> View.GONE

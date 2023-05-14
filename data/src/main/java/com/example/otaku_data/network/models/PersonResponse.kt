@@ -16,5 +16,6 @@ data class PersonResponse(
     @SerializedName("job_title") val jobTitle: String?,
     @SerializedName("birthday") val birthDay: DateTime?,
     @SerializedName("works") val works: List<WorkResponse>?,
-    @SerializedName("roles") val roles: List<SeyuWorksResponse>?
+    @SerializedName("roles") val roles: List<SeyuWorksResponse>?,
+    @SerializedName("favoured") val favoured: Boolean?
 )

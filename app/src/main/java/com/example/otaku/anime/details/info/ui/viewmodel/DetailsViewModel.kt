@@ -14,17 +14,20 @@ import com.example.otaku.anime.details.info.ui.viewmodel.models.ActionDetailsDat
 import com.example.otaku.anime.details.info.ui.viewmodel.models.ActionEpisodesData
 import com.example.otaku.anime.details.info.ui.viewmodel.models.DetailsTypesData
 import com.example.otaku.anime.details.info.ui.viewmodel.models.RolesTypesData
-import com.example.otaku_data.mapper.toUserRateResponse
+import com.example.otaku.utils.FavoriteAction
 import com.example.otaku_data.utils.SharedPreferencesHelper
 import com.example.otaku_domain.NO_AUTH_USER_ID
 import com.example.otaku_domain.USER_AGENT
 import com.example.otaku_domain.common.Results
 import com.example.otaku_domain.models.details.AnimeDetailsEntity
 import com.example.otaku_domain.models.details.Translations
-import com.example.otaku_domain.models.poster.AnimePosterEntity
+import com.example.otaku_domain.models.user.Type
 import com.example.otaku_domain.models.user.status.UserRate
 import com.example.otaku_domain.usecases.anime.*
+import com.example.otaku_domain.usecases.favorites.CreateFavoriteUseCase
+import com.example.otaku_domain.usecases.favorites.DeleteFavoriteUseCase
 import com.example.otaku_domain.usecases.user.CreateUserRateUseCase
+import com.example.otaku_domain.usecases.user.DeleteRateUseCase
 import com.example.otaku_domain.usecases.user.UpdateUserRateUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -32,7 +35,6 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -44,16 +46,16 @@ class DetailsViewModel @Inject constructor(
     private val getAnimeRolesFromIdUseCase: GetAnimeRolesFromIdUseCase,
     private val getSeriesUseCase: GetSeriesUseCase,
     private val getVideoUseCase: GetVideoUseCase,
-    private val deleteFavoritesUseCase: DeleteFavoritesUseCase,
-    private val addFavoritesUseCase: AddFavoritesUseCase,
-    private val checkIsFavoriteUseCase: CheckIsFavoriteUseCase,
     private val updateUserRateUseCase: UpdateUserRateUseCase,
     private val createUserRateUseCase: CreateUserRateUseCase,
+    private val deleterRateUseCase: DeleteRateUseCase,
+    private val createFavoriteUseCase: CreateFavoriteUseCase,
+    private val deleteFavoriteUseCase: DeleteFavoriteUseCase,
     private val sharedPreferencesHelper: SharedPreferencesHelper
 ) : ViewModel() {
 
-    private val _actionError = MutableSharedFlow<String>(replay = 1)
-    val actionError: SharedFlow<String> get() = _actionError
+    private val _actionMessage = MutableSharedFlow<String>(replay = 1)
+    val actionMessage: SharedFlow<String> get() = _actionMessage
 
     private val _lastWatchEpisode = MutableSharedFlow<Int>(replay = 1)
     val lastWatchEpisode: SharedFlow<Int> get() = _lastWatchEpisode
@@ -106,21 +108,60 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    fun addFavoritesId(item: AnimePosterEntity) =
-        viewModelScope.launch(Dispatchers.IO) { addFavoritesUseCase.execute(item) }
-
-    fun deleteFavoritesId(id: Int) =
-        viewModelScope.launch(Dispatchers.IO) { deleteFavoritesUseCase.execute(id) }
-
-    fun checkIsFavorite(id: Int): Boolean {
-        return runBlocking(Dispatchers.IO) {
-            return@runBlocking checkIsFavoriteUseCase.execute(id = id)
-        }
-    }
-
     fun setLastEpisode(episode: Int) {
         viewModelScope.launch {
             _lastWatchEpisode.emit(episode)
+        }
+    }
+
+    fun actionFavorites(favoriteAction: FavoriteAction) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (favoriteAction) {
+                is FavoriteAction.CREATE_FAVORITE -> {
+                    createFavorite(
+                        linkedId = favoriteAction.linkedId,
+                        linkedType = favoriteAction.linkedType
+                    )
+                }
+                is FavoriteAction.DELETE_FAVORITE -> {
+                    deleteFavorite(
+                        linkedId = favoriteAction.linkedId,
+                        linkedType = favoriteAction.linkedType
+                    )
+                }
+            }
+        }
+    }
+
+    private fun deleteFavorite(linkedId: Long, linkedType: Type) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val response = deleteFavoriteUseCase.execute(
+                linkedId = linkedId,
+                linkedType = linkedType.typeName
+            )) {
+                is Results.Success -> {
+                    _actionMessage.tryEmit(response.data)
+                }
+                is Results.Error -> {
+                    _actionMessage.tryEmit(response.exception.message.toString())
+                }
+            }
+        }
+    }
+
+    private fun createFavorite(linkedId: Long, linkedType: Type) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val response = createFavoriteUseCase.execute(
+                linkedId = linkedId,
+                linkedType = linkedType.typeName
+            )) {
+                is Results.Success -> {
+                    _actionMessage.tryEmit(response.data)
+                }
+                is Results.Error -> {
+                    _actionMessage.tryEmit(response.exception.message.toString())
+                }
+            }
         }
     }
 
@@ -129,6 +170,20 @@ class DetailsViewModel @Inject constructor(
             updateUserRate(userRate)
         } else {
             createUserRate(userRate)
+        }
+    }
+
+    fun deleteUserRate(id: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            when (val result = deleterRateUseCase.execute(id = id)) {
+                is Results.Success -> {
+                    _actionMessage.tryEmit(result.data)
+                }
+                is Results.Error -> {
+                    _actionMessage.tryEmit(result.exception.message.toString())
+                }
+            }
         }
     }
 
@@ -151,11 +206,11 @@ class DetailsViewModel @Inject constructor(
                         _actionUserRate.tryEmit(mutableListOf(details))
                     }
                     is Results.Error -> {
-                        _actionError.tryEmit(response.exception.message.toString())
+                        _actionMessage.tryEmit(response.exception.message.toString())
                     }
                 }
             } else {
-                _actionError.tryEmit("User/Token Error")
+                _actionMessage.tryEmit("User/Token Error")
             }
 
         }
@@ -179,14 +234,14 @@ class DetailsViewModel @Inject constructor(
                     rateId = rateId
                 )) {
                     is Results.Success -> {
-                        _actionError.tryEmit("User Rate Updated!")
+                        _actionMessage.tryEmit("User Rate Updated!")
                     }
                     is Results.Error -> {
-                        _actionError.tryEmit(response.exception.message.toString())
+                        _actionMessage.tryEmit(response.exception.message.toString())
                     }
                 }
             } else {
-                _actionError
+                _actionMessage
             }
         }
     }
@@ -214,7 +269,7 @@ class DetailsViewModel @Inject constructor(
                     )
                 }
                 is Results.Error -> {
-                    _actionError.tryEmit(response.exception.message.toString())
+                    _actionMessage.tryEmit(response.exception.message.toString())
                 }
             }
         }
@@ -280,7 +335,7 @@ class DetailsViewModel @Inject constructor(
                     )
                 }
                 is Results.Error -> {
-                    _actionError.tryEmit(response.exception.message.toString())
+                    _actionMessage.tryEmit(response.exception.message.toString())
                 }
             }
         }
@@ -298,7 +353,7 @@ class DetailsViewModel @Inject constructor(
                     )
                 }
                 is Results.Error -> {
-                    _actionError.tryEmit(response.exception.message.toString())
+                    _actionMessage.tryEmit(response.exception.message.toString())
                 }
             }
         }
@@ -321,7 +376,7 @@ class DetailsViewModel @Inject constructor(
                     )
                 }
                 is Results.Error -> {
-                    _actionError.tryEmit(response.exception.message.toString())
+                    _actionMessage.tryEmit(response.exception.message.toString())
                 }
             }
         }

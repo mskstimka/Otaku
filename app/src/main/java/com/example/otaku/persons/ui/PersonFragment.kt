@@ -29,7 +29,12 @@ class PersonFragment : Fragment() {
     @Inject
     lateinit var pViewModel: PersonViewModel
 
-    private val infoAdapter by lazy { ContainerPersonInfoAdapter { requireActivity().onBackPressed() } }
+    private val infoAdapter by lazy {
+        ContainerPersonInfoAdapter(
+            onBackPressed = { requireActivity().onBackPressed() },
+            favoriteAction = { action -> pViewModel.actionFavorites(action) }
+        )
+    }
     private val worksAdapter by lazy {
         ContainerWorksAdapter {
             findNavController().navigate(
@@ -96,7 +101,7 @@ class PersonFragment : Fragment() {
         }
 
         subscribeToFlow(
-            flow = actionError,
+            flow = actionMessage,
             lifecycleOwner = viewLifecycleOwner
         ) { message ->
             BannerUtils.showSnackBar(

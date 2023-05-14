@@ -82,6 +82,16 @@
         app:shapeAppearanceOverlay="@style/roundedImageView"
         tools:src="@drawable/icon_default" />
 
+    <ImageView
+        android:id="@+id/ivFavorite"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        tools:src="@drawable/icon_favorite_true"
+        app:layout_constraintEnd_toEndOf="@+id/ivImageFranchises"
+        app:layout_constraintStart_toStartOf="@+id/ivImageFranchises"
+        app:layout_constraintTop_toBottomOf="@+id/ivImageFranchises" />
+
     <TextView
         android:id="@+id/tvTitle"
         style="@style/text_style_main_title"
@@ -90,7 +100,7 @@
         android:gravity="center"
         app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
         app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
-        app:layout_constraintTop_toBottomOf="@+id/ivImageFranchises"
+        app:layout_constraintTop_toBottomOf="@+id/ivFavorite"
         tools:text="Name" />
 
     <TextView
@@ -139,7 +149,7 @@
         app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
-        app:layout_constraintTop_toBottomOf="@+id/ivImageBackground" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleRussian" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

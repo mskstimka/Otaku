@@ -333,7 +333,7 @@ class UserDataSourceImpl(
             )
 
             if (response.isSuccessful) {
-                when (val response =response.body()) {
+                when (val response = response.body()) {
                     null -> {
                         Results.Error(Exception("Token Error Response"))
                     }
@@ -399,14 +399,7 @@ class UserDataSourceImpl(
                 userApi.deleteRate(id = id, userAgent = userAgent, authHeader = authHeader)
 
             if (response.isSuccessful) {
-                when (response.body()) {
-                    null -> {
-                        Results.Error(Exception("Token Error Response"))
-                    }
-                    else -> {
-                        Results.Success("Deleted Rate")
-                    }
-                }
+                Results.Success("Deleted Rate")
             } else {
                 if (response.code() == 429) {
                     delay(ERROR_WAIT_TIME)

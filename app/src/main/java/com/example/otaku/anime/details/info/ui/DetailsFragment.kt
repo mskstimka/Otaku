@@ -1,18 +1,11 @@
 package com.example.otaku.anime.details.info.ui
 
-import android.R
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.InputType
-import android.text.SpannableStringBuilder
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.startForegroundService
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -34,7 +27,6 @@ import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentDetailsBinding
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.subscribeToFlow
-import com.example.otaku_data.mapper.toUserRateResponse
 import com.example.otaku_domain.STATUS_FOREGROUND_ENGLISH_NAME_KEY
 import com.example.otaku_domain.STATUS_FOREGROUND_KIND_KEY
 import com.example.otaku_domain.STATUS_FOREGROUND_RUSSIAN_NAME_KEY
@@ -54,10 +46,9 @@ class DetailsFragment : Fragment() {
     private val containerDetailsAdapter by lazy {
         ContainerDetailsAdapter(
             onBackPressed = { activity?.onBackPressed() },
-            addFavorites = { dViewModel.addFavoritesId(it) },
-            deleteFavorites = { dViewModel.deleteFavoritesId(it) },
-            checkIsFavorite = { dViewModel.checkIsFavorite(it) },
-            updateOrCreateUserRate = { userRate -> dViewModel.updateOrCreateUserRate(userRate) }
+            updateOrCreateUserRate = { userRate -> dViewModel.updateOrCreateUserRate(userRate = userRate) },
+            deleteUserRate = { id -> dViewModel.deleteUserRate(id = id) },
+            favoriteAction = { action -> dViewModel.actionFavorites(action) }
         )
     }
 
@@ -214,7 +205,7 @@ class DetailsFragment : Fragment() {
             containerPersonAdapter.submitList(roles.persons)
         }
 
-        actionError.subscribeToFlow(
+        actionMessage.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
         ) { message ->
             BannerUtils.showSnackBar(
@@ -272,7 +263,6 @@ class DetailsFragment : Fragment() {
             }
         }
     }
-
 
 
     companion object {

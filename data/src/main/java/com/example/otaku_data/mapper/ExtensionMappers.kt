@@ -42,7 +42,8 @@ fun AnimeDetailsEntityResponse.toAnimeDetailsEntity() = AnimeDetailsEntity(
     statusColor = MapperUtils.checkStatusColor(this.status),
     studios = MapperUtils.checkStudioList(this.studios),
     videos = MapperUtils.checkVideoList(this.videos),
-    userRate = this.userRate?.toUserRate()
+    userRate = this.userRate?.toUserRate(),
+    favoured = this.favoured
 )
 
 
@@ -120,7 +121,8 @@ fun CharacterDetailsResponse.toCharacterDetailsEntity(): CharacterDetailsEntity 
         description = this.description,
         description_html = this.description_html,
         seyu = this.seyu,
-        animes = this.animes.toListFrachisesEntity()
+        animes = this.animes.toListFrachisesEntity(),
+        favorued = this.favoured
     )
 }
 
@@ -163,7 +165,8 @@ fun PersonResponse.toPersonEntity(): PersonEntity {
         jobTitle = this.jobTitle ?: "",
         birthDay = "${this.birthDay?.day}.${this.birthDay?.month}.${this.birthDay?.year}",
         works = this.works?.toListWorkEntity() ?: emptyList(),
-        roles = this.roles?.toListSeyuWork() ?: emptyList()
+        roles = this.roles?.toListSeyuWork() ?: emptyList(),
+        favoured = this.favoured
     )
 }
 

@@ -69,22 +69,24 @@ class HomeFragment : Fragment() {
 
         (requireActivity().applicationContext as App).appComponent.inject(this)
 
+        initView()
 
-        with(binding.swipeToRefresh) {
+        subscribeToFlow()
+
+        return binding.root
+    }
+
+    private fun initView() = with(binding) {
+        with(swipeToRefresh) {
             setOnRefreshListener {
                 lifecycleScope.launch {
                     hViewModel.list.clear()
-                    hViewModel.responses.clear()
                     hViewModel.refresh(hViewModel.arrayPrefPosters)
                     delay(1000)
                     isRefreshing = false
                 }
             }
         }
-
-        subscribeToFlow()
-
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -103,7 +105,7 @@ class HomeFragment : Fragment() {
     private fun subscribeToFlow() = with(hViewModel) {
 
         subscribeToFlow(
-            flow = actionError,
+            flow = actionMessage,
             lifecycleOwner = viewLifecycleOwner
         ) { message ->
             BannerUtils.showSnackBar(
@@ -117,7 +119,7 @@ class HomeFragment : Fragment() {
         }
 
         subscribeToFlow(
-            flow = pageAnimePosterAction,
+            flow = actionAnimePosters,
             lifecycleOwner = viewLifecycleOwner
         ) { item ->
             val list = mutableListOf<ContainerGenresList>()
@@ -128,14 +130,14 @@ class HomeFragment : Fragment() {
         }
 
         subscribeToFlow(
-            flow = pageAnimeScreenshotsAction,
+            flow = actionAnimeScreenshots,
             lifecycleOwner = viewLifecycleOwner
         ) { list ->
             randomAdapter.setItemsScreenshots(list = list)
         }
 
         subscribeToFlow(
-            flow = pageAnimeRandomAction,
+            flow = actionAnimeRandom,
             lifecycleOwner = viewLifecycleOwner
         ) { item ->
             randomAdapter.submitList(item)

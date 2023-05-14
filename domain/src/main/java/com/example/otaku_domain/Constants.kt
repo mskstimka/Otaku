@@ -67,6 +67,7 @@ const val POSITION_DROPPED = 2
 const val POSITION_WATCHING = 3
 const val POSITION_PLANNED = 4
 const val POSITION_ON_HOLD = 5
+const val POSITION_DELETE = 6
 
 const val SINGLE_LIVE_EVENT_MESSAGE =
     "Multiple observers registered but only one will be notified of changes."

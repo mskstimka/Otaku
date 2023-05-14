@@ -6,6 +6,7 @@ import com.example.otaku_data.repository.sources.auth.AuthDataSource
 import com.example.otaku_data.repository.sources.user.UserDataSource
 import com.example.otaku_data.utils.SharedPreferencesHelper
 import com.example.otaku_domain.ERROR_WAIT_TIME
+import com.example.otaku_domain.NO_CURRENT_USER_ID
 import com.example.otaku_domain.USER_AGENT
 import com.example.otaku_domain.common.Results
 import com.example.otaku_domain.models.user.FavoriteList
@@ -161,6 +162,7 @@ class UserRepositoryImpl @Inject constructor(
         )
         if (result is Results.Success) {
             sharedPreferencesHelper.removeLocalToken()
+            sharedPreferencesHelper.setCurrentUserId(NO_CURRENT_USER_ID)
         } else {
             Log.d("ERROR AUTH", result.toString())
         }

@@ -31,17 +31,16 @@ object TranslateUtils {
 
         return@withContext try {
             translator.downloadModelIfNeeded(conditions).await()
-            val updatedItem = item.copy()
             if (isDescriptionTranslate) {
                 val description =
                     translator.translate(item.jobTitle.parseAsHtml().toString()).await()
-                updatedItem.jobTitle = description
+                item.jobTitle = description
             }
             if (isNameTranslate) {
                 val name = translator.translate(item.nameRu).await()
-                updatedItem.nameRu = name
+                item.nameRu = name
             }
-            updatedItem
+            item
         } catch (e: Exception) {
             item
         }
@@ -65,17 +64,16 @@ object TranslateUtils {
 
         return@withContext try {
             translator.downloadModelIfNeeded(conditions).await()
-            val updatedItem = item.copy()
             if (isDescriptionTranslate) {
                 val description =
                     translator.translate(item.description_html.parseAsHtml().toString()).await()
-                updatedItem.description_html = description
+                item.description_html = description
             }
             if (isNameTranslate) {
                 val name = translator.translate(item.nameRu ?: "").await()
-                updatedItem.nameRu = name
+                item.nameRu = name
             }
-            updatedItem
+            item
         } catch (e: Exception) {
             item
         }
@@ -98,17 +96,16 @@ object TranslateUtils {
 
         return@withContext try {
             translator.downloadModelIfNeeded(conditions).await()
-            val updatedItem = item.copy()
             if (isDescriptionTranslate) {
                 val description =
                     translator.translate(item.description_html.parseAsHtml().toString()).await()
-                updatedItem.description_html = description
+                item.description_html = description
             }
             if (isNameTranslate) {
                 val name = translator.translate(item.russian ?: "").await()
-                updatedItem.russian = name
+                item.russian = name
             }
-            updatedItem
+            item
         } catch (e: Exception) {
             item
         }

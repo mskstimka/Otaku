@@ -118,7 +118,7 @@
 
     <style name="SignOut" parent="Widget.Material3.Button.ElevatedButton.Icon" />
 
-    <style name="AppSearchView" parent="Widget.Material3.SearchView">
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView">
         <item name="android:fontFamily">@font/open_sans_light</item>
     </style>
 

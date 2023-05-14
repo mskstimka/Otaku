@@ -1,23 +1,22 @@
 package com.example.otaku.auth
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.otaku_domain.models.user.UserBrief
 import com.example.otaku.R
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentAuthBinding
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.setImageByURL
 import com.example.otaku.utils.subscribeToFlow
+import com.example.otaku_domain.models.user.UserBrief
 import javax.inject.Inject
 import javax.inject.Singleton
 

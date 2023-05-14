@@ -15,6 +15,7 @@ import com.example.otaku_domain.models.details.franchise.AnimeDetailsFranchisesE
 import com.example.otaku_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.otaku_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.otaku_domain.models.poster.AnimePosterEntity
+import com.example.otaku_domain.models.user.UserNotice
 import kotlinx.coroutines.delay
 
 class AnimeDataSourceImpl(
@@ -201,8 +202,16 @@ class AnimeDataSourceImpl(
     override suspend fun getCharacters(id: Int): Results<CharacterDetailsEntity> {
 
         return try {
-            val response = animeApi.getCharacters(id = id)
-
+            val token = sharedPreferencesHelper.getLocalToken()
+            val response = if (token == null) {
+                animeApi.getCharacters(id = id)
+            } else {
+                animeApi.getCharactersWithAuthorization(
+                    userAgent = USER_AGENT,
+                    authHeader = "Bearer ${token.authToken}",
+                    id = id
+                )
+            }
             when (response.isSuccessful) {
                 true -> {
                     val item = response.body()!!.toCharacterDetailsEntity()
@@ -234,7 +243,16 @@ class AnimeDataSourceImpl(
 
     override suspend fun getPersons(id: Int): Results<PersonEntity> {
         return try {
-            val response = animeApi.getPersons(id = id)
+            val token = sharedPreferencesHelper.getLocalToken()
+            val response = if (token == null) {
+                animeApi.getPersons(id = id)
+            } else {
+                animeApi.getPersonsWithAuthorization(
+                    userAgent = USER_AGENT,
+                    authHeader = "Bearer ${token.authToken}",
+                    id = id
+                )
+            }
 
             when (response.isSuccessful) {
                 true -> {
@@ -265,33 +283,63 @@ class AnimeDataSourceImpl(
         }
     }
 
-    override suspend fun addLocalFavorites(item: AnimePosterEntity) {
 
-        shikimoriDAO.insert(item.toLocalListAnimePosterEntity())
+    override suspend fun deleteFavorite(
+        linkedId: Long,
+        linkedType: String
+    ): Results<String> {
+        return try {
+            val response =
+                animeApi.deleteFavorite(
+                    userAgent = USER_AGENT,
+                    authHeader = "Bearer ${sharedPreferencesHelper.getLocalToken()?.authToken.toString()}",
+                    linkedId = linkedId,
+                    linkedType = linkedType
+                )
 
-    }
-
-    override suspend fun deleteLocalFavorites(id: Int) {
-        var isLocal = false
-        if (shikimoriDAO.getAllPosters().isNotEmpty()) {
-            shikimoriDAO.getAllPosters().forEach {
-                if (it.id == id) {
-                    isLocal = true
+            if (response.isSuccessful) {
+                Results.Success(response.body()?.notice.toString())
+            } else {
+                if (response.code() == 429) {
+                    delay(ERROR_WAIT_TIME)
+                    deleteFavorite(linkedId = linkedId, linkedType = linkedType)
+                } else {
+                    Results.Error(exception = Exception(response.message()))
                 }
             }
-        }
-
-        if (isLocal) {
-            shikimoriDAO.delete(id)
+        } catch (e: Exception) {
+            Results.Error(Exception(e.message))
         }
     }
 
-    override fun getLocalFavorites(): List<AnimePosterEntity> {
-        return shikimoriDAO.getAllPosters().localToListAnimePosterEntity()
+
+    override suspend fun createFavorite(
+        linkedId: Long,
+        linkedType: String
+    ): Results<String> {
+        return try {
+            val response =
+                animeApi.createFavorite(
+                    userAgent = USER_AGENT,
+                    authHeader = "Bearer ${sharedPreferencesHelper.getLocalToken()?.authToken.toString()}",
+                    linkedId = linkedId,
+                    linkedType = linkedType
+                )
+
+            if (response.isSuccessful) {
+                Results.Success(response.body()?.notice.toString())
+            } else {
+                if (response.code() == 429) {
+                    delay(ERROR_WAIT_TIME)
+                    createFavorite(linkedId, linkedType)
+                } else {
+                    Results.Error(exception = Exception(response.message()))
+                }
+            }
+        } catch (e: Exception) {
+            Results.Error(Exception(e.message))
+        }
     }
 
-    override fun checkIsFavorite(id: Int): Boolean {
-        return getLocalFavorites().find { it.id == id } != null
-    }
 
 }

@@ -12,6 +12,7 @@ import com.example.otaku_domain.models.details.franchise.AnimeDetailsFranchisesE
 import com.example.otaku_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.otaku_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.otaku_domain.models.poster.AnimePosterEntity
+import com.example.otaku_domain.models.user.UserNotice
 import com.example.otaku_domain.repository.AnimeRepository
 import javax.inject.Inject
 
@@ -85,20 +86,12 @@ class AnimeRepositoryImpl @Inject constructor(
         return animeDataSource.getPersons(id = id)
     }
 
-    override suspend fun addLocalFavorites(item: AnimePosterEntity) {
-        return animeDataSource.addLocalFavorites(item = item)
+    override suspend fun createFavorite(linkedId: Long, linkedType: String): Results<String> {
+        return animeDataSource.createFavorite(linkedId = linkedId, linkedType = linkedType)
     }
 
-    override suspend fun deleteLocalFavorites(id: Int) {
-        return animeDataSource.deleteLocalFavorites(id = id)
-    }
-
-    override fun getLocalFavorites(): List<AnimePosterEntity> {
-        return animeDataSource.getLocalFavorites()
-    }
-
-    override fun checkIsFavorite(id: Int): Boolean {
-        return animeDataSource.checkIsFavorite(id = id)
+    override suspend fun deleteFavorite(linkedId: Long, linkedType: String): Results<String> {
+        return animeDataSource.deleteFavorite(linkedId = linkedId, linkedType = linkedType)
     }
 
 }

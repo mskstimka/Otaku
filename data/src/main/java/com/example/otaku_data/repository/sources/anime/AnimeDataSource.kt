@@ -8,7 +8,13 @@ import com.example.otaku_domain.models.details.franchise.AnimeDetailsFranchisesE
 import com.example.otaku_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.otaku_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.otaku_domain.models.poster.AnimePosterEntity
+import com.example.otaku_domain.models.user.UserNotice
 import com.example.otaku_domain.models.user.status.UserRate
+import retrofit2.Response
+import retrofit2.http.DELETE
+import retrofit2.http.Header
+import retrofit2.http.POST
+import retrofit2.http.Path
 
 
 interface AnimeDataSource {
@@ -112,32 +118,15 @@ interface AnimeDataSource {
         id: Int
     ): Results<PersonEntity>
 
-    /**
-     * Adding anime to Local Store
-     *
-     * @param item - entity of Anime Poster
-     */
-    suspend fun addLocalFavorites(item: AnimePosterEntity)
 
-    /**
-     * Deleting anime in Local Store
-     *
-     * @param id - id of Anime
-     */
-    suspend fun deleteLocalFavorites(id: Int)
+    suspend fun deleteFavorite(
+        linkedId: Long,
+        linkedType: String
+    ): Results<String>
 
-    /**
-     * Getting list of anime in to Local Store
-     *
-     * @return list of AnimePosterEntity
-     */
-    fun getLocalFavorites(): List<AnimePosterEntity>
 
-    /**
-     * Checking anime to Local Store
-     *
-     * @param id - id of anime
-     */
-    fun checkIsFavorite(id: Int): Boolean
-
+    suspend fun createFavorite(
+        linkedId: Long,
+        linkedType: String
+    ): Results<String>
 }

@@ -17,5 +17,6 @@ data class CharacterDetailsEntity(
     val description: String?,
     var description_html: String,
     val seyu: List<Person>,
-    val animes: List<AnimeDetailsFranchisesEntity>
+    val animes: List<AnimeDetailsFranchisesEntity>,
+    var favorued: Boolean?
 )

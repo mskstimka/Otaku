@@ -63,7 +63,7 @@
     <string name="fragment_details_btWatch_text">Смотреть</string>
     <string name="is_favorites">В избранном</string>
     <string name="is_not_favorites">Добавить в избранное</string>
-    <string name="isSaved">Сохраненные</string>
+    <string name="isSaved">Смотрю</string>
 
     <string name="romantic_title">"Романтика"</string>
     <string name="shounen_title">"Сёнен"</string>
@@ -131,6 +131,7 @@
     <string name="spinner_watching_text">Смотрю</string>
     <string name="spinner_planned_text">Запланировано</string>
     <string name="spinner_hold_on_text">Отложено</string>
+    <string name="spinner_delete_text">Удалить из списка</string>
 
     <string name="title_settings_episode">"\nВведите количество эпизодов"</string>
     <string name="positive_button_settings_episode">Обновить</string>
@@ -145,6 +146,8 @@
         <item>@string/spinner_watching_text</item>
         <item>@string/spinner_planned_text</item>
         <item>@string/spinner_hold_on_text</item>
+        <item>@string/spinner_delete_text</item>
+
 
     </string-array>
 </resources>

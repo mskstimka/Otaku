@@ -25,4 +25,6 @@ data class AnimeDetailsEntityResponse(
     val studios: List<Studio>,
     val videos: List<Video>,
     @SerializedName("user_rate") val userRate: UserRateResponse?,
+    @SerializedName("favoured") val favoured: Boolean?
+
 )

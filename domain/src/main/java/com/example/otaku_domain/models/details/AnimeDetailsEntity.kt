@@ -23,5 +23,6 @@ data class AnimeDetailsEntity(
     val statusColor: String,
     val studios: List<Studio>,
     val videos: List<Video>,
-    var userRate: UserRate?
+    var userRate: UserRate?,
+    var favoured: Boolean?
 )

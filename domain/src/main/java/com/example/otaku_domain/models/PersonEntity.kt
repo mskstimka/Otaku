@@ -13,5 +13,6 @@ data class PersonEntity(
     var jobTitle: String,
     val birthDay: String,
     val works: List<WorkEntity>,
-    val roles: List<SeyuWorks>
+    val roles: List<SeyuWorks>,
+    var favoured: Boolean?,
 )

@@ -4,37 +4,33 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.text.InputType
-import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.HtmlCompat
-import androidx.core.view.marginTop
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.otaku_domain.models.details.AnimeDetailsEntity
-import com.example.otaku_domain.models.poster.AnimePosterEntity
 import com.example.otaku.R
 import com.example.otaku.anime.details.info.ui.DetailsFragment
 import com.example.otaku.anime.details.info.ui.DetailsFragmentDirections
 import com.example.otaku.databinding.LayoutDetailsInfoBinding
-import com.example.otaku.utils.copyToClipboard
+import com.example.otaku.utils.FavoriteAction
 import com.example.otaku.utils.setImageByURL
-import com.example.otaku.utils.toAnimePoster
 import com.example.otaku_domain.*
+import com.example.otaku_domain.models.details.AnimeDetailsEntity
+import com.example.otaku_domain.models.user.Type
 import com.example.otaku_domain.models.user.status.RateStatus
 import com.example.otaku_domain.models.user.status.UserRate
 
 class ContainerDetailsAdapter(
     private val onBackPressed: () -> Unit,
-    private val addFavorites: (id: AnimePosterEntity) -> Unit,
-    private val deleteFavorites: (id: Int) -> Unit,
-    private val checkIsFavorite: (id: Int) -> Boolean,
-    private val updateOrCreateUserRate: (userRate: UserRate) -> Unit
+    private val updateOrCreateUserRate: (userRate: UserRate) -> Unit,
+    private val deleteUserRate: (id: Long) -> Unit,
+    private val favoriteAction: (favoriteAction: FavoriteAction) -> Unit
 ) :
     ListAdapter<AnimeDetailsEntity, ContainerDetailsAdapter.ParentDetailsViewHolder>(
         ParentDetailsDiffCallback
@@ -43,7 +39,6 @@ class ContainerDetailsAdapter(
     private val genresAdapter by lazy { GenresAdapter() }
 
     var userRate = UserRate(episodes = 0)
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentDetailsViewHolder {
         val binding =
             LayoutDetailsInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -68,26 +63,44 @@ class ContainerDetailsAdapter(
 
                         when (position) {
                             POSITION_COMPLETED -> {
-                                userRate.status = RateStatus.COMPLETED.status
-                                updateOrCreateUserRate(userRate)
+                                if (userRate.status != RateStatus.COMPLETED.status) {
+                                    userRate.status = RateStatus.COMPLETED.status
+                                    updateOrCreateUserRate(userRate)
+                                }
                             }
                             POSITION_DROPPED -> {
-                                userRate.status = RateStatus.DROPPED.status
-                                updateOrCreateUserRate(userRate)
+                                if (userRate.status != RateStatus.DROPPED.status) {
+                                    userRate.status = RateStatus.DROPPED.status
+                                    updateOrCreateUserRate(userRate)
+                                }
                             }
                             POSITION_WATCHING -> {
-                                userRate.status = RateStatus.WATCHING.status
-                                updateOrCreateUserRate(userRate)
+                                if (userRate.status != RateStatus.WATCHING.status) {
+                                    userRate.status = RateStatus.WATCHING.status
+                                    updateOrCreateUserRate(userRate)
+                                }
                             }
                             POSITION_PLANNED -> {
-                                userRate.status = RateStatus.PLANNED.status
-                                updateOrCreateUserRate(userRate)
+                                if (userRate.status != RateStatus.PLANNED.status) {
+                                    userRate.status = RateStatus.PLANNED.status
+                                    updateOrCreateUserRate(userRate)
+                                }
                             }
                             POSITION_ON_HOLD -> {
-                                userRate.status = RateStatus.ON_HOLD.status
-                                updateOrCreateUserRate(userRate)
+                                if (userRate.status != RateStatus.ON_HOLD.status) {
+                                    userRate.status = RateStatus.ON_HOLD.status
+                                    updateOrCreateUserRate(userRate)
+                                }
+                            }
+                            POSITION_DELETE -> {
+                                val rateId = userRate.id
+                                if (rateId != null) {
+                                    deleteUserRate(rateId)
+                                }
+                                setSelection(POSITION_NO_SELECTION)
                             }
                         }
+
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>) {
@@ -147,29 +160,33 @@ class ContainerDetailsAdapter(
             tvStatus.text = item.status
             tvStatus.setTextColor(Color.parseColor(item.statusColor))
 
-            if (item.userRate != null) {
+            if (item.favoured == true) {
                 ivFavorite.setImageResource(R.drawable.icon_favorite_true)
+            } else {
+                ivFavorite.setImageResource(R.drawable.icon_favorite_false)
             }
 
-//            if (checkIsFavorite(item.id)) {
-//                addIsFavorite(tvFavorite, root.context, item.toAnimePoster(), false)
-//            } else {
-//                deleteIsFavorite(tvFavorite, root.context, item.id, false)
-//            }
-//
-//
-//            tvFavorite.setOnClickListener {
-//                if (checkIsFavorite(item.id)) {
-//                    deleteIsFavorite(tvFavorite, root.context, item.id, true)
-//                } else {
-//                    addIsFavorite(
-//                        tvFavorite,
-//                        root.context,
-//                        item.toAnimePoster(),
-//                        true
-//                    )
-//                }
-//            }
+            ivFavorite.setOnClickListener {
+                if (item.favoured == true) {
+                    favoriteAction(
+                        FavoriteAction.DELETE_FAVORITE(
+                            linkedId = item.id.toLong(),
+                            linkedType = Type.CHARACTER
+                        )
+                    )
+                    item.favoured = false
+                    ivFavorite.setImageResource(R.drawable.icon_favorite_false)
+                } else if (item.favoured == null || item.favoured == false) {
+                    favoriteAction(
+                        FavoriteAction.CREATE_FAVORITE(
+                            linkedId = item.id.toLong(),
+                            linkedType = Type.ANIME
+                        )
+                    )
+                    item.favoured = true
+                    ivFavorite.setImageResource(R.drawable.icon_favorite_true)
+                }
+            }
 
             when (userRate.status) {
                 RateStatus.COMPLETED.status -> {
@@ -211,16 +228,6 @@ class ContainerDetailsAdapter(
                 updateOrCreateUserRate(userRate)
                 tvEpisodeCount.text = "${userRate.episodes.toString()} / $allEpisodes"
             }
-
-
-//            btnMinus.setOnClickListener {
-//                if (userRate.episodes != 0 && userRate.episodes != null) {
-//                    val lastEpisodes = userRate.episodes ?: 0
-//                    userRate.episodes = lastEpisodes - 1
-//                    updateOrCreateUserRate(userRate)
-//                    tvEpisodeCount.text = userRate.episodes.toString()
-//                }
-//            }
 
         }
     }

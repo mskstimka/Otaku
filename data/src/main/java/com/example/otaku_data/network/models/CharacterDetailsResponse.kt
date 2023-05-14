@@ -17,5 +17,7 @@ data class CharacterDetailsResponse(
     @SerializedName("description") val description: String?,
     @SerializedName("description_html") val description_html: String,
     @SerializedName("seyu") val seyu: List<Person>,
-    @SerializedName("animes") val animes: List<CharacterDetailsSimiliarResponse>
+    @SerializedName("animes") val animes: List<CharacterDetailsSimiliarResponse>,
+    @SerializedName("favoured") val favoured: Boolean?,
+
 )

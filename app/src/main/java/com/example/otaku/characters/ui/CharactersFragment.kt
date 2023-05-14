@@ -11,10 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentCharactersBinding
-import com.example.otaku.characters.adapters.info.ContainerCharacterInfo
 import com.example.otaku.characters.adapters.info.ContainerCharacterInfoAdapter
-import com.example.otaku.anime.details.info.adapters.franchises.ContainerFranchises
-import com.example.otaku.anime.details.info.adapters.persons.ContainerPerson
 import com.example.otaku.anime.details.info.adapters.persons.ContainerPersonAdapter
 import com.example.otaku.anime.details.info.adapters.franchises.ContainerFranchisesAdapter
 import com.example.otaku.utils.BannerUtils
@@ -34,9 +31,10 @@ class CharactersFragment : Fragment() {
 
 
     private val infoAdapter by lazy {
-        ContainerCharacterInfoAdapter {
-            requireActivity().onBackPressed()
-        }
+        ContainerCharacterInfoAdapter(
+            onBackPressed = { requireActivity().onBackPressed() },
+            favoriteAction = { action -> cViewModel.actionFavorites(action) }
+        )
     }
     private val personAdapter by lazy {
         ContainerPersonAdapter {
@@ -97,7 +95,7 @@ class CharactersFragment : Fragment() {
             initAdapters()
         }
 
-        actionError.subscribeToFlow(
+        actionMessage.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
         ) { message ->
             BannerUtils.showSnackBar(

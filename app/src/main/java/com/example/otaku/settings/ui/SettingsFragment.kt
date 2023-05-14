@@ -12,7 +12,6 @@ import com.example.otaku.R
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentSettingsBinding
 import com.example.otaku.settings.viewmodel.SettingsViewModel
-import com.example.otaku.user.ui.viewmodel.UserViewModel
 import com.example.otaku_data.utils.SharedPreferencesHelper
 import java.util.*
 import javax.inject.Inject

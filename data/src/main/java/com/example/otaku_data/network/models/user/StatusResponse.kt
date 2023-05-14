@@ -2,8 +2,6 @@ package com.example.otaku_data.network.models.user
 
 import androidx.annotation.Keep
 import com.example.otaku_data.network.models.user.status.RateStatusResponse
-import com.example.otaku_domain.models.user.status.RateStatus
-import com.example.otaku_domain.models.user.Type
 import com.google.gson.annotations.SerializedName
 
 @Keep

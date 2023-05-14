@@ -2,7 +2,7 @@ package com.example.otaku.utils
 
 import android.util.Log
 
-object CountUtls {
+object CountUtils {
 
     private var count = 0
 

@@ -15,8 +15,8 @@ class SearchViewModel @Inject constructor(
     private val getAnimePostersFromSearchUseCase: GetAnimePostersFromSearchUseCase
 ) : ViewModel() {
 
-    private val _actionError = MutableSharedFlow<String>(replay = 1)
-    val actionError: SharedFlow<String> = _actionError
+    private val _actionMessage = MutableSharedFlow<String>(replay = 1)
+    val actionMessage: SharedFlow<String> = _actionMessage
 
     private val _actionSearch = MutableSharedFlow<List<AnimePosterEntity>>(replay = 2)
     val actionSearch: SharedFlow<List<AnimePosterEntity>> = _actionSearch
@@ -54,7 +54,7 @@ class SearchViewModel @Inject constructor(
                 _actionSearch.emit(response.data)
             }
             is Results.Error -> {
-                _actionError.emit(response.exception.message.toString())
+                _actionMessage.emit(response.exception.message.toString())
             }
         }
     }

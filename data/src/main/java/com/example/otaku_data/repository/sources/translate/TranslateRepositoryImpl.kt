@@ -1,6 +1,5 @@
 package com.example.otaku_data.repository.sources.translate
 
-import com.example.otaku_data.utils.TranslateUtils
 import com.example.otaku_domain.repository.TranslateRepository
 import com.google.mlkit.common.model.DownloadConditions
 import com.google.mlkit.nl.translate.TranslateLanguage

@@ -9,10 +9,10 @@ import android.os.IBinder
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.PRIORITY_HIGH
+import com.example.otaku.R
 import com.example.otaku_domain.STATUS_FOREGROUND_ENGLISH_NAME_KEY
 import com.example.otaku_domain.STATUS_FOREGROUND_KIND_KEY
 import com.example.otaku_domain.STATUS_FOREGROUND_RUSSIAN_NAME_KEY
-import com.example.otaku.R
 
 class StatusForegroundService : Service() {
 

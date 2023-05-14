@@ -3,14 +3,14 @@ package com.example.otaku.persons.ui
 import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.otaku_domain.common.Results
-import com.example.otaku_domain.usecases.anime.GetPersonUseCase
 import com.example.otaku.anime.details.info.adapters.characters.ContainerCharacters
 import com.example.otaku.persons.adapters.info.ContainerPersonInfo
 import com.example.otaku.persons.adapters.roles.ContainerWorks
 import com.example.otaku.persons.ui.models.ActionPersonData
 import com.example.otaku.utils.FavoriteAction
+import com.example.otaku_domain.common.Results
 import com.example.otaku_domain.models.user.Type
+import com.example.otaku_domain.usecases.anime.GetPersonUseCase
 import com.example.otaku_domain.usecases.favorites.CreateFavoriteUseCase
 import com.example.otaku_domain.usecases.favorites.DeleteFavoriteUseCase
 import kotlinx.coroutines.Dispatchers

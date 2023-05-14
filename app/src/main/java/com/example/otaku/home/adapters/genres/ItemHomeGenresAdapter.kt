@@ -7,12 +7,12 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.otaku_domain.SHIKIMORI_URL
-import com.example.otaku_domain.models.poster.AnimePosterEntity
 import com.example.otaku.R
 import com.example.otaku.anime.AnimeFragmentDirections
 import com.example.otaku.databinding.ItemHomeGenresItemBinding
 import com.example.otaku.utils.setImageByURL
+import com.example.otaku_domain.SHIKIMORI_URL
+import com.example.otaku_domain.models.poster.AnimePosterEntity
 
 class ItemHomeGenresAdapter :
     ListAdapter<AnimePosterEntity, ItemHomeGenresAdapter.PrevPosterViewHolder>(

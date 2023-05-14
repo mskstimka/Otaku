@@ -1,12 +1,12 @@
 package com.example.otaku.home.adapters.favorites
 
-import com.example.otaku.databinding.LayoutFavoritesBinding
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.otaku.databinding.LayoutFavoritesBinding
 
 class ContainerFavoritesAdapter :
     ListAdapter<ContainerFavorites, ContainerFavoritesAdapter.ContainerFavoritesViewHolder>(

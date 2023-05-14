@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otaku.R
-import com.example.otaku.databinding.ItemHomeRandomBinding
+import com.example.otaku.anime.AnimeFragmentDirections
 import com.example.otaku.anime.details.info.adapters.screenshots.ScreenshotsAdapter
+import com.example.otaku.databinding.ItemHomeRandomBinding
 import com.example.otaku.utils.setImageByURL
 import com.example.otaku_domain.SHIKIMORI_URL
 import com.example.otaku_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
-import com.example.otaku.anime.AnimeFragmentDirections
 
 class ContainerRandomAdapter(private val action: () -> Unit) :
     ListAdapter<ContainerRandom, ContainerRandomAdapter.ContainerRandomViewHolder>(

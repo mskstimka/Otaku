@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.otaku.R
 import com.example.otaku.databinding.LayoutPersonInfoBinding
 import com.example.otaku.utils.FavoriteAction
+import com.example.otaku.utils.animShake
 import com.example.otaku.utils.setImageByURL
 import com.example.otaku_domain.SHIKIMORI_URL
 import com.example.otaku_domain.models.user.Type
@@ -72,8 +73,10 @@ class ContainerPersonInfoAdapter(
                             linkedType = Type.PERSON
                         )
                     )
-                    model.item.favoured = false
-                    ivFavorite.setImageResource(R.drawable.icon_favorite_false)
+                    it.animShake {
+                        model.item.favoured = false
+                        ivFavorite.setImageResource(R.drawable.icon_favorite_false)
+                    }
                 } else if (model.item.favoured == null || model.item.favoured == false) {
                     favoriteAction(
                         FavoriteAction.CREATE_FAVORITE(
@@ -81,8 +84,10 @@ class ContainerPersonInfoAdapter(
                             linkedType = Type.PERSON
                         )
                     )
-                    model.item.favoured = true
-                    ivFavorite.setImageResource(R.drawable.icon_favorite_true)
+                    it.animShake {
+                        model.item.favoured = true
+                        ivFavorite.setImageResource(R.drawable.icon_favorite_true)
+                    }
                 }
             }
         }

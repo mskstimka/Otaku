@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.otaku_domain.usecases.anime.GetAnimePostersFromSearchUseCase
 import com.example.otaku.R
-import com.example.otaku.search.adapters.PostersAdapter
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentSearchBinding
+import com.example.otaku.search.adapters.PostersAdapter
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.subscribeToFlow
+import com.example.otaku_domain.usecases.anime.GetAnimePostersFromSearchUseCase
 import javax.inject.Inject
 
 
@@ -92,7 +92,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun subscribeToFlow() = with(sViewModel) {
-        subscribeToFlow(lifecycleOwner = viewLifecycleOwner, flow = actionSearch) {
+        actionSearch.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) {
             if (binding.svFragmentSearchSearch.query.toString() == "") {
                 adapter.submitList(emptyList())
             } else {
@@ -100,7 +100,7 @@ class SearchFragment : Fragment() {
             }
         }
 
-        subscribeToFlow(lifecycleOwner = viewLifecycleOwner, flow = actionError) { message ->
+        actionMessage.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { message ->
             BannerUtils.showSnackBar(
                 binding.root,
                 message,

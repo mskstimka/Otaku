@@ -82,7 +82,7 @@
     <string name="fragment_settings_sFragmentSettingsUkraineLocale_text">Українська мова (Beta)</string>
     <string name="fragment_settings_tvLanguageSettings_text">Налаштувати (клік)</string>
     <string name="fragment_settings_sFragmentSettingsSearchCensored_text">Пошук без цензури</string>
-    <string name="fragment_episodes_item_text">"Эпізод: %1$s"</string>
+    <string name="fragment_episodes_item_text">"Епізод: %1$s"</string>
     <string name="fragment_manga_tvTitle_text">В розробці</string>
 
     <string name="dialog_setting_language_sIsTitle_text">Заголовки</string>
@@ -137,5 +137,6 @@
     <string name="fragment_auth_btSignOut_text">Вийти</string>
     <string name="add_to_friends_text">Добавити в друзі</string>
     <string name="your_friend_text">Твій друг</string>
+    <string name="fragment_auth_btDevAccount_text">Аккаунт розробника</string>
 
 </resources>

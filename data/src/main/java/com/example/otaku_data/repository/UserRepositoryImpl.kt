@@ -45,10 +45,11 @@ class UserRepositoryImpl @Inject constructor(
             } else {
                 val refreshToken = sharedPreferencesHelper.getLocalToken()?.refreshToken
 
-                return if (response.code() == 429) {
+                if (response.code() == 429) {
                     delay(ERROR_WAIT_TIME)
                     getCurrentUser(userAgent, "Bearer $accessToken")
                 } else if (response.code() == 401 && refreshToken != null) {
+                    delay(ERROR_WAIT_TIME)
                     when (val newToken = authDataSource.refreshToken(refreshToken)) {
                         is Results.Success -> getCurrentUser(
                             USER_AGENT,

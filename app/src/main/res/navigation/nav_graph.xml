@@ -79,6 +79,10 @@
         <argument
             android:name="episodes"
             app:argType="integer" />
+
+        <argument
+            android:name="watched"
+            app:argType="integer" />
         <argument
             android:name="kind"
             app:argType="string" />

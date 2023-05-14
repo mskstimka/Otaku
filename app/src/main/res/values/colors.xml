@@ -41,4 +41,6 @@
     <color name="spinner_text_color">@color/white</color>
     <color name="history_text_color">@color/white</color>
 
+    <color name="placeholder_color">#7C434343</color>
+
 </resources>

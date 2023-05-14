@@ -1,19 +1,19 @@
 package com.example.otaku.characters.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
-import com.example.otaku.app.App
-import com.example.otaku.databinding.FragmentCharactersBinding
-import com.example.otaku.characters.adapters.info.ContainerCharacterInfoAdapter
-import com.example.otaku.anime.details.info.adapters.persons.ContainerPersonAdapter
 import com.example.otaku.anime.details.info.adapters.franchises.ContainerFranchisesAdapter
+import com.example.otaku.anime.details.info.adapters.persons.ContainerPersonAdapter
+import com.example.otaku.app.App
+import com.example.otaku.characters.adapters.info.ContainerCharacterInfoAdapter
+import com.example.otaku.databinding.FragmentCharactersBinding
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.subscribeToFlow
 import javax.inject.Inject

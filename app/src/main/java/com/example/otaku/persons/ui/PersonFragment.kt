@@ -76,8 +76,7 @@ class PersonFragment : Fragment() {
     }
 
     private fun subscribeToFlows() = with(pViewModel) {
-        subscribeToFlow(
-            flow = actionInfo,
+        actionInfo.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
         ) { personModel ->
 
@@ -92,16 +91,14 @@ class PersonFragment : Fragment() {
             }
         }
 
-        subscribeToFlow(
-            flow = actionProgressBar,
+        actionProgressBar.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
         ) { visibility ->
             binding.pbLoading.visibility = visibility
             initAdapters()
         }
 
-        subscribeToFlow(
-            flow = actionMessage,
+        actionMessage.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
         ) { message ->
             BannerUtils.showSnackBar(

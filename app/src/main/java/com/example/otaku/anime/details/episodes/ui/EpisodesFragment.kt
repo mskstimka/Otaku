@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.alpha
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.example.otaku_domain.NOT_FOUND_TEXT
 import com.example.otaku.R
 import com.example.otaku.anime.details.episodes.adapters.EpisodesAdapter
 import com.example.otaku.anime.details.episodes.models.ContainerEpisodeHeader
@@ -21,6 +22,7 @@ import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentEpisodesBinding
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.subscribeToFlow
+import com.example.otaku_domain.NOT_FOUND_TEXT
 import javax.inject.Inject
 
 
@@ -38,7 +40,8 @@ class EpisodesFragment : Fragment() {
                 actionSearch(it)
                 dViewModel.setLastEpisode(it)
             },
-            onBackPressed = { requireActivity().onBackPressed() }
+            onBackPressed = { requireActivity().onBackPressed() },
+            watched = args.watched
         )
     }
 
@@ -61,6 +64,7 @@ class EpisodesFragment : Fragment() {
         initAdapter()
 
         episodesAdapter.submitList(getList(args.episodes))
+        binding.root.scrollToPosition(args.watched)
 
         return binding.root
     }
@@ -82,11 +86,10 @@ class EpisodesFragment : Fragment() {
 
     private fun subscribesToFlow() = with(dViewModel) {
 
-        subscribeToFlow(flow = lastWatchEpisode, lifecycleOwner = viewLifecycleOwner) { episode ->
+        lastWatchEpisode.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { episode ->
             binding.root.scrollToPosition(episode)
         }
-        subscribeToFlow(
-            flow = actionVideo,
+        actionVideo.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
         ) { list ->
             if (list.isNotEmpty()) {

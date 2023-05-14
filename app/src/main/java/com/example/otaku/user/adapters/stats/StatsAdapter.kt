@@ -8,11 +8,11 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.otaku_domain.models.user.status.RateStatus
 import com.example.otaku.R
 import com.example.otaku.databinding.ItemUserStatsBinding
 import com.example.otaku.user.adapters.stats.models.Stats
 import com.example.otaku.user.ui.UserFragmentDirections
+import com.example.otaku_domain.models.user.status.RateStatus
 
 class StatsAdapter(private val userId: Long) :
     ListAdapter<Stats, StatsAdapter.StatsViewHolder>(

@@ -229,7 +229,8 @@ class DetailsFragment : Fragment() {
                                 episodes = episodeModel.episodes,
                                 kind = episodeModel.kind,
                                 name = episodeModel.name,
-                                malId = episodeModel.id
+                                malId = episodeModel.id,
+                                watched = episodeModel.episodesWatched
                             )
                         )
                     }

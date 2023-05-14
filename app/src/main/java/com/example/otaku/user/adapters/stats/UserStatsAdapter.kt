@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.otaku_domain.models.user.status.RateStatus
 import com.example.otaku.databinding.LayoutUserStatsBinding
 import com.example.otaku.user.adapters.stats.models.UserStatsContainer
+import com.example.otaku_domain.models.user.status.RateStatus
 
 class UserStatsAdapter(userId: Long) :
     ListAdapter<UserStatsContainer, UserStatsAdapter.UserStatsViewHolder>(

@@ -226,5 +226,6 @@
     </style>
 
     <style name="SignOut" parent="Widget.Material3.Button.ElevatedButton.Icon"/>
+    <style name="DevAccount" parent="Widget.Material3.Button.OutlinedButton.Icon"/>
 
 </resources>

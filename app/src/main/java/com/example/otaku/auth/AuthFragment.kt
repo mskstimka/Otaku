@@ -2,6 +2,7 @@ package com.example.otaku.auth
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,9 @@ import com.example.otaku.databinding.FragmentAuthBinding
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.setImageByURL
 import com.example.otaku.utils.subscribeToFlow
+import com.example.otaku_domain.SHIKIMORI_URL
 import com.example.otaku_domain.models.user.UserBrief
+import okhttp3.Request
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -72,6 +75,21 @@ class AuthFragment : Fragment() {
 
         btSignOut.setOnClickListener {
             aViewModel.signOut()
+        }
+
+        ivSettings.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse(SHIKIMORI_URL)
+            }
+            startActivity(intent)
+        }
+
+        btDevAccount.setOnClickListener {
+            findNavController().navigate(
+                AuthFragmentDirections.actionAuthFragmentToUserFragment(
+                    577000
+                )
+            )
         }
 
         btAuth.setOnClickListener {

@@ -1,10 +1,10 @@
 package com.example.otaku.anime
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.otaku.R
 import com.example.otaku.databinding.FragmentAnimeBinding
 import com.example.otaku.home.ui.HomeFragment

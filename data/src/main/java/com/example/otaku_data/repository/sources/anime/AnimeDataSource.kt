@@ -8,13 +8,6 @@ import com.example.otaku_domain.models.details.franchise.AnimeDetailsFranchisesE
 import com.example.otaku_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.otaku_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.otaku_domain.models.poster.AnimePosterEntity
-import com.example.otaku_domain.models.user.UserNotice
-import com.example.otaku_domain.models.user.status.UserRate
-import retrofit2.Response
-import retrofit2.http.DELETE
-import retrofit2.http.Header
-import retrofit2.http.POST
-import retrofit2.http.Path
 
 
 interface AnimeDataSource {

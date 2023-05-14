@@ -19,6 +19,7 @@ import com.example.otaku.anime.details.info.ui.DetailsFragment
 import com.example.otaku.anime.details.info.ui.DetailsFragmentDirections
 import com.example.otaku.databinding.LayoutDetailsInfoBinding
 import com.example.otaku.utils.FavoriteAction
+import com.example.otaku.utils.animShake
 import com.example.otaku.utils.setImageByURL
 import com.example.otaku_domain.*
 import com.example.otaku_domain.models.details.AnimeDetailsEntity
@@ -168,14 +169,17 @@ class ContainerDetailsAdapter(
 
             ivFavorite.setOnClickListener {
                 if (item.favoured == true) {
+
                     favoriteAction(
                         FavoriteAction.DELETE_FAVORITE(
                             linkedId = item.id.toLong(),
                             linkedType = Type.CHARACTER
                         )
                     )
-                    item.favoured = false
-                    ivFavorite.setImageResource(R.drawable.icon_favorite_false)
+                    it.animShake {
+                        item.favoured = false
+                        ivFavorite.setImageResource(R.drawable.icon_favorite_false)
+                    }
                 } else if (item.favoured == null || item.favoured == false) {
                     favoriteAction(
                         FavoriteAction.CREATE_FAVORITE(
@@ -183,8 +187,10 @@ class ContainerDetailsAdapter(
                             linkedType = Type.ANIME
                         )
                     )
-                    item.favoured = true
-                    ivFavorite.setImageResource(R.drawable.icon_favorite_true)
+                    it.animShake {
+                        item.favoured = true
+                        ivFavorite.setImageResource(R.drawable.icon_favorite_true)
+                    }
                 }
             }
 

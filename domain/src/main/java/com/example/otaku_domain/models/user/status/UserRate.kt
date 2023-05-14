@@ -2,6 +2,7 @@ package com.example.otaku_domain.models.user.status
 
 import androidx.annotation.Keep
 
+
 @Keep
 data class UserRate(
     val id: Long? = null,

@@ -9,12 +9,12 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.otaku_domain.SHIKIMORI_URL
-import com.example.otaku_domain.models.poster.AnimePosterEntity
 import com.example.otaku.R
 import com.example.otaku.anime.AnimeFragmentDirections
 import com.example.otaku.databinding.ItemSearchPostersBinding
 import com.example.otaku.utils.setImageByURL
+import com.example.otaku_domain.SHIKIMORI_URL
+import com.example.otaku_domain.models.poster.AnimePosterEntity
 
 class PostersAdapter(private val hideIcon: (visibility: Int) -> Unit) :
     ListAdapter<AnimePosterEntity, PostersAdapter.TitleViewHolder>(PosterDiffCallback) {

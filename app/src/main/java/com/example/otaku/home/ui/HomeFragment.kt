@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
 import com.example.otaku.R
@@ -104,8 +104,7 @@ class HomeFragment : Fragment() {
 
     private fun subscribeToFlow() = with(hViewModel) {
 
-        subscribeToFlow(
-            flow = actionMessage,
+        actionMessage.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
         ) { message ->
             BannerUtils.showSnackBar(
@@ -118,8 +117,7 @@ class HomeFragment : Fragment() {
             )
         }
 
-        subscribeToFlow(
-            flow = actionAnimePosters,
+        actionAnimePosters.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
         ) { item ->
             val list = mutableListOf<ContainerGenresList>()
@@ -129,22 +127,19 @@ class HomeFragment : Fragment() {
             genreAdapter.submitList(list)
         }
 
-        subscribeToFlow(
-            flow = actionAnimeScreenshots,
+        actionAnimeScreenshots.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
         ) { list ->
             randomAdapter.setItemsScreenshots(list = list)
         }
 
-        subscribeToFlow(
-            flow = actionAnimeRandom,
+        actionAnimeRandom.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
         ) { item ->
             randomAdapter.submitList(item)
         }
 
-        subscribeToFlow(
-            flow = actionFavorites,
+        actionFavorites.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
         ) { item ->
             if (item.isNotEmpty()) {

@@ -1,6 +1,5 @@
 package com.example.otaku_data.mapper
 
-import com.example.otaku_data.database.models.LocalAnimePosterEntity
 import com.example.otaku_data.network.models.*
 import com.example.otaku_data.network.models.user.*
 import com.example.otaku_data.network.models.user.status.RateStatusResponse
@@ -189,37 +188,6 @@ fun List<AnimePosterEntityResponse>.toListAnimePosterEntity(): List<AnimePosterE
         AnimePosterEntity(
             id = it.id,
             image = it.image.toImage(),
-            name = it.name,
-            score = it.score,
-            episodes = it.episodes,
-            episodesAired = it.episodesAired,
-            url = it.url,
-            status = it.status,
-            statusColor = MapperUtils.checkStatusColor(it.status),
-            russian = it.russian
-        )
-    }
-}
-
-fun AnimePosterEntity.toLocalListAnimePosterEntity(): LocalAnimePosterEntity {
-    return LocalAnimePosterEntity(
-        id = this.id,
-        image = this.image,
-        name = this.name,
-        score = this.score,
-        episodes = this.episodes,
-        episodesAired = this.episodesAired,
-        url = this.url,
-        status = this.status,
-        russian = this.russian
-    )
-}
-
-fun List<LocalAnimePosterEntity>.localToListAnimePosterEntity(): List<AnimePosterEntity> {
-    return this.map {
-        AnimePosterEntity(
-            id = it.id,
-            image = it.image,
             name = it.name,
             score = it.score,
             episodes = it.episodes,

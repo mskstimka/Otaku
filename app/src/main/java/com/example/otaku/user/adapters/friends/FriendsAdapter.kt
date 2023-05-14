@@ -6,10 +6,10 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.otaku_domain.models.user.UserBrief
 import com.example.otaku.databinding.ItemFriendsBinding
 import com.example.otaku.user.ui.UserFragmentDirections
 import com.example.otaku.utils.setImageByURL
+import com.example.otaku_domain.models.user.UserBrief
 
 class FriendsAdapter :
     ListAdapter<UserBrief, FriendsAdapter.FriendsViewHolder>(

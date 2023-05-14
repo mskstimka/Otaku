@@ -4,12 +4,16 @@ import android.content.Context
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
+import com.example.otaku_data.utils.SharedPreferencesHelper
 import com.example.otaku_domain.usecases.anime.GetAnimePrevPosterFromGenreUseCase
+import com.example.otaku_domain.usecases.auth.RefreshTokenUseCase
 import javax.inject.Inject
 import javax.inject.Provider
 
 class LocalWorkerFactory @Inject constructor(
-    private val workerFactories: Map<Class<out ListenableWorker>, @JvmSuppressWildcards Provider<ChildWorkerFactory>>
+    private val workerFactories: Map<Class<out ListenableWorker>, @JvmSuppressWildcards Provider<ChildWorkerFactory>>,
+    private val sharedPreferencesHelper: SharedPreferencesHelper,
+    private val refreshTokenUseCase: RefreshTokenUseCase
 ) : WorkerFactory() {
     override fun createWorker(
         appContext: Context,
@@ -26,13 +30,15 @@ class LocalWorkerFactory @Inject constructor(
 
 
 class LocalWorkManagerFactory @Inject constructor(
-    private val getAnimePrevPosterFromGenreUseCase: Provider<GetAnimePrevPosterFromGenreUseCase>
+    private val sharedPreferencesHelper: SharedPreferencesHelper,
+    private val refreshTokenUseCase: RefreshTokenUseCase
 ) : ChildWorkerFactory {
     override fun create(appContext: Context, params: WorkerParameters): ListenableWorker {
         return LocalWorker(
             appContext,
             params,
-            getAnimePrevPosterFromGenreUseCase.get(),
+            refreshTokenUseCase = refreshTokenUseCase,
+            sharedPreferencesHelper = sharedPreferencesHelper
         )
     }
 }

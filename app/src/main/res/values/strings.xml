@@ -138,6 +138,7 @@
     <string name="fragment_auth_btSignOut_text">Выйти</string>
     <string name="add_to_friends_text">Добавить в друзья</string>
     <string name="your_friend_text">Твой друг</string>
+    <string name="fragment_auth_btDevAccount_text">Аккаунт Разработчика</string>
 
     <string-array name="statuses">
         <item>@string/spinner_no_selection_text</item>

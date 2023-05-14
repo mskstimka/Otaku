@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.otaku.R
 import com.example.otaku.databinding.LayoutCharactersInfoBinding
 import com.example.otaku.utils.FavoriteAction
+import com.example.otaku.utils.animShake
 import com.example.otaku.utils.setImageByURL
 import com.example.otaku_domain.NOT_FOUND_TEXT
 import com.example.otaku_domain.SHIKIMORI_URL
@@ -74,8 +75,11 @@ class ContainerCharacterInfoAdapter(
                                 linkedType = Type.CHARACTER
                             )
                         )
-                        model.item.favorued = false
-                        ivFavorite.setImageResource(R.drawable.icon_favorite_false)
+                        it.animShake {
+
+                            model.item.favorued = false
+                            ivFavorite.setImageResource(R.drawable.icon_favorite_false)
+                        }
                     } else if (model.item.favorued == null || model.item.favorued == false) {
                         favoriteAction(
                             FavoriteAction.CREATE_FAVORITE(
@@ -83,8 +87,10 @@ class ContainerCharacterInfoAdapter(
                                 linkedType = Type.CHARACTER
                             )
                         )
-                        model.item.favorued = true
-                        ivFavorite.setImageResource(R.drawable.icon_favorite_true)
+                        it.animShake {
+                            model.item.favorued = true
+                            ivFavorite.setImageResource(R.drawable.icon_favorite_true)
+                        }
                     }
                 }
 

@@ -12,7 +12,6 @@ import com.example.otaku_domain.models.details.franchise.AnimeDetailsFranchisesE
 import com.example.otaku_domain.models.details.roles.AnimeDetailsRolesEntity
 import com.example.otaku_domain.models.details.screenshots.AnimeDetailsScreenshotsEntity
 import com.example.otaku_domain.models.poster.AnimePosterEntity
-import com.example.otaku_domain.models.user.UserNotice
 import com.example.otaku_domain.repository.AnimeRepository
 import javax.inject.Inject
 

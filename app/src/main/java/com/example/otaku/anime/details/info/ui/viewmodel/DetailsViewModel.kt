@@ -86,6 +86,8 @@ class DetailsViewModel @Inject constructor(
 
     private var currentId by Delegates.notNull<Long>()
 
+    private var episodesWatched: Int = 0
+
     private val resultsFlow = combine(
         _actionDetails,
         _actionScreenshots,
@@ -253,7 +255,7 @@ class DetailsViewModel @Inject constructor(
                 is Results.Success -> {
 
                     currentId = response.data.id.toLong()
-                    Log.d("USER RATE: ", response.data.userRate.toString())
+                    episodesWatched = response.data.userRate?.episodes ?: 0
                     _actionDetails.tryEmit(
                         ActionDetailsData(
                             details = mutableListOf(response.data),
@@ -288,7 +290,8 @@ class DetailsViewModel @Inject constructor(
                             episodes = response.data,
                             kind = animeKind,
                             name = name,
-                            id = malId
+                            id = malId,
+                            episodesWatched = episodesWatched
                         )
                     )
                 }

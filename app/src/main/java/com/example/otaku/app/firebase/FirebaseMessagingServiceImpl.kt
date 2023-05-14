@@ -1,19 +1,19 @@
 package com.example.otaku.app.firebase
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import com.google.firebase.messaging.FirebaseMessagingService
-import com.google.firebase.messaging.RemoteMessage
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.example.otaku.R
 import com.example.otaku.app.activities.main.MainActivity
 import com.example.otaku_data.utils.SharedPreferencesHelper
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 

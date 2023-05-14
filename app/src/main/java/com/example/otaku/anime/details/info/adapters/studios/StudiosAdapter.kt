@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.otaku_domain.SHIKIMORI_URL
-import com.example.otaku_domain.models.details.Studio
 import com.example.otaku.databinding.ItemDetailsStudiosBinding
 import com.example.otaku.utils.setImageStudioByURL
+import com.example.otaku_domain.SHIKIMORI_URL
+import com.example.otaku_domain.models.details.Studio
 
 class StudiosAdapter :
     ListAdapter<Studio, StudiosAdapter.StudiosViewHolder>(

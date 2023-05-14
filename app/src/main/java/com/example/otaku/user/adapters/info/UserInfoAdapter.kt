@@ -1,6 +1,5 @@
 package com.example.otaku.user.adapters.info
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otaku.R
-import com.example.otaku_domain.models.user.UserBrief
 import com.example.otaku.databinding.LayoutUserInfoBinding
 import com.example.otaku.utils.setImageByURL
+import com.example.otaku_domain.models.user.UserBrief
 
 class UserInfoAdapter(
     private val onBackPressed: () -> Unit,

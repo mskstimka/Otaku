@@ -1,15 +1,10 @@
 package com.example.otaku.manga
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebChromeClient
-import android.webkit.WebSettings
-import android.webkit.WebViewClient
-import com.example.otaku.R
-import com.example.otaku.databinding.FragmentAnimeBinding
+import androidx.fragment.app.Fragment
 import com.example.otaku.databinding.FragmentMangaBinding
 
 

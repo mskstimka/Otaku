@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.example.otaku_data.utils.SharedPreferencesHelper
 import com.example.otaku.R
 import com.example.otaku.app.App
 import com.example.otaku.databinding.DialogUserAgreementBinding
+import com.example.otaku_data.utils.SharedPreferencesHelper
 import javax.inject.Inject
 
 class UserAgreementFragmentDialog : DialogFragment() {

@@ -1,8 +1,8 @@
 package com.example.otaku.user.adapters.stats.models
 
-import com.example.otaku_domain.models.user.status.RateStatus
-import com.example.otaku_domain.models.user.UserDetails
 import com.example.otaku.R
+import com.example.otaku_domain.models.user.UserDetails
+import com.example.otaku_domain.models.user.status.RateStatus
 
 data class UserStatsContainer(val details: UserDetails) {
     val others =

@@ -10,10 +10,10 @@ import android.util.Log
 import android.webkit.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
-import com.example.otaku_domain.SHIKIMORI_URL
 import com.example.otaku.app.App
 import com.example.otaku.databinding.ActivityAuthBinding
 import com.example.otaku.utils.subscribeToFlow
+import com.example.otaku_domain.SHIKIMORI_URL
 import java.util.regex.Pattern
 import javax.inject.Inject
 import javax.inject.Singleton

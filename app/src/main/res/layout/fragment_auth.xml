@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:animateLayoutChanges="true"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context=".auth.AuthFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,9 +42,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="ivUserAvatar,tvTitle,tvCurrentUserInfo,btAuth,btSignOut"
+            app:constraint_referenced_ids="ivUserAvatar,tvTitle,tvCurrentUserInfo,btAuth,btSignOut,btDevAccount, ivSettings"
             tools:visibility="visible" />
-
 
 
         <TextView
@@ -85,30 +84,43 @@
             app:layout_constraintTop_toBottomOf="@+id/ivUserAvatar"
             tools:text="@string/fragment_details_tvTitle_text" />
 
+        <ImageView
+            android:id="@+id/ivSettings"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/icon_settings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btAuth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
             android:fontFamily="@font/open_sans_medium"
-            app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+            app:layout_constraintEnd_toStartOf="@+id/btSignOut"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
             app:layout_constraintTop_toBottomOf="@+id/tvCurrentUserInfo"
             tools:text="Авторизироваться" />
 
+
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btSignOut"
-            android:layout_marginTop="10dp"
+            style="@style/SignOut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/SignOut"
-            app:icon="@drawable/icon_sign_out"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/open_sans_medium"
+            android:text="@string/fragment_auth_btSignOut_text"
+            app:icon="@drawable/icon_sign_out"
             app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
-            app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
-            app:layout_constraintTop_toBottomOf="@+id/btAuth"
-            android:text="@string/fragment_auth_btSignOut_text" />
+            app:layout_constraintStart_toEndOf="@+id/btAuth"
+            app:layout_constraintTop_toBottomOf="@+id/tvCurrentUserInfo" />
 
         <TextView
             android:id="@+id/tvCurrentUserInfo"
@@ -120,6 +132,22 @@
             app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle"
             tools:text="Вы не авторизовались!" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btDevAccount"
+            style="@style/DevAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/fragment_auth_btDevAccount_text"
+            app:icon="@drawable/icon_account"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
+            app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
+            app:layout_constraintTop_toBottomOf="@id/btAuth" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -7,11 +7,11 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.otaku_domain.SHIKIMORI_URL
-import com.example.otaku_domain.models.user.history.UserHistory
 import com.example.otaku.databinding.ItemHistoryBinding
 import com.example.otaku.user.ui.UserFragmentDirections
 import com.example.otaku.utils.setImageByURL
+import com.example.otaku_domain.SHIKIMORI_URL
+import com.example.otaku_domain.models.user.history.UserHistory
 
 class HistoryAdapter :
     ListAdapter<UserHistory, HistoryAdapter.HistoryViewHolder>(

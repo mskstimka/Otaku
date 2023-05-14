@@ -1,14 +1,8 @@
 package com.example.otaku_data.di
 
-import android.content.Context
-import com.example.otaku_data.database.dao.ShikimoriDAO
-import com.example.otaku_data.database.dao.ShikimoriDataBase
 import com.example.otaku_data.network.api.AnimeApi
 import com.example.otaku_data.network.api.AuthApi
 import com.example.otaku_data.network.api.UserApi
-import com.example.otaku_data.repository.AnimeRepositoryImpl
-import com.example.otaku_data.repository.AuthRepositoryImpl
-import com.example.otaku_data.repository.UserRepositoryImpl
 import com.example.otaku_data.repository.sources.anime.AnimeDataSource
 import com.example.otaku_data.repository.sources.anime.AnimeDataSourceImpl
 import com.example.otaku_data.repository.sources.auth.AuthDataSource
@@ -20,11 +14,7 @@ import com.example.otaku_data.repository.sources.watch.WatchDataSourceImpl
 import com.example.otaku_data.utils.SharedPreferencesHelper
 import com.example.otaku_domain.SHIKIMORI_URL
 import com.example.otaku_domain.SHIMORI_URL
-import com.example.otaku_domain.repository.AnimeRepository
-import com.example.otaku_domain.repository.AuthRepository
-import com.example.otaku_domain.repository.UserRepository
 import com.google.gson.GsonBuilder
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -64,12 +54,10 @@ class DataModule {
     @Provides
     fun provideAnimeDataSource(
         retrofit: Retrofit,
-        shikimoriDAO: ShikimoriDAO,
         sharedPreferencesHelper: SharedPreferencesHelper
     ): AnimeDataSource {
         return AnimeDataSourceImpl(
             animeApi = retrofit.create(AnimeApi::class.java),
-            shikimoriDAO = shikimoriDAO,
             sharedPreferencesHelper = sharedPreferencesHelper
         )
     }
@@ -112,12 +100,6 @@ class DataModule {
             userApi = retrofit.create(UserApi::class.java),
             sharedPreferencesHelper = sharedPreferencesHelper
             )
-    }
-
-
-    @Provides
-    fun provideShikimoriDataBase(context: Context): ShikimoriDAO {
-        return ShikimoriDataBase.getDatabase(context = context).getCurrencyDao()
     }
 
 }

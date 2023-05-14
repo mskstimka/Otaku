@@ -1,25 +1,17 @@
 package com.example.otaku.app.activities.main
 
-import android.app.Activity
 import android.content.Context
-import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.example.otaku_data.utils.SharedPreferencesHelper
-import com.example.otaku_domain.AD_ID_ON_BACK_PRESSED
 import com.example.otaku.R
 import com.example.otaku.agreement.UserAgreementFragmentDialog
 import com.example.otaku.app.App
 import com.example.otaku.databinding.ActivityMainBinding
 import com.example.otaku.utils.ContextUtils
-import com.google.android.gms.ads.*
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.example.otaku_data.utils.SharedPreferencesHelper
 import java.util.*
 import javax.inject.Inject
 
@@ -27,9 +19,6 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
-
-    private var mInterstitialAd: InterstitialAd? = null
-    private var isAdLoaded = false
 
     @Inject
     lateinit var sharedPreferencesHelper: SharedPreferencesHelper
@@ -40,10 +29,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         (applicationContext as App).appComponent.inject(this)
-
-        MobileAds.initialize(this)
-
-        loadAds()
 
         initNavigation()
 
@@ -102,85 +87,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // ca-app-pub-9350077428310070/5938417575
-    private fun loadAds() {
-        val adRequest = AdRequest.Builder().build()
-
-        InterstitialAd.load(
-            this,
-            AD_ID_ON_BACK_PRESSED,
-            adRequest,
-            object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    Log.d("TAG", adError.toString())
-                    mInterstitialAd = null
-                }
-
-                override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                    Log.d("TAG", "Ad was loaded.")
-                    mInterstitialAd = interstitialAd
-                    isAdLoaded = true
-                }
-            })
-
-
-
-
-        mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
-            override fun onAdClicked() {
-                // Called when a click is recorded for an ad.
-                Log.d("TAG", "Ad was clicked.")
-            }
-
-            override fun onAdDismissedFullScreenContent() {
-                // Called when ad is dismissed.
-                Log.d("TAG", "Ad dismissed fullscreen content.")
-                mInterstitialAd = null
-                onBackPressed()
-            }
-
-            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
-                // Called when ad fails to show.
-                Log.e("TAG", "Ad failed to show fullscreen content.")
-                mInterstitialAd = null
-                onBackPressed()
-            }
-
-            override fun onAdImpression() {
-                // Called when an impression is recorded for an ad.
-                Log.d("TAG", "Ad recorded an impression.")
-            }
-
-            override fun onAdShowedFullScreenContent() {
-                // Called when ad is shown.
-                Log.d("TAG", "Ad showed fullscreen content.")
-            }
-
-        }
-    }
-
-
-    private fun showAds(actionError: () -> Unit) {
-        if (isAdLoaded) {
-            if (mInterstitialAd != null) {
-                mInterstitialAd?.show(this)
-            }
-        } else {
-            Log.d("Error", "ADS NOT FILL")
-            loadAds()
-            actionError()
-        }
-    }
-
-    override fun onBackPressed() {
-
-        when (findNavController(R.id.nav_host_fragment).currentDestination?.id) {
-            R.id.episodesFragment, R.id.detailsFragment -> {
-                showAds { super.onBackPressed() }
-            }
-            else -> super.onBackPressed()
-        }
-    }
 }
 
 

@@ -1,23 +1,22 @@
 package com.example.otaku.anime.details.episodes.adapters
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.ui.graphics.Color
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otaku.R
-import com.example.otaku.databinding.ItemEpisodesBinding
-import com.example.otaku.databinding.ItemEpisodesHeaderBinding
 import com.example.otaku.anime.details.episodes.models.ContainerEpisodeHeader
 import com.example.otaku.anime.details.episodes.models.ContainerEpisodes
 import com.example.otaku.anime.details.episodes.models.DisplayableItem
+import com.example.otaku.databinding.ItemEpisodesBinding
+import com.example.otaku.databinding.ItemEpisodesHeaderBinding
 
 class EpisodesAdapter(
     private val actionSearch: (Int) -> Unit,
-    private val onBackPressed: () -> Unit
+    private val onBackPressed: () -> Unit,
+    private val watched: Int
 ) :
     ListAdapter<DisplayableItem, RecyclerView.ViewHolder>(
         EpisodesDiffCallback
@@ -73,13 +72,15 @@ class EpisodesAdapter(
 
         fun bind(item: ContainerEpisodes) = with(binding) {
 
+            if (position <= watched){
+                root.alpha = 0.5f
+
+            }
+
             root.setOnClickListener {
                 actionSearch(item.episode)
             }
 
-            if (item.isLast) {
-                root.setBackgroundColor(R.color.black)
-            }
             root.text = root.context.getString(
                 R.string.fragment_episodes_item_text,
                 item.episode.toString()

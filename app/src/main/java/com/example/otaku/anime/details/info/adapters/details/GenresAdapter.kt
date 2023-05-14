@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.otaku_domain.models.details.Genre
 import com.example.otaku.databinding.ItemDetailsGenresBinding
+import com.example.otaku_domain.models.details.Genre
 import java.util.*
 
 class GenresAdapter :

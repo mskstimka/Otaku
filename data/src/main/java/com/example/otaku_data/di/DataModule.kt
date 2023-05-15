@@ -21,6 +21,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 
 @Module(includes = [BindsDataModule::class])
@@ -63,6 +64,16 @@ class DataModule {
     }
 
     @Provides
+    fun provideAnimeApi(retrofit: Retrofit): AnimeApi {
+        return retrofit.create(AnimeApi::class.java)
+    }
+
+    @Provides
+    fun provideUserApi(retrofit: Retrofit): UserApi {
+        return retrofit.create(UserApi::class.java)
+    }
+
+    @Provides
     fun provideWatchDataSource(): WatchDataSource {
 
         val client = OkHttpClient.Builder().build()
@@ -99,7 +110,7 @@ class DataModule {
         return UserDataSourceImpl(
             userApi = retrofit.create(UserApi::class.java),
             sharedPreferencesHelper = sharedPreferencesHelper
-            )
+        )
     }
 
 }

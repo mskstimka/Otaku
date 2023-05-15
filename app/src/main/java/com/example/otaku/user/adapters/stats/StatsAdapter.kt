@@ -47,12 +47,14 @@ class StatsAdapter(private val userId: Long) :
         fun bind(stats: Stats) = with(binding) {
 
             itemView.setOnClickListener {
-                itemView.findNavController().navigate(
-                    UserFragmentDirections.actionUserFragmentToAnimeRatesFragment(
-                        id = userId,
-                        rateStatus = stats.type.status
+                if (stats.count != 0) {
+                    itemView.findNavController().navigate(
+                        UserFragmentDirections.actionUserFragmentToAnimeRatesFragment(
+                            id = userId,
+                            rateStatus = stats.type.status
+                        )
                     )
-                )
+                }
             }
             with(root.context) {
                 root.setCardBackgroundColor(getColor(stats.color))

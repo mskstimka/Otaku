@@ -249,7 +249,8 @@ fun UserBriefResponse.toUserBrief() = UserBrief(
     avatar = this.avatar,
     image = this.image.toUserImage(),
     name = this.name,
-    inFriends = this.inFriends
+    inFriends = this.inFriends,
+    website = this.website
 )
 
 fun List<UserBriefResponse>.toUserBriefList() = this.map { it.toUserBrief() }

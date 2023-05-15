@@ -6,12 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentAnimeRatesBinding
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.subscribeToFlow
+import com.example.otaku_domain.models.user.status.RateStatus
+import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 class AnimeRatesFragment : Fragment() {
@@ -19,9 +24,12 @@ class AnimeRatesFragment : Fragment() {
     private var _binding: FragmentAnimeRatesBinding? = null
     private val binding get() = _binding!!
 
-    private val rootAdapter by lazy { AnimeRatesAdapter() }
+    private val postersAdapter by lazy { AnimeRatesAdapter() }
+    private val headerAdapter by lazy { HeaderUserRatesAdapter { requireActivity().onBackPressed() } }
 
     private val args: AnimeRatesFragmentArgs by navArgs()
+
+    private val mergeAdapter = ConcatAdapter(headerAdapter, postersAdapter)
 
     @Inject
     lateinit var aViewModel: AnimeRatesViewModel
@@ -29,6 +37,7 @@ class AnimeRatesFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireActivity().applicationContext as App).appComponent.inject(this)
+
 
     }
 
@@ -46,7 +55,7 @@ class AnimeRatesFragment : Fragment() {
 
         initAdapter()
         subscribeToFlows()
-        aViewModel.getUserAnimeRates(id = args.id, page = 1, limit = 50, status = args.rateStatus)
+        aViewModel.getList(id = args.id, status = args.rateStatus)
     }
 
     private fun subscribeToFlows() = with(aViewModel) {
@@ -57,12 +66,24 @@ class AnimeRatesFragment : Fragment() {
         }
 
         actionPosters.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { list ->
-            rootAdapter.submitList(list)
+
+            if (list != null) {
+                lifecycleScope.launch {
+                    postersAdapter.submitData(list)
+                }
+            }
         }
     }
 
     private fun initAdapter() = with(binding.rvRoot) {
-        adapter = rootAdapter
+        headerAdapter.submitList(
+            listOf(
+                HeaderUserRates(
+                    headerText = args.rateStatus.replaceFirstChar(Char::titlecase)
+                )
+            )
+        )
+        adapter = mergeAdapter
         layoutManager = LinearLayoutManager(context)
     }
 

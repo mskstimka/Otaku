@@ -10,8 +10,8 @@ import androidx.core.content.ContextCompat.startForegroundService
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.MergeAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.example.otaku.anime.details.info.adapters.characters.ContainerCharactersAdapter
@@ -90,7 +90,7 @@ class DetailsFragment : Fragment() {
         containerFranchisesAdapter,
         containerStudiosAdapter
     )
-    private val rootAdapter = MergeAdapter(listAdapters)
+    private val rootAdapter = ConcatAdapter(listAdapters)
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!

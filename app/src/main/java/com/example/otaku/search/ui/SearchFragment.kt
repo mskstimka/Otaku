@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.otaku.R
 import com.example.otaku.app.App
@@ -13,7 +15,9 @@ import com.example.otaku.databinding.FragmentSearchBinding
 import com.example.otaku.search.adapters.PostersAdapter
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.subscribeToFlow
-import com.example.otaku_domain.usecases.anime.GetAnimePostersFromSearchUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -22,13 +26,10 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    private val adapter by lazy { PostersAdapter { hideIcon(it) } }
+    private val adapter by lazy { PostersAdapter { binding.rvFragmentSearchList.scrollToPosition(0) } }
 
     @Inject
     lateinit var sViewModel: SearchViewModel
-
-    @Inject
-    lateinit var getAnimePostersFromSearchUseCase: GetAnimePostersFromSearchUseCase
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +70,10 @@ class SearchFragment : Fragment() {
     }
 
     private fun hideIcon(visibility: Int) {
-        binding.group.visibility = visibility
+        lifecycleScope.launch(Dispatchers.Main) {
+            delay(300)
+            binding.gifFragmentSearchLogo.visibility = visibility
+        }
     }
 
     private fun bindView() = with(binding) {
@@ -81,6 +85,11 @@ class SearchFragment : Fragment() {
 
         svFragmentSearchSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(p0: String?): Boolean {
+                if (p0 == "") {
+                    hideIcon(View.VISIBLE)
+                } else {
+                    hideIcon(View.GONE)
+                }
                 sViewModel.onTextChanged(p0.toString())
                 return false
             }
@@ -93,14 +102,16 @@ class SearchFragment : Fragment() {
 
     private fun subscribeToFlow() = with(sViewModel) {
         actionSearch.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) {
-            if (binding.svFragmentSearchSearch.query.toString() == "") {
-                adapter.submitList(emptyList())
-            } else {
-                adapter.submitList(it)
+
+            lifecycleScope.launch {
+                adapter.setData(it)
+                delay(200)
             }
+
         }
 
-        actionMessage.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { message ->
+        actionMessage.subscribeToFlow(lifecycleOwner = viewLifecycleOwner)
+        { message ->
             BannerUtils.showSnackBar(
                 binding.root,
                 message,

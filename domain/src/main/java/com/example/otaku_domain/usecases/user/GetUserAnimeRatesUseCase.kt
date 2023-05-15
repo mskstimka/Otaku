@@ -1,14 +1,14 @@
 package com.example.otaku_domain.usecases.user
 
+import com.example.otaku_domain.models.user.status.RateStatus
+import com.example.otaku_domain.repository.PagingRepository
 import com.example.otaku_domain.repository.UserRepository
 import javax.inject.Inject
 
-class GetUserAnimeRatesUseCase @Inject constructor(private val userRepository: UserRepository) {
+class GetUserAnimeRatesUseCase @Inject constructor(private val pagingRepository: PagingRepository) {
 
-    suspend fun execute(
+    fun execute(
         id: Long,
-        page: Int,
-        limit: Int,
         status: String
-    ) = userRepository.getUserAnimeRates(id = id, page = page, limit = limit, status = status)
+    ) = pagingRepository.getUserAnimeRatesPaging(id = id, status = status)
 }

@@ -24,10 +24,18 @@ class AnimeDataSourceImpl(
 
     override suspend fun getSearchPosters(
         searchName: String,
-        isCensored: Boolean
+        pageSize: Int,
+        page: Int,
     ): Results<List<AnimePosterEntity>> {
         return try {
-            val response = animeApi.getSearchPosters(search = searchName, censored = isCensored)
+
+            val response = animeApi.getSearchPosters(
+                search = searchName,
+                censored = sharedPreferencesHelper.getIsCensoredSearch(),
+                page = page,
+                pageSize = pageSize
+            )
+            
             if (response.isSuccessful) {
                 val item = response.body()!!.toListAnimePosterEntity()
                 Results.Success(data = item)

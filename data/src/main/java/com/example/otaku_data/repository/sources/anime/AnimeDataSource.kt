@@ -21,7 +21,8 @@ interface AnimeDataSource {
      */
     suspend fun getSearchPosters(
         searchName: String,
-        isCensored: Boolean
+        pageSize: Int,
+        page: Int
     ): Results<List<AnimePosterEntity>>
 
     /**

@@ -10,7 +10,8 @@ data class UserBrief(
     val avatar: String?,
     val image: UserImage,
     val name: String?,
-    var inFriends: Boolean?
+    var inFriends: Boolean?,
+    var website: String?
 ) {
     var currentUserId = NO_CURRENT_USER_ID
 }

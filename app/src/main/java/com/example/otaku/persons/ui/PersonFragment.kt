@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.MergeAdapter
 import com.example.otaku.anime.details.info.adapters.characters.ContainerCharactersAdapter
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentPersonBinding
@@ -49,7 +49,7 @@ class PersonFragment : Fragment() {
             )
         }
     }
-    private val rootAdapter by lazy { MergeAdapter(infoAdapter, worksAdapter, characterAdapter) }
+    private val rootAdapter by lazy { ConcatAdapter(infoAdapter, worksAdapter, characterAdapter) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

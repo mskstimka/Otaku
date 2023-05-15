@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.graphics.alpha
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +24,9 @@ import com.example.otaku.databinding.FragmentEpisodesBinding
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.subscribeToFlow
 import com.example.otaku_domain.NOT_FOUND_TEXT
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -64,7 +68,9 @@ class EpisodesFragment : Fragment() {
         initAdapter()
 
         episodesAdapter.submitList(getList(args.episodes))
-        binding.root.scrollToPosition(args.watched)
+
+        val lastEpisodes = if (args.watched > args.episodes) args.episodes else args.watched
+        binding.root.scrollToPosition(lastEpisodes)
 
         return binding.root
     }
@@ -86,13 +92,11 @@ class EpisodesFragment : Fragment() {
 
     private fun subscribesToFlow() = with(dViewModel) {
 
-        lastWatchEpisode.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { episode ->
-            binding.root.scrollToPosition(episode)
-        }
         actionVideo.subscribeToFlow(
             lifecycleOwner = viewLifecycleOwner
         ) { list ->
             if (list.isNotEmpty()) {
+
                 findNavController().navigate(
                     EpisodesFragmentDirections.actionEpisodesFragmentToWebPlayerFragment(list.first().url)
                 )

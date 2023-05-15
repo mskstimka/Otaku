@@ -8,6 +8,7 @@ import com.example.otaku_domain.ERROR_WAIT_TIME
 import com.example.otaku_domain.common.Results
 import com.example.otaku_domain.models.Token
 import kotlinx.coroutines.delay
+import retrofit2.Response
 
 class AuthDataSourceImpl(
     private val authApi: AuthApi,
@@ -48,12 +49,7 @@ class AuthDataSourceImpl(
                 sharedPreferencesHelper.setLocalToken(item)
                 Results.Success(data = item)
             } else {
-                if (response.code() == 429) {
-                    delay(ERROR_WAIT_TIME)
-                    refreshToken(refreshToken)
-                } else {
-                    Results.Error(exception = Exception(response.message()))
-                }
+                Results.Error(Exception(response.message()))
             }
         } catch (e: Exception) {
             Results.Error(exception = e)

@@ -1,25 +1,43 @@
 package com.example.otaku.search.ui
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.otaku_domain.common.Results
+import androidx.paging.*
 import com.example.otaku_domain.models.poster.AnimePosterEntity
-import com.example.otaku_domain.usecases.anime.GetAnimePostersFromSearchUseCase
+import com.example.otaku_domain.usecases.anime.GetSearchPostersUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Provider
 
 class SearchViewModel @Inject constructor(
-    private val getAnimePostersFromSearchUseCase: GetAnimePostersFromSearchUseCase
+    private val getSearchPostersUseCase: Provider<GetSearchPostersUseCase>
 ) : ViewModel() {
 
     private val _actionMessage = MutableSharedFlow<String>(replay = 1)
     val actionMessage: SharedFlow<String> = _actionMessage
 
-    private val _actionSearch = MutableSharedFlow<List<AnimePosterEntity>>(replay = 2)
-    val actionSearch: SharedFlow<List<AnimePosterEntity>> = _actionSearch
+    private val _query = MutableStateFlow("")
+    private val query: StateFlow<String> = _query.asStateFlow()
+
+    private var newPagingSource: PagingSource<*, *>? = null
+
+    private val _actionSearch: StateFlow<PagingData<AnimePosterEntity>> = query
+        .map(::newPager)
+        .flatMapLatest { pager -> pager.flow }
+        .cachedIn(viewModelScope)
+        .stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
+    val actionSearch: StateFlow<PagingData<AnimePosterEntity>> get() = _actionSearch
+
+    private fun newPager(query: String): Pager<Int, AnimePosterEntity> {
+        return Pager(PagingConfig(5, enablePlaceholders = false)) {
+            val searchPostersUseCase = getSearchPostersUseCase.get()
+            searchPostersUseCase.execute(query).also { newPagingSource = it }
+        }
+    }
 
     private val _querySharedFlow = MutableSharedFlow<String>()
     private val querySharedFlow: SharedFlow<String> = _querySharedFlow
@@ -38,24 +56,10 @@ class SearchViewModel @Inject constructor(
             .debounce(300)
             .flowOn(Dispatchers.IO)
             .onEach { searchResult ->
-                if (searchResult == "") {
-                    _actionSearch.emit(emptyList())
-                } else {
-                    search(searchResult)
-                }
+                    _query.tryEmit(searchResult)
             }
             .flowOn(Dispatchers.Main)
             .launchIn(viewModelScope)
     }
 
-    private fun search(searchName: String) = viewModelScope.launch {
-        when (val response = getAnimePostersFromSearchUseCase.execute(searchName = searchName)) {
-            is Results.Success -> {
-                _actionSearch.emit(response.data)
-            }
-            is Results.Error -> {
-                _actionMessage.emit(response.exception.message.toString())
-            }
-        }
-    }
 }

@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +16,7 @@ import com.example.otaku_domain.SHIKIMORI_URL
 import com.example.otaku_domain.models.poster.AnimePosterEntity
 
 class AnimeRatesAdapter :
-    ListAdapter<AnimePosterEntity, AnimeRatesAdapter.TitleViewHolder>(PosterDiffCallback) {
+    PagingDataAdapter<AnimePosterEntity, AnimeRatesAdapter.TitleViewHolder>(PosterDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TitleViewHolder {
         val binding =
@@ -24,39 +25,37 @@ class AnimeRatesAdapter :
     }
 
     override fun onBindViewHolder(holder: TitleViewHolder, position: Int) =
-        holder.bind(currentList[position])
+        holder.bind(getItem(position))
 
-
-    override fun getItemCount(): Int {
-        return currentList.size
-    }
 
     inner class TitleViewHolder(
         private val binding: ItemSearchPostersBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("StringFormatMatches")
-        fun bind(model: AnimePosterEntity) = with(binding) {
-            tvSearchPosterName.text = model.name
-            tvSearchPosterScore.text = model.score
+        fun bind(model: AnimePosterEntity?) = with(binding) {
+            if (model != null) {
+                tvSearchPosterName.text = model.name
+                tvSearchPosterScore.text = model.score
 
-            tvSearchPosterEpisodes.text = if (model.episodes.toString() != "0") {
-                root.context.getString(R.string.episode_text, model.episodes)
-            } else {
-                root.context.getString(R.string.episode_text, model.episodesAired)
-            }
+                tvSearchPosterEpisodes.text = if (model.episodes.toString() != "0") {
+                    root.context.getString(R.string.episode_text, model.episodes)
+                } else {
+                    root.context.getString(R.string.episode_text, model.episodesAired)
+                }
 
-            tvSearchPosterRussianName.text = model.russian
-            tvSearchPosterStatus.text = model.status
-            tvSearchPosterStatus.setTextColor(Color.parseColor(model.statusColor))
-            ivSearchPosterImage.setImageByURL(SHIKIMORI_URL + model.image.original)
+                tvSearchPosterRussianName.text = model.russian
+                tvSearchPosterStatus.text = model.status
+                tvSearchPosterStatus.setTextColor(Color.parseColor(model.statusColor))
+                ivSearchPosterImage.setImageByURL(SHIKIMORI_URL + model.image.original)
 
-            itemView.setOnClickListener {
-                itemView.findNavController().navigate(
-                    AnimeRatesFragmentDirections.actionAnimeRatesFragmentToDetailsFragment(
-                        id = model.id
+                itemView.setOnClickListener {
+                    itemView.findNavController().navigate(
+                        AnimeRatesFragmentDirections.actionAnimeRatesFragmentToDetailsFragment(
+                            id = model.id
+                        )
                     )
-                )
+                }
             }
         }
     }

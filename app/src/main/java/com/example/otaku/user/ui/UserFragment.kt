@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.MergeAdapter
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentUserBinding
 import com.example.otaku.user.adapters.favorites.UserFavoritesAdapter
@@ -45,7 +45,7 @@ class UserFragment : Fragment() {
     private val userHistoryAdapter by lazy { UserHistoryAdapter() }
 
     private val rootAdapter by lazy {
-        MergeAdapter(
+        ConcatAdapter(
             userInfoAdapter,
             userStatsAdapter,
             userHistoryAdapter,

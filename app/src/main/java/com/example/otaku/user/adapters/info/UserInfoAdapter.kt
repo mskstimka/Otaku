@@ -48,8 +48,14 @@ class UserInfoAdapter(
             ivImageBackground.setImageByURL(model.image.x160 ?: "null")
             ivUserAvatar.setImageByURL(model.image.x160 ?: "null")
             tvTitle.text = model.nickname
+
             ivBackPressed.setOnClickListener {
                 onBackPressed()
+            }
+
+            val name = model.name
+            if(name != null) {
+                tvTitleRussian.text = name
             }
 
 

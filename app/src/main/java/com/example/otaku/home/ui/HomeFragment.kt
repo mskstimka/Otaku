@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.MergeAdapter
 import com.example.otaku.R
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentHomeBinding
@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
     private val genreAdapter by lazy { ContainerGenresListAdapter() }
 
     private val mergeAdapter by lazy {
-        MergeAdapter(
+        ConcatAdapter(
             posterAdapter,
             favoriteAdapter,
             randomAdapter,

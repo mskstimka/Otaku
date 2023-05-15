@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="ivUserAvatar,tvTitle,tvCurrentUserInfo,btAuth,btSignOut,btDevAccount, ivSettings"
+            app:constraint_referenced_ids="ivUserAvatar,tvTitle,tvCurrentUserInfo,btAuth,btSignOut,btDevAccount, ivSettings,btSearchFriend,tvID"
             tools:visibility="visible" />
 
 
@@ -63,7 +63,7 @@
             android:id="@+id/ivUserAvatar"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="120dp"
             android:scaleType="centerCrop"
             android:src="@drawable/icon_default"
             app:cardCornerRadius="100dp"
@@ -83,6 +83,19 @@
             app:layout_constraintStart_toStartOf="@+id/ivUserAvatar"
             app:layout_constraintTop_toBottomOf="@+id/ivUserAvatar"
             tools:text="@string/fragment_details_tvTitle_text" />
+
+        <TextView
+            android:id="@+id/tvID"
+            style="@style/text_style_main_title"
+            android:layout_margin="20dp"
+            android:alpha="0.5"
+            android:drawablePadding="4dp"
+            android:gravity="center"
+            android:textSize="14sp"
+            app:drawableStartCompat="@drawable/icon_copy"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="ID:477000" />
 
         <ImageView
             android:id="@+id/ivSettings"
@@ -107,7 +120,6 @@
             tools:text="Авторизироваться" />
 
 
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btSignOut"
             style="@style/SignOut"
@@ -130,7 +142,7 @@
             android:layout_marginStart="0dp"
             app:layout_constraintEnd_toStartOf="@+id/glDetailsLineEnd"
             app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@+id/btSearchFriend"
             tools:text="Вы не авторизовались!" />
 
 
@@ -148,6 +160,16 @@
             app:layout_constraintStart_toStartOf="@+id/glDetailsLineStart"
             app:layout_constraintTop_toBottomOf="@id/btAuth" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btSearchFriend"
+            style="@style/SearchFriends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:icon="@drawable/icon_search_gray"
+            app:layout_constraintEnd_toEndOf="@+id/ivUserAvatar"
+            app:layout_constraintStart_toStartOf="@+id/ivUserAvatar"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

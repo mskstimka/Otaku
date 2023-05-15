@@ -1,5 +1,6 @@
 package com.example.otaku_domain.repository
 
+import androidx.paging.PagingSource
 import com.example.otaku_domain.common.Results
 import com.example.otaku_domain.models.PersonEntity
 import com.example.otaku_domain.models.characters.CharacterDetailsEntity
@@ -39,16 +40,6 @@ interface AnimeRepository {
      * @return Results of Integer
      * */
     suspend fun getSeries(malId: Long, name: String): Results<Int>
-
-
-    /**
-     * Getting Anime Posters from Search
-     *
-     * @param searchName - the search text
-     *
-     * @return Results list of Anime Posters
-     */
-    suspend fun getSearchPosters(searchName: String): Results<List<AnimePosterEntity>>
 
     /**
      * Getting Details of Anime on id

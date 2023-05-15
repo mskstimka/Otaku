@@ -227,5 +227,6 @@
 
     <style name="SignOut" parent="Widget.Material3.Button.ElevatedButton.Icon"/>
     <style name="DevAccount" parent="Widget.Material3.Button.OutlinedButton.Icon"/>
+    <style name="SearchFriends" parent="Widget.Material3.Button.IconButton.Filled.Tonal"/>
 
 </resources>

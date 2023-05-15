@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.paging.PagingData
+import androidx.paging.PagingDataAdapter
+import androidx.paging.filter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,9 +18,11 @@ import com.example.otaku.databinding.ItemSearchPostersBinding
 import com.example.otaku.utils.setImageByURL
 import com.example.otaku_domain.SHIKIMORI_URL
 import com.example.otaku_domain.models.poster.AnimePosterEntity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 
-class PostersAdapter(private val hideIcon: (visibility: Int) -> Unit) :
-    ListAdapter<AnimePosterEntity, PostersAdapter.TitleViewHolder>(PosterDiffCallback) {
+class PostersAdapter(private val scrollToPosition: () -> Unit) :
+    PagingDataAdapter<AnimePosterEntity, PostersAdapter.TitleViewHolder>(PosterDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TitleViewHolder {
         val binding =
@@ -25,54 +30,47 @@ class PostersAdapter(private val hideIcon: (visibility: Int) -> Unit) :
         return TitleViewHolder(binding)
     }
 
+
+    suspend fun setData(data: PagingData<AnimePosterEntity>) {
+        submitData(data)
+
+        delay(500)
+        scrollToPosition()
+    }
     override fun onBindViewHolder(holder: TitleViewHolder, position: Int) =
-        holder.bind(currentList[position])
+        holder.bind(getItem(position))
 
-
-    override fun getItemCount(): Int {
-       return currentList.size
-    }
-
-    override fun submitList(list: List<AnimePosterEntity>?) {
-        super.submitList(list)
-        if (list != null) {
-            if (list.isEmpty()){
-                hideIcon(View.VISIBLE)
-            } else {
-                hideIcon(View.GONE)
-            }
-        }
-    }
     inner class TitleViewHolder(
         private val binding: ItemSearchPostersBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("StringFormatMatches")
-        fun bind(model: AnimePosterEntity) = with(binding) {
-            tvSearchPosterName.text = model.name
-            tvSearchPosterScore.text = model.score
+        fun bind(model: AnimePosterEntity?) = with(binding) {
+            if (model != null) {
+                tvSearchPosterName.text = model.name
+                tvSearchPosterScore.text = model.score
 
-            tvSearchPosterEpisodes.text = if (model.episodes.toString() != "0") {
-                root.context.getString(R.string.episode_text, model.episodes)
-            } else {
-                root.context.getString(R.string.episode_text, model.episodesAired)
-            }
+                tvSearchPosterEpisodes.text = if (model.episodes.toString() != "0") {
+                    root.context.getString(R.string.episode_text, model.episodes)
+                } else {
+                    root.context.getString(R.string.episode_text, model.episodesAired)
+                }
 
-            tvSearchPosterRussianName.text = model.russian
-            tvSearchPosterStatus.text = model.status
-            tvSearchPosterStatus.setTextColor(Color.parseColor(model.statusColor))
-            ivSearchPosterImage.setImageByURL(SHIKIMORI_URL + model.image.original)
+                tvSearchPosterRussianName.text = model.russian
+                tvSearchPosterStatus.text = model.status
+                tvSearchPosterStatus.setTextColor(Color.parseColor(model.statusColor))
+                ivSearchPosterImage.setImageByURL(SHIKIMORI_URL + model.image.original)
 
-            itemView.setOnClickListener {
-                itemView.findNavController().navigate(
-                    AnimeFragmentDirections.actionAnimeFragmentToDetailsFragment(
-                        id = model.id
+                itemView.setOnClickListener {
+                    itemView.findNavController().navigate(
+                        AnimeFragmentDirections.actionAnimeFragmentToDetailsFragment(
+                            id = model.id
+                        )
                     )
-                )
+                }
             }
         }
     }
-
 
 
     object PosterDiffCallback : DiffUtil.ItemCallback<AnimePosterEntity>() {

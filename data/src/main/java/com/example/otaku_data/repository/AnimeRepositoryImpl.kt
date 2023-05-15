@@ -18,7 +18,7 @@ import javax.inject.Inject
 class AnimeRepositoryImpl @Inject constructor(
     private val animeDataSource: AnimeDataSource,
     private val watchDataSourceImpl: WatchDataSource,
-    private val sharedPreferencesHelper: SharedPreferencesHelper
+    private val sharedPreferencesHelper: SharedPreferencesHelper,
 ) : AnimeRepository {
     override suspend fun getVideo(
         malId: Long,
@@ -33,13 +33,6 @@ class AnimeRepositoryImpl @Inject constructor(
 
     override suspend fun getSeries(malId: Long, name: String): Results<Int> {
         return watchDataSourceImpl.getSeries(malId, name)
-    }
-
-    override suspend fun getSearchPosters(searchName: String): Results<List<AnimePosterEntity>> {
-        return animeDataSource.getSearchPosters(
-            searchName = searchName,
-            isCensored = sharedPreferencesHelper.getIsCensoredSearch()
-        )
     }
 
     override suspend fun getDetails(id: Int): Results<AnimeDetailsEntity> {

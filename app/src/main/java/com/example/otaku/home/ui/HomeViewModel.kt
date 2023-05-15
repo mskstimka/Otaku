@@ -16,6 +16,7 @@ import com.example.otaku_domain.usecases.anime.GetAnimePrevPosterFromGenreUseCas
 import com.example.otaku_domain.usecases.anime.GetAnimeRandomPosterUseCase
 import com.example.otaku_domain.usecases.anime.GetAnimeScreenshotsFromIdUseCase
 import com.example.otaku_domain.usecases.user.GetUserAnimeRatesUseCase
+import com.example.otaku_domain.usecases.user.GetUserWatchingAnimeRatesUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -26,7 +27,7 @@ class HomeViewModel @Inject constructor(
     private val getAnimePrevPosterFromGenreUseCase: GetAnimePrevPosterFromGenreUseCase,
     private val getAnimeRandomPosterUseCase: GetAnimeRandomPosterUseCase,
     private val getAnimeScreenshotsFromIdUseCase: GetAnimeScreenshotsFromIdUseCase,
-    private val getUserAnimeRatesUseCase: GetUserAnimeRatesUseCase,
+    private val getUserWatchingAnimeRatesUseCase: GetUserWatchingAnimeRatesUseCase,
     private val sharedPreferencesHelper: SharedPreferencesHelper
 ) : ViewModel() {
 
@@ -77,7 +78,7 @@ class HomeViewModel @Inject constructor(
             val currentId = sharedPreferencesHelper.getCurrentUserId()
 
             if (currentId != NO_CURRENT_USER_ID) {
-                val result = getUserAnimeRatesUseCase.execute(
+                val result = getUserWatchingAnimeRatesUseCase.execute(
                     id = currentId,
                     status = RateStatus.WATCHING.status,
                     page = 1,

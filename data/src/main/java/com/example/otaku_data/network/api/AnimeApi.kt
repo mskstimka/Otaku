@@ -46,7 +46,7 @@ interface AnimeApi {
      * Getting Anime Posters on Search
      *
      * @param search - the searchText
-     * @param limit - limit of the posters
+     * @param pageSize - limit of the posters
      * @param censored - not 18+ rating
      *
      * @return Response list of Anime Posters
@@ -54,7 +54,8 @@ interface AnimeApi {
     @GET("api/animes")
     suspend fun getSearchPosters(
         @Query(value = "search") search: String = "",
-        @Query(value = "limit") limit: Int = 20,
+        @Query(value = "limit") pageSize: Int,
+        @Query(value = "page") page: Int,
         @Query(value = "censored") censored: Boolean = true
     ): Response<List<AnimePosterEntityResponse>>
 

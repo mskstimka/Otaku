@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
         android:id="@+id/ivItemHomePosterImage"
@@ -13,7 +13,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/item_home_poster_ivImagePoster_contentDescription"
         android:paddingBottom="@dimen/item_home_poster_ivItemHomePosterImage_paddingBottom"
-        android:src="@drawable/logo_poster"
+        tools:src="@drawable/poster_update"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@id/textView"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="0dp"
         android:gravity="center"
-        android:text="Твоє аніме тепер \n українською!"
+        tools:text="@string/posters_language_uk_text"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@id/btToSettings"
         app:layout_constraintEnd_toStartOf="@+id/ivItemHomePosterImage"
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/open_sans_medium"
-        android:text="В Настройки!"
+        tools:text="@string/posters_language_uk_button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"

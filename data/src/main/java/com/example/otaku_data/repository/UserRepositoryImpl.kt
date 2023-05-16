@@ -1,6 +1,5 @@
 package com.example.otaku_data.repository
 
-import android.util.Log
 import com.example.otaku_data.mapper.toUserBrief
 import com.example.otaku_data.repository.sources.auth.AuthDataSource
 import com.example.otaku_data.repository.sources.user.UserDataSource
@@ -164,8 +163,6 @@ class UserRepositoryImpl @Inject constructor(
         if (result is Results.Success) {
             sharedPreferencesHelper.removeLocalToken()
             sharedPreferencesHelper.setCurrentUserId(NO_CURRENT_USER_ID)
-        } else {
-            Log.d("ERROR AUTH", result.toString())
         }
         return result
     }

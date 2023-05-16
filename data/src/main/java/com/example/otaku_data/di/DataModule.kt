@@ -18,10 +18,8 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 
 @Module(includes = [BindsDataModule::class])
@@ -29,12 +27,8 @@ class DataModule {
 
     @Provides
     fun provideHttpClient(): OkHttpClient {
-        val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
-            setLevel(HttpLoggingInterceptor.Level.BASIC)
-        }
-        val client = OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build()
 
-        return client
+        return OkHttpClient.Builder().build()
     }
 
     @Provides

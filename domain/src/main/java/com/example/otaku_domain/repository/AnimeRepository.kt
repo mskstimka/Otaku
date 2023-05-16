@@ -1,6 +1,5 @@
 package com.example.otaku_domain.repository
 
-import androidx.paging.PagingSource
 import com.example.otaku_domain.common.Results
 import com.example.otaku_domain.models.PersonEntity
 import com.example.otaku_domain.models.characters.CharacterDetailsEntity

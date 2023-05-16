@@ -3,14 +3,11 @@ package com.example.otaku.search.adapters
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
-import androidx.paging.filter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otaku.R
 import com.example.otaku.anime.AnimeFragmentDirections
@@ -19,7 +16,6 @@ import com.example.otaku.utils.setImageByURL
 import com.example.otaku_domain.SHIKIMORI_URL
 import com.example.otaku_domain.models.poster.AnimePosterEntity
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 
 class PostersAdapter(private val scrollToPosition: () -> Unit) :
     PagingDataAdapter<AnimePosterEntity, PostersAdapter.TitleViewHolder>(PosterDiffCallback) {

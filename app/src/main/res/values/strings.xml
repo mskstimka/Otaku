@@ -141,6 +141,11 @@
     <string name="fragment_auth_btDevAccount_text">Аккаунт Разработчика</string>
     <string name="search_friends_text">\nВведите ID друга</string>
     <string name="search_friends_button_text">Найти</string>
+    <string name="posters_language_uk_text">Твоє аніме тепер \n українською!</string>
+    <string name="posters_update_text">Затести обнову\nз нами!</string>
+    <string name="posters_update_button_text">Гоуу!</string>
+    <string name="posters_language_uk_button_text">В Настройки!</string>
+
 
     <string-array name="statuses">
         <item>@string/spinner_no_selection_text</item>

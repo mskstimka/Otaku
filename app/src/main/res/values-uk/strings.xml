@@ -140,5 +140,8 @@
     <string name="fragment_auth_btDevAccount_text">Аккаунт розробника</string>
     <string name="search_friends_text">\nВведіть ID друга</string>
     <string name="search_friends_button_text">Знайти</string>
+    <string name="posters_language_uk_text">Твоє аніме тепер \n українською!</string>
+
+    <string name="posters_language_uk_button_text">В Настройки!</string>
 
 </resources>

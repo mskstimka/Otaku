@@ -1,6 +1,5 @@
 package com.example.otaku_data.repository.sources.watch
 
-import android.util.Log
 import com.example.otaku_data.mapper.toTranslations
 import com.example.otaku_data.network.api.AnimeApi
 import com.example.otaku_domain.common.Results
@@ -14,7 +13,6 @@ class WatchDataSourceImpl(
         return try {
             val response = animeApi.getEpisodes(malId, name)
             if (response.isSuccessful) {
-                Log.d("EPISODES", response.body().toString())
                 Results.Success(data = response.body()!!)
             } else {
                 Results.Error(exception = Exception(response.message()))

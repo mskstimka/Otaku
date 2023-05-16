@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.otaku.R
+import com.example.otaku.anime.AnimeFragmentDirections
 import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentHomeBinding
 import com.example.otaku.home.adapters.favorites.ContainerFavorites
@@ -17,6 +19,7 @@ import com.example.otaku.home.adapters.genres.ContainerGenresList
 import com.example.otaku.home.adapters.genres.ContainerGenresListAdapter
 import com.example.otaku.home.adapters.poster.ContainerPoster
 import com.example.otaku.home.adapters.poster.ContainerPosterAdapter
+import com.example.otaku.home.adapters.poster.NewsPoster
 import com.example.otaku.home.adapters.random.ContainerRandomAdapter
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.subscribeToFlow
@@ -48,16 +51,37 @@ class HomeFragment : Fragment() {
     }
 
     init {
-        posterAdapter.submitList(listOf(ContainerPoster {
-            BannerUtils.showSnackBar(
-                binding.root,
-                "...",
-                requireContext(),
-                requireActivity().findViewById(
-                    R.id.navBottom
+        posterAdapter.submitList(
+            listOf(
+                ContainerPoster(
+                    listOf(
+                        NewsPoster(
+                            id= "UK",
+                            imageId = R.drawable.logo_poster,
+                            textId = R.string.posters_language_uk_text,
+                            action = {
+                                findNavController().navigate(
+                                    AnimeFragmentDirections.actionAnimeFragmentToSettingsFragment()
+                                )
+                            },
+                            buttonTextId = R.string.posters_language_uk_button_text
+                        ),
+                        NewsPoster(
+                            id = "UPDATE",
+                            imageId = R.drawable.poster_update,
+                            textId = R.string.posters_update_text,
+                            action = {
+                                findNavController().navigate(
+                                    AnimeFragmentDirections.actionAnimeFragmentToAuthFragment()
+                                )
+                            },
+                            buttonTextId = R.string.posters_update_button_text,
+                            buttonColor = R.color.poster_update_button_color
+                        )
+                    ).shuffled()
                 )
             )
-        }))
+        )
     }
 
     override fun onCreateView(

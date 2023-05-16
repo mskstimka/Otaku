@@ -1,6 +1,5 @@
 package com.example.otaku_data.repository.sources.user
 
-import android.util.Log
 import com.example.otaku_data.mapper.*
 import com.example.otaku_data.network.api.UserApi
 import com.example.otaku_data.network.models.user.UserBriefResponse
@@ -49,7 +48,6 @@ class UserDataSourceImpl(
                         Results.Error(Exception("Token Error Response"))
                     }
                     else -> {
-                        Log.d("USER BRIEF", userBriefResponse.inFriends.toString())
                         Results.Success(userBriefResponse.toUserBrief())
                     }
                 }
@@ -62,8 +60,6 @@ class UserDataSourceImpl(
                 }
             }
         } catch (e: Exception) {
-            Log.d("Get User Brief Error", e.message.toString())
-
             Results.Error(Exception(e.message))
         }
     }
@@ -90,7 +86,6 @@ class UserDataSourceImpl(
                 }
             }
         } catch (e: Exception) {
-            Log.d("Get User Favorites Error", e.message.toString())
 
             Results.Error(Exception(e.message))
         }
@@ -119,7 +114,6 @@ class UserDataSourceImpl(
                 Results.Error(exception = Exception(response.message()))
             }
         } catch (e: Exception) {
-            Log.d("Get User Stats Error", e.message.toString())
 
             Results.Error(Exception(e.message))
         }
@@ -148,7 +142,6 @@ class UserDataSourceImpl(
                 }
             }
         } catch (e: Exception) {
-            Log.d("Get User Friends", e.message.toString())
 
             Results.Error(Exception(e.message))
         }
@@ -192,7 +185,6 @@ class UserDataSourceImpl(
 
             }
         } catch (e: Exception) {
-            Log.d("Get User Anime Rates", e.message.toString())
             Results.Error(Exception(e.message))
         }
     }
@@ -231,7 +223,6 @@ class UserDataSourceImpl(
                 }
             }
         } catch (e: Exception) {
-            Log.d("Get User History Error", e.message.toString())
             Results.Error(Exception(e.message))
         }
     }
@@ -243,7 +234,6 @@ class UserDataSourceImpl(
         userRate: UserRate
     ): Results<UserRate> {
         return try {
-            Log.d("DATA SOURCE USER RATE", userRate.toUserRateResponse().toString())
             val response = userApi.updateAnimeStatus(
                 userAgent = userAgent,
                 authHeader = authHeader,

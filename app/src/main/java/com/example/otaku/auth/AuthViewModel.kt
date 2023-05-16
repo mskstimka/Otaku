@@ -3,8 +3,10 @@ package com.example.otaku.auth
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.otaku_data.utils.SharedPreferencesHelper
+import com.example.otaku_domain.NO_CURRENT_USER_ID
 import com.example.otaku_domain.USER_AGENT
 import com.example.otaku_domain.common.Results
+import com.example.otaku_domain.models.Token
 import com.example.otaku_domain.models.user.UserBrief
 import com.example.otaku_domain.usecases.auth.GetAccessTokenUseCase
 import com.example.otaku_domain.usecases.user.GetCurrentUserBriefUseCase
@@ -24,10 +26,14 @@ class AuthViewModel @Inject constructor(
     private val sharedPreferencesHelper: SharedPreferencesHelper,
     private val signOutUseCase: SignOutUseCase
 ) : ViewModel() {
-    val localToken = sharedPreferencesHelper.getLocalToken()
+    var localToken = sharedPreferencesHelper.getLocalToken()
 
     val isAuth =
-        if (localToken == null) AuthAction.IS_UNAUTHORIZED else AuthAction.IS_AUTHORIZED(token = localToken)
+        if (localToken != null) {
+            AuthAction.IS_AUTHORIZED(token = localToken ?: Token("", ""))
+        } else {
+            AuthAction.IS_UNAUTHORIZED
+        }
 
     private val _actionError = MutableSharedFlow<String>(replay = 1)
     val actionError: SharedFlow<String> get() = _actionError
@@ -57,6 +63,9 @@ class AuthViewModel @Inject constructor(
             when (val result = signOutUseCase.execute()) {
                 is Results.Success -> {
                     _actionError.tryEmit(result.data)
+                    localToken = null
+                    isAuthorized = false
+                    currentId = NO_CURRENT_USER_ID
                     _actionAuth.tryEmit(AuthAction.IS_UNAUTHORIZED)
                 }
                 is Results.Error -> {

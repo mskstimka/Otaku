@@ -1,6 +1,5 @@
 package com.example.otaku_data.repository.sources.auth
 
-import android.util.Log
 import com.example.otaku_data.mapper.toToken
 import com.example.otaku_data.network.api.AuthApi
 import com.example.otaku_data.utils.SharedPreferencesHelper
@@ -8,7 +7,6 @@ import com.example.otaku_domain.ERROR_WAIT_TIME
 import com.example.otaku_domain.common.Results
 import com.example.otaku_domain.models.Token
 import kotlinx.coroutines.delay
-import retrofit2.Response
 
 class AuthDataSourceImpl(
     private val authApi: AuthApi,
@@ -20,7 +18,6 @@ class AuthDataSourceImpl(
             val response = authApi.getAccessToken(grantType = AUTH_CODE, code = authCode)
             if (response.isSuccessful) {
                 val item = response.body()!!.toToken()
-                Log.d("TOKEN_AUTH", response.body().toString())
                 sharedPreferencesHelper.setLocalToken(item)
                 Results.Success(data = item)
             } else {

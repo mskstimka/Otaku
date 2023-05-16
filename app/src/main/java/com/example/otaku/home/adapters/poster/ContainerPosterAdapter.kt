@@ -1,26 +1,35 @@
 package com.example.otaku.home.adapters.poster
 
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.example.otaku.anime.AnimeFragmentDirections
-import com.example.otaku.databinding.ItemHomePosterBinding
+import androidx.recyclerview.widget.*
+import com.example.otaku.databinding.LayoutHomePosterBinding
 
 class ContainerPosterAdapter :
     ListAdapter<ContainerPoster, ContainerPosterAdapter.ContainerPosterViewHolder>(
         ContainerPosterDiffCallback
     ) {
 
+    private val newsPosterAdapter by lazy { NewsPosterAdapter() }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ContainerPosterViewHolder {
         val binding =
-            ItemHomePosterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            LayoutHomePosterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        binding.root.apply {
+            layoutManager =
+                LinearLayoutManager(parent.context, RecyclerView.HORIZONTAL, false)
+            adapter = newsPosterAdapter
+            addItemDecoration(LinePagerIndicatorDecoration())
+            val snapHelper = PagerSnapHelper()
+            snapHelper.attachToRecyclerView(this)
+            isNestedScrollingEnabled = false
+            setHasFixedSize(true)
+
+        }
         return ContainerPosterViewHolder(binding)
     }
 
@@ -32,19 +41,13 @@ class ContainerPosterAdapter :
 
     inner class ContainerPosterViewHolder(
         private val binding:
-        ItemHomePosterBinding
+        LayoutHomePosterBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(model: ContainerPoster) = with(binding) {
-            btToSettings.setOnClickListener {
-                itemView.findNavController().navigate(
-                    AnimeFragmentDirections.actionAnimeFragmentToSettingsFragment()
-                )
-            }
-
+            newsPosterAdapter.submitList(model.list)
         }
     }
-
 
     object ContainerPosterDiffCallback : DiffUtil.ItemCallback<ContainerPoster>() {
         override fun areItemsTheSame(

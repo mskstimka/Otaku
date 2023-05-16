@@ -1,6 +1,5 @@
 package com.example.otaku.anime.details.info.ui.viewmodel
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -57,9 +56,6 @@ class DetailsViewModel @Inject constructor(
     private val _actionMessage = MutableSharedFlow<String>(replay = 1)
     val actionMessage: SharedFlow<String> get() = _actionMessage
 
-    private val _lastWatchEpisode = MutableSharedFlow<Int>(replay = 1)
-    val lastWatchEpisode: SharedFlow<Int> get() = _lastWatchEpisode
-
     private val _actionDetails = MutableSharedFlow<ActionDetailsData>(replay = 1)
     val actionDetails: SharedFlow<ActionDetailsData> get() = _actionDetails
 
@@ -110,12 +106,6 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    fun setLastEpisode(episode: Int) {
-        viewModelScope.launch {
-            _lastWatchEpisode.emit(episode)
-        }
-    }
-
     fun actionFavorites(favoriteAction: FavoriteAction) {
         viewModelScope.launch(Dispatchers.IO) {
             when (favoriteAction) {
@@ -145,7 +135,11 @@ class DetailsViewModel @Inject constructor(
                     _actionMessage.tryEmit(response.data)
                 }
                 is Results.Error -> {
-                    _actionMessage.tryEmit(response.exception.message.toString())
+                    var message = response.exception.message.toString()
+                    if (message == "") {
+                        message = "Error!"
+                    }
+                    _actionMessage.tryEmit(message)
                 }
             }
         }
@@ -161,7 +155,11 @@ class DetailsViewModel @Inject constructor(
                     _actionMessage.tryEmit(response.data)
                 }
                 is Results.Error -> {
-                    _actionMessage.tryEmit(response.exception.message.toString())
+                    var message = response.exception.message.toString()
+                    if (message == "") {
+                        message = "Error!"
+                    }
+                    _actionMessage.tryEmit(message)
                 }
             }
         }
@@ -202,13 +200,17 @@ class DetailsViewModel @Inject constructor(
                     userId = userId
                 )) {
                     is Results.Success -> {
+                        _actionMessage.tryEmit("Status Updated!")
                         val details = actionDetails.last().details.first().copy()
                         details.userRate = response.data
-                        Log.d("POST", details.toString())
                         _actionUserRate.tryEmit(mutableListOf(details))
                     }
                     is Results.Error -> {
-                        _actionMessage.tryEmit(response.exception.message.toString())
+                        var message = response.exception.message.toString()
+                        if (message == "") {
+                            message = "Error!"
+                        }
+                        _actionMessage.tryEmit(message)
                     }
                 }
             } else {
@@ -225,9 +227,7 @@ class DetailsViewModel @Inject constructor(
             newUserRate.userId = sharedPreferencesHelper.getCurrentUserId()
             val rateId = userRate.id
             val savedToken = sharedPreferencesHelper.getLocalToken()
-            Log.d("User Rate", userRate.toString())
 
-            Log.d("POST", rateId.toString())
             if (rateId != null && savedToken != null) {
                 when (val response = updateUserRateUseCase.execute(
                     userAgent = USER_AGENT,
@@ -236,10 +236,14 @@ class DetailsViewModel @Inject constructor(
                     rateId = rateId
                 )) {
                     is Results.Success -> {
-                        _actionMessage.tryEmit("User Rate Updated!")
+                        _actionMessage.tryEmit("Status Updated!")
                     }
                     is Results.Error -> {
-                        _actionMessage.tryEmit(response.exception.message.toString())
+                        var message = response.exception.message.toString()
+                        if (message == "") {
+                            message = "Error!"
+                        }
+                        _actionMessage.tryEmit(message)
                     }
                 }
             } else {
@@ -320,7 +324,6 @@ class DetailsViewModel @Inject constructor(
                     _actionVideo.tryEmit(response.data)
                 }
                 is Results.Error -> {
-                    Log.d("ERROR", response.exception.message.toString())
 
                 }
             }

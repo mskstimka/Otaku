@@ -27,7 +27,6 @@ import com.example.otaku.utils.setImageByURL
 import com.example.otaku.utils.subscribeToFlow
 import com.example.otaku_domain.SHIKIMORI_URL
 import com.example.otaku_domain.models.user.UserBrief
-import okhttp3.Request
 import javax.inject.Inject
 import javax.inject.Singleton
 

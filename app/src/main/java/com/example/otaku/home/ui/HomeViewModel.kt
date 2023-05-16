@@ -15,7 +15,6 @@ import com.example.otaku_domain.models.user.status.RateStatus
 import com.example.otaku_domain.usecases.anime.GetAnimePrevPosterFromGenreUseCase
 import com.example.otaku_domain.usecases.anime.GetAnimeRandomPosterUseCase
 import com.example.otaku_domain.usecases.anime.GetAnimeScreenshotsFromIdUseCase
-import com.example.otaku_domain.usecases.user.GetUserAnimeRatesUseCase
 import com.example.otaku_domain.usecases.user.GetUserWatchingAnimeRatesUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow

@@ -2,7 +2,6 @@ package com.example.otaku.anime.details.info.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -241,13 +240,12 @@ class DetailsFragment : Fragment() {
             actionUserRate.subscribeToFlow(
                 lifecycleOwner = viewLifecycleOwner
             ) { list ->
-                Log.d("RECIEVE", "-------------------")
 
                 containerDetailsAdapter.submitList(list)
 
                 BannerUtils.showSnackBar(
                     binding.root,
-                    "User Rate Updated!",
+                    "Status Updated!",
                     requireContext()
                 )
             }

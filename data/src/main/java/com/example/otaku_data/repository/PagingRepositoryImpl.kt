@@ -4,7 +4,6 @@ import androidx.paging.PagingSource
 import com.example.otaku_data.repository.sources.paging.AnimeRatesPageSource
 import com.example.otaku_data.repository.sources.paging.SearchPageSource
 import com.example.otaku_domain.models.poster.AnimePosterEntity
-import com.example.otaku_domain.models.user.status.RateStatus
 import com.example.otaku_domain.repository.PagingRepository
 import javax.inject.Inject
 

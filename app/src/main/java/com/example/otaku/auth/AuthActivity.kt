@@ -6,7 +6,6 @@ import android.app.Activity
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.webkit.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
@@ -105,7 +104,6 @@ class AuthActivity : AppCompatActivity() {
         }
 
         private fun interceptCode(url: String?) {
-            Log.d("URL", url.toString())
             val matcher = Pattern.compile(SHIKIMORI_PATTERN).matcher(url)
             if (matcher.find()) {
                 val authCode =

@@ -1,7 +1,6 @@
 package com.example.otaku.user.rates.anime
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +13,7 @@ import com.example.otaku.app.App
 import com.example.otaku.databinding.FragmentAnimeRatesBinding
 import com.example.otaku.utils.BannerUtils
 import com.example.otaku.utils.subscribeToFlow
-import com.example.otaku_domain.models.user.status.RateStatus
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 class AnimeRatesFragment : Fragment() {
@@ -62,7 +59,6 @@ class AnimeRatesFragment : Fragment() {
 
         actionError.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { message ->
             BannerUtils.showSnackBar(binding.root, message = message, requireContext())
-            Log.d("Message", message)
         }
 
         actionPosters.subscribeToFlow(lifecycleOwner = viewLifecycleOwner) { list ->

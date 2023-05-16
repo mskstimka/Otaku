@@ -159,6 +159,11 @@
         <action
             android:id="@+id/action_animeFragment_to_screenshotsFragment"
             app:destination="@id/screenshotsFragment" />
+        <action
+            android:id="@+id/action_animeFragment_to_authFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_graph"
+            app:destination="@id/authFragment" />
     </fragment>
     <fragment
         android:id="@+id/screenshotsFragment"
